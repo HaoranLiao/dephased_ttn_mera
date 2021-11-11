@@ -1,0 +1,68 @@
+data:
+ path: '../mnist8by8/mnist8by8'
+ val_split: 0
+ list_digits: [[3,5]]                   # list of pairs or one pair
+ list_batch_sizes: [10]                  # list or list of single
+ load_from_file: True
+ data_im_size: [4,4]
+ list_data_bd_dim: [2]            # list or list of single
+ sample_size: 10                 # int or None
+
+meta:
+ num_repeat: 1
+ auto_epochs:
+  enabled: False
+  criterion: 0.005
+  num_match: 7
+  trigger: 10
+
+ list_epochs: [1]                        # list or list of single
+ log_device_placement: False
+ list_devices: False
+ gpu: False
+
+tree:
+ param:
+  init_mean: 0
+  init_std: 1
+  embedding:
+    enabled: False
+    list_embed_dims: [2]
+    id_lay:
+     enabled: False
+     id_lay_kron: False
+
+    not_fir_lay: False
+
+ list_vir_bd_dim: [2]             # list or list of single
+ num_anc: 0
+
+ loss: 'l2'                               # 'l2', 'log', 'l1'
+ deph:
+  only_input: False
+  list_deph_p: [0]                        # list or list of single, p = 0 / 1 makes sense
+
+ opt:
+  opt: 'adam'                          # 'sgd', 'adam', 'sweep', 'rmsprop'
+  adam:
+   show_grad: False
+   show_hess: False
+
+  sgd:
+   step_size: 0.01
+
+  sweep:
+   inspection: False
+
+  rmsprop:
+   learning_rate: 0.001
+
+  spsa:
+   a: 28
+   b: 33
+   A: 74.1
+   s: 4.13
+   t: 0.658
+   gamma: 0.882
+   lmbda: 0.234
+   eta: 5.59
