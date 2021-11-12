@@ -40,7 +40,7 @@ def select_digits(images, labels, digits):
 
     valid_images = images[cumulative_test]
     valid_labels = labels[cumulative_test]
-    return (valid_images, valid_labels)
+    return valid_images, valid_labels
 
 
 def resize_images(images, shape):
@@ -105,7 +105,7 @@ def split_data(images, labels, split):
     split_point = int(split * num_images)
     true_train_data = (images[:split_point], labels[:split_point])
     val_data = (images[split_point:], labels[split_point:])
-    return (true_train_data, val_data)
+    return true_train_data, val_data
 
 
 def binary_labels(labels):
@@ -133,9 +133,7 @@ def get_data_file(data_path, digits, val_split, sample_size=None):
     
     (train_images, train_labels_int) = select_digits(train_raw_im, train_raw_lab, digits)
     (test_images, test_labels_int) = select_digits(test_raw_im, test_raw_lab, digits)
-    if sample_size is None:
-        pass
-    else:
+    if sample_size is not None:
         assert sample_size > 0
         train_images, train_labels_int = train_images[0:sample_size], train_labels_int[0:sample_size]
         test_images, test_labels_int = test_images[0:sample_size], test_labels_int[0:sample_size]
@@ -146,10 +144,10 @@ def get_data_file(data_path, digits, val_split, sample_size=None):
     if val_split:
         assert val_split > 0
         (true_train_data, val_data) = split_data(train_images, train_labels, val_split)
-        return (true_train_data, val_data, (test_images, test_labels))
+        return true_train_data, val_data, (test_images, test_labels)
     else:
         assert val_split == 0
-        return ((train_images, train_labels), None, (test_images, test_labels))
+        return (train_images, train_labels), None, (test_images, test_labels)
     
     
 def get_data_web(digits, val_split, size, dim, sample_size=None):
@@ -162,9 +160,7 @@ def get_data_web(digits, val_split, size, dim, sample_size=None):
 
     (train_images, train_labels_int) = select_digits(train_raw_im, train_raw_lab, digits)
     (test_images, test_labels_int) = select_digits(test_raw_im, test_raw_lab, digits)
-    if sample_size is None:
-        pass
-    else:
+    if sample_size is not None:
         assert sample_size > 0
         train_images, train_labels_int = train_images[0:sample_size], train_labels_int[0:sample_size]
         test_images, test_labels_int = test_images[0:sample_size], test_labels_int[0:sample_size]
@@ -175,10 +171,10 @@ def get_data_web(digits, val_split, size, dim, sample_size=None):
     if val_split:
         assert val_split > 0
         (true_train_data, val_data) = split_data(train_images, train_labels, val_split)
-        return (true_train_data, val_data, (test_images, test_labels))
+        return true_train_data, val_data, (test_images, test_labels)
     else:
         assert val_split == 0
-        return ((train_images, train_labels), None, (test_images, test_labels))
+        return (train_images, train_labels), None, (test_images, test_labels)
 
 
 def save_data(images, labels, path):

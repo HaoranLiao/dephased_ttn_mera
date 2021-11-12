@@ -6,7 +6,7 @@ data:
  load_from_file: True
  data_im_size: [4,4]
  list_data_bd_dim: [2]            # list or list of single
- sample_size: 10                 # int or None
+ sample_size: 1000                # int or None
 
 meta:
  num_repeat: 1
@@ -16,7 +16,7 @@ meta:
   num_match: 7
   trigger: 10
 
- list_epochs: [1]                        # list or list of single
+ list_epochs: [5]                        # list or list of single
  log_device_placement: False
  list_devices: False
  gpu: False
@@ -40,7 +40,7 @@ tree:
  loss: 'l2'                               # 'l2', 'log', 'l1'
  deph:
   only_input: False
-  list_deph_p: [0]                        # list or list of single, p = 0 / 1 makes sense
+  list_deph: [0]                        # list or list of single, p = 0 / 1 makes sense
 
  opt:
   opt: 'adam'                          # 'sgd', 'adam', 'sweep', 'rmsprop'
@@ -57,12 +57,3 @@ tree:
   rmsprop:
    learning_rate: 0.001
 
-  spsa:
-   a: 28
-   b: 33
-   A: 74.1
-   s: 4.13
-   t: 0.658
-   gamma: 0.882
-   lmbda: 0.234
-   eta: 5.59
