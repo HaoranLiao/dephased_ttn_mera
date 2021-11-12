@@ -1,8 +1,7 @@
 import numpy as np
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 import itertools as itr
 import sys
-import model
 
 class Graph:
     def __init__(self, num_pixels, bd_dims, deph, deph_only_input, num_anc, batch_size, config):
@@ -24,10 +23,10 @@ class Graph:
 
         self.root_node = self.op_layers[self.num_layers - 1][0]
         self.pred_batch = tf.real(tf.matrix_diag_part(self.root_node.output))
-        self.label_batch = tf.placeholder(tf.float64, shape=(None, 2))
+        # self.label_batch = tf.placeholder(tf.float64, shape=(None, 2))
         self.optimizer()
 
-        self.init = tf.global_variables_initializer()
+        # self.init = tf.global_variables_initializer()
 
     def create_op_shapes(self):
         (self.data_bd_dim, self.vir_bd_dim) = self.bd_dims
@@ -72,6 +71,14 @@ class Graph:
         self.init_mean = self.config['tree']['param']['init_mean']
         self.init_std = self.config['tree']['param']['init_std']
 
+        # self.param_var_all = tf.get_variable(
+        #     'param_var_all',
+        #     shape=[self.num_op_params * len(self.op_nodes)],
+        #     dtype=tf.float64,
+        #     initializer=tf.random_normal_initializer(
+        #         mean=self.init_mean, stddev=self.init_std), trainable=True)
+        # for (ind, op_node) in enumerate(self.op_nodes):
+        #     op_node.create_node_tensor(ind, self.param_var_all)
         for (ind, op_node) in enumerate(self.op_nodes):
             param_var_all = tf.Variable(
                 tf.random_normal_initializer(mean=self.init_mean, stddev=self.init_std)(
@@ -109,10 +116,10 @@ class Graph:
 
         sys.stdout.flush()
 
-    def run_graph(self, sess, image_batch):
-        fd_dict = self.create_pixel_dict(image_batch)
-        pred_batch = sess.run(self.pred_batch, feed_dict=fd_dict)
-        return pred_batch
+    # def run_graph(self, sess, image_batch):
+    #     fd_dict = self.create_pixel_dict(image_batch)
+    #     pred_batch = sess.run(self.pred_batch, feed_dict=fd_dict)
+    #     return pred_batch
 
     def create_pixel_dict(self, image_batch):
         if self.config['data']['data_im_size'] == [8, 8]:

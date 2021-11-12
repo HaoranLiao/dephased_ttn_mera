@@ -155,7 +155,7 @@ class Model:
         num_pixels = self.train_images.shape[1]
         self.config = config
 
-        tf.reset_default_graph()
+        # tf.reset_default_graph()
         self.graph = graph.Graph(num_pixels, bd_dims, deph,
                                  deph_only_input, num_anc, batch_size, config)
 
