@@ -1,9 +1,9 @@
 data:
  path: '../mnist8by8/mnist8by8'
  val_split: 0
- list_digits: [[3,5]]                   # list of pairs or one pair
- list_batch_sizes: [10]                  # list or list of single
- load_from_file: True
+ list_digits: [[3,5]]                     # list of pairs or one pair
+ list_batch_sizes: [100]                  # list or list of single
+ load_from_file: False
  data_im_size: [4,4]
  list_data_bd_dim: [2]            # list or list of single
  sample_size: 1000                # int or None
@@ -25,14 +25,6 @@ tree:
  param:
   init_mean: 0
   init_std: 1
-  embedding:
-    enabled: False
-    list_embed_dims: [2]
-    id_lay:
-     enabled: False
-     id_lay_kron: False
-
-    not_fir_lay: False
 
  list_vir_bd_dim: [2]             # list or list of single
  num_anc: 0

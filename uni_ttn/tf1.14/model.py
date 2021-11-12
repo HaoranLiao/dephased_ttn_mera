@@ -2,7 +2,6 @@ import tensorflow.compat.v1 as tf
 import numpy as np
 import sys, data, os, time, yaml, json
 import graph
-
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
@@ -32,12 +31,9 @@ def invoke(config):
     list_batch_sizes = config['data']['list_batch_sizes']
     list_epochs = config['meta']['list_epochs']
     list_data_bd_dim = config['data']['list_data_bd_dim']
-    list_embed_dims = config['tree']['param']['embedding']['list_embed_dims']
 
-    list_length = max(len(list_digits), len(list_vir_bd_dim),
-                      len(list_deph), len(list_batch_sizes),
-                      len(list_epochs), len(list_data_bd_dim),
-                      len(list_embed_dims))
+    list_length = max(len(list_digits), len(list_vir_bd_dim), len(list_deph),
+                      len(list_batch_sizes), len(list_epochs), len(list_data_bd_dim))
 
     main(config)
 
@@ -134,12 +130,13 @@ class Model:
     def __init__(self, data_path, digits, val_split, bd_dims,
                  deph, deph_only_input, num_anc, batch_size, config):
         sample_size = config['data']['sample_size']
+        data_im_size = config['data']['data_im_size']
         if config['data']['load_from_file']:
+            assert data_im_size == (8, 8)
             (train_data, val_data, test_data) = data.get_data_file(
                 data_path, digits, val_split, sample_size=sample_size)
         else:
             (data_bd_dim, __) = bd_dims
-            data_im_size = config['data']['data_im_size']
             (train_data, val_data, test_data) = data.get_data_web(
                 digits, val_split, data_im_size, data_bd_dim, sample_size=sample_size)
 
