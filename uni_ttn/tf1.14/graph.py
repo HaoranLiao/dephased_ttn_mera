@@ -40,7 +40,7 @@ class Graph:
     def create_data_layer(self):
         data_nodes = []
         for pixel in range(self.num_pixels):
-            node = Data_Node(self.batch_size, self.data_bd_dim, self.config)
+            node = Data_Node(self.batch_size, self.data_bd_dim)
             data_nodes.append(node)
 
         return data_nodes
