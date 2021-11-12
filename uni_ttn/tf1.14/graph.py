@@ -79,8 +79,7 @@ class Graph:
                     shape=[self.num_op_params],
                     dtype=tf.float64,
                     initializer=tf.random_normal_initializer(
-                        mean=self.init_mean, stddev=self.init_std),
-                    trainable=True)
+                        mean=self.init_mean, stddev=self.init_std), trainable=True)
                 op_node.create_node_tensor(ind, self.param_var)
         else:
             self.param_var_all = tf.get_variable(
@@ -88,8 +87,7 @@ class Graph:
                 shape=[self.num_op_params * len(self.op_nodes)],
                 dtype=tf.float64,
                 initializer=tf.random_normal_initializer(
-                    mean=self.init_mean, stddev=self.init_std),
-                trainable=True)
+                    mean=self.init_mean, stddev=self.init_std), trainable=True)
             for (ind, op_node) in enumerate(self.op_nodes):
                 op_node.create_node_tensor(ind, self.param_var_all)
 
@@ -180,7 +178,7 @@ class Graph:
 
 
 class Data_Node:
-    def __init__(self, batch_size, data_bd_dim, config):
+    def __init__(self, batch_size, data_bd_dim):
         self.data_bd_dim = data_bd_dim
         self.batch_size = batch_size
         self.pixel_batch = tf.placeholder(tf.complex128, shape=(None, self.data_bd_dim))
@@ -202,7 +200,7 @@ def dephase(rho, p=1):
 
 class Op_Node:
     def __init__(self, input_nodes, lay_ind, num_layers,
-                 op_shapes, deph, deph_only_input, num_in_bd, num_anc, config, is_prev_id_lay=False):
+                 op_shapes, deph, deph_only_input, num_in_bd, num_anc, config):
         self.input_nodes = input_nodes
         self.lay_ind = lay_ind
         self.num_layers = num_layers
@@ -214,7 +212,6 @@ class Op_Node:
             if lay_ind != 0:
                 self.op_size = self.mid_lay_op_shape[0] ** num_in_bd
             else:
-                assert lay_ind == 0
                 self.op_size = self.fir_lay_op_shape[0] ** num_in_bd
         else:
             self.op_size = self.mid_lay_op_shape[0] ** num_in_bd
@@ -224,7 +221,6 @@ class Op_Node:
         self.deph_only_input = deph_only_input
         self.num_anc = num_anc
         self.config = config
-        self.is_prev_id_lay = is_prev_id_lay
 
     def create_node_tensor(self, index, param_var):
         self.index = index
