@@ -35,16 +35,13 @@ tree:
   list_deph: [0]                        # list or list of single, p = 0 / 1 makes sense
 
  opt:
-  opt: 'adam'                          # 'sgd', 'adam', 'sweep', 'rmsprop'
+  opt: 'adam'                          # 'sgd', 'adam', 'rmsprop'
   adam:
    show_grad: False
    show_hess: False
 
   sgd:
    step_size: 0.01
-
-  sweep:
-   inspection: False
 
   rmsprop:
    learning_rate: 0.001

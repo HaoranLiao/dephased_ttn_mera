@@ -167,8 +167,7 @@ class Model:
         else:
             sess = tf.Session()
 
-        if self.config['meta']['list_devices']:
-            sess.list_devices()
+        if self.config['meta']['list_devices']: sess.list_devices()
 
         sess.run(self.graph.init)
 

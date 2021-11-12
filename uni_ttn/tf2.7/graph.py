@@ -71,27 +71,14 @@ class Graph:
         self.opt_config = self.config['tree']['opt']
         self.init_mean = self.config['tree']['param']['init_mean']
         self.init_std = self.config['tree']['param']['init_std']
-        if self.opt_config['opt'] == 'sweep':
-            for (ind, op_node) in enumerate(self.op_nodes):
-                param_var_name = 'param_var_%s' % ind
-                self.param_var = tf.get_variable(
-                    param_var_name,
-                    shape=[self.num_op_params],
+
+        for (ind, op_node) in enumerate(self.op_nodes):
+            param_var_all = tf.Variable(
+                tf.random_normal_initializer(mean=self.init_mean, stddev=self.init_std)(
+                    shape=[self.num_op_params * len(self.op_nodes)],
                     dtype=tf.float64,
-                    initializer=tf.random_normal_initializer(
-                        mean=self.init_mean, stddev=self.init_std),
-                    trainable=True)
-                op_node.create_node_tensor(ind, self.param_var)
-        else:
-            self.param_var_all = tf.get_variable(
-                'param_var_all',
-                shape=[self.num_op_params * len(self.op_nodes)],
-                dtype=tf.float64,
-                initializer=tf.random_normal_initializer(
-                    mean=self.init_mean, stddev=self.init_std),
-                trainable=True)
-            for (ind, op_node) in enumerate(self.op_nodes):
-                op_node.create_node_tensor(ind, self.param_var_all)
+                ), name='param_var_all', trainable=True)
+            op_node.create_node_tensor(ind, param_var_all)
 
     def optimizer(self):
         self.loss_config = self.config['tree']['loss']
@@ -113,11 +100,6 @@ class Graph:
             step_size = self.opt_config['sgd']['step_size']
             self.train_op = tf.train.GradientDescentOptimizer(step_size).minimize(self.loss)
             print('SGD Optimizer')
-        elif self.opt_config['opt'] == 'sweep':
-            self.train_ops = [0] * len(self.op_nodes)
-            for (ind, op_node) in enumerate(self.op_nodes):
-                self.train_ops[ind] = tf.train.AdamOptimizer().minimize(self.loss, var_list=[op_node.param_var])
-            print('Sweep with Adam Optimizer')
         elif self.opt_config['opt'] == 'rmsprop':
             learning_rate = self.opt_config['rmsprop']['learning_rate']
             self.train_op = tf.train.RMSPropOptimizer(learning_rate).minimize(self.loss)
@@ -154,29 +136,20 @@ class Graph:
         fd_dict.update({self.label_batch: label_batch})
 
         self.avg_grad, self.std_grad = None, None
-        if self.opt_config['opt'] == 'sweep':
-            for (ind, __) in enumerate(self.op_nodes):
-                sess.run(self.train_ops[ind], feed_dict=fd_dict)
-                if self.opt_config['sweep']['inspection']:
-                    self.run_graph(sess, image_batch)
-                    pred_batch = self.run_graph(sess, image_batch)
-                    print('%s/%s-%.3f' % (ind, len(self.op_nodes), model.get_accuracy(pred_batch, label_batch)))
-                    sys.stdout.flush()
-        else:
-            sess.run(self.train_op, feed_dict=fd_dict)
-            if self.opt_config['adam']['show_grad']:
-                for gv in self.grad_var:
-                    self.avg_grad = round(float(np.mean(sess.run(gv[0], feed_dict=fd_dict))), 3)
-                    self.std_grad = round(float(np.std(sess.run(gv[0], feed_dict=fd_dict))), 3)
+        sess.run(self.train_op, feed_dict=fd_dict)
+        if self.opt_config['adam']['show_grad']:
+            for gv in self.grad_var:
+                self.avg_grad = round(float(np.mean(sess.run(gv[0], feed_dict=fd_dict))), 3)
+                self.std_grad = round(float(np.std(sess.run(gv[0], feed_dict=fd_dict))), 3)
 
-            if self.opt_config['adam']['show_hess']:
-                real_off_params = []
-                for (ind, op_node) in enumerate(self.op_nodes):
-                    if ind == 0:
-                        real_off_params = op_node.real_off_params
+        if self.opt_config['adam']['show_hess']:
+            real_off_params = []
+            for (ind, op_node) in enumerate(self.op_nodes):
+                if ind == 0:
+                    real_off_params = op_node.real_off_params
 
-                self.hess = tf.hessians(self.loss, real_off_params)
-                self.hess_val = sess.run(self.hess, feed_dict=fd_dict)
+            self.hess = tf.hessians(self.loss, real_off_params)
+            self.hess_val = sess.run(self.hess, feed_dict=fd_dict)
 
 
 class Data_Node:
@@ -202,7 +175,7 @@ def dephase(rho, p=1):
 
 class Op_Node:
     def __init__(self, input_nodes, lay_ind, num_layers,
-                 op_shapes, deph, deph_only_input, num_in_bd, num_anc, config, is_prev_id_lay=False):
+                 op_shapes, deph, deph_only_input, num_in_bd, num_anc, config):
         self.input_nodes = input_nodes
         self.lay_ind = lay_ind
         self.num_layers = num_layers
@@ -224,7 +197,6 @@ class Op_Node:
         self.deph_only_input = deph_only_input
         self.num_anc = num_anc
         self.config = config
-        self.is_prev_id_lay = is_prev_id_lay
 
     def create_node_tensor(self, index, param_var):
         self.index = index
@@ -239,8 +211,7 @@ class Op_Node:
         num_diags = op_size
         num_off_diags = int(0.5 * op_size * (op_size - 1))
         max_total_params = max_op_size ** 2
-        if self.config['tree']['opt']['opt'] == 'sweep': start_slice = 0
-        else:  start_slice = self.index * max_total_params
+        start_slice = self.index * max_total_params
         diag_end = start_slice + num_diags
         real_end = diag_end + num_off_diags
         self.diag_params = tf.slice(param_var, [start_slice], [num_diags])
