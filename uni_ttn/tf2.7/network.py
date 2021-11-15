@@ -18,7 +18,7 @@ class Network:
         self.deph_net = deph_net
         self.layers = []
 
-        self.list_num_nodes = [self.num_pixels / 2 ** (i + 1) for i in range(self.num_layers)]
+        self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
             self.layers.append(
                 Layer(bd_dim, self.list_num_nodes[i], i, self.init_mean, self.init_std)
@@ -62,6 +62,7 @@ class Network:
             raise Exception('Invalid Optimizer')
 
         sys.stdout.flush()
+
 
 class Layer:
     def __init__(self, bd_dim, num_nodes, layer_idx, init_mean, init_std):
