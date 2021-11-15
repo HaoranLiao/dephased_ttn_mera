@@ -178,17 +178,16 @@ def get_accuracy(guesses, labels):
 if __name__ == "__main__":
     with open('config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
-        print(json.dumps(config, indent=1))
-        sys.stdout.flush()
+        print(json.dumps(config, indent=1)); sys.stdout.flush()
 
-        data_path = config['data']['path']
-        val_split = config['data']['val_split']
-        list_batch_sizes = config['data']['list_batch_sizes']
-        list_digits = config['data']['list_digits']
-        list_bd_dims = config['meta']['list_bd_dims']
-        num_repeat = config['meta']['num_repeat']
-        list_epochs = config['meta']['list_epochs']
+    data_path = config['data']['path']
+    val_split = config['data']['val_split']
+    list_batch_sizes = config['data']['list_batch_sizes']
+    list_digits = config['data']['list_digits']
+    list_bd_dims = config['meta']['list_bd_dims']
+    num_repeat = config['meta']['num_repeat']
+    list_epochs = config['meta']['list_epochs']
 
-        num_settings = max(len(list_digits), len(list_bd_dims), len(list_batch_sizes), len(list_epochs))
+    num_settings = max(len(list_digits), len(list_bd_dims), len(list_batch_sizes), len(list_epochs))
 
-        main()
+    main()

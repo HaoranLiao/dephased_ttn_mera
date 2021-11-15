@@ -62,8 +62,8 @@ def batch_generator(images, labels, batch_size):
     randomized_labels = labels[random_perm]
     
     for i in range(0, num_images, batch_size):
-        batch_images = randomized_images[i : i+batch_size]
-        batch_labels = randomized_labels[i : i+batch_size]
+        batch_images = randomized_images[i:i+batch_size]
+        batch_labels = randomized_labels[i:i+batch_size]
         yield batch_images, batch_labels
 
 
