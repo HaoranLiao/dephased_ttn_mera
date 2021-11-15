@@ -22,9 +22,9 @@ class DataGenerator:
         self.train_images = trig_featurize(self.train_images, dim)
         self.test_images = trig_featurize(self.test_images, dim)
         
-    def featurize_org(self):
-        self.train_images = trig_featurize_org(self.train_images)
-        self.test_images = trig_featurize_org(self.test_images)
+    def featurize_qubit(self):
+        self.train_images = trig_featurize_qubit(self.train_images)
+        self.test_images = trig_featurize_qubit(self.test_images)
 
     def export(self, path):
         train_dest = path + '_train'
@@ -73,7 +73,7 @@ def flatten_images(images):
     return flattened_image
 
 
-def trig_featurize_org(images):
+def trig_featurize_qubit(images):
     flat_images = flatten_images(images)
     (num_images, num_pixels) = flat_images.shape
     prep_axes = np.reshape(flat_images, (num_images, num_pixels, 1))
@@ -191,4 +191,4 @@ if __name__ == '__main__':
     
     data2 = DataGenerator()
     data2.shrink_images([8, 8])
-    data2.featurize_org()
+    data2.featurize_qubit()
