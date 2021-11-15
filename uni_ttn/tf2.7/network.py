@@ -69,7 +69,7 @@ class Layer:
         self.bd_dim = bd_dim
         self.layer_idx = layer_idx
         self.num_diags = self.bd_dim ** 2
-        self.num_op_params = self.num_diags ** 2 + self.num_diags
+        self.num_op_params = self.num_diags ** 2
         self.num_nodes = num_nodes
         self.init_mean, self.std = init_mean, init_std
 
@@ -87,7 +87,8 @@ class Layer:
 
         herm_shape = (self.num_diags, self.num_diags, self.num_nodes)
         diag_part = tf.linalg.diag(self.diag_params)
-        off_diag_indices = [(i, j) for i in range(self.num_diags) for j in range(i + 1, self.num_diags)]
+        # this diag_params needs to be transposed before diagonaling
+        off_diag_indices = [[i, j] for i in range(self.num_diags) for j in range(i + 1, self.num_diags)]
         real_off_diag_part = tf.scatter_nd(
             indices=off_diag_indices,
             updates=self.real_off_params,
