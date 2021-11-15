@@ -1,12 +1,15 @@
 import numpy as np
 import tensorflow as tf
+import sys
 
 
 def dephase(tensor):
     return tf.linalg.diag(tf.linalg.diag_part(tensor))
 
+
 class Network:
     def __init__(self, num_pixels, bd_dim, config, deph_net):
+        self.config = config
         self.bd_dim = bd_dim
         self.num_pixels = num_pixels
         self.num_layers = int(np.log2(num_pixels))
@@ -21,16 +24,44 @@ class Network:
                 Layer(bd_dim, self.list_num_nodes[i], i, self.init_mean, self.init_std)
             )
 
-    def get_network_output(self, input_data):
-        layer_out = self.layers[0].get_layer_output(input_data)
+    def get_network_output(self, input_batch):
+        layer_out = self.layers[0].get_layer_output(input_batch)
         if self.deph_net: layer_out = dephase(layer_out)
         for i in range(1, self.num_layers):
             layer_out = self.layers[i].get_layer_output(layer_out)
             if self.deph_net: layer_out = dephase(layer_out)
         return layer_out
 
-    def train(self, train_im, train_lab): pass
+    def train(self, input_batch, label_batch):
+        pred_batch = self.get_network_output(input_batch)
+        self.loss_config = self.config['tree']['loss']
+        if self.loss_config == 'l2':
+            self.loss = tf.reduce_sum(tf.square(pred_batch - label_batch)); print('L2 Loss')
+        elif self.loss_config == 'l1':
+            self.loss = tf.losses.absolute_difference(label_batch, pred_batch); print('L1 Loss')
+        elif self.loss_config == 'log':
+            self.loss = tf.losses.log_loss(label_batch, pred_batch); print('Log Loss')
+        else:
+            raise Exception('Invalid Loss')
 
+        self.opt_config = self.config['tree']['opt']
+        if self.opt_config['opt'] == 'adam':
+            opt = tf.train.AdamOptimizer()
+            self.grad_var = opt.compute_gradients(self.loss)
+            self.train_op = opt.apply_gradients(self.grad_var)
+            print('Adam Optimizer')
+        elif self.opt_config['opt'] == 'sgd':
+            step_size = self.opt_config['sgd']['step_size']
+            self.train_op = tf.train.GradientDescentOptimizer(step_size).minimize(self.loss)
+            print('SGD Optimizer')
+        elif self.opt_config['opt'] == 'rmsprop':
+            learning_rate = self.opt_config['rmsprop']['learning_rate']
+            self.train_op = tf.train.RMSPropOptimizer(learning_rate).minimize(self.loss)
+            print('RMSProp Optimizer')
+        else:
+            raise Exception('Invalid Optimizer')
+
+        sys.stdout.flush()
 
 class Layer:
     def __init__(self, bd_dim, num_nodes, layer_idx, init_mean, init_std):
