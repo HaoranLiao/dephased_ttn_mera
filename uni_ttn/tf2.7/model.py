@@ -5,14 +5,6 @@ import network
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
-def main():
-    start_time = time.time()
-    try:
-        for i in range(num_settings): run_all(i)
-    finally:
-        print_results(start_time)
-
-
 def print_results(start_time):
     print('All Avg Test Accs:\n', avg_repeated_test_acc)
     print('All Avg Train/Val Accs:\n', avg_repeated_train_acc)
@@ -25,10 +17,6 @@ def print_results(start_time):
 def variable_or_uniform(input, i):
     if len(input) > 1: return input[i]
     else: return input[0]
-
-
-avg_repeated_test_acc, avg_repeated_train_acc = [], []
-std_repeated_test_acc, std_repeated_train_acc = [], []
 
 
 def run_all(i):
@@ -190,4 +178,11 @@ if __name__ == "__main__":
 
     num_settings = max(len(list_digits), len(list_bd_dims), len(list_batch_sizes), len(list_epochs))
 
-    main()
+    avg_repeated_test_acc, avg_repeated_train_acc = [], []
+    std_repeated_test_acc, std_repeated_train_acc = [], []
+
+    start_time = time.time()
+    try:
+        for i in range(num_settings): run_all(i)
+    finally:
+        print_results(start_time)
