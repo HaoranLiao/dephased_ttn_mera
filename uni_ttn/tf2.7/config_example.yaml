@@ -21,18 +21,16 @@ meta:
  list_devices: False
  gpu: False
 
+ deph:
+  data: False
+  network: [0]
+
 tree:
  param:
   init_mean: 0
   init_std: 1
 
- list_vir_bd_dim: [2]             # list or list of single
- num_anc: 0
-
- loss: 'l2'                               # 'l2', 'log', 'l1'
- deph:
-  only_input: False
-  list_deph: [0]                        # list or list of single, p = 0 / 1 makes sense
+ loss: 'l2'                               # 'l2', 'log', 'l1'                      # list or list of single, p = 0 / 1 makes sense
 
  opt:
   opt: 'adam'                          # 'sgd', 'adam', 'rmsprop'

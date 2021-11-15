@@ -1,39 +1,28 @@
 import tensorflow as tf
 import numpy as np
 import sys, data, os, time, yaml, json
-import graph
+import network
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
 def invoke(config):
-    global data_path
-    global val_split
-    global num_repeat
-    global num_anc
+    global data_path, val_split, num_repeat
 
     data_path = config['data']['path']
     val_split = config['data']['val_split']
     num_repeat = config['meta']['num_repeat']
-    num_anc = config['tree']['num_anc']
 
-    global list_digits
-    global list_vir_bd_dim
-    global list_deph
-    global list_batch_sizes
-    global list_epochs
-    global list_data_bd_dim
-    global list_length
-    global list_embed_dims
+    global list_digits, list_bd_dims, list_deph
+    global list_batch_sizes, list_epochs, list_length
 
     list_digits = config['data']['list_digits']
-    list_vir_bd_dim = config['tree']['list_vir_bd_dim']
+    list_bd_dims = config['tree']['list_bd_dims']
     list_deph = config['tree']['deph']['list_deph']
     list_batch_sizes = config['data']['list_batch_sizes']
     list_epochs = config['meta']['list_epochs']
-    list_data_bd_dim = config['data']['list_data_bd_dim']
 
-    list_length = max(len(list_digits), len(list_vir_bd_dim), len(list_deph),
-                      len(list_batch_sizes), len(list_epochs), len(list_data_bd_dim))
+    list_length = max(len(list_digits), len(list_bd_dims), len(list_deph),
+                      len(list_batch_sizes), len(list_epochs))
 
     main(config)
 
@@ -58,10 +47,8 @@ def print_results(start):
 
 
 def variable_or_uniform(input, i):
-    if len(input) > 1:
-        assert list_length > 1; return input[i]
-    else:
-        return input[0]
+    if len(input) > 1: assert list_length > 1; return input[i]
+    else: return input[0]
 
 
 diff_avg_test_acc, diff_avg_train_acc = [], []
@@ -71,10 +58,8 @@ diff_std_test_acc, diff_std_train_acc = [], []
 def run_all(list_batch_sizes, i, config):
     digits = variable_or_uniform(list_digits, i)
     deph = variable_or_uniform(list_deph, i)
-    vir_bd_dim = variable_or_uniform(list_vir_bd_dim, i)
-    data_bd_dim = variable_or_uniform(list_data_bd_dim, i)
-    if data_bd_dim != 2: assert config['data']['load_from_file'] is False
-    bd_dims = (data_bd_dim, vir_bd_dim)
+    bd_dim = variable_or_uniform(list_bd_dims, i)
+    if bd_dim != 2: assert config['data']['load_from_file'] is False
     epochs = variable_or_uniform(list_epochs, i)
     batch_size = variable_or_uniform(list_batch_sizes, i)
 
@@ -88,22 +73,18 @@ def run_all(list_batch_sizes, i, config):
         print('Digits:\t', digits)
 
         if deph:
-            assert deph == 1
             print('Dephasing: %.2f' % deph)
             if deph_only_input: print('Dephase only input')
             else: print('Dephase all')
         else:
             print('Dephase none')
 
-        print('Vir Bond Dim: %s' % vir_bd_dim)
-        print('Data Bond Dim: %s' % data_bd_dim)
-        print('Num Anc: %s' % num_anc)
+        print('Bond Dim: %s' % bd_dim)
         print('Auto Epochs', auto_epochs)
         print('Batch Size: %s' % batch_size)
         sys.stdout.flush()
 
-        model = Model(data_path, digits, val_split, bd_dims,
-                      deph, deph_only_input, num_anc, batch_size, config)
+        model = Model(data_path, digits, val_split, bd_dim, config)
         (test_acc, train_acc) = model.train_network(epochs, batch_size, auto_epochs)
 
         test_accs.append(test_acc)
@@ -127,18 +108,18 @@ def run_all(list_batch_sizes, i, config):
 
 
 class Model:
-    def __init__(self, data_path, digits, val_split, bd_dims,
-                 deph, deph_only_input, num_anc, batch_size, config):
+    def __init__(self, data_path, digits, val_split, bd_dim, config):
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
+        deph_input = config['meta']['deph']['data']
+        deph_net = config['meta']['deph']['network']
         if config['data']['load_from_file']:
-            assert data_im_size == (8, 8)
+            assert data_im_size == (8, 8) and bd_dim == 2
             (train_data, val_data, test_data) = data.get_data_file(
-                data_path, digits, val_split, sample_size=sample_size)
+                data_path, digits, val_split, sample_size=sample_size, deph_input=deph_input)
         else:
-            (data_bd_dim, __) = bd_dims
             (train_data, val_data, test_data) = data.get_data_web(
-                digits, val_split, data_im_size, data_bd_dim, sample_size=sample_size)
+                digits, val_split, data_im_size, bd_dim, sample_size=sample_size, deph_input=deph_input)
 
         (self.train_images, self.train_labels) = train_data
         print('Sample Size: %s' % self.train_images.shape[0])
@@ -155,34 +136,16 @@ class Model:
         num_pixels = self.train_images.shape[1]
         self.config = config
 
-        # tf.reset_default_graph()
-        self.graph = graph.Graph(num_pixels, bd_dims, deph,
-                                 deph_only_input, num_anc, batch_size, config)
+        self.network = network.Network(num_pixels, bd_dim, config, deph_net)
 
     def train_network(self, epochs, batch_size, auto_epochs):
-        settings = tf.ConfigProto(log_device_placement=self.config['meta']['log_device_placement'])
-        if self.config['meta']['gpu']:
-            settings.gpu_options.allow_growth = True
-            sess = tf.Session(config=settings)
-        else:
-            sess = tf.Session()
-
-        if self.config['meta']['list_devices']: sess.list_devices()
-
-        sess.run(self.graph.init)
+        tf.debugging.set_log_device_placement(self.config['meta']['log_device_placement'])
+        if self.config['meta']['list_devices']: tf.config.list_physical_devices()
 
         self.temp_acc = []
         for epoch in range(epochs):
             sys.stdout.flush()
-            accuracy = self.run_epoch(sess, batch_size)
-            last_bat_avg_grad = self.graph.avg_grad
-            last_bat_std_grad = self.graph.std_grad
-            if self.graph.opt_config['adam']['show_grad']:
-                print('%s/%s : %.3f\t\t%8.4f\t%6.2f' %
-                      (epoch + 1, epochs, accuracy, last_bat_avg_grad, last_bat_std_grad))
-            else:
-                print('%s/%s : %.3f' % (epoch + 1, epochs, accuracy))
-            sys.stdout.flush()
+            accuracy = self.run_epoch(batch_size)
             self.temp_acc.append(accuracy)
 
             if auto_epochs:
@@ -200,10 +163,9 @@ class Model:
         if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy)
         else: print('Validation Accuracy: %.3f' % train_or_val_accuracy)
 
-        test_accuracy = self.run_test_data(sess)
+        test_accuracy = self.run_test_data()
         print('Test Accuracy : {:.3f}'.format(test_accuracy))
         sys.stdout.flush()
-        sess.close()
 
         return test_accuracy, train_or_val_accuracy
 
@@ -212,26 +174,25 @@ class Model:
         for i in range(self.config['meta']['auto_epochs']['num_match']):
             if abs(accuracy - self.temp_acc[-(i + 2)]) <= criterion: continue
             else: return False
-
         return True
 
-    def run_epoch(self, sess, batch_size):
+    def run_epoch(self, batch_size):
         batch_iter = data.batch_generator(self.train_images, self.train_labels, batch_size)
         for (train_image_batch, train_label_batch) in batch_iter:
-            self.graph.train(sess, train_image_batch, train_label_batch)
+            self.network.train(train_image_batch, train_label_batch)
 
         if val_split:
             assert self.config['data']['val_split'] > 0
-            pred_probs = self.graph.run_graph(sess, self.val_images)
+            pred_probs = self.network.get_network_output(self.val_images)
             val_accuracy = get_accuracy(pred_probs, self.val_labels)
             return val_accuracy
         else:
-            pred_probs = self.graph.run_graph(sess, self.train_images)
+            pred_probs = self.network.get_network_output(self.train_images)
             train_accuracy = get_accuracy(pred_probs, self.train_labels)
             return train_accuracy
 
-    def run_test_data(self, sess):
-        test_results = self.graph.run_graph(sess, self.test_images)
+    def run_test_data(self):
+        test_results = self.network.get_network_output(self.test_images)
         test_accuracy = get_accuracy(test_results, self.test_labels)
         return test_accuracy
 

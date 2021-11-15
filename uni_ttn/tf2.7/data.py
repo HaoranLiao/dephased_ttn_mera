@@ -3,6 +3,7 @@ import numpy as np
 import tensorflow as tf
 import skimage.transform
 import math
+import network
 
 
 class DataGenerator:
@@ -92,7 +93,7 @@ def trig_featurize(images, dim):
         s += 1
         pix_copy[:, :, s-1] = np.sqrt(
                 float(math.factorial(d-1)) / \
-                float(math.factorial(s-1) * math.factorial(d-s)) \
+                float(math.factorial(s-1) * math.factorial(d-s))
                 ) \
                 * np.cos(pix_copy[:, :, s-1] * np.pi/2) ** (d-s) \
                 * np.sin(pix_copy[:, :, s-1] * np.pi/2) ** (s-1)
@@ -126,37 +127,30 @@ def one_hot(bin_labels):
     return matrix_blank
 
 
-def get_data_file(data_path, digits, val_split, sample_size=None):
+def get_data_file(data_path, digits, val_split, sample_size=None, deph_input=False):
     print('Load Data From File')
     (train_raw_im, train_raw_lab) = load_data(data_path + '_train')
     (test_raw_im, test_raw_lab) = load_data(data_path + '_test')
-    
-    (train_images, train_labels_int) = select_digits(train_raw_im, train_raw_lab, digits)
-    (test_images, test_labels_int) = select_digits(test_raw_im, test_raw_lab, digits)
-    if sample_size is not None:
-        assert sample_size > 0
-        train_images, train_labels_int = train_images[0:sample_size], train_labels_int[0:sample_size]
-        test_images, test_labels_int = test_images[0:sample_size], test_labels_int[0:sample_size]
-
-    train_labels = binary_labels(train_labels_int)
-    test_labels = binary_labels(test_labels_int)
-    
-    if val_split:
-        assert val_split > 0
-        (true_train_data, val_data) = split_data(train_images, train_labels, val_split)
-        return true_train_data, val_data, (test_images, test_labels)
-    else:
-        assert val_split == 0
-        return (train_images, train_labels), None, (test_images, test_labels)
+    return process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
+                   digits, val_split, sample_size=sample_size, deph=deph_input)
     
     
-def get_data_web(digits, val_split, size, dim, sample_size=None):
+def get_data_web(digits, val_split, size, dim, sample_size=None, deph_input=False):
     print('Fetch Data From Web')
     data = DataGenerator()
     data.shrink_images(size)
     data.featurize(dim=dim)
     train_raw_im, train_raw_lab = data.train_images, data.train_labels
     test_raw_im, test_raw_lab = data.test_images, data.test_labels
+    return process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
+                   digits, val_split, sample_size=sample_size, deph=deph_input)
+
+
+def process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
+            digits, val_split, sample_size=None, deph=False):
+    if deph:
+        train_raw_im = network.dephase(train_raw_im)
+        test_raw_im = network.dephase(test_raw_im)
 
     (train_images, train_labels_int) = select_digits(train_raw_im, train_raw_lab, digits)
     (test_images, test_labels_int) = select_digits(test_raw_im, test_raw_lab, digits)
@@ -164,10 +158,10 @@ def get_data_web(digits, val_split, size, dim, sample_size=None):
         assert sample_size > 0
         train_images, train_labels_int = train_images[0:sample_size], train_labels_int[0:sample_size]
         test_images, test_labels_int = test_images[0:sample_size], test_labels_int[0:sample_size]
-    
+
     train_labels = binary_labels(train_labels_int)
     test_labels = binary_labels(test_labels_int)
-    
+
     if val_split:
         assert val_split > 0
         (true_train_data, val_data) = split_data(train_images, train_labels, val_split)
