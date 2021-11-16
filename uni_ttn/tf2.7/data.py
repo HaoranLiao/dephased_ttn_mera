@@ -127,15 +127,15 @@ def one_hot(bin_labels):
     return matrix_blank
 
 
-def get_data_file(data_path, digits, val_split, sample_size=None, deph_data=False):
+def get_data_file(data_path, digits, val_split, sample_size=None):
     print('Load Data From File')
     (train_raw_im, train_raw_lab) = load_data(data_path + '_train')
     (test_raw_im, test_raw_lab) = load_data(data_path + '_test')
     return process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
-                   digits, val_split, sample_size=sample_size, deph_data=deph_data)
+                   digits, val_split, sample_size=sample_size)
     
     
-def get_data_web(digits, val_split, size, dim, sample_size=None, deph_data=False):
+def get_data_web(digits, val_split, size, dim, sample_size=None):
     print('Fetch Data From Web')
     data = DataGenerator()
     data.shrink_images(size)
@@ -143,15 +143,11 @@ def get_data_web(digits, val_split, size, dim, sample_size=None, deph_data=False
     train_raw_im, train_raw_lab = data.train_images, data.train_labels
     test_raw_im, test_raw_lab = data.test_images, data.test_labels
     return process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
-                   digits, val_split, sample_size=sample_size, deph_data=deph_data)
+                   digits, val_split, sample_size=sample_size)
 
 
 def process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
-            digits, val_split, sample_size=None, deph_data=False):
-    if deph_data:
-        train_raw_im = network.dephase(train_raw_im)
-        test_raw_im = network.dephase(test_raw_im)
-
+            digits, val_split, sample_size=None):
     (train_images, train_labels_int) = select_digits(train_raw_im, train_raw_lab, digits)
     (test_images, test_labels_int) = select_digits(test_raw_im, test_raw_lab, digits)
     if sample_size is not None:

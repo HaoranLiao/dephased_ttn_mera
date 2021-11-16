@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import sys, data, os, time, yaml, json
 import network
+from matplotlib import pyplot as plt
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
@@ -76,10 +77,10 @@ class Model:
         if config['data']['load_from_file']:
             assert data_im_size == [8, 8] and bd_dim == feature_dim == 2
             (train_data, val_data, test_data) = data.get_data_file(
-                data_path, digits, val_split, sample_size=sample_size, deph_data=deph_data)
+                data_path, digits, val_split, sample_size=sample_size)
         else:
             (train_data, val_data, test_data) = data.get_data_web(
-                digits, val_split, data_im_size, bd_dim, sample_size=sample_size, deph_data=deph_data)
+                digits, val_split, data_im_size, bd_dim, sample_size=sample_size)
 
         (self.train_images, self.train_labels) = train_data
         print('Sample Size: %s' % self.train_images.shape[0])
@@ -96,7 +97,7 @@ class Model:
         num_pixels = self.train_images.shape[1]
         self.config = config
 
-        self.network = network.Network(num_pixels, bd_dim, config, deph_net)
+        self.network = network.Network(num_pixels, bd_dim, config, deph_net, deph_data)
 
     def train_network(self, epochs, batch_size, auto_epochs):
         tf.debugging.set_log_device_placement(self.config['meta']['log_device_placement'])

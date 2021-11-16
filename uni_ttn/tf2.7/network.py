@@ -8,14 +8,14 @@ def dephase(tensor):
 
 
 class Network:
-    def __init__(self, num_pixels, bd_dim, config, deph_net):
+    def __init__(self, num_pixels, bd_dim, config, deph_net, deph_data):
         self.config = config
         self.bd_dim = bd_dim
         self.num_pixels = num_pixels
         self.num_layers = int(np.log2(num_pixels))
         self.init_mean = config['tree']['param']['init_mean']
         self.init_std = config['tree']['param']['init_std']
-        self.deph_net = deph_net
+        self.deph_net, self.deph_data = deph_net, deph_data
         self.layers = []
 
         self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
@@ -25,12 +25,18 @@ class Network:
             )
 
     def get_network_output(self, input_batch):
+        input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
+        input_batch = tf.cast(input_batch, dtype=tf.complex128)
+        if self.deph_data: input_batch = dephase(input_batch)
+
         layer_out = self.layers[0].get_layer_output(input_batch)
         if self.deph_net: layer_out = dephase(layer_out)
         for i in range(1, self.num_layers):
             layer_out = self.layers[i].get_layer_output(layer_out)
             if self.deph_net: layer_out = dephase(layer_out)
-        return layer_out
+
+        output = tf.math.real(tf.linalg.diag_part(tf.squeeze(layer_out)))
+        return output
 
     def train(self, input_batch, label_batch):
         pred_batch = self.get_network_output(input_batch)
@@ -86,8 +92,7 @@ class Layer:
         self.diag_params = self.param_var_lay[2 * num_off_diags:]
 
         herm_shape = (self.num_diags, self.num_diags, self.num_nodes)
-        diag_part = tf.linalg.diag(self.diag_params)
-        # this diag_params needs to be transposed before diagonaling
+        diag_part = tf.transpose(tf.linalg.diag(tf.transpose(self.diag_params)), perm=[1, 2, 0])
         off_diag_indices = [[i, j] for i in range(self.num_diags) for j in range(i + 1, self.num_diags)]
         real_off_diag_part = tf.scatter_nd(
             indices=off_diag_indices,
@@ -110,8 +115,8 @@ class Layer:
         return unitary_tensor
 
     def get_layer_output(self, input):
-        left_input, right_input = input[::2], input[1::2]
+        left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor = self.get_unitary_tensor()
-        contracted = tf.einsum('nabcd, nzea, nzfb -> nzefcd', unitary_tensor, left_input, right_input)
-        output = tf.einsum('nzefcd, nzefcg -> nzgd', contracted, tf.math.conj(unitary_tensor))
+        contracted = tf.einsum('nabcd, znea, znfb -> znefcd', unitary_tensor, left_input, right_input)
+        output = tf.einsum('znefcd, nefcg -> zngd', contracted, tf.math.conj(unitary_tensor))
         return output
