@@ -3,7 +3,6 @@ import numpy as np
 import tensorflow as tf
 import skimage.transform
 import math
-import network
 
 
 class DataGenerator:
