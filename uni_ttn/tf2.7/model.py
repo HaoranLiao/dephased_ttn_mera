@@ -102,11 +102,13 @@ class Model:
     def train_network(self, epochs, batch_size, auto_epochs):
         tf.debugging.set_log_device_placement(self.config['meta']['log_device_placement'])
         if self.config['meta']['list_devices']: tf.config.list_physical_devices()
+        sys.stdout.flush()
 
         self.epoch_acc = []
         for epoch in range(epochs):
-            sys.stdout.flush()
             accuracy = self.run_epoch(batch_size)
+            print('Epoch %d Train Accuracy: %.4f accuracy' % (epoch, accuracy))
+            sys.stdout.flush()
 
             self.epoch_acc.append(accuracy)
             if auto_epochs:
@@ -136,7 +138,7 @@ class Model:
     def run_epoch(self, batch_size):
         batch_iter = data.batch_generator(self.train_images, self.train_labels, batch_size)
         for (train_image_batch, train_label_batch) in batch_iter:
-            self.network.train(train_image_batch, train_label_batch)
+            self.network.update(train_image_batch, train_label_batch)
 
         if val_split:
             assert self.config['data']['val_split'] > 0

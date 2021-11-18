@@ -17,7 +17,7 @@ meta:
   num_match: 7
   trigger: 10
 
- list_epochs: [5]                        # list or list of single
+ list_epochs: [10]                        # list or list of single
  log_device_placement: False
  list_devices: False
  gpu: False
