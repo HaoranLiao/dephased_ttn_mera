@@ -38,36 +38,17 @@ class Network:
         output = tf.math.real(tf.linalg.diag_part(tf.squeeze(layer_out)))
         return output
 
-    def train(self, input_batch, label_batch):
-        pred_batch = self.get_network_output(input_batch)
+    def update(self, input_batch, label_batch):
+        self.input_batch = input_batch
+        self.label_batch = label_batch
         self.loss_config = self.config['tree']['loss']
-        if self.loss_config == 'l2':
-            self.loss = tf.reduce_sum(tf.square(pred_batch - label_batch)); print('L2 Loss')
-        elif self.loss_config == 'l1':
-            self.loss = tf.losses.absolute_difference(label_batch, pred_batch); print('L1 Loss')
-        elif self.loss_config == 'log':
-            self.loss = tf.losses.log_loss(label_batch, pred_batch); print('Log Loss')
-        else:
-            raise Exception('Invalid Loss')
+        opt = tf.keras.optimizers.Adam()
+        opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
 
-        self.opt_config = self.config['tree']['opt']
-        if self.opt_config['opt'] == 'adam':
-            opt = tf.train.AdamOptimizer()
-            self.grad_var = opt.compute_gradients(self.loss)
-            self.train_op = opt.apply_gradients(self.grad_var)
-            print('Adam Optimizer')
-        elif self.opt_config['opt'] == 'sgd':
-            step_size = self.opt_config['sgd']['step_size']
-            self.train_op = tf.train.GradientDescentOptimizer(step_size).minimize(self.loss)
-            print('SGD Optimizer')
-        elif self.opt_config['opt'] == 'rmsprop':
-            learning_rate = self.opt_config['rmsprop']['learning_rate']
-            self.train_op = tf.train.RMSPropOptimizer(learning_rate).minimize(self.loss)
-            print('RMSProp Optimizer')
-        else:
-            raise Exception('Invalid Optimizer')
-
-        sys.stdout.flush()
+    @tf.function
+    def loss(self):
+        pred_batch = self.get_network_output(self.input_batch)
+        return tf.reduce_sum(tf.square(pred_batch - self.label_batch))
 
 
 class Layer:
