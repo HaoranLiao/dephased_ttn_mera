@@ -35,8 +35,8 @@ class Network:
             layer_out = self.layers[i].get_layer_output(layer_out)
             if self.deph_net: layer_out = dephase(layer_out)
 
-        output = tf.math.real(tf.linalg.diag_part(tf.squeeze(layer_out)))
-        return output
+        output_probs = tf.math.real(tf.linalg.diag_part(tf.squeeze(layer_out)))
+        return output_probs
 
     def update(self, input_batch, label_batch):
         self.input_batch = input_batch
