@@ -17,7 +17,7 @@ meta:
   num_match: 7
   trigger: 10
 
- list_epochs: [10]                        # list or list of single
+ list_epochs: [50]                        # list or list of single
  log_device_placement: False
  list_devices: False
  gpu: False
@@ -31,17 +31,11 @@ tree:
   init_mean: 0
   init_std: 0.1
 
- loss: 'l2'                               # 'l2', 'log', 'l1'                      # list or list of single, p = 0 / 1 makes sense
+ loss: 'l2'                               # 'l2'
 
  opt:
-  opt: 'adam'                          # 'sgd', 'adam', 'rmsprop'
+  opt: 'adam'                          # 'adam'
   adam:
    show_grad: False
    show_hess: False
-
-  sgd:
-   step_size: 0.01
-
-  rmsprop:
-   learning_rate: 0.001
 

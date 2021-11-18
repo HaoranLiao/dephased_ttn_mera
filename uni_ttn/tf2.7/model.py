@@ -37,10 +37,8 @@ def run_all(i):
         start_time = time.time()
         print('\nRepeat: %s/%s' % (j + 1, num_repeat))
         print('Digits:\t', digits)
-
         print('Dephasing data', deph_data)
         print('Dephasing network', deph_net)
-
         print('Bond Dim: %s' % bd_dim)
         print('Auto Epochs', auto_epochs)
         print('Batch Size: %s' % batch_size)
@@ -107,7 +105,7 @@ class Model:
         self.epoch_acc = []
         for epoch in range(epochs):
             accuracy = self.run_epoch(batch_size)
-            print('Epoch %d Train Accuracy: %.4f accuracy' % (epoch, accuracy))
+            print('Epoch %d: %.5f accuracy' % (epoch, accuracy))
             sys.stdout.flush()
 
             self.epoch_acc.append(accuracy)
@@ -119,12 +117,14 @@ class Model:
         train_or_val_accuracy = accuracy
         if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy)
         else: print('Validation Accuracy: %.3f' % train_or_val_accuracy)
+        sys.stdout.flush()
 
         test_accuracy = self.test_network()
         return test_accuracy, train_or_val_accuracy
 
     def test_network(self):
-        test_accuracy = self.run_test_data()
+        test_results = self.network.get_network_output(self.test_images)
+        test_accuracy = get_accuracy(test_results, self.test_labels)
         print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
         return test_accuracy
 
@@ -149,11 +149,6 @@ class Model:
             pred_probs = self.network.get_network_output(self.train_images)
             train_accuracy = get_accuracy(pred_probs, self.train_labels)
             return train_accuracy
-
-    def run_test_data(self):
-        test_results = self.network.get_network_output(self.test_images)
-        test_accuracy = get_accuracy(test_results, self.test_labels)
-        return test_accuracy
 
 
 def get_accuracy(guesses, labels):
