@@ -3,12 +3,6 @@ import tensorflow as tf
 import sys
 
 
-def dephase(tensor, p):
-    # TODO: this is actually not true, because this is the formula for qubit and our tensor
-    #  could be tensor product of qubits. This only holds for p=1 on multiple qubits
-    return (1 - p) * tensor + p * tf.linalg.diag(tf.linalg.diag_part(tensor))
-
-
 class Network:
     def __init__(self, num_pixels, bd_dim, deph_p, config):
         self.config = config
@@ -33,13 +27,13 @@ class Network:
     def get_network_output(self, input_batch):
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
         input_batch = tf.cast(input_batch, dtype=tf.complex128)
-        if self.deph_data: input_batch = dephase(input_batch, self.deph_p)
+        if self.deph_data: input_batch = self.dephase(input_batch, self.deph_p)
 
         layer_out = self.layers[0].get_layer_output(input_batch)
-        if self.deph_net: layer_out = dephase(layer_out, self.deph_p)
+        if self.deph_net: layer_out = self.dephase(layer_out, self.deph_p)
         for i in range(1, self.num_layers):
             layer_out = self.layers[i].get_layer_output(layer_out)
-            if self.deph_net: layer_out = dephase(layer_out, self.deph_p)
+            if self.deph_net: layer_out = self.dephase(layer_out, self.deph_p)
 
         output_probs = tf.math.abs(tf.linalg.diag_part(tf.squeeze(layer_out)))
         return output_probs
@@ -53,6 +47,12 @@ class Network:
     def loss(self):
         pred_batch = self.get_network_output(self.input_batch)
         return tf.reduce_sum(tf.square(pred_batch - self.label_batch))
+
+    def dephase(self, tensor, p):
+        if self.bd_dim == 2: return (1 - p) * tensor + p * tf.linalg.diag(tf.linalg.diag_part(tensor))
+        elif self.bd_dim == 4: NotImplemented
+        elif self.bd_dim == 8: NotImplemented
+        elif self.bd_dim == 16: NotImplemented
 
 
 class Layer:

@@ -193,7 +193,7 @@ def get_mat_shapes(op_shape):
 
 
 def dephase(rho, p=1):
-    # this is only true for complete dephasing.
+    # this is only true for complete dephasing. Maybe, if this is always acting on a qubit then we are fine with any p
     dephased_rho = (1 - p) * rho + p * tf.matrix_diag(tf.matrix_diag_part(rho))
     return dephased_rho
 
