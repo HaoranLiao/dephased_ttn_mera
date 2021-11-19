@@ -7,10 +7,10 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
 def print_results(start_time):
-    print('All Avg Test Accs:', avg_repeated_test_acc)
-    print('All Avg Train/Val Accs:', avg_repeated_train_acc)
-    print('All Std Test Accs:', std_repeated_test_acc)
-    print('All Std Train/Val Accs:', std_repeated_train_acc)
+    print('All Avg Test Accs:\t\t', avg_repeated_test_acc)
+    print('All Avg Train/Val Accs:\t', avg_repeated_train_acc)
+    print('All Std Test Accs:\t\t', std_repeated_test_acc)
+    print('All Std Train/Val Accs:\t', std_repeated_train_acc)
     print('Time: %.1f' % (time.time() - start_time))
     sys.stdout.flush()
 
@@ -49,10 +49,10 @@ def run_all(i):
         train_accs.append(train_acc)
         print('Time: %.1f' % (time.time() - start_time)); sys.stdout.flush()
 
-    print('\nSetting %d Train Accs:', train_accs)
+    print('\nSetting %d Train Accs: %s\t' % (i, train_accs))
     print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
     print('Setting %d Std Train Acc: %.3f' % (i, np.std(train_accs)))
-    print('Setting %d Test Accs:', i, test_accs)
+    print('Setting %d Test Accs: %s\t' % (i, test_accs))
     print('Setting %d Avg Test Acc: %.3f' % (i, np.mean(test_accs)))
     print('Setting %d Std Test Acc: %.3f' % (i, np.std(test_accs)))
     sys.stdout.flush()
