@@ -3,19 +3,23 @@ import tensorflow as tf
 import sys
 
 
-def dephase(tensor):
-    return tf.linalg.diag(tf.linalg.diag_part(tensor))
+def dephase(tensor, p):
+    # TODO: this is actually not true, because this is the formula for qubit and our tensor
+    #  could be tensor product of qubits. This only holds for p=1 on multiple qubits
+    return (1 - p) * tensor + p * tf.linalg.diag(tf.linalg.diag_part(tensor))
 
 
 class Network:
-    def __init__(self, num_pixels, bd_dim, config, deph_net, deph_data):
+    def __init__(self, num_pixels, bd_dim, deph_p, config):
         self.config = config
         self.bd_dim = bd_dim
         self.num_pixels = num_pixels
         self.num_layers = int(np.log2(num_pixels))
         self.init_mean = config['tree']['param']['init_mean']
         self.init_std = config['tree']['param']['init_std']
-        self.deph_net, self.deph_data = deph_net, deph_data
+        self.deph_data = config['meta']['deph']['data']
+        self.deph_net = config['meta']['deph']['network']
+        self.deph_p = deph_p
         self.layers = []
 
         self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
@@ -29,15 +33,15 @@ class Network:
     def get_network_output(self, input_batch):
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
         input_batch = tf.cast(input_batch, dtype=tf.complex128)
-        if self.deph_data: input_batch = dephase(input_batch)
+        if self.deph_data: input_batch = dephase(input_batch, self.deph_p)
 
         layer_out = self.layers[0].get_layer_output(input_batch)
-        if self.deph_net: layer_out = dephase(layer_out)
+        if self.deph_net: layer_out = dephase(layer_out, self.deph_p)
         for i in range(1, self.num_layers):
             layer_out = self.layers[i].get_layer_output(layer_out)
-            if self.deph_net: layer_out = dephase(layer_out)
+            if self.deph_net: layer_out = dephase(layer_out, self.deph_p)
 
-        output_probs = tf.math.real(tf.linalg.diag_part(tf.squeeze(layer_out)))
+        output_probs = tf.math.abs(tf.linalg.diag_part(tf.squeeze(layer_out)))
         return output_probs
 
     def update(self, input_batch, label_batch):

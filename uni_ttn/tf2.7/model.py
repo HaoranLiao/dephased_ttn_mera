@@ -7,10 +7,10 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
 def print_results(start_time):
-    print('All Avg Test Accs:\n', avg_repeated_test_acc)
-    print('All Avg Train/Val Accs:\n', avg_repeated_train_acc)
-    print('All Std Test Accs:\n', std_repeated_test_acc)
-    print('All Std Train/Val Accs:\n', std_repeated_train_acc)
+    print('All Avg Test Accs:', avg_repeated_test_acc)
+    print('All Avg Train/Val Accs:', avg_repeated_train_acc)
+    print('All Std Test Accs:', std_repeated_test_acc)
+    print('All Std Train/Val Accs:', std_repeated_train_acc)
     print('Time: %.1f' % (time.time() - start_time))
     sys.stdout.flush()
 
@@ -23,40 +23,38 @@ def variable_or_uniform(input, i):
 def run_all(i):
     digits = variable_or_uniform(list_digits, i)
     bd_dim = variable_or_uniform(list_bd_dims, i)
-    if bd_dim != 2: assert config['data']['load_from_file'] is False
+    if bd_dim != 2: assert not config['data']['load_from_file']
     epochs = variable_or_uniform(list_epochs, i)
     batch_size = variable_or_uniform(list_batch_sizes, i)
+    deph_p = variable_or_uniform(list_deph_p, i)
 
     auto_epochs = config['meta']['auto_epochs']['enabled']
-    deph_data = config['meta']['deph']['data']
-    deph_net = config['meta']['deph']['network']
-    val_split = config['data']['val_split']
-
     test_accs, train_accs = [], []
     for j in range(num_repeat):
         start_time = time.time()
         print('\nRepeat: %s/%s' % (j + 1, num_repeat))
         print('Digits:\t', digits)
-        print('Dephasing data', deph_data)
-        print('Dephasing network', deph_net)
+        print('Dephasing data', config['meta']['deph']['data'])
+        print('Dephasing network', config['meta']['deph']['network'])
+        print('Dephasing rate %.1f' % deph_p)
         print('Bond Dim: %s' % bd_dim)
         print('Auto Epochs', auto_epochs)
         print('Batch Size: %s' % batch_size)
         sys.stdout.flush()
 
-        model = Model(data_path, digits, val_split, bd_dim, config)
-        (test_acc, train_acc) = model.train_network(epochs, batch_size, auto_epochs)
+        model = Model(data_path, digits, val_split, bd_dim, deph_p, config)
+        test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
 
         test_accs.append(test_acc)
         train_accs.append(train_acc)
         print('Time: %.1f' % (time.time() - start_time)); sys.stdout.flush()
 
-    print('\nTrain Accs:\n', train_accs)
-    print('Avg Train Acc: %.3f' % np.mean(train_accs))
-    print('Std Train Acc: %.3f' % np.std(train_accs))
-    print('Test Accs:\n', test_accs)
-    print('Avg Test Acc: %.3f' % np.mean(test_accs))
-    print('Std Test Acc: %.3f' % np.std(test_accs))
+    print('\nSetting %d Train Accs:', train_accs)
+    print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
+    print('Setting %d Std Train Acc: %.3f' % (i, np.std(train_accs)))
+    print('Setting %d Test Accs:', i, test_accs)
+    print('Setting %d Avg Test Acc: %.3f' % (i, np.mean(test_accs)))
+    print('Setting %d Std Test Acc: %.3f' % (i, np.std(test_accs)))
     sys.stdout.flush()
 
     avg_repeated_test_acc.append(round(float(np.mean(test_accs)), 4))
@@ -66,36 +64,34 @@ def run_all(i):
 
 
 class Model:
-    def __init__(self, data_path, digits, val_split, bd_dim, config):
+    def __init__(self, data_path, digits, val_split, bd_dim, deph_p, config):
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
-        deph_data = config['meta']['deph']['data']
-        deph_net = config['meta']['deph']['network']
         feature_dim = config['data']['feature_dim']
         if config['data']['load_from_file']:
             assert data_im_size == [8, 8] and bd_dim == feature_dim == 2
-            (train_data, val_data, test_data) = data.get_data_file(
+            train_data, val_data, test_data = data.get_data_file(
                 data_path, digits, val_split, sample_size=sample_size)
         else:
-            (train_data, val_data, test_data) = data.get_data_web(
+            train_data, val_data, test_data = data.get_data_web(
                 digits, val_split, data_im_size, bd_dim, sample_size=sample_size)
 
-        (self.train_images, self.train_labels) = train_data
+        self.train_images, self.train_labels = train_data
         print('Sample Size: %s' % self.train_images.shape[0])
 
         if val_data is not None:
             print('Validation Split: %.2f' % val_split)
-            (self.val_images, self.val_labels) = val_data
+            self.val_images, self.val_labels = val_data
         else:
             assert config['data']['val_split'] == 0
             print('No Validation')
         sys.stdout.flush()
 
-        (self.test_images, self.test_labels) = test_data
+        self.test_images, self.test_labels = test_data
         num_pixels = self.train_images.shape[1]
         self.config = config
 
-        self.network = network.Network(num_pixels, bd_dim, config, deph_net, deph_data)
+        self.network = network.Network(num_pixels, bd_dim, deph_p, config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
         tf.debugging.set_log_device_placement(self.config['meta']['log_device_placement'])
@@ -173,8 +169,10 @@ if __name__ == "__main__":
     list_bd_dims = config['meta']['list_bd_dims']
     num_repeat = config['meta']['num_repeat']
     list_epochs = config['meta']['list_epochs']
+    list_deph_p = config['meta']['deph']['p']
 
-    num_settings = max(len(list_digits), len(list_bd_dims), len(list_batch_sizes), len(list_epochs))
+    num_settings = max(len(list_digits), len(list_bd_dims),
+                       len(list_batch_sizes), len(list_epochs), len(list_deph_p))
 
     avg_repeated_test_acc, avg_repeated_train_acc = [], []
     std_repeated_test_acc, std_repeated_train_acc = [], []
