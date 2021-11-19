@@ -96,7 +96,7 @@ class Layer:
         diag_exp_mat = tf.linalg.diag(eig_exp)
         self.unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
                                         eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[self.bd_dim] * 4])
+        unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, self.bd_dim, self.bd_dim, self.bd_dim, self.bd_dim])
         return unitary_tensor
 
     def get_layer_output(self, input):
