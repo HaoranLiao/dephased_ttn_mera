@@ -1,6 +1,5 @@
-import numpy as np
 import tensorflow as tf
-import sys
+import numpy as np
 
 
 class Network:
@@ -15,7 +14,7 @@ class Network:
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = deph_p
         self.layers = []
-        self.node_out_num_qubits = int(tf.experimental.numpy.log2(bd_dim))
+        self.node_out_num_qubits = int(np.log2(bd_dim))
         if self.node_out_num_qubits > 1: self.construct_dephasing_krauss()
 
         self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
@@ -52,7 +51,7 @@ class Network:
 
     def dephase(self, tensor, p):
         if self.bd_dim == 2: return (1 - p) * tensor + p * tf.linalg.diag(tf.linalg.diag_part(tensor))
-        elif self.bd_dim & (self.bd_dim-1) == 0:
+        elif self.bd_dim & (self.bd_dim-1) == 0: pass
 
 
     def construct_dephasing_krauss(self):
@@ -60,8 +59,9 @@ class Network:
         m2 = ...
         m3 = ...
         self.m = [m1, m2, m3]
-        self.combinations = [[]]
-
+        self.combinations = tf.reshape(tf.transpose(
+                                tf.meshgrid(*[[1, 2, 3]] * self.node_out_num_qubits)
+                            ), [-1, self.node_out_num_qubits])
 
 class Layer:
     def __init__(self, bd_dim, num_nodes, layer_idx, init_mean, init_std):
