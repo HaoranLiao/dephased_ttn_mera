@@ -2,7 +2,6 @@ import tensorflow as tf
 import numpy as np
 import sys, data, os, time, yaml, json
 import network
-from matplotlib import pyplot as plt
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
