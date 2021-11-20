@@ -94,7 +94,6 @@ class Model:
         self.network = network.Network(num_pixels, bd_dim, deph_p, config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
-        tf.debugging.set_log_device_placement(self.config['meta']['log_device_placement'])
         if self.config['meta']['list_devices']: tf.config.list_physical_devices()
         sys.stdout.flush()
 
