@@ -28,6 +28,7 @@ class Network:
 
     def get_network_output(self, input_batch):
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
+        input_batch = tf.cast(input_batch, dtype=tf.complex64)
         if self.deph_data: input_batch = self.dephase(input_batch, self.deph_p)
 
         layer_out = self.layers[0].get_layer_output(input_batch)
@@ -41,8 +42,8 @@ class Network:
         return output_probs
 
     def update(self, input_batch, label_batch):
-        self.input_batch = tf.constant(input_batch, dtype=tf.complex64)
-        self.label_batch = tf.constant(label_batch)
+        self.input_batch = tf.constant(input_batch)
+        self.label_batch = tf.constant(label_batch, dtype=tf.float32)
         self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
 
     @tf.function
@@ -87,7 +88,7 @@ class Layer:
 
         self.param_var_lay = tf.Variable(
             tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
-                shape=[self.num_op_params, num_nodes], dtype=tf.float64,
+                shape=[self.num_op_params, num_nodes], dtype=tf.float32,
             ), name='param_var_lay_%s' % layer_idx, trainable=True
         )
 
