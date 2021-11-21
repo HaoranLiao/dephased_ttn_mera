@@ -35,7 +35,7 @@ def run_all(i):
         print('Digits:\t', digits)
         print('Dephasing data', config['meta']['deph']['data'])
         print('Dephasing network', config['meta']['deph']['network'])
-        print('Dephasing rate %.1f' % deph_p)
+        print('Dephasing rate %.2f' % deph_p)
         print('Bond Dim: %s' % bd_dim)
         print('Auto Epochs', auto_epochs)
         print('Batch Size: %s' % batch_size)
@@ -48,18 +48,18 @@ def run_all(i):
         train_accs.append(train_acc)
         print('Time: %.1f' % (time.time() - start_time)); sys.stdout.flush()
 
-    print('\nSetting %d Train Accs: %s\t' % (i, train_accs))
+    print('\nSetting %d Train Accs: %.3f\t' % (i, train_accs))
     print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
     print('Setting %d Std Train Acc: %.3f' % (i, np.std(train_accs)))
-    print('Setting %d Test Accs: %s\t' % (i, test_accs))
+    print('Setting %d Test Accs: %.3f\t' % (i, test_accs))
     print('Setting %d Avg Test Acc: %.3f' % (i, np.mean(test_accs)))
     print('Setting %d Std Test Acc: %.3f' % (i, np.std(test_accs)))
     sys.stdout.flush()
 
-    avg_repeated_test_acc.append(round(float(np.mean(test_accs)), 4))
-    avg_repeated_train_acc.append(round(float(np.mean(train_accs)), 4))
-    std_repeated_test_acc.append(round(float(np.std(test_accs)), 4))
-    std_repeated_train_acc.append(round(float(np.std(train_accs)), 4))
+    avg_repeated_test_acc.append(round(float(np.mean(test_accs)), 3))
+    avg_repeated_train_acc.append(round(float(np.mean(train_accs)), 3))
+    std_repeated_test_acc.append(round(float(np.std(test_accs)), 3))
+    std_repeated_train_acc.append(round(float(np.std(train_accs)), 3))
 
 
 class Model:
