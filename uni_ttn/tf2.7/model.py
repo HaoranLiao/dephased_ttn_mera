@@ -6,10 +6,10 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
 def print_results(start_time):
-    print('All Avg Test Accs:\t\t', avg_repeated_test_acc)
-    print('All Avg Train/Val Accs:\t', avg_repeated_train_acc)
-    print('All Std Test Accs:\t\t', std_repeated_test_acc)
-    print('All Std Train/Val Accs:\t', std_repeated_train_acc)
+    print('All Avg Test Accs:\n', avg_repeated_test_acc)
+    print('All Avg Train/Val Accs:\n', avg_repeated_train_acc)
+    print('All Std Test Accs:\n', std_repeated_test_acc)
+    print('All Std Train/Val Accs:\n', std_repeated_train_acc)
     print('Time: %.1f' % (time.time() - start_time))
     sys.stdout.flush()
 
