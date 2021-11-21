@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import string
 
 
 class Network:
@@ -12,7 +13,7 @@ class Network:
         self.init_std = config['tree']['param']['init_std']
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']
-        self.deph_p = deph_p
+        self.deph_p = float(deph_p)
         self.layers = []
         self.node_out_num_qubits = int(np.log2(bd_dim))
         if self.node_out_num_qubits > 1: self.construct_dephasing_krauss()
@@ -27,7 +28,6 @@ class Network:
 
     def get_network_output(self, input_batch):
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
-        input_batch = tf.cast(input_batch, dtype=tf.complex128)
         if self.deph_data: input_batch = self.dephase(input_batch, self.deph_p)
 
         layer_out = self.layers[0].get_layer_output(input_batch)
@@ -36,12 +36,13 @@ class Network:
             layer_out = self.layers[i].get_layer_output(layer_out)
             if self.deph_net: layer_out = self.dephase(layer_out, self.deph_p)
 
-        output_probs = tf.math.abs(tf.linalg.diag_part(tf.squeeze(layer_out)))
+        output_probs = tf.math.abs(tf.linalg.diag_part(layer_out[:, 0]))
+        # TODO: need to trace out the ancilla here because the label has a dimension of 2 only but the output has a dimension bd_dim
         return output_probs
 
     def update(self, input_batch, label_batch):
-        self.input_batch = input_batch
-        self.label_batch = label_batch
+        self.input_batch = tf.constant(input_batch, dtype=tf.complex64)
+        self.label_batch = tf.constant(label_batch)
         self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
 
     @tf.function
@@ -50,18 +51,30 @@ class Network:
         return tf.reduce_sum(tf.square(pred_batch - self.label_batch))
 
     def dephase(self, tensor, p):
-        if self.bd_dim == 2: return (1 - p) * tensor + p * tf.linalg.diag(tf.linalg.diag_part(tensor))
-        elif self.bd_dim & (self.bd_dim-1) == 0: pass
-
+        if self.bd_dim == 2:
+            return (1 - p) * tensor + p * tf.linalg.diag(tf.linalg.diag_part(tensor))
+        elif self.bd_dim & (self.bd_dim - 1) == 0:
+            dephased_tensor = tf.zeros(tensor.shape, dtype=tf.complex64)
+            # for combo in self.combinations:
+            #     krauss_op = tf.reshape(
+            #                     tf.einsum(self.krauss_einsum_str,
+            #                               *[self.m[combo[i]] for i in range(self.node_out_num_qubits)]
+            #                 ), [self.bd_dim] * 2)
+            #     dephased_tensor += tf.einsum('ca, znab, db -> zncd', krauss_op, tensor, tf.math.conj(krauss_op))
+            # TODO: if this doesn't work, then kronecker two M's at a time and loop through
+            return dephased_tensor
 
     def construct_dephasing_krauss(self):
-        m1 = ...
-        m2 = ...
-        m3 = ...
-        self.m = [m1, m2, m3]
+        m1 = tf.cast(tf.math.sqrt(1 - self.deph_p), tf.complex64) * tf.eye(2, dtype=tf.complex64)
+        m2 = tf.cast(tf.math.sqrt(self.deph_p), tf.complex64) * tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
+        m3 = tf.cast(tf.math.sqrt(self.deph_p), tf.complex64) * tf.constant([[0, 0], [0, 1]], dtype=tf.complex64)
+        self.m = (m1, m2, m3)
         self.combinations = tf.reshape(tf.transpose(
-                                tf.meshgrid(*[[1, 2, 3]] * self.node_out_num_qubits)
+                                tf.meshgrid(*[[0, 1, 2]] * self.node_out_num_qubits)
                             ), [-1, self.node_out_num_qubits])
+        letters = string.ascii_lowercase[:2 * self.node_out_num_qubits]
+        self.krauss_einsum_str = ','.join(letters[i:i + 2] for i in range(0, len(letters), 2))
+
 
 class Layer:
     def __init__(self, bd_dim, num_nodes, layer_idx, init_mean, init_std):
@@ -104,7 +117,7 @@ class Layer:
         diag_exp_mat = tf.linalg.diag(eig_exp)
         self.unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
                                         eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[self.bd_dim]*4])
+        unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[self.bd_dim] * 4])
         return unitary_tensor
 
     def get_layer_output(self, input):

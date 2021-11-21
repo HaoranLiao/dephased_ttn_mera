@@ -9,7 +9,7 @@ data:
  feature_dim: 2
 
 meta:
- list_bd_dims: [8]            # list or list of single
+ list_bd_dims: [4]            # list or list of single
  num_repeat: 1
  auto_epochs:
   enabled: False
