@@ -50,6 +50,7 @@ class Network:
     def loss(self):
         pred_batch = self.get_network_output(self.input_batch)
         return tf.reduce_sum(tf.square(pred_batch - self.label_batch))
+        # TODO: change to log loss
 
     def dephase(self, tensor, p):
         if self.bd_dim == 2:
