@@ -4,7 +4,7 @@ import string
 
 
 class Network:
-    def __init__(self, num_pixels, bd_dim, deph_p, config):
+    def __init__(self, num_pixels, bd_dim, deph_p, num_anc, config):
         self.config = config
         self.bd_dim = bd_dim
         self.num_pixels = num_pixels
@@ -15,6 +15,7 @@ class Network:
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)
         self.layers = []
+
         self.node_out_num_qubits = int(np.log2(bd_dim))
         if self.node_out_num_qubits > 1: self.construct_dephasing_krauss()
 
@@ -24,11 +25,19 @@ class Network:
                 Layer(bd_dim, self.list_num_nodes[i], i, self.init_mean, self.init_std)
             )
 
+        self.num_anc = num_anc
+        if num_anc:
+            self.ancilla = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
+            self.ancillas = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
+            for _ in range(self.num_anc - 1):
+                self.ancillas = tf.tensordot(self.ancillas, self.ancilla, axes=0)
+
         self.opt = tf.keras.optimizers.Adam()
 
     def get_network_output(self, input_batch):
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
+        if self.num_anc: input_batch = tf.tensordot(input_batch, self.ancillas, axes=0)
         if self.deph_data: input_batch = self.dephase(input_batch, self.deph_p)
 
         layer_out = self.layers[0].get_layer_output(input_batch)

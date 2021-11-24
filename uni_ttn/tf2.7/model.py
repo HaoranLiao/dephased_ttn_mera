@@ -26,6 +26,7 @@ def run_all(i):
     epochs = variable_or_uniform(list_epochs, i)
     batch_size = variable_or_uniform(list_batch_sizes, i)
     deph_p = variable_or_uniform(list_deph_p, i)
+    num_anc = variable_or_uniform(list_num_anc, i)
 
     auto_epochs = config['meta']['auto_epochs']['enabled']
     test_accs, train_accs = [], []
@@ -39,9 +40,10 @@ def run_all(i):
         print('Bond Dim: %s' % bd_dim)
         print('Auto Epochs', auto_epochs)
         print('Batch Size: %s' % batch_size)
+        print('Number of Ancillas: %s' % num_anc)
         sys.stdout.flush()
 
-        model = Model(data_path, digits, val_split, bd_dim, deph_p, config)
+        model = Model(data_path, digits, val_split, bd_dim, deph_p, num_anc, config)
         test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
 
         test_accs.append(test_acc)
@@ -63,7 +65,7 @@ def run_all(i):
 
 
 class Model:
-    def __init__(self, data_path, digits, val_split, bd_dim, deph_p, config):
+    def __init__(self, data_path, digits, val_split, bd_dim, deph_p, num_anc, config):
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
@@ -90,7 +92,7 @@ class Model:
         num_pixels = self.train_images.shape[1]
         self.config = config
 
-        self.network = network.Network(num_pixels, bd_dim, deph_p, config)
+        self.network = network.Network(num_pixels, bd_dim, deph_p, num_anc, config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
         if self.config['meta']['list_devices']: tf.config.list_physical_devices()
@@ -168,8 +170,9 @@ if __name__ == "__main__":
     num_repeat = config['meta']['num_repeat']
     list_epochs = config['meta']['list_epochs']
     list_deph_p = config['meta']['deph']['p']
+    list_num_anc = config['meta']['list_num_anc']
 
-    num_settings = max(len(list_digits), len(list_bd_dims),
+    num_settings = max(len(list_digits), len(list_bd_dims), len(list_num_anc),
                        len(list_batch_sizes), len(list_epochs), len(list_deph_p))
 
     avg_repeated_test_acc, avg_repeated_train_acc = [], []
