@@ -4,9 +4,8 @@ import string
 
 
 class Network:
-    def __init__(self, num_pixels, bd_dim, deph_p, num_anc, config):
+    def __init__(self, num_pixels, deph_p, num_anc, config):
         self.config = config
-        # self.bd_dim = bd_dim
         self.num_anc = num_anc
         self.num_pixels = num_pixels
         self.num_layers = int(np.log2(num_pixels))
@@ -17,14 +16,13 @@ class Network:
         self.deph_p = float(deph_p)
         self.layers = []
 
-        # self.num_out_bonds = int(np.log2(bd_dim))
         self.num_out_bonds = self.num_anc + 1
         if self.num_out_bonds > 1: self.construct_dephasing_krauss()
 
         self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
             self.layers.append(
-                Layer(bd_dim, self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std)
+                Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std)
             )
 
         if num_anc:
@@ -33,6 +31,7 @@ class Network:
             for _ in range(self.num_anc - 1):
                 self.ancillas = tf.tensordot(self.ancillas, self.ancilla, axes=0)
 
+        self.cce = tf.keras.losses.CategoricalCrossentropy()
         self.opt = tf.keras.optimizers.Adam()
 
     def get_network_output(self, input_batch):
@@ -59,8 +58,7 @@ class Network:
     @tf.function
     def loss(self):
         pred_batch = self.get_network_output(self.input_batch)
-        return tf.reduce_sum(tf.square(pred_batch - self.label_batch))
-        # TODO: change to log loss
+        return self.cce(pred_batch, self.label_batch)
 
     def dephase(self, tensor):
         if self.num_anc:
@@ -96,11 +94,9 @@ class Network:
 
 
 class Layer:
-    def __init__(self, bd_dim, num_nodes, layer_idx, num_anc, init_mean, init_std):
-        # self.bd_dim = bd_dim
+    def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         self.num_anc = num_anc
         self.layer_idx = layer_idx
-        # self.num_diags = self.bd_dim ** 2
         self.num_in_bonds = 2 * (self.num_anc + 1)
         self.num_diags = 2 ** self.num_in_bonds
         self.num_op_params = self.num_diags ** 2
@@ -160,8 +156,8 @@ class Layer:
 
 
 
-        # letters = string.ascii_lowercase[:2 * self.num_out_bonds]
-        # self.krauss_einsum_str = ','.join(letters[i:i + 2] for i in range(0, len(letters), 2))
+# letters = string.ascii_lowercase[:2 * self.num_out_bonds]
+# self.krauss_einsum_str = ','.join(letters[i:i + 2] for i in range(0, len(letters), 2))
 
 
 # dephased_tensor = tf.zeros(tensor.shape, dtype=tf.complex64)
