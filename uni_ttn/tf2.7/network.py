@@ -1,6 +1,5 @@
 import tensorflow as tf
 import numpy as np
-import string
 
 
 class Network:
@@ -21,9 +20,7 @@ class Network:
 
         self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
-            self.layers.append(
-                Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std)
-            )
+            self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
 
         if num_anc:
             self.ancilla = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
@@ -62,17 +59,17 @@ class Network:
 
     def dephase(self, tensor):
         if self.num_anc:
-            # left_contracted = tf.einsum('kabcd, znbedf -> kznaecf', krauss, rho) when there is one ancilla
+            # left_contracted = 'kabcd, znbedf -> kznaecf', krauss, rho, when there is one ancilla
             left_contracted = tf.tensordot(
                 self.krauss_ops, tensor,
                 axes=[list(range(2, 2 * self.num_out_bonds + 1, 2)),
                       list(range(2, 2 * self.num_out_bonds + 2, 2))])
-            # TODO: check  where the 'zn' dimensions got placed
-            # dephased_output = tf.einsum('kznaecf, kegfh -> znagch',  contract_left, krauss)
+            # TODO: check where the 'zn' dimensions got placed
+            # dephased_tensor = 'kznaecf, kgehf (kegfh transposed) -> znagch', left_contracted, krauss (real so no conjugation)
             dephased_tensor = tf.tensordot(
                 left_contracted, self.krauss_ops,
                 axes=[[0] + list(range(4, 2 * self.num_out_bonds + 3, 2)),
-                      [0] + list(range(1, 2 * self.num_out_bonds + 1, 2))])
+                      [0] + list(range(2, 2 * self.num_out_bonds + 1, 2))])
             return dephased_tensor
         else:
             return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
@@ -106,8 +103,7 @@ class Layer:
         self.param_var_lay = tf.Variable(
             tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
-            ), name='param_var_lay_%s' % layer_idx, trainable=True
-        )
+            ), name='param_var_lay_%s' % layer_idx, trainable=True)
 
     def get_unitary_tensor(self):
         num_off_diags = int(0.5 * (self.num_diags ** 2 - self.num_diags))
@@ -135,7 +131,6 @@ class Layer:
         diag_exp_mat = tf.linalg.diag(eig_exp)
         self.unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
                                         eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        # unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[self.bd_dim] * 4])
         unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[2] * (2 * self.num_in_bonds)])
         return unitary_tensor
 
@@ -149,6 +144,22 @@ class Layer:
         left_contracted = tf.tensordot(unitary_tensor, left_input, axes=[[1], [-1]])
         contracted = tf.tensordot(left_contracted, right_input, axes=[[3], [-1]])
         return output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

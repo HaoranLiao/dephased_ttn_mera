@@ -21,12 +21,11 @@ def variable_or_uniform(input, i):
 
 def run_all(i):
     digits = variable_or_uniform(list_digits, i)
-    bd_dim = variable_or_uniform(list_bd_dims, i)
-    if bd_dim != 2: assert not config['data']['load_from_file']
     epochs = variable_or_uniform(list_epochs, i)
     batch_size = variable_or_uniform(list_batch_sizes, i)
     deph_p = variable_or_uniform(list_deph_p, i)
     num_anc = variable_or_uniform(list_num_anc, i)
+    if num_anc: assert not config['data']['load_from_file']
 
     auto_epochs = config['meta']['auto_epochs']['enabled']
     test_accs, train_accs = [], []
@@ -37,13 +36,12 @@ def run_all(i):
         print('Dephasing data', config['meta']['deph']['data'])
         print('Dephasing network', config['meta']['deph']['network'])
         print('Dephasing rate %.2f' % deph_p)
-        print('Bond Dim: %s' % bd_dim)
         print('Auto Epochs', auto_epochs)
         print('Batch Size: %s' % batch_size)
         print('Number of Ancillas: %s' % num_anc)
         sys.stdout.flush()
 
-        model = Model(data_path, digits, val_split, bd_dim, deph_p, num_anc, config)
+        model = Model(data_path, digits, val_split, deph_p, num_anc, config)
         test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
 
         test_accs.append(test_acc)
@@ -65,17 +63,17 @@ def run_all(i):
 
 
 class Model:
-    def __init__(self, data_path, digits, val_split, bd_dim, deph_p, num_anc, config):
+    def __init__(self, data_path, digits, val_split, deph_p, num_anc, config):
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
         if config['data']['load_from_file']:
-            assert data_im_size == [8, 8] and bd_dim == feature_dim == 2
+            assert data_im_size == [8, 8] and feature_dim == 2
             train_data, val_data, test_data = data.get_data_file(
                 data_path, digits, val_split, sample_size=sample_size)
         else:
             train_data, val_data, test_data = data.get_data_web(
-                digits, val_split, data_im_size, bd_dim, sample_size=sample_size)
+                digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
         print('Sample Size: %s' % self.train_images.shape[0])
@@ -92,7 +90,7 @@ class Model:
         num_pixels = self.train_images.shape[1]
         self.config = config
 
-        self.network = network.Network(num_pixels, bd_dim, deph_p, num_anc, config)
+        self.network = network.Network(num_pixels, deph_p, num_anc, config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
         if self.config['meta']['list_devices']: tf.config.list_physical_devices()
