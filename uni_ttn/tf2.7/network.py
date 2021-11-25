@@ -18,14 +18,14 @@ class Network:
         self.num_out_bonds = self.num_anc + 1
         if self.num_out_bonds > 1: self.construct_dephasing_krauss()
 
-        self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
+        self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
             self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
 
         if num_anc:
             self.ancilla = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
             self.ancillas = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
-            for _ in range(self.num_anc - 1):
+            for _ in range(self.num_anc-1):
                 self.ancillas = tf.tensordot(self.ancillas, self.ancilla, axes=0)
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
@@ -39,12 +39,15 @@ class Network:
 
         layer_out = self.layers[0].get_layer_output(input_batch)
         if self.deph_net: layer_out = self.dephase(layer_out)
-        for i in range(1, self.num_layers):
+        for i in range(1, self.num_layers-1):
             layer_out = self.layers[i].get_layer_output(layer_out)
             if self.deph_net: layer_out = self.dephase(layer_out)
 
-        output_probs = tf.math.abs(tf.linalg.diag_part(layer_out[:, 0]))
-        # TODO: need to trace out the ancilla here because the label has a dimension of 2 only but the output has a dimension bd_dim
+        final_layer_out = self.layers[self.num_layers-1].get_layer_output(layer_out)[:, 0]
+        # 'zabcd -> zab', final_layer_out
+        # TODO: 'zabcd -> zab', final_layer_out
+
+        output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
 
     def update(self, input_batch, label_batch):
@@ -62,14 +65,14 @@ class Network:
             # left_contracted = 'kabcd, znbedf -> kznaecf', krauss, rho, when there is one ancilla
             left_contracted = tf.tensordot(
                 self.krauss_ops, tensor,
-                axes=[list(range(2, 2 * self.num_out_bonds + 1, 2)),
-                      list(range(2, 2 * self.num_out_bonds + 2, 2))])
+                axes=[list(range(2, 2*self.num_out_bonds+1, 2)),
+                      list(range(2, 2*self.num_out_bonds+2, 2))])
             # TODO: check where the 'zn' dimensions got placed
-            # dephased_tensor = 'kznaecf, kgehf (kegfh transposed) -> znagch', left_contracted, krauss (real so no conjugation)
+            # dephased_tensor = 'kznaecf, kgehf (kegfh transposed) -> znagch', left_contracted, krauss (real so no conj)
             dephased_tensor = tf.tensordot(
                 left_contracted, self.krauss_ops,
-                axes=[[0] + list(range(4, 2 * self.num_out_bonds + 3, 2)),
-                      [0] + list(range(2, 2 * self.num_out_bonds + 1, 2))])
+                axes=[[0]+list(range(4, 2*self.num_out_bonds+3, 2)),
+                      [0]+list(range(2, 2*self.num_out_bonds+1, 2))])
             return dephased_tensor
         else:
             return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
@@ -80,7 +83,7 @@ class Network:
         m3 = tf.cast(tf.math.sqrt(self.deph_p), tf.complex64) * tf.constant([[0, 0], [0, 1]], dtype=tf.complex64)
         m = (m1, m2, m3)
         combinations = tf.reshape(tf.transpose(
-                                tf.meshgrid(*[[0, 1, 2]] * self.num_out_bonds)
+                                tf.meshgrid(*[[0, 1, 2]]*self.num_out_bonds)
                             ), [-1, self.num_out_bonds])
         self.krauss_ops = []
         for combo in combinations:
@@ -106,7 +109,7 @@ class Layer:
             ), name='param_var_lay_%s' % layer_idx, trainable=True)
 
     def get_unitary_tensor(self):
-        num_off_diags = int(0.5 * (self.num_diags ** 2 - self.num_diags))
+        num_off_diags = int(0.5 * (self.num_diags**2 - self.num_diags))
         self.real_off_params = self.param_var_lay[:num_off_diags]
         self.imag_off_params = self.param_var_lay[num_off_diags:2 * num_off_diags]
         self.diag_params = self.param_var_lay[2 * num_off_diags:]
@@ -131,49 +134,31 @@ class Layer:
         diag_exp_mat = tf.linalg.diag(eig_exp)
         self.unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
                                         eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[2] * (2 * self.num_in_bonds)])
+        unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[2]*(2*self.num_in_bonds)])
         return unitary_tensor
 
     def get_layer_output(self, input):
         left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor = self.get_unitary_tensor()
-        # contracted = tf.einsum('nabcd, znea, znfb -> znefcd', unitary_tensor, left_input, right_input)
-        # output = tf.einsum('znefcd, nefcg -> zngd', contracted, tf.math.conj(unitary_tensor))
-        left_contracted = tf.tensordot(unitary_tensor, left_input, axes=[[1], [-1]])
-        contracted = tf.tensordot(left_contracted, right_input, axes=[[3], [-1]])
+        # 'nabcdefgh, zniajb -> znijcdefgh', unitary_tensor, left_input, when there is one ancilla
+        left_contracted = tf.tensordot(
+            unitary_tensor, left_input,
+            axes=[list(range(1, self.num_anc+2)),
+                  list(range(3, self.num_in_bonds+2, 2))])
+        # TODO: check where the 'zn' dimensions got placed
+        # 'znijcdefgh, znkcld -> znijklefgh', left_contracted, right_input,
+        input_contracted = tf.tensordot(
+            left_contracted, right_input,
+            axes=[list(range(self.num_anc+3, self.num_in_bonds+2)),
+                  list(range(3, self.num_in_bonds+2, 2))])
+        # 'znijklefgh, nijklefmo -> znmogh', input_contracted, conj(unitary_tensor)
+        output = tf.tensordot(
+            input_contracted, tf.math.conj(unitary_tensor),
+            axes=[list(range(2, 2*self.num_in_bonds)),
+                  list(range(1, 2*self.num_in_bonds-1))])
+        # 'znmogh -> znmgoh'
+        output = tf.transpose(
+            output,
+            perm=[0, 1, *list(range(2, 2+2*(self.num_anc+1), 2)), *list(range(3, 2+2*(self.num_anc+1), 2))])
         return output
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# letters = string.ascii_lowercase[:2 * self.num_out_bonds]
-# self.krauss_einsum_str = ','.join(letters[i:i + 2] for i in range(0, len(letters), 2))
-
-
-# dephased_tensor = tf.zeros(tensor.shape, dtype=tf.complex64)
-# for combo in self.combinations:
-#     krauss_op = tf.reshape(
-#                     tf.einsum(self.krauss_einsum_str,
-#                               *[self.m[combo[i]] for i in range(self.num_out_bonds)]
-#                 ), [self.bd_dim] * 2)
-#     dephased_tensor += tf.einsum('ca, znab, db -> zncd', krauss_op, tensor, tf.math.conj(krauss_op))
-# TODO: if this doesn't work, then kronecker two M's at a time and loop through
