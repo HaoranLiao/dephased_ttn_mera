@@ -139,8 +139,6 @@ class Layer:
         unitary_tensor = self.get_unitary_tensor()
         # contracted = tf.einsum('nabcd, znea, znfb -> znefcd', unitary_tensor, left_input, right_input)
         # output = tf.einsum('znefcd, nefcg -> zngd', contracted, tf.math.conj(unitary_tensor))
-        for i in range(self.num_anc):
-            uni_and_anc = tf.tensordot(unitary_tensor, left_input, axes=[[1], [-1]])
         left_contracted = tf.tensordot(unitary_tensor, left_input, axes=[[1], [-1]])
         contracted = tf.tensordot(left_contracted, right_input, axes=[[3], [-1]])
         return output
