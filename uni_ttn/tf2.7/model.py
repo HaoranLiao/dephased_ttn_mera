@@ -25,7 +25,6 @@ def run_all(i):
     batch_size = variable_or_uniform(list_batch_sizes, i)
     deph_p = variable_or_uniform(list_deph_p, i)
     num_anc = variable_or_uniform(list_num_anc, i)
-    if num_anc: assert not config['data']['load_from_file']
 
     auto_epochs = config['meta']['auto_epochs']['enabled']
     test_accs, train_accs = [], []
@@ -164,13 +163,12 @@ if __name__ == "__main__":
     val_split = config['data']['val_split']
     list_batch_sizes = config['data']['list_batch_sizes']
     list_digits = config['data']['list_digits']
-    list_bd_dims = config['meta']['list_bd_dims']
     num_repeat = config['meta']['num_repeat']
     list_epochs = config['meta']['list_epochs']
     list_deph_p = config['meta']['deph']['p']
     list_num_anc = config['meta']['list_num_anc']
 
-    num_settings = max(len(list_digits), len(list_bd_dims), len(list_num_anc),
+    num_settings = max(len(list_digits), len(list_num_anc),
                        len(list_batch_sizes), len(list_epochs), len(list_deph_p))
 
     avg_repeated_test_acc, avg_repeated_train_acc = [], []
