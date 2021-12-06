@@ -3,8 +3,8 @@ data:
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [25]                  # list or list of single
- load_from_file: True
- data_im_size: [8,8]
+ load_from_file: False
+ data_im_size: [4,4]
  sample_size: 100                # int or None
  feature_dim: 2
 
@@ -21,9 +21,9 @@ meta:
  list_devices: True
 
  deph:
-  data: False
+  data: True
   network: True
-  p: [0]
+  p: [0.1]
 
 tree:
  param:

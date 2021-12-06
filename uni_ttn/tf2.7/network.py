@@ -38,7 +38,7 @@ class Network:
             input_batch = tf.tensordot(input_batch, self.ancillas, axes=0)
             input_batch = tf.transpose(
                 input_batch,
-                perm=[0, *list(range(1, 2*self.num_out_bonds+2, 2)), *list(range(2, 2*self.num_out_bonds+2, 2))])
+                perm=[0, 1, *list(range(2, 2*self.num_out_bonds+2, 2)), *list(range(3, 2*self.num_out_bonds+2, 2))])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
         layer_out = self.layers[0].get_layer_output(input_batch)
@@ -57,7 +57,8 @@ class Network:
     def update(self, input_batch, label_batch):
         self.input_batch = tf.constant(input_batch)
         self.label_batch = tf.constant(label_batch, dtype=tf.float32)
-        self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
+        # self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
+        self.get_network_output(self.input_batch)
 
     @tf.function
     def loss(self):
@@ -66,19 +67,21 @@ class Network:
 
     def dephase(self, tensor):
         if self.num_anc:
-            # left_contracted = 'kabcd, znbedf -> kznaecf', krauss, rho, when there is one ancilla (old)
-            # left_contracted = 'kabcd, zncdef -> kznabef', krauss, rho, when there is one ancilla
+            # left_contracted = 'kabcd, zncdef -> kabznef', krauss, rho, when there is one ancilla
             left_contracted = tf.tensordot(
                 self.krauss_ops, tensor,
                 axes=[list(range(1+self.num_out_bonds, 1+2*self.num_out_bonds)),
                       list(range(2, 2+self.num_out_bonds))])
-            # TODO: check where the 'zn' dimensions got placed
-            # dephased_tensor = 'kznaecf, kgehf (kegfh transposed) -> znagch', left_contracted, krauss (real so no conj) (old)
-            # dephased_tensor = 'kznabef, kghef (kefgh transposed) -> znabgh', left_contracted, krauss (real so no conj)
+            # dephased_tensor = 'kabznef, kghef (kefgh transposed) -> abzngh', left_contracted, krauss (real so no conj)
             dephased_tensor = tf.tensordot(
                 left_contracted, self.krauss_ops,
-                axes=[[0]+list(range(5, 3+2*self.num_out_bonds)),
-                      [0]+list(range(3, 1+2*self.num_out_bonds))])
+                axes=[[0]+list(range(3+self.num_out_bonds, 3+2*self.num_out_bonds)),
+                      [0]+list(range(1+self.num_out_bonds, 1+2*self.num_out_bonds))])
+            # dephased_tensor = 'abzngh -> znabgh'
+            dephased_tensor = tf.transpose(
+                dephased_tensor,
+                perm=[self.num_out_bonds, self.num_out_bonds+1,
+                      *list(range(self.num_out_bonds)), *list(range(2+self.num_out_bonds, 2+2*self.num_out_bonds))])
             return dephased_tensor
         else:
             return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
@@ -149,7 +152,8 @@ class Layer:
     def get_layer_output(self, input):
         left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor = self.get_unitary_tensor()
-        # 'nabcdefgh, zniajb -> znijcdefgh', unitary_tensor, left_input, when there is one ancilla
+        # 'nabcdefgh, zniajb -> znijcdefgh', unitary_tensor, left_input, when there is one ancilla (old)
+        # 'nabcdefgh, znabgh
         left_contracted = tf.tensordot(
             unitary_tensor, left_input,
             axes=[list(range(1, self.num_anc+2)),
