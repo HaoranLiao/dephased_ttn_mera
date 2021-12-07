@@ -109,6 +109,7 @@ class Layer:
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         self.num_anc = num_anc
         self.layer_idx = layer_idx
+        self.num_out_bonds = self.num_anc + 1
         self.num_in_bonds = 2 * (self.num_anc + 1)
         self.num_diags = 2 ** self.num_in_bonds
         self.num_op_params = self.num_diags ** 2
@@ -152,18 +153,31 @@ class Layer:
     def get_layer_output(self, input):
         left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor = self.get_unitary_tensor()
-        # 'nabcdefgh, zniajb -> znijcdefgh', unitary_tensor, left_input, when there is one ancilla (old)
-        # 'nabcdefgh, znabgh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # 'nabcdefgh, znefij -> abcdghzij, unitary_tensor, left_input, when there is one ancilla
         left_contracted = tf.tensordot(
             unitary_tensor, left_input,
-            axes=[list(range(1, self.num_anc+2)),
-                  list(range(3, self.num_in_bonds+2, 2))])
-        # TODO: check where the 'zn' dimensions got placed
-        # 'znijcdefgh, znkcld -> znijklefgh', left_contracted, right_input,
+            axes=[[0]+list(range(1+self.num_in_bonds, 1+self.num_in_bonds+self.num_out_bonds)),
+                  [1]+list(range(2, 2+self.num_out_bonds))])
+        # 'znijcdefgh, znkcld -> znijklefgh', left_contracted, right_input (old)
+        # 'abcdghzij, znghkl -> abcdzijznkl', left_contracted, right_input
         input_contracted = tf.tensordot(
             left_contracted, right_input,
-            axes=[list(range(self.num_anc+3, self.num_in_bonds+2)),
-                  list(range(3, self.num_in_bonds+2, 2))])
+            axes=[list(range(self.num_in_bonds, self.num_in_bonds+self.num_out_bonds)),
+                  list(range(2, 2+self.num_out_bonds))])
         # 'znijklefgh, nijklefmo -> znmogh', input_contracted, conj(unitary_tensor)
         output = tf.tensordot(
             input_contracted, tf.math.conj(unitary_tensor),
