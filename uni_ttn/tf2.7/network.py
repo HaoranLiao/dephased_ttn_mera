@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import string
 
 
 class Network:
@@ -13,32 +14,37 @@ class Network:
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)
+        if deph_p == 0: self.deph_data, self.deph_net = False, False
         self.layers = []
 
-        self.num_out_bonds = self.num_anc + 1
-        if self.num_out_bonds > 1: self.construct_dephasing_krauss()
+        self.num_out_qubits = self.num_anc + 1
+        if self.num_anc: self.construct_dephasing_krauss()
 
         self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
             self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
 
         if num_anc:
+            self.bond_dim = 2 ** (num_anc + 1)
             self.ancilla = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
             self.ancillas = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
             for _ in range(self.num_anc-1):
-                self.ancillas = tf.tensordot(self.ancillas, self.ancilla, axes=0)
+                self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
         self.opt = tf.keras.optimizers.Adam()
 
+        chars = string.ascii_lowercase
+        self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
+
     def get_network_output(self, input_batch):
+        self.batch_size = len(input_batch)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
         if self.num_anc:
-            input_batch = tf.tensordot(input_batch, self.ancillas, axes=0)
-            input_batch = tf.transpose(
-                input_batch,
-                perm=[0, 1, *list(range(2, 2*self.num_out_bonds+2, 2)), *list(range(3, 2*self.num_out_bonds+2, 2))])
+            input_batch = tf.reshape(
+                tf.einsum('znab, cd -> znabcd', input_batch, self.ancillas),
+                [self.batch_size, 2*self.list_num_nodes[0], self.bond_dim, self.bond_dim])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
         layer_out = self.layers[0].get_layer_output(input_batch)
@@ -47,9 +53,10 @@ class Network:
             layer_out = self.layers[i].get_layer_output(layer_out)
             if self.deph_net: layer_out = self.dephase(layer_out)
 
-        final_layer_out = self.layers[self.num_layers-1].get_layer_output(layer_out)[:, 0]
-        # 'zabcd -> zab', final_layer_out
-        # TODO: 'zabcd -> zab', final_layer_out
+        final_layer_out = tf.reshape(
+            self.layers[self.num_layers-1].get_layer_output(layer_out)[:, 0],
+            [self.batch_size, *[2]*(2*self.num_out_qubits)])
+        final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
@@ -57,8 +64,8 @@ class Network:
     def update(self, input_batch, label_batch):
         self.input_batch = tf.constant(input_batch)
         self.label_batch = tf.constant(label_batch, dtype=tf.float32)
-        # self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
-        self.get_network_output(self.input_batch)
+        self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
+        # self.get_network_output(self.input_batch)
 
     @tf.function
     def loss(self):
@@ -67,22 +74,7 @@ class Network:
 
     def dephase(self, tensor):
         if self.num_anc:
-            # left_contracted = 'kabcd, zncdef -> kabznef', krauss, rho, when there is one ancilla
-            left_contracted = tf.tensordot(
-                self.krauss_ops, tensor,
-                axes=[list(range(1+self.num_out_bonds, 1+2*self.num_out_bonds)),
-                      list(range(2, 2+self.num_out_bonds))])
-            # dephased_tensor = 'kabznef, kghef (kefgh transposed) -> abzngh', left_contracted, krauss (real so no conj)
-            dephased_tensor = tf.tensordot(
-                left_contracted, self.krauss_ops,
-                axes=[[0]+list(range(3+self.num_out_bonds, 3+2*self.num_out_bonds)),
-                      [0]+list(range(1+self.num_out_bonds, 1+2*self.num_out_bonds))])
-            # dephased_tensor = 'abzngh -> znabgh'
-            dephased_tensor = tf.transpose(
-                dephased_tensor,
-                perm=[self.num_out_bonds, self.num_out_bonds+1,
-                      *list(range(self.num_out_bonds)), *list(range(2+self.num_out_bonds, 2+2*self.num_out_bonds))])
-            return dephased_tensor
+            return tf.einsum('kab, znbc, kdc -> znad', self.krauss_ops, tensor, self.krauss_ops)
         else:
             return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
 
@@ -91,27 +83,23 @@ class Network:
         m2 = tf.cast(tf.math.sqrt(self.deph_p), tf.complex64) * tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
         m3 = tf.cast(tf.math.sqrt(self.deph_p), tf.complex64) * tf.constant([[0, 0], [0, 1]], dtype=tf.complex64)
         m = (m1, m2, m3)
-        combinations = tf.reshape(tf.transpose(
-                                tf.meshgrid(*[[0, 1, 2]]*self.num_out_bonds)
-                            ), [-1, self.num_out_bonds])
+        combinations = tf.reshape(
+            tf.transpose(tf.meshgrid(*[[0, 1, 2]]*self.num_out_qubits)),
+            [-1, self.num_out_qubits])
         self.krauss_ops = []
         for combo in combinations:
             tensor_prod = m[combo[0]]
-            for idx in combo[1:]: tensor_prod = tf.tensordot(tensor_prod, m[idx], axes=0)
+            for idx in combo[1:]: tensor_prod = tf.experimental.numpy.kron(tensor_prod, m[idx])
             self.krauss_ops.append(tensor_prod)
         self.krauss_ops = tf.stack(self.krauss_ops)
-        self.krauss_ops = tf.transpose(
-            self.krauss_ops,
-            perm=[0, *list(range(1, 1+2*self.num_out_bonds, 2)), *list(range(2, 1+2*self.num_out_bonds, 2))])
 
 
 class Layer:
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         self.num_anc = num_anc
         self.layer_idx = layer_idx
-        self.num_out_bonds = self.num_anc + 1
-        self.num_in_bonds = 2 * (self.num_anc + 1)
-        self.num_diags = 2 ** self.num_in_bonds
+        self.bond_dim = 2 ** (num_anc + 1)
+        self.num_diags = 2 ** (2 * (num_anc + 1))
         self.num_op_params = self.num_diags ** 2
         self.num_nodes = num_nodes
         self.init_mean, self.std = init_mean, init_std
@@ -147,45 +135,14 @@ class Layer:
         diag_exp_mat = tf.linalg.diag(eig_exp)
         self.unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
                                         eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[2]*(2*self.num_in_bonds)])
+        unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
         return unitary_tensor
 
     def get_layer_output(self, input):
         left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor = self.get_unitary_tensor()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # 'nabcdefgh, znefij -> abcdghzij, unitary_tensor, left_input, when there is one ancilla
-        left_contracted = tf.tensordot(
-            unitary_tensor, left_input,
-            axes=[[0]+list(range(1+self.num_in_bonds, 1+self.num_in_bonds+self.num_out_bonds)),
-                  [1]+list(range(2, 2+self.num_out_bonds))])
-        # 'znijcdefgh, znkcld -> znijklefgh', left_contracted, right_input (old)
-        # 'abcdghzij, znghkl -> abcdzijznkl', left_contracted, right_input
-        input_contracted = tf.tensordot(
-            left_contracted, right_input,
-            axes=[list(range(self.num_in_bonds, self.num_in_bonds+self.num_out_bonds)),
-                  list(range(2, 2+self.num_out_bonds))])
-        # 'znijklefgh, nijklefmo -> znmogh', input_contracted, conj(unitary_tensor)
-        output = tf.tensordot(
-            input_contracted, tf.math.conj(unitary_tensor),
-            axes=[list(range(2, 2*self.num_in_bonds)),
-                  list(range(1, 2*self.num_in_bonds-1))])
-        # 'znmogh -> znmgoh'
-        output = tf.transpose(
-            output,
-            perm=[0, 1, *list(range(2, 2+2*(self.num_anc+1), 2)), *list(range(3, 2+2*(self.num_anc+1), 2))])
+        left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
+        output = tf.einsum('znabef, nahef -> znbh', left_contracted, tf.math.conj(unitary_tensor))
         return output
+
 

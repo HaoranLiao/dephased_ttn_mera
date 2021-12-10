@@ -2,10 +2,10 @@ data:
  path: '../../mnist8by8/mnist8by8'
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
- list_batch_sizes: [25]                  # list or list of single
+ list_batch_sizes: [50]                  # list or list of single
  load_from_file: False
  data_im_size: [4,4]
- sample_size: 100                # int or None
+ sample_size: 1000                # int or None
  feature_dim: 2
 
 meta:
@@ -17,20 +17,18 @@ meta:
   num_match: 7
   trigger: 10
 
- list_epochs: [5]                        # list or list of single
+ list_epochs: [50]                        # list or list of single
  list_devices: True
 
  deph:
   data: True
   network: True
-  p: [0.1]
+  p: [1]
 
 tree:
  param:
   init_mean: 0
   init_std: 0.1
-
- loss: 'l2'                               # 'l2'
 
  opt:
   opt: 'adam'                          # 'adam'
