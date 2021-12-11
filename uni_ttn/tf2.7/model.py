@@ -140,6 +140,7 @@ class Model:
             return val_accuracy
         else:
             pred_probs = self.network.get_network_output(self.train_images)
+            print(pred_probs)
             train_accuracy = get_accuracy(pred_probs, self.train_labels)
             return train_accuracy
 

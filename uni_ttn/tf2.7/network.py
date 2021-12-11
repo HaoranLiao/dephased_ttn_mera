@@ -14,11 +14,12 @@ class Network:
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)
+        print('Dephasing p:', deph_p)
         if deph_p == 0: self.deph_data, self.deph_net = False, False
         self.layers = []
 
         self.num_out_qubits = self.num_anc + 1
-        if self.num_anc: self.construct_dephasing_krauss()
+        if self.num_anc and self.deph_p > 0: self.construct_dephasing_krauss()
 
         self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
@@ -43,7 +44,7 @@ class Network:
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
         if self.num_anc:
             input_batch = tf.reshape(
-                tf.einsum('znab, cd -> znabcd', input_batch, self.ancillas),
+                tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
                 [self.batch_size, 2*self.list_num_nodes[0], self.bond_dim, self.bond_dim])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
@@ -62,6 +63,7 @@ class Network:
         return output_probs
 
     def update(self, input_batch, label_batch):
+        # TODO: move it to the data level
         self.input_batch = tf.constant(input_batch)
         self.label_batch = tf.constant(label_batch, dtype=tf.float32)
         self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
@@ -92,7 +94,6 @@ class Network:
             for idx in combo[1:]: tensor_prod = tf.experimental.numpy.kron(tensor_prod, m[idx])
             self.krauss_ops.append(tensor_prod)
         self.krauss_ops = tf.stack(self.krauss_ops)
-
 
 class Layer:
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):

@@ -138,8 +138,11 @@ def get_data_web(digits, val_split, size, dim, sample_size=None):
     print('Fetch Data From Web')
     data = DataGenerator()
     data.shrink_images(size)
+
+    data.train_images = 1 - data.train_images
+    data.test_images = 1 - data.test_images
+
     data.featurize(dim=dim)
-    # TODO: need to change this featurization to adding zero ancillas
     train_raw_im, train_raw_lab = data.train_images, data.train_labels
     test_raw_im, test_raw_lab = data.test_images, data.test_labels
     return process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,

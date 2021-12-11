@@ -9,7 +9,7 @@ data:
  feature_dim: 2
 
 meta:
- list_num_anc: [1]                # list or list of single
+ list_num_anc: [2]                # list or list of single
  num_repeat: 1
  auto_epochs:
   enabled: False
@@ -17,7 +17,7 @@ meta:
   num_match: 7
   trigger: 10
 
- list_epochs: [50]                        # list or list of single
+ list_epochs: [100]                        # list or list of single
  list_devices: True
 
  deph:
