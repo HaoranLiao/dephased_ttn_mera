@@ -101,6 +101,8 @@ class Model:
             print('Epoch %d: %.5f accuracy' % (epoch, accuracy))
             sys.stdout.flush()
 
+            if not epoch % 5: self.test_network()
+
             self.epoch_acc.append(accuracy)
             if auto_epochs:
                 trigger = self.config['meta']['auto_epochs']['trigger']
