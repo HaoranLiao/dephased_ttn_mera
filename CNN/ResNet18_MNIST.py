@@ -2,6 +2,12 @@
 Using ResNet18 to give a baseline.
 Codes mainly base on the cnn_adver_mnist repo.
 Accuracy: 0.928
+Other reference materials:
+sTTN_Deph_MNIST.conv_net_mnist.conv_net_mnist.py
+pytroch.vision.references.classification.train.py
+https://discuss.pytorch.org/t/modify-resnet-or-vgg-for-single-channel-grayscale/22762
+https://nextjournal.com/gkoehler/pytorch-mnist
+https://github.com/pytorch/vision/blob/main/torchvision/models/resnet.py (official implementation of resnet)
 '''
 import torch
 import torchvision.models as models
