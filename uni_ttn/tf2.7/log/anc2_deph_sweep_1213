@@ -187,3 +187,33 @@ Epoch 91: 0.96520 accuracy
 Epoch 92: 0.96520 accuracy
 Epoch 93: 0.96520 accuracy
 Epoch 94: 0.96640 accuracy
+Epoch 95: 0.96640 accuracy
+Test Accuracy : 0.961
+Epoch 96: 0.96560 accuracy
+Epoch 97: 0.96560 accuracy
+Epoch 98: 0.96560 accuracy
+Epoch 99: 0.96560 accuracy
+Train Accuracy: 0.966
+Test Accuracy : 0.961
+Time: 318.2
+
+Repeat: 2/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Number of Ancillas: 2
+Load Data From File
+Sample Size: 2500
+No Validation
+Epoch 0: 0.54160 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.54160 accuracy
+Epoch 2: 0.54160 accuracy
+Epoch 3: 0.59360 accuracy
+Epoch 4: 0.81520 accuracy
+Epoch 5: 0.88840 accuracy
+Test Accuracy : 0.881
+Epoch 6: 0.90640 accuracy
