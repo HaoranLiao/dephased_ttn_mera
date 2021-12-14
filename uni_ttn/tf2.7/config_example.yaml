@@ -23,7 +23,7 @@ meta:
  deph:
   data: True
   network: True
-  p: [1]
+  p: [0.2]
 
 tree:
  param:
@@ -31,10 +31,8 @@ tree:
   init_std: 0.1
 
  opt:
-  opt: 'adam'                          # 'adam'
+  opt: 'adam'
   adam:
    user_lr: False
    lr: 0.0001
-   show_grad: False
-   show_hess: False
 
