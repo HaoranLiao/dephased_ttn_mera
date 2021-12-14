@@ -121,7 +121,7 @@ class Model:
         sys.stdout.flush()
 
         test_accuracy = self.test_network()
-        
+
         return test_accuracy, train_or_val_accuracy
 
     def test_network(self):
