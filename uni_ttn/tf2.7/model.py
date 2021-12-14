@@ -48,10 +48,10 @@ def run_all(i):
         train_accs.append(train_acc)
         print('Time: %.1f' % (time.time() - start_time)); sys.stdout.flush()
 
-    print(f'\nSetting {i} Train Accs: {train_accs}\t')
+    print(f'\nSetting {i} Train Accs: {train_accs:.3f}\t')
     print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
     print('Setting %d Std Train Acc: %.3f' % (i, np.std(train_accs)))
-    print(f'Setting {i} Test Accs: {test_accs}\t')
+    print(f'Setting {i} Test Accs: {test_accs:.3f}\t')
     print('Setting %d Avg Test Acc: %.3f' % (i, np.mean(test_accs)))
     print('Setting %d Std Test Acc: %.3f' % (i, np.std(test_accs)))
     sys.stdout.flush()
