@@ -14,7 +14,6 @@ class Network:
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)
-        print(f'Dephasing p: {deph_p:.1f}')
         if deph_p == 0: self.deph_data, self.deph_net = False, False
         self.layers = []
 
@@ -42,7 +41,6 @@ class Network:
     def get_network_output(self, input_batch):
         self.batch_size = len(input_batch)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
-        # input_batch = tf.cast(input_batch, dtype=tf.complex64)
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
@@ -64,9 +62,6 @@ class Network:
         return output_probs
 
     def update(self, input_batch, label_batch):
-        # TODO: move it to the data level
-        # self.input_batch = tf.constant(input_batch)
-        # self.label_batch = tf.constant(label_batch, dtype=tf.float32)
         self.input_batch, self.label_batch = input_batch, label_batch
         self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
         # self.get_network_output(self.input_batch)

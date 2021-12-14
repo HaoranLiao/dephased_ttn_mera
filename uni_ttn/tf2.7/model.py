@@ -1,7 +1,8 @@
 import tensorflow as tf
 import numpy as np
-import sys, data, os, time, yaml, json
+import sys, os, time, yaml, json
 import network
+import data
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
