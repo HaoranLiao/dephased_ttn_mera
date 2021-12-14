@@ -44,14 +44,14 @@ def run_all(i):
         model = Model(data_path, digits, val_split, deph_p, num_anc, config)
         test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
 
-        test_accs.append(test_acc)
-        train_accs.append(train_acc)
+        test_accs.append(round(test_acc, 4))
+        train_accs.append(round(train_acc, 4))
         print('Time: %.1f' % (time.time() - start_time)); sys.stdout.flush()
 
-    print(f'\nSetting {i} Train Accs: {train_accs:.3f}\t')
+    print(f'\nSetting {i} Train Accs: {train_accs}\t')
     print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
     print('Setting %d Std Train Acc: %.3f' % (i, np.std(train_accs)))
-    print(f'Setting {i} Test Accs: {test_accs:.3f}\t')
+    print(f'Setting {i} Test Accs: {test_accs}\t')
     print('Setting %d Avg Test Acc: %.3f' % (i, np.mean(test_accs)))
     print('Setting %d Std Test Acc: %.3f' % (i, np.std(test_accs)))
     sys.stdout.flush()

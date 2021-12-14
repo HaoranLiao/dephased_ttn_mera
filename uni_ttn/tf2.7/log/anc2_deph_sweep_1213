@@ -1,0 +1,102 @@
+{
+ "data": {
+  "path": "../../mnist8by8/mnist8by8",
+  "val_split": 0,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 2500,
+  "feature_dim": 2
+ },
+ "meta": {
+  "list_num_anc": [
+   2
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 7,
+   "trigger": 10
+  },
+  "list_epochs": [
+   100
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": 0.1
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": false,
+    "lr": 0.0001
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Number of Ancillas: 2
+Load Data From File
+Sample Size: 2500
+No Validation
+Epoch 0: 0.54160 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.54200 accuracy
+Epoch 2: 0.65160 accuracy
+Epoch 3: 0.81880 accuracy
+Epoch 4: 0.83280 accuracy
+Epoch 5: 0.85880 accuracy
+Test Accuracy : 0.866
+Epoch 6: 0.88880 accuracy
+Epoch 7: 0.90600 accuracy
+Epoch 8: 0.91280 accuracy
+Epoch 9: 0.92200 accuracy
+Epoch 10: 0.92800 accuracy
+Test Accuracy : 0.924
+Epoch 11: 0.93320 accuracy
+Epoch 12: 0.94040 accuracy
+Epoch 13: 0.94120 accuracy
+Epoch 14: 0.94520 accuracy
+Epoch 15: 0.94720 accuracy
+Test Accuracy : 0.940
+Epoch 16: 0.94800 accuracy
+Epoch 17: 0.95080 accuracy
+Epoch 18: 0.95240 accuracy
+Epoch 19: 0.95280 accuracy
+Epoch 20: 0.95280 accuracy
+Test Accuracy : 0.944
+Epoch 21: 0.95440 accuracy
