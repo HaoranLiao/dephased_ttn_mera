@@ -75,20 +75,26 @@ class Model:
                 digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
+        self.train_images = tf.constant(self.train_images, dtype=tf.complex64)
+        self.train_labels = tf.constant(self.train_labels, dtype=tf.complex64)
         print('Sample Size: %s' % self.train_images.shape[0])
 
         if val_data is not None:
             print('Validation Split: %.2f' % val_split)
             self.val_images, self.val_labels = val_data
+            self.val_images = tf.constant(self.val_images, dtype=tf.complex64)
+            self.val_labels = tf.constant(self.val_labels, dtype=tf.complex64)
         else:
             assert config['data']['val_split'] == 0
             print('No Validation')
         sys.stdout.flush()
 
         self.test_images, self.test_labels = test_data
+        self.test_images = tf.constant(self.test_images, dtype=tf.complex64)
+        self.test_labels = tf.constant(self.test_labels, dtype=tf.complex64)
+
         num_pixels = self.train_images.shape[1]
         self.config = config
-
         self.network = network.Network(num_pixels, deph_p, num_anc, config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
@@ -101,7 +107,7 @@ class Model:
             print('Epoch %d: %.5f accuracy' % (epoch, accuracy))
             sys.stdout.flush()
 
-            if not epoch % 5: self.test_network()
+            if epoch%5 == 0: self.test_network()
 
             self.epoch_acc.append(accuracy)
             if auto_epochs:
@@ -115,6 +121,7 @@ class Model:
         sys.stdout.flush()
 
         test_accuracy = self.test_network()
+        
         return test_accuracy, train_or_val_accuracy
 
     def test_network(self):
@@ -142,7 +149,6 @@ class Model:
             return val_accuracy
         else:
             pred_probs = self.network.get_network_output(self.train_images)
-            # print(pred_probs)
             train_accuracy = get_accuracy(pred_probs, self.train_labels)
             return train_accuracy
 

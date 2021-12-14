@@ -14,7 +14,7 @@ class Network:
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)
-        print('Dephasing p:', deph_p)
+        print(f'Dephasing p: {deph_p:.1f}')
         if deph_p == 0: self.deph_data, self.deph_net = False, False
         self.layers = []
 
@@ -42,7 +42,7 @@ class Network:
     def get_network_output(self, input_batch):
         self.batch_size = len(input_batch)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
-        input_batch = tf.cast(input_batch, dtype=tf.complex64)
+        # input_batch = tf.cast(input_batch, dtype=tf.complex64)
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
@@ -76,10 +76,8 @@ class Network:
         return self.cce(pred_batch, self.label_batch)
 
     def dephase(self, tensor):
-        if self.num_anc:
-            return tf.einsum('kab, znbc, kdc -> znad', self.krauss_ops, tensor, self.krauss_ops)
-        else:
-            return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
+        if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.krauss_ops, tensor, self.krauss_ops)
+        else: return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
 
     def construct_dephasing_krauss(self):
         m1 = tf.cast(tf.math.sqrt(1 - self.deph_p), tf.complex64) * tf.eye(2, dtype=tf.complex64)
