@@ -17,7 +17,7 @@ class DataGenerator:
         self.train_images = resize_images(self.train_images, new_shape)
         self.test_images = resize_images(self.test_images, new_shape)
 
-    def featurize(self, dim=2):
+    def featurize(self, dim):
         self.train_images = trig_featurize(self.train_images, dim)
         self.test_images = trig_featurize(self.test_images, dim)
         
@@ -89,8 +89,7 @@ def trig_featurize(images, dim):
     pix_copy = np.tile(prep_axes, [1, 1, dim])
     
     d = dim
-    for s in range(dim):
-        s += 1
+    for s in range(1, dim+1):
         pix_copy[:, :, s-1] = np.sqrt(
                 float(math.factorial(d-1)) / \
                 float(math.factorial(s-1) * math.factorial(d-s))
@@ -139,7 +138,7 @@ def get_data_web(digits, val_split, size, dim, sample_size=None):
     print('Fetch Data From Web')
     data = DataGenerator()
     data.shrink_images(size)
-    # data.featurize(dim=dim)
+    # data.featurize(dim)
     data.featurize_qubit()
     train_raw_im, train_raw_lab = data.train_images, data.train_labels
     test_raw_im, test_raw_lab = data.test_images, data.test_labels
@@ -183,7 +182,7 @@ if __name__ == '__main__':
     data1 = DataGenerator()
     data1.shrink_images([8, 8])
     dim = 2
-    data1.featurize(dim=dim)
+    data1.featurize(dim)
     
     data2 = DataGenerator()
     data2.shrink_images([8, 8])

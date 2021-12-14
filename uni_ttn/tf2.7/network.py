@@ -15,11 +15,11 @@ class Network:
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)
         if deph_p == 0: self.deph_data, self.deph_net = False, False
-        self.layers = []
 
         self.num_out_qubits = self.num_anc + 1
         if self.num_anc and self.deph_p > 0: self.construct_dephasing_krauss()
 
+        self.layers = []
         self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
             self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
