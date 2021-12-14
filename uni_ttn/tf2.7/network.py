@@ -65,8 +65,9 @@ class Network:
 
     def update(self, input_batch, label_batch):
         # TODO: move it to the data level
-        self.input_batch = tf.constant(input_batch)
-        self.label_batch = tf.constant(label_batch, dtype=tf.float32)
+        # self.input_batch = tf.constant(input_batch)
+        # self.label_batch = tf.constant(label_batch, dtype=tf.float32)
+        self.input_batch, self.label_batch = input_batch, label_batch
         self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
         # self.get_network_output(self.input_batch)
 

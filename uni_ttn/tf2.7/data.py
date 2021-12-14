@@ -56,9 +56,10 @@ def resize_images(images, shape):
 
 def batch_generator(images, labels, batch_size):
     num_images = images.shape[0]
-    random_perm = np.random.permutation(num_images)
-    randomized_images = images[random_perm]
-    randomized_labels = labels[random_perm]
+    indices = tf.range(start=0, limit=num_images, dtype=tf.int32)
+    shuffled_indices = tf.random.shuffle(indices)
+    randomized_images = tf.gather(images, shuffled_indices)
+    randomized_labels = tf.gather(labels, shuffled_indices)
     
     for i in range(0, num_images, batch_size):
         batch_images = randomized_images[i:i+batch_size]

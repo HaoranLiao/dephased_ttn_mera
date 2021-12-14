@@ -76,14 +76,14 @@ class Model:
 
         self.train_images, self.train_labels = train_data
         self.train_images = tf.constant(self.train_images, dtype=tf.complex64)
-        self.train_labels = tf.constant(self.train_labels, dtype=tf.complex64)
+        self.train_labels = tf.constant(self.train_labels, dtype=tf.float32)
         print('Sample Size: %s' % self.train_images.shape[0])
 
         if val_data is not None:
             print('Validation Split: %.2f' % val_split)
             self.val_images, self.val_labels = val_data
             self.val_images = tf.constant(self.val_images, dtype=tf.complex64)
-            self.val_labels = tf.constant(self.val_labels, dtype=tf.complex64)
+            self.val_labels = tf.constant(self.val_labels, dtype=tf.float32)
         else:
             assert config['data']['val_split'] == 0
             print('No Validation')
@@ -91,7 +91,7 @@ class Model:
 
         self.test_images, self.test_labels = test_data
         self.test_images = tf.constant(self.test_images, dtype=tf.complex64)
-        self.test_labels = tf.constant(self.test_labels, dtype=tf.complex64)
+        self.test_labels = tf.constant(self.test_labels, dtype=tf.float32)
 
         num_pixels = self.train_images.shape[1]
         self.config = config
