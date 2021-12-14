@@ -139,8 +139,8 @@ def get_data_web(digits, val_split, size, dim, sample_size=None):
     data = DataGenerator()
     data.shrink_images(size)
 
-    data.train_images = 1 - data.train_images
-    data.test_images = 1 - data.test_images
+    # data.train_images = 1 - data.train_images
+    # data.test_images = 1 - data.test_images
 
     data.featurize(dim=dim)
     train_raw_im, train_raw_lab = data.train_images, data.train_labels
