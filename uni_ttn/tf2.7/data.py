@@ -139,11 +139,8 @@ def get_data_web(digits, val_split, size, dim, sample_size=None):
     print('Fetch Data From Web')
     data = DataGenerator()
     data.shrink_images(size)
-
-    # data.train_images = 1 - data.train_images
-    # data.test_images = 1 - data.test_images
-
-    data.featurize(dim=dim)
+    # data.featurize(dim=dim)
+    data.featurize_qubit()
     train_raw_im, train_raw_lab = data.train_images, data.train_labels
     test_raw_im, test_raw_lab = data.test_images, data.test_labels
     return process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
@@ -154,7 +151,7 @@ def process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
             digits, val_split, sample_size=None):
     (train_images, train_labels_int) = select_digits(train_raw_im, train_raw_lab, digits)
     (test_images, test_labels_int) = select_digits(test_raw_im, test_raw_lab, digits)
-    if sample_size is not None:
+    if sample_size:
         assert sample_size > 0
         train_images, train_labels_int = train_images[0:sample_size], train_labels_int[0:sample_size]
         test_images, test_labels_int = test_images[0:sample_size], test_labels_int[0:sample_size]
@@ -167,7 +164,6 @@ def process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
         (true_train_data, val_data) = split_data(train_images, train_labels, val_split)
         return true_train_data, val_data, (test_images, test_labels)
     else:
-        assert val_split == 0
         return (train_images, train_labels), None, (test_images, test_labels)
 
 
