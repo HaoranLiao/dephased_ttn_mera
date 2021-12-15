@@ -76,23 +76,23 @@ class Model:
                 digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
-        self.train_images = tf.constant(self.train_images, dtype=tf.complex64)
-        self.train_labels = tf.constant(self.train_labels, dtype=tf.float32)
+        # self.train_images = tf.constant(self.train_images, dtype=tf.complex64)
+        # self.train_labels = tf.constant(self.train_labels, dtype=tf.float32)
         print('Sample Size: %s' % self.train_images.shape[0])
 
         if val_data is not None:
             print('Validation Split: %.2f' % val_split)
             self.val_images, self.val_labels = val_data
-            self.val_images = tf.constant(self.val_images, dtype=tf.complex64)
-            self.val_labels = tf.constant(self.val_labels, dtype=tf.float32)
+            # self.val_images = tf.constant(self.val_images, dtype=tf.complex64)
+            # self.val_labels = tf.constant(self.val_labels, dtype=tf.float32)
         else:
             assert config['data']['val_split'] == 0
             print('No Validation')
         sys.stdout.flush()
 
         self.test_images, self.test_labels = test_data
-        self.test_images = tf.constant(self.test_images, dtype=tf.complex64)
-        self.test_labels = tf.constant(self.test_labels, dtype=tf.float32)
+        # self.test_images = tf.constant(self.test_images, dtype=tf.complex64)
+        # self.test_labels = tf.constant(self.test_labels, dtype=tf.float32)
 
         num_pixels = self.train_images.shape[1]
         self.config = config
@@ -139,7 +139,7 @@ class Model:
         return True
 
     def run_epoch(self, batch_size):
-        batch_iter = data.batch_generator(self.train_images, self.train_labels, batch_size)
+        batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
         for (train_image_batch, train_label_batch) in batch_iter:
             self.network.update(train_image_batch, train_label_batch)
 

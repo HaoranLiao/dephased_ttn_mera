@@ -41,6 +41,7 @@ class Network:
     def get_network_output(self, input_batch):
         self.batch_size = len(input_batch)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
+        input_batch = tf.cast(input_batch, tf.complex64)
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
@@ -62,7 +63,9 @@ class Network:
         return output_probs
 
     def update(self, input_batch, label_batch):
-        self.input_batch, self.label_batch = input_batch, label_batch
+        self.input_batch = tf.constant(input_batch, dtype=tf.complex64)
+        self.label_batch = tf.constant(label_batch, dtype=tf.float32)
+        # self.input_batch, self.label_batch = input_batch, label_batch
         self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
         # self.get_network_output(self.input_batch)
 

@@ -54,7 +54,7 @@ def resize_images(images, shape):
     return new_images
 
 
-def batch_generator(images, labels, batch_size):
+def batch_generator_tf(images, labels, batch_size):
     num_images = images.shape[0]
     indices = tf.range(start=0, limit=num_images, dtype=tf.int32)
     shuffled_indices = tf.random.shuffle(indices)
@@ -64,6 +64,18 @@ def batch_generator(images, labels, batch_size):
     for i in range(0, num_images, batch_size):
         batch_images = randomized_images[i:i+batch_size]
         batch_labels = randomized_labels[i:i+batch_size]
+        yield batch_images, batch_labels
+
+
+def batch_generator_np(images, labels, batch_size):
+    num_images = images.shape[0]
+    random_perm = np.random.permutation(num_images)
+    randomized_images = images[random_perm]
+    randomized_labels = labels[random_perm]
+
+    for i in range(0, num_images, batch_size):
+        batch_images = randomized_images[i: i + batch_size]
+        batch_labels = randomized_labels[i: i + batch_size]
         yield batch_images, batch_labels
 
 
