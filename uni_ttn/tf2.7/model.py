@@ -125,9 +125,19 @@ class Model:
 
         return test_accuracy, train_or_val_accuracy
 
-    def test_network(self):
-        test_results = self.network.get_network_output(self.test_images)
-        test_accuracy = get_accuracy(test_results, self.test_labels)
+    # def test_network(self):
+    #     test_results = self.network.get_network_output(self.test_images)
+    #     test_accuracy = get_accuracy(test_results, self.test_labels)
+    #     print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
+    #     return test_accuracy
+
+    def test_network(self, batch_size):
+        test_accs = []
+        batch_iter = data.batch_generator_np(self.test_images, self.test_labels, batch_size)
+        for (test_image_batch, test_label_batch) in batch_iter:
+            pred_probs = self.network.get_network_output(test_image_batch)
+            test_accs.append(get_accuracy(pred_probs, test_label_batch))
+        test_accuracy = np.mean(test_accs)
         print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
         return test_accuracy
 
