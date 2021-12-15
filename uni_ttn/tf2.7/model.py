@@ -105,10 +105,11 @@ class Model:
         self.epoch_acc = []
         for epoch in range(epochs):
             accuracy = self.run_epoch(batch_size)
-            print('Epoch %d: %.5f accuracy' % (epoch, accuracy))
-            sys.stdout.flush()
+            print('Epoch %d: %.5f accuracy' % (epoch, accuracy)); sys.stdout.flush()
 
-            if epoch%5 == 0: self.test_network()
+            if epoch%5 == 0:
+                test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size)
+                print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
 
             self.epoch_acc.append(accuracy)
             if auto_epochs:
@@ -121,7 +122,8 @@ class Model:
         else: print('Validation Accuracy: %.3f' % train_or_val_accuracy)
         sys.stdout.flush()
 
-        test_accuracy = self.test_network()
+        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size)
+        print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
 
         return test_accuracy, train_or_val_accuracy
 
@@ -131,15 +133,14 @@ class Model:
     #     print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
     #     return test_accuracy
 
-    def test_network(self, batch_size):
-        test_accs = []
-        batch_iter = data.batch_generator_np(self.test_images, self.test_labels, batch_size)
-        for (test_image_batch, test_label_batch) in batch_iter:
-            pred_probs = self.network.get_network_output(test_image_batch)
-            test_accs.append(get_accuracy(pred_probs, test_label_batch))
-        test_accuracy = np.mean(test_accs)
-        print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
-        return test_accuracy
+    def run_network(self, images, labels, batch_size):
+        num_correct = 0
+        batch_iter = data.batch_generator_np(images, labels, batch_size)
+        for (image_batch, label_batch) in batch_iter:
+            pred_probs = self.network.get_network_output(image_batch)
+            num_correct += get_accuracy(pred_probs, label_batch)[1]
+        accuracy = num_correct / images.shape[0]
+        return accuracy
 
     def check_acc_satified(self, accuracy):
         criterion = self.config['meta']['auto_epochs']['criterion']
@@ -155,12 +156,14 @@ class Model:
 
         if val_split:
             assert self.config['data']['val_split'] > 0
-            pred_probs = self.network.get_network_output(self.val_images)
-            val_accuracy = get_accuracy(pred_probs, self.val_labels)
+            # pred_probs = self.network.get_network_output(self.val_images)
+            # val_accuracy = get_accuracy(pred_probs, self.val_labels)
+            val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size)
             return val_accuracy
         else:
-            pred_probs = self.network.get_network_output(self.train_images)
-            train_accuracy = get_accuracy(pred_probs, self.train_labels)
+            # pred_probs = self.network.get_network_output(self.train_images)
+            # train_accuracy = get_accuracy(pred_probs, self.train_labels)
+            train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size)
             return train_accuracy
 
 
@@ -171,7 +174,7 @@ def get_accuracy(guesses, labels):
     num_correct = float(np.sum(compare == 0))
     total = float(guesses.shape[0])
     accuracy = num_correct / total
-    return accuracy
+    return accuracy, num_correct
 
 
 if __name__ == "__main__":
