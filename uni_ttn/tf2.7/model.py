@@ -158,13 +158,9 @@ class Model:
 
         if val_split:
             assert self.config['data']['val_split'] > 0
-            # pred_probs = self.network.get_network_output(self.val_images)
-            # val_accuracy = get_accuracy(pred_probs, self.val_labels)
             val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size)
             return val_accuracy
         else:
-            # pred_probs = self.network.get_network_output(self.train_images)
-            # train_accuracy = get_accuracy(pred_probs, self.train_labels)
             train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size)
             return train_accuracy
 
