@@ -131,7 +131,7 @@ class Model:
     def run_network(self, images, labels, batch_size):
         num_correct = 0
         batch_iter = data.batch_generator_np(images, labels, batch_size)
-        for (image_batch, label_batch) in tqdm(batch_iter, leave=True, disable=TQDM_DISABLED):
+        for (image_batch, label_batch) in tqdm(batch_iter, leave=False, disable=TQDM_DISABLED):
             pred_probs = self.network.get_network_output(image_batch)
             num_correct += get_accuracy(pred_probs, label_batch)[1]
         accuracy = num_correct / images.shape[0]
@@ -146,7 +146,7 @@ class Model:
 
     def run_epoch(self, batch_size):
         batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
-        for (train_image_batch, train_label_batch) in tqdm(batch_iter, leave=True, disable=TQDM_DISABLED):
+        for (train_image_batch, train_label_batch) in tqdm(batch_iter, leave=False, disable=TQDM_DISABLED):
             self.network.update(train_image_batch, train_label_batch)
 
         if val_split:
