@@ -32,7 +32,7 @@ def run_all(i):
 
     auto_epochs = config['meta']['auto_epochs']['enabled']
     test_accs, train_accs = [], []
-    for j in range(num_repeat):
+    for j in tqdm(range(num_repeat), total=num_repeat, leave=True):
         start_time = time.time()
         print('\nRepeat: %s/%s' % (j + 1, num_repeat))
         print('Digits:\t', digits)
@@ -191,6 +191,6 @@ if __name__ == "__main__":
 
     start_time = time.time()
     try:
-        for i in range(num_settings): run_all(i)
+        for i in tqdm(range(num_settings), total=num_settings, leave=True): run_all(i)
     finally:
         print_results(start_time)
