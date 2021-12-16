@@ -38,7 +38,7 @@ class Network:
         chars = string.ascii_lowercase
         self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
 
-    def get_network_output(self, input_batch):
+    def get_network_output(self, input_batch: np.ndarray):
         self.batch_size = len(input_batch)
         input_batch = tf.constant(input_batch, dtype=tf.complex64)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
@@ -62,7 +62,7 @@ class Network:
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
 
-    def update(self, input_batch, label_batch):
+    def update(self, input_batch: np.ndarray, label_batch: np.ndarray):
         self.input_batch = input_batch
         self.label_batch = tf.constant(label_batch, dtype=tf.float32)
         self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])

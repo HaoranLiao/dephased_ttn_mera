@@ -126,14 +126,7 @@ class Model:
 
         test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size)
         print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
-
         return test_accuracy, train_or_val_accuracy
-
-    # def test_network(self):
-    #     test_results = self.network.get_network_output(self.test_images)
-    #     test_accuracy = get_accuracy(test_results, self.test_labels)
-    #     print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
-    #     return test_accuracy
 
     def run_network(self, images, labels, batch_size):
         num_correct = 0
