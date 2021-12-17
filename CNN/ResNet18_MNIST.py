@@ -17,7 +17,7 @@ import numpy as np
 import torch.nn as nn
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
-sys.path.insert(1, '../uni_ttn/tf2.7/')
+sys.path.insert(1, './uni_ttn/tf2.7/')
 import data as datagen
 
 # n_epochs = 3
@@ -31,16 +31,16 @@ import data as datagen
 # torch.backends.cudnn.enabled = False
 # torch.manual_seed(random_seed)
 
-def load_train_images():
-	(train_data, val_data, test_data) = datagen.get_data_web([3,5], 0, [8,8], 2, sample_size=1000)
+def load_train_images(sample_size=5000):
+	(train_data, val_data, test_data) = datagen.get_data_web([3,5], 0, [8,8], 2, sample_size=sample_size)
 				
 	(train_images, train_labels) = train_data
-	train_images = np.reshape(train_images, [1000, 1, 8, 8])
+	train_images = np.reshape(train_images, [sample_size, 1, 8, 8])
 	train_images = torch.from_numpy(train_images).to(dtype=torch.float32, )
 	train_labels = torch.from_numpy(train_labels).to(dtype=torch.int64)
 		 
 	(test_images, test_labels) = test_data
-	test_images = np.reshape(test_images, [1000, 1, 8, 8])
+	test_images = np.reshape(test_images, [sample_size, 1, 8, 8])
 	test_images = torch.from_numpy(test_images).to(dtype=torch.float32)
 	test_labels = torch.from_numpy(test_labels).to(dtype=torch.int64)
 	
@@ -55,54 +55,6 @@ class resnet18_mod(models.resnet.ResNet):
 		self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3,
 							   bias=False)
 
-# train_loader = torch.utils.data.DataLoader(
-#   	torchvision.datasets.MNIST('~/QTTN/dephased_ttn_project/mnist8by8/', train=True, download=True,
-# 							 transform=torchvision.transforms.Compose([
-# 							   torchvision.transforms.ToTensor(),
-# 							   torchvision.transforms.Normalize(
-# 								 (0.1307,), (0.3081,))
-# 							 ])),
-#   	batch_size=batch_size_train, shuffle=True)
-
-# test_loader = torch.utils.data.DataLoader(
-#   	torchvision.datasets.MNIST('~/QTTN/dephased_ttn_project/mnist8by8/', train=False, download=True,
-# 							 transform=torchvision.transforms.Compose([
-# 							   torchvision.transforms.ToTensor(),
-# 							   torchvision.transforms.Normalize(
-# 								 (0.1307,), (0.3081,))
-# 							 ])),
-#   	batch_size=batch_size_test, shuffle=True)
-
-#Repeating each pixel three times to fit in ResNet. See https://discuss.pytorch.org/t/grayscale-to-rgb-transform/18315/4 
-# train_loader = torch.utils.data.DataLoader(
-#   	torchvision.datasets.MNIST('~/QTTN/dephased_ttn_project/mnist8by8/', train=True, download=True,
-# 							 transform=torchvision.transforms.Compose([
-# 							   torchvision.transforms.ToTensor(),
-# 							   torchvision.transforms.Normalize(
-# 								 (0.1307,), (0.3081,)),
-# 							   torchvision.transforms.Lambda(lambda x: x.repeat(3, 1, 1) )
-# 							 ])),
-#   batch_size=batch_size_train, shuffle=True)
-
-# test_loader = torch.utils.data.DataLoader(
-#   	torchvision.datasets.MNIST('~/QTTN/dephased_ttn_project/mnist8by8/', train=False, download=True,
-# 							 transform=torchvision.transforms.Compose([
-# 							   torchvision.transforms.ToTensor(),
-# 							   torchvision.transforms.Normalize(
-# 								 (0.1307,), (0.3081,)),
-# 								torchvision.transforms.Lambda(lambda x: x.repeat(3, 1, 1) )
-# 							 ])),
-#   batch_size=batch_size_test, shuffle=True)
-
-# network = resnet18_mod(block = models.resnet.Bottleneck, layers = [2, 2, 2, 2] )
-
-# optimizer = optim.SGD(network.parameters(), lr=learning_rate,
-# 					  momentum=momentum)
-
-# train_losses = []
-# train_counter = []
-# test_losses = []
-# test_counter = [i*len(train_loader.dataset) for i in range(n_epochs + 1)]
 
 def train(network, optimizer, train_images, train_labels):
 	network.train()
