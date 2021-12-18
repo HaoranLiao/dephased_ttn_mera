@@ -19,6 +19,7 @@ import sys
 sys.path.insert(1, './uni_ttn/tf2.7/')
 import data
 
+
 def load_data(digits, sample_size):
 	datagen = data.DataGenerator()
 	datagen.shrink_images([8, 8])
@@ -26,7 +27,7 @@ def load_data(digits, sample_size):
 	(train_images, train_labels), _, (test_images, test_labels) = data.process(
 		datagen.train_images, datagen.train_labels, 
 		datagen.test_images, datagen.test_labels,
-		 digits, 0, sample_size=sample_size 
+		digits, 0, sample_size=sample_size
 	)
 
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -34,23 +35,25 @@ def load_data(digits, sample_size):
 	train_images = np.reshape(train_images, [-1, 1, 8, 8])
 	train_images = torch.from_numpy(train_images).to(dtype=torch.float32, device=device)
 	train_labels = torch.from_numpy(train_labels).to(dtype=torch.float32, device=device)
-		 
+
 	test_images = np.reshape(test_images, [-1, 1, 8, 8])
 	test_images = torch.from_numpy(test_images).to(dtype=torch.float32, device=device)
 	test_labels = torch.from_numpy(test_labels).to(dtype=torch.float32, device=device)
 
-	return (train_images, train_labels, test_images, test_labels)
-		
+	return train_images, train_labels, test_images, test_labels
+
+
 class resnet18_mod(models.resnet.ResNet):
-#Modifying resnet18 for 1-channel grayscale MNIST
-#https://discuss.pytorch.org/t/modify-resnet-or-vgg-for-single-channel-grayscale/22762
+	'''
+	Modifying resnet18 for 1-channel grayscale MNIST
+	https://discuss.pytorch.org/t/modify-resnet-or-vgg-for-single-channel-grayscale/22762
+	'''
 	def __init__(self, block, layers, num_classes=2):
 		super(resnet18_mod, self).__init__(block, layers, num_classes)
 		self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
 
 		self.loss_func = nn.CrossEntropyLoss()
 		self.optimizer = optim.Adam(self.parameters())
-
 
 	def train(self, train_images, train_labels, batch_size):
 		batch_iter_train = data.batch_generator_np(train_images, train_labels, batch_size)
@@ -103,6 +106,7 @@ def main():
 	
 	torch.save(network.state_dict(), '../trained_models/samp1000_size8.pth')
 	print('Model saved')
-	
+
+
 if __name__ == "__main__":
 	main()
