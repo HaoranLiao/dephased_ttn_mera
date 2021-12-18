@@ -23,7 +23,6 @@ import data
 def load_data(digits, sample_size):
 	datagen = data.DataGenerator()
 	datagen.shrink_images([8, 8])
-
 	(train_images, train_labels), _, (test_images, test_labels) = data.process(
 		datagen.train_images, datagen.train_labels, 
 		datagen.test_images, datagen.test_labels,
@@ -56,27 +55,26 @@ class resnet18_mod(models.resnet.ResNet):
 		self.optimizer = optim.Adam(self.parameters())
 
 	def train(self, train_images, train_labels, batch_size):
-		batch_iter_train = data.batch_generator_np(train_images, train_labels, batch_size)
-		for images, labels in batch_iter_train:
+		batch_iter = data.batch_generator_np(train_images, train_labels, batch_size)
+		for images, labels in batch_iter:
 			self.optimizer.zero_grad()
 			pred_labels = self(images)
 			loss = self.loss_func(pred_labels, labels)
 			loss.backward()
 			self.optimizer.step()
 
-		pred_labels = self(train_images)
-		return get_accuracy(pred_labels, train_labels)[0]
-		
-	def test(self, test_images, test_labels, batch_size):
-		correct = 0
-		with torch.no_grad():
-			batch_iter_test = data.batch_generator_np(test_images, test_labels, batch_size)
-			for images, labels in batch_iter_test:
-				pred_labels = self(images)
-				correct += get_accuracy(pred_labels, labels)[1]
+		return self.run_network(train_images, train_labels)
 
-		test_accuracy = correct / test_images.shape[0]
-		return test_accuracy
+	def run_network(self, images, labels, batch_size=50000):
+		num_correct = 0
+		with torch.no_grad():
+			batch_iter = data.batch_generator_np(images, labels, batch_size)
+			for image_batch, label_batch in batch_iter:
+				pred_labels = self(image_batch)
+				num_correct += get_accuracy(pred_labels, label_batch)[1]
+
+		accuracy = num_correct / len(images)
+		return accuracy
 
 def get_accuracy(output, target):
 	output_index = np.argmax(output, axis=1)
@@ -94,14 +92,14 @@ def main():
 	num_epochs = 70
 	train_batch_size = 250
 
-	(train_images, train_labels, test_images, test_labels) = load_data(digits, sample_size)
+	train_images, train_labels, test_images, test_labels = load_data(digits, sample_size)
 	network = resnet18_mod(block=models.resnet.Bottleneck, layers=[2, 2, 2, 2])
 	
 	for epoch in range(num_epochs):
 		training_accuracy = network.train(train_images, train_labels, train_batch_size)
 		print(f'Epoch: {epoch}: {training_accuracy:.3f}')
 		if not epoch%5:
-			test_accuracy = network.test(test_images, test_labels, 1000000)
+			test_accuracy = network.run_network(test_images, test_labels)
 			print('Test Accuracy: %.3f'%test_accuracy)
 	
 	torch.save(network.state_dict(), '../trained_models/samp1000_size8.pth')
