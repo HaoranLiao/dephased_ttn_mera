@@ -12,7 +12,6 @@ https://github.com/pytorch/vision/blob/main/torchvision/models/resnet.py (offici
 import torch
 import torchvision.models as models
 import torch.optim as optim
-
 import numpy as np
 import torch.nn as nn
 import sys
@@ -20,34 +19,25 @@ import sys
 sys.path.insert(1, './uni_ttn/tf2.7/')
 import data
 
-# n_epochs = 3
-# batch_size_train = 50
-# batch_size_test = 1000
-# learning_rate = 0.01
-# momentum = 0.5
-# log_interval = 10
-
-# random_seed = 1
-# torch.backends.cudnn.enabled = False
-# torch.manual_seed(random_seed)
-
-def load_data(digits, sample_size, val_split=0):
+def load_data(digits, sample_size):
 	datagen = data.DataGenerator()
 	datagen.shrink_images([8, 8])
 
 	(train_images, train_labels), _, (test_images, test_labels) = data.process(
 		datagen.train_images, datagen.train_labels, 
 		datagen.test_images, datagen.test_labels,
-		 digits, val_split, sample_size=sample_size 
+		 digits, 0, sample_size=sample_size 
 	)
+
+	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 				
 	train_images = np.reshape(train_images, [-1, 1, 8, 8])
-	train_images = torch.from_numpy(train_images).to(dtype=torch.float32)
-	train_labels = torch.from_numpy(train_labels).to(dtype=torch.float32)
+	train_images = torch.from_numpy(train_images).to(dtype=torch.float32, device=device)
+	train_labels = torch.from_numpy(train_labels).to(dtype=torch.float32, device=device)
 		 
 	test_images = np.reshape(test_images, [-1, 1, 8, 8])
-	test_images = torch.from_numpy(test_images).to(dtype=torch.float32)
-	test_labels = torch.from_numpy(test_labels).to(dtype=torch.float32)
+	test_images = torch.from_numpy(test_images).to(dtype=torch.float32, device=device)
+	test_labels = torch.from_numpy(test_labels).to(dtype=torch.float32, device=device)
 
 	return (train_images, train_labels, test_images, test_labels)
 		
@@ -70,6 +60,9 @@ class resnet18_mod(models.resnet.ResNet):
 			loss = self.loss_func(pred_labels, labels)
 			loss.backward()
 			self.optimizer.step()
+
+		pred_labels = self(train_images)
+		return get_accuracy(pred_labels, train_labels)[0]
 		
 	def test(self, test_images, test_labels, batch_size):
 		correct = 0
@@ -94,17 +87,19 @@ def get_accuracy(output, target):
 
 def main():
 	digits = [3, 5]
-	sample_size = 5000
+	sample_size = 20000
+	num_epochs = 70
+	train_batch_size = 250
+
 	(train_images, train_labels, test_images, test_labels) = load_data(digits, sample_size)
 	network = resnet18_mod(block=models.resnet.Bottleneck, layers=[2, 2, 2, 2])
-	num_epochs = 100
-	train_batch_size = 250
 	
 	for epoch in range(num_epochs):
-		print('Epoch: %s'%epoch)
-		network.train(train_images, train_labels, train_batch_size)
-		test_accuracy = network.test(test_images, test_labels, 1000000)
-		print('Test Accuracy: %.3f'%test_accuracy)
+		training_accuracy = network.train(train_images, train_labels, train_batch_size)
+		print(f'Epoch: {epoch}: {training_accuracy:.3f}')
+		if not epoch%5:
+			test_accuracy = network.test(test_images, test_labels, 1000000)
+			print('Test Accuracy: %.3f'%test_accuracy)
 	
 	torch.save(network.state_dict(), '../trained_models/samp1000_size8.pth')
 	print('Model saved')
