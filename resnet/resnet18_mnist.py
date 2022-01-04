@@ -1,8 +1,7 @@
 '''
 Using ResNet18 to give a baseline.
-Codes mainly base on the cnn_adver_mnist repo.
-Accuracy: 0.928
-Other reference materials:
+accuracy: 0.990
+Reference materials:
 sTTN_Deph_MNIST.conv_net_mnist.conv_net_mnist.py
 pytroch.vision.references.classification.train.py
 https://discuss.pytorch.org/t/modify-resnet-or-vgg-for-single-channel-grayscale/22762
@@ -102,7 +101,7 @@ def main():
 			test_accuracy = network.run_network(test_images, test_labels)
 			print('Test Accuracy: %.3f'%test_accuracy)
 	
-	torch.save(network.state_dict(), '../trained_models/samp1000_size8.pth')
+	torch.save(network.state_dict(), './trained_models/samp1000_size8.pth')
 	print('Model saved')
 
 
