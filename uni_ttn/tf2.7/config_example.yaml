@@ -2,7 +2,7 @@ data:
  path: '../../mnist8by8/mnist8by8'
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
- list_batch_sizes: [250]                  # list or list of single
+ list_batch_sizes: [125]                  # list or list of single
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000                # int or None
@@ -14,10 +14,10 @@ meta:
  auto_epochs:
   enabled: True
   criterion: 0.005
-  num_match: 10
-  trigger: 60
+  num_match: 5
+  trigger: 25
 
- list_epochs: [100]                        # list or list of single
+ list_epochs: [50]                        # list or list of single
  list_devices: True
 
  deph:
