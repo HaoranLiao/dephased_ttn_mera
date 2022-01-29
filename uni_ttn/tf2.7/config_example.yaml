@@ -15,7 +15,7 @@ meta:
   enabled: True
   criterion: 0.005
   num_match: 5
-  trigger: 25
+  trigger: 30
 
  list_epochs: [50]                        # list or list of single
  list_devices: True
