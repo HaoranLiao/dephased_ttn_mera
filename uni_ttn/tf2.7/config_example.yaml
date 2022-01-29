@@ -9,7 +9,7 @@ data:
  feature_dim: 2
 
 meta:
- list_num_anc: [2]                # list or list of single
+ list_num_anc: [3]                # list or list of single
  num_repeat: 5
  auto_epochs:
   enabled: True
@@ -23,7 +23,7 @@ meta:
  deph:
   data: True
   network: True
-  p: [0.1,0.3,0.5]
+  p: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
 
 tree:
  param:
