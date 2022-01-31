@@ -9,15 +9,15 @@ data:
  feature_dim: 2
 
 meta:
- list_num_anc: [3]                # list or list of single
+ list_num_anc: [2]                # list or list of single
  num_repeat: 5
  auto_epochs:
   enabled: True
   criterion: 0.005
-  num_match: 5
-  trigger: 30
+  num_match: 10
+  trigger: 60
 
- list_epochs: [50]                        # list or list of single
+ list_epochs: [70]                        # list or list of single
  list_devices: True
 
  deph:
