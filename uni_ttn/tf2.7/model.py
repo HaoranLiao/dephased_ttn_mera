@@ -151,7 +151,7 @@ class Model:
         for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
             if counter > 1:
                 counter -= 1
-                self.network.update(train_image_batch, train_label_batch, apply_grads=False, counter=counter)
+                self.network.update(train_image_batch, train_label_batch, apply_grads=False)
             else:
                 counter = batch_size // exec_batch_size
                 self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
