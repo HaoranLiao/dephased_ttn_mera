@@ -79,23 +79,17 @@ class Model:
                 digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
-        # self.train_images = tf.constant(self.train_images, dtype=tf.complex64)
-        # self.train_labels = tf.constant(self.train_labels, dtype=tf.float32)
         print('Sample Size: %s' % self.train_images.shape[0])
 
         if val_data is not None:
             print('Validation Split: %.2f' % val_split)
             self.val_images, self.val_labels = val_data
-            # self.val_images = tf.constant(self.val_images, dtype=tf.complex64)
-            # self.val_labels = tf.constant(self.val_labels, dtype=tf.float32)
         else:
             assert config['data']['val_split'] == 0
             print('No Validation')
         sys.stdout.flush()
 
         self.test_images, self.test_labels = test_data
-        # self.test_images = tf.constant(self.test_images, dtype=tf.complex64)
-        # self.test_labels = tf.constant(self.test_labels, dtype=tf.float32)
 
         num_pixels = self.train_images.shape[1]
         self.config = config
@@ -146,9 +140,21 @@ class Model:
         return True
 
     def run_epoch(self, batch_size):
-        batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
-        for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
-            self.network.update(train_image_batch, train_label_batch)
+        # batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
+        # for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
+        #     self.network.update(train_image_batch, train_label_batch)
+
+        exec_batch_size = self.config['data']['execution_batch_size']
+        counter = batch_size // exec_batch_size
+        assert not batch_size % exec_batch_size     # check if exec_batch_size divides the batch_size
+        batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
+        for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
+            if counter > 1:
+                counter -= 1
+                self.network.update(train_image_batch, train_label_batch, apply_grads=False, counter=counter)
+            else:
+                counter = batch_size // exec_batch_size
+                self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
 
         if val_split:
             assert self.config['data']['val_split'] > 0
