@@ -1,0 +1,321 @@
+{
+ "data": {
+  "path": "../../mnist8by8/mnist8by8",
+  "val_split": 0,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 5000,
+  "feature_dim": 2
+ },
+ "meta": {
+  "list_num_anc": [
+   3
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": true,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 50
+  },
+  "list_epochs": [
+   100
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": 0.1
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": false,
+    "lr": 0.0001
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Number of Ancillas: 3
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.53720 accuracy
+Epoch 2: 0.56840 accuracy
+Epoch 3: 0.82940 accuracy
+Epoch 4: 0.83480 accuracy
+Epoch 5: 0.84360 accuracy
+Test Accuracy : 0.842
+Epoch 6: 0.87720 accuracy
+Epoch 7: 0.88240 accuracy
+Epoch 8: 0.88220 accuracy
+Epoch 9: 0.88360 accuracy
+Epoch 10: 0.88760 accuracy
+Test Accuracy : 0.874
+Epoch 11: 0.89800 accuracy
+Epoch 12: 0.90360 accuracy
+Epoch 13: 0.91160 accuracy
+Epoch 14: 0.91500 accuracy
+Epoch 15: 0.91500 accuracy
+Test Accuracy : 0.902
+Epoch 16: 0.91520 accuracy
+Epoch 17: 0.91760 accuracy
+Epoch 18: 0.91880 accuracy
+Epoch 19: 0.92020 accuracy
+Epoch 20: 0.91420 accuracy
+Test Accuracy : 0.905
+Epoch 21: 0.92320 accuracy
+Epoch 22: 0.92420 accuracy
+Epoch 23: 0.92400 accuracy
+Epoch 24: 0.92540 accuracy
+Epoch 25: 0.92380 accuracy
+Test Accuracy : 0.914
+Epoch 26: 0.92400 accuracy
+Epoch 27: 0.92400 accuracy
+Epoch 28: 0.92360 accuracy
+Epoch 29: 0.92200 accuracy
+Epoch 30: 0.92120 accuracy
+Test Accuracy : 0.911
+Epoch 31: 0.92340 accuracy
+Epoch 32: 0.92340 accuracy
+Epoch 33: 0.92540 accuracy
+Epoch 34: 0.92700 accuracy
+Epoch 35: 0.93160 accuracy
+Test Accuracy : 0.923
+Epoch 36: 0.93280 accuracy
+Epoch 37: 0.93780 accuracy
+Epoch 38: 0.93800 accuracy
+Epoch 39: 0.93780 accuracy
+Epoch 40: 0.93820 accuracy
+Test Accuracy : 0.932
+Epoch 41: 0.93460 accuracy
+Epoch 42: 0.93960 accuracy
+Epoch 43: 0.93940 accuracy
+Epoch 44: 0.94160 accuracy
+Epoch 45: 0.94060 accuracy
+Test Accuracy : 0.935
+Epoch 46: 0.94160 accuracy
+Epoch 47: 0.94200 accuracy
+Epoch 48: 0.93980 accuracy
+Epoch 49: 0.94220 accuracy
+Epoch 50: 0.94280 accuracy
+Test Accuracy : 0.935
+Epoch 51: 0.94380 accuracy
+Epoch 52: 0.94340 accuracy
+Train Accuracy: 0.943
+Test Accuracy : 0.936
+Time (hr): 0.9
+
+Repeat: 2/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Number of Ancillas: 3
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.71240 accuracy
+Test Accuracy : 0.702
+Epoch 1: 0.82300 accuracy
+Epoch 2: 0.80880 accuracy
+Epoch 3: 0.79420 accuracy
+Epoch 4: 0.83320 accuracy
+Epoch 5: 0.83620 accuracy
+Test Accuracy : 0.822
+Epoch 6: 0.83760 accuracy
+Epoch 7: 0.86580 accuracy
+Epoch 8: 0.86800 accuracy
+Epoch 9: 0.88420 accuracy
+Epoch 10: 0.89720 accuracy
+Test Accuracy : 0.896
+Epoch 11: 0.88160 accuracy
+Epoch 12: 0.91180 accuracy
+Epoch 13: 0.91520 accuracy
+Epoch 14: 0.91640 accuracy
+Epoch 15: 0.91640 accuracy
+Test Accuracy : 0.911
+Epoch 16: 0.91680 accuracy
+Epoch 17: 0.91820 accuracy
+Epoch 18: 0.91940 accuracy
+Epoch 19: 0.91620 accuracy
+Epoch 20: 0.91640 accuracy
+Test Accuracy : 0.917
+Epoch 21: 0.92120 accuracy
+Epoch 22: 0.92580 accuracy
+Epoch 23: 0.92860 accuracy
+Epoch 24: 0.93300 accuracy
+Epoch 25: 0.93400 accuracy
+Test Accuracy : 0.932
+Epoch 26: 0.93400 accuracy
+Epoch 27: 0.93320 accuracy
+Epoch 28: 0.93460 accuracy
+Epoch 29: 0.93320 accuracy
+Epoch 30: 0.93560 accuracy
+Test Accuracy : 0.933
+Epoch 31: 0.93600 accuracy
+Epoch 32: 0.93660 accuracy
+Epoch 33: 0.93400 accuracy
+Epoch 34: 0.93720 accuracy
+Epoch 35: 0.93540 accuracy
+Test Accuracy : 0.932
+Epoch 36: 0.93840 accuracy
+Epoch 37: 0.93760 accuracy
+Epoch 38: 0.93800 accuracy
+Epoch 39: 0.93820 accuracy
+Epoch 40: 0.93620 accuracy
+Test Accuracy : 0.935
+Epoch 41: 0.93880 accuracy
+Epoch 42: 0.93880 accuracy
+Epoch 43: 0.93900 accuracy
+Epoch 44: 0.94020 accuracy
+Epoch 45: 0.93880 accuracy
+Test Accuracy : 0.937
+Epoch 46: 0.93880 accuracy
+Epoch 47: 0.94120 accuracy
+Epoch 48: 0.94040 accuracy
+Epoch 49: 0.94000 accuracy
+Epoch 50: 0.93960 accuracy
+Test Accuracy : 0.939
+Train Accuracy: 0.940
+Test Accuracy : 0.939
+Time (hr): 0.7
+
+Repeat: 3/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Number of Ancillas: 3
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.63400 accuracy
+Epoch 2: 0.75720 accuracy
+Epoch 3: 0.83440 accuracy
+Epoch 4: 0.83460 accuracy
+Epoch 5: 0.83460 accuracy
+Test Accuracy : 0.839
+Epoch 6: 0.83520 accuracy
+Epoch 7: 0.83560 accuracy
+Epoch 8: 0.83520 accuracy
+Epoch 9: 0.83640 accuracy
+Epoch 10: 0.83780 accuracy
+Test Accuracy : 0.839
+Epoch 11: 0.83620 accuracy
+Epoch 12: 0.84020 accuracy
+Epoch 13: 0.83960 accuracy
+Epoch 14: 0.84200 accuracy
+Epoch 15: 0.84640 accuracy
+Test Accuracy : 0.848
+Epoch 16: 0.85540 accuracy
+All Avg Test Accs:
+ []
+All Avg Train/Val Accs:
+ []
+All Std Test Accs:
+ []
+All Std Train/Val Accs:
+ []
+Time (hr): 1.8
+
+Reserved:                            0
+PeakReserved:                        0
+LargestFreeBlock:                    0
+2022-01-29 05:40:45.014434: W tensorflow/core/common_runtime/bfc_allocator.cc:441] *____**_********************___******************************************************____**********_
+2022-01-29 05:40:45.014639: W tensorflow/core/framework/op_kernel.cc:1763] OP_REQUIRES failed at einsum_op_impl.h:715 : Resource exhausted: OOM when allocating tensor with shape[250,16,16,16,16,16] and type complex64 on /job:localhost/replica:0/t
+ask:0/device:GPU:0 by allocator GPU_0_bfc
+ 40%|██████████████████████████████████████████████████████████████████████████████████                                                                                                                           | 2/5 [1:46:00<2:39:00, 3180.14s/it]
+  0%|                                                                                                                                                                                                                         | 0/6 [1:46:00<?, ?it/s]
+All Avg Test Accs:
+ []
+All Avg Train/Val Accs:
+ []
+All Std Test Accs:
+ []
+All Std Train/Val Accs:
+ []
+Time (hr): 1.8
+Traceback (most recent call last):
+  File "/home/qc_whaley/dephased_ttn_project/uni_ttn/tf2.7/model.py", line 194, in <module>
+    for i in tqdm(range(num_settings), total=num_settings, leave=True): run_all(i)
+  File "/home/qc_whaley/dephased_ttn_project/uni_ttn/tf2.7/model.py", line 48, in run_all
+    test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
+  File "/home/qc_whaley/dephased_ttn_project/uni_ttn/tf2.7/model.py", line 110, in train_network
+    accuracy = self.run_epoch(batch_size)
+  File "/home/qc_whaley/dephased_ttn_project/uni_ttn/tf2.7/model.py", line 151, in run_epoch
+    self.network.update(train_image_batch, train_label_batch)
+  File "/home/qc_whaley/dephased_ttn_project/uni_ttn/tf2.7/network.py", line 68, in update
+    self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
+  File "/home/qc_whaley/anaconda3/envs/tf2/lib/python3.9/site-packages/tensorflow/python/keras/optimizer_v2/optimizer_v2.py", line 496, in minimize
+    grads_and_vars = self._compute_gradients(
+  File "/home/qc_whaley/anaconda3/envs/tf2/lib/python3.9/site-packages/tensorflow/python/keras/optimizer_v2/optimizer_v2.py", line 548, in _compute_gradients
+    grads_and_vars = self._get_gradients(tape, loss, var_list, grad_loss)
+  File "/home/qc_whaley/anaconda3/envs/tf2/lib/python3.9/site-packages/tensorflow/python/keras/optimizer_v2/optimizer_v2.py", line 441, in _get_gradients
+    grads = tape.gradient(loss, var_list, grad_loss)
+  File "/home/qc_whaley/anaconda3/envs/tf2/lib/python3.9/site-packages/tensorflow/python/eager/backprop.py", line 1080, in gradient
+    flat_grad = imperative_grad.imperative_grad(
+  File "/home/qc_whaley/anaconda3/envs/tf2/lib/python3.9/site-packages/tensorflow/python/eager/imperative_grad.py", line 71, in imperative_grad
+    return pywrap_tfe.TFE_Py_TapeGradient(
+  File "/home/qc_whaley/anaconda3/envs/tf2/lib/python3.9/site-packages/tensorflow/python/eager/function.py", line 1283, in _backward_function_wrapper
+    return backward._call_flat(  # pylint: disable=protected-access
+  File "/home/qc_whaley/anaconda3/envs/tf2/lib/python3.9/site-packages/tensorflow/python/eager/function.py", line 1918, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "/home/qc_whaley/anaconda3/envs/tf2/lib/python3.9/site-packages/tensorflow/python/eager/function.py", line 555, in call
+    outputs = execute.execute(
+  File "/home/qc_whaley/anaconda3/envs/tf2/lib/python3.9/site-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.ResourceExhaustedError: 2 root error(s) found.
+  (0) Resource exhausted:  OOM when allocating tensor with shape[250,16,16,16,16,16] and type complex64 on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+         [[node gradients/einsum_6/Einsum_1_grad/Einsum (defined at /dephased_ttn_project/uni_ttn/tf2.7/network.py:68) ]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+         [[gradients/SelfAdjointEigV2_2_grad/add/_100]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+  (1) Resource exhausted:  OOM when allocating tensor with shape[250,16,16,16,16,16] and type complex64 on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+         [[node gradients/einsum_6/Einsum_1_grad/Einsum (defined at /dephased_ttn_project/uni_ttn/tf2.7/network.py:68) ]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+0 successful operations.
+0 derived errors ignored. [Op:__inference___backward_loss_1338694_1339895]
+Function call stack:
+__backward_loss_1338694 -> __backward_loss_1338694

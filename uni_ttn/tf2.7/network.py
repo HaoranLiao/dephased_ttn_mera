@@ -38,6 +38,8 @@ class Network:
         chars = string.ascii_lowercase
         self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
 
+        self.grads = None
+
     def get_network_output(self, input_batch: np.ndarray):
         self.batch_size = len(input_batch)
         input_batch = tf.constant(input_batch, dtype=tf.complex64)
@@ -62,10 +64,30 @@ class Network:
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
 
-    def update(self, input_batch: np.ndarray, label_batch: np.ndarray):
+    def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):
         self.input_batch = input_batch
         self.label_batch = tf.constant(label_batch, dtype=tf.float32)
         self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
+
+    def update(self, input_batch: np.ndarray, label_batch: np.ndarray, apply_grads=True, counter=1):
+        self.input_batch = input_batch
+        self.label_batch = tf.constant(label_batch, dtype=tf.float32)
+
+        with tf.GradientTape() as tape:
+            # loss = self.cce(self.get_network_output(self.input_batch), self.label_batch)
+            loss = self.loss()
+        var_list = [layer.param_var_lay for layer in self.layers]
+        grads = tape.gradient(loss, var_list)
+        if not self.grads:
+            self.grads = grads
+        else:
+            for i in range(len(grads)): self.grads[i] = tf.math.add(self.grads[i], grads[i])
+
+        if apply_grads:
+            if counter > 1:
+                for node_grads in self.grads: node_grads /= counter
+            self.opt.apply_gradients(zip(self.grads, var_list))
+            self.grads = None
 
     @tf.function
     def loss(self):

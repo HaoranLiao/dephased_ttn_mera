@@ -1,0 +1,130 @@
+{
+ "data": {
+  "path": "../../mnist8by8/mnist8by8",
+  "val_split": 0,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   200
+  ],
+  "execute_batch_size": 200,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 5000,
+  "feature_dim": 2
+ },
+ "meta": {
+  "random_seed": 42,
+  "list_num_anc": [
+   3
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": true,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 70
+  },
+  "list_epochs": [
+   100
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": 0.1
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": false,
+    "lr": 0.0001
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 200
+Exec Batch Size: 200
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.56980 accuracy
+Test Accuracy : 0.572
+Epoch 1: 0.65720 accuracy
+Epoch 2: 0.58520 accuracy
+Epoch 3: 0.53700 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.53700 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.54200 accuracy
+Epoch 9: 0.58600 accuracy
+Epoch 10: 0.55940 accuracy
+Test Accuracy : 0.563
+Epoch 11: 0.51700 accuracy
+Epoch 12: 0.45960 accuracy
+Epoch 13: 0.55420 accuracy
+Epoch 14: 0.46360 accuracy
+Epoch 15: 0.60060 accuracy
+Test Accuracy : 0.608
+Epoch 16: 0.46920 accuracy
+Epoch 17: 0.53760 accuracy
+Epoch 18: 0.53740 accuracy
+Epoch 19: 0.41860 accuracy
+Epoch 20: 0.53600 accuracy
+Test Accuracy : 0.530
+Epoch 21: 0.53980 accuracy
+Epoch 22: 0.55800 accuracy
+Epoch 23: 0.49800 accuracy
+Epoch 24: 0.53040 accuracy
+Epoch 25: 0.56020 accuracy
+Test Accuracy : 0.589
+Epoch 26: 0.51180 accuracy
+Epoch 27: 0.51320 accuracy
+Epoch 28: 0.50240 accuracy
+Epoch 29: 0.47940 accuracy
+Epoch 30: 0.49580 accuracy
+Test Accuracy : 0.487
+Epoch 31: 0.49800 accuracy
+Epoch 32: 0.50560 accuracy
+Epoch 33: 0.57040 accuracy
+Epoch 34: 0.46800 accuracy
+Epoch 35: 0.49960 accuracy
+Test Accuracy : 0.504
+Epoch 36: 0.45940 accuracy
+Epoch 37: 0.46360 accuracy
+Epoch 38: 0.68120 accuracy
+Epoch 39: 0.53940 accuracy
+Epoch 40: 0.58540 accuracy
+Test Accuracy : 0.565
+Epoch 41: 0.58560 accuracy

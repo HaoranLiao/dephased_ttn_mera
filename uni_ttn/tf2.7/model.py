@@ -41,7 +41,9 @@ def run_all(i):
         print('Dephasing rate %.2f' % deph_p)
         print('Auto Epochs', auto_epochs)
         print('Batch Size: %s' % batch_size)
+        print('Exec Batch Size: %s' % config['data']['execute_batch_size'])
         print('Number of Ancillas: %s' % num_anc)
+        print('Random Seed:', config['meta']['random_seed'])
         sys.stdout.flush()
 
         model = Model(data_path, digits, val_split, deph_p, num_anc, config)
@@ -79,27 +81,23 @@ class Model:
                 digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
-        # self.train_images = tf.constant(self.train_images, dtype=tf.complex64)
-        # self.train_labels = tf.constant(self.train_labels, dtype=tf.float32)
         print('Sample Size: %s' % self.train_images.shape[0])
 
         if val_data is not None:
             print('Validation Split: %.2f' % val_split)
             self.val_images, self.val_labels = val_data
-            # self.val_images = tf.constant(self.val_images, dtype=tf.complex64)
-            # self.val_labels = tf.constant(self.val_labels, dtype=tf.float32)
         else:
             assert config['data']['val_split'] == 0
             print('No Validation')
         sys.stdout.flush()
 
         self.test_images, self.test_labels = test_data
-        # self.test_images = tf.constant(self.test_images, dtype=tf.complex64)
-        # self.test_labels = tf.constant(self.test_labels, dtype=tf.float32)
 
         num_pixels = self.train_images.shape[1]
         self.config = config
         self.network = network.Network(num_pixels, deph_p, num_anc, config)
+
+        self.b_factor = self.config['data']['eval_batch_size_factor']
 
     def train_network(self, epochs, batch_size, auto_epochs):
         if self.config['meta']['list_devices']: tf.config.list_physical_devices()
@@ -111,7 +109,7 @@ class Model:
             print('Epoch %d: %.5f accuracy' % (epoch, accuracy)); sys.stdout.flush()
 
             if epoch%5 == 0:
-                test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size)
+                test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
                 print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
 
             self.epoch_acc.append(accuracy)
@@ -125,7 +123,7 @@ class Model:
         else: print('Validation Accuracy: %.3f' % train_or_val_accuracy)
         sys.stdout.flush()
 
-        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size)
+        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
         print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
         return test_accuracy, train_or_val_accuracy
 
@@ -146,16 +144,28 @@ class Model:
         return True
 
     def run_epoch(self, batch_size):
-        batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
-        for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
-            self.network.update(train_image_batch, train_label_batch)
+        # batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
+        # for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
+        #     self.network.update_no_processing(train_image_batch, train_label_batch)
+
+        exec_batch_size = self.config['data']['execute_batch_size']
+        counter = batch_size // exec_batch_size
+        assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
+        batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
+        for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
+            if counter > 1:
+                counter -= 1
+                self.network.update(train_image_batch, train_label_batch, apply_grads=False)
+            else:
+                counter = batch_size // exec_batch_size
+                self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
 
         if val_split:
             assert self.config['data']['val_split'] > 0
-            val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size)
+            val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
             return val_accuracy
         else:
-            train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size)
+            train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
             return train_accuracy
 
 
@@ -173,6 +183,9 @@ if __name__ == "__main__":
     with open('config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1)); sys.stdout.flush()
+
+    np.random.seed(config['meta']['random_seed'])
+    tf.random.set_seed(config['meta']['random_seed'])
 
     data_path = config['data']['path']
     val_split = config['data']['val_split']
