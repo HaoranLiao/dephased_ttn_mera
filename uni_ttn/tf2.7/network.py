@@ -32,8 +32,8 @@ class Network:
                 self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
-        if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
-        else: self.opt = tf.keras.optimizers.Adam(config['tree']['opt']['adam']['lr'])
+        if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.SGD()
+        else: self.opt = tf.keras.optimizers.SGD(config['tree']['opt']['adam']['lr'])
 
         chars = string.ascii_lowercase
         self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
@@ -73,13 +73,13 @@ class Network:
         self.input_batch = input_batch
         self.label_batch = tf.constant(label_batch, dtype=tf.float32)
         with tf.GradientTape() as tape:
-            loss = self.loss
+            loss = self.loss()
         var_list = [layer.param_var_lay for layer in self.layers]
         grads = tape.gradient(loss, var_list)
-        if self.grads: self.grads = tf.math.add(self.grads, grads)
+        if self.grads: self.grads = [tf.math.add(self.grads[i], grads[i]) for i in range(len(grads))]
         else: self.grads = grads
         if apply_grads:
-            self.grads = tf.divide(self.grads, counter)
+            self.grads = [tf.divide(node_grads, counter) for node_grads in self.grads]
             self.opt.apply_gradients(zip(self.grads, var_list))
 
     @tf.function
