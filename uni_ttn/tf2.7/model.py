@@ -150,7 +150,7 @@ class Model:
 
         exec_batch_size = self.config['data']['execute_batch_size']
         counter = batch_size // exec_batch_size
-        assert not batch_size % exec_batch_size     # check if exec_batch_size divides the batch_size
+        assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
         batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
         for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
             if counter > 1:

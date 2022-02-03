@@ -74,7 +74,7 @@ class Network:
         self.label_batch = tf.constant(label_batch, dtype=tf.float32)
 
         with tf.GradientTape() as tape:
-            #loss = self.cce(self.get_network_output(self.input_batch), self.label_batch)
+            # loss = self.cce(self.get_network_output(self.input_batch), self.label_batch)
             loss = self.loss()
         var_list = [layer.param_var_lay for layer in self.layers]
         grads = tape.gradient(loss, var_list)
