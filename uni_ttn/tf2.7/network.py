@@ -72,18 +72,18 @@ class Network:
     def update(self, input_batch: np.ndarray, label_batch: np.ndarray, apply_grads=True, counter=1):
         self.input_batch = input_batch
         self.label_batch = tf.constant(label_batch, dtype=tf.float32)
+
         with tf.GradientTape() as tape:
-            loss = self.loss()
+            loss = self.cce(self.get_network_output(self.input_batch), self.label_batch)
         var_list = [layer.param_var_lay for layer in self.layers]
         grads = tape.gradient(loss, var_list)
         if self.grads:
             for i in range(len(grads)): self.grads[i] = tf.math.add(self.grads[i], grads[i])
-        #if self.grads: self.grads = [tf.math.add(self.grads[i], grads[i]) for i in range(len(grads))]
         else:
             self.grads = grads
+
         if apply_grads:
             for i in range(len(self.grads)): self.grads[i] = tf.divide(self.grads[i], counter)
-            #self.grads = [tf.divide(node_grads, counter) for node_grads in self.grads]
             self.opt.apply_gradients(zip(self.grads, var_list))
 
     @tf.function
