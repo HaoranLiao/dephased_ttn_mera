@@ -75,12 +75,13 @@ class Network:
 
         with tf.GradientTape() as tape:
             loss = self.cce(self.get_network_output(self.input_batch), self.label_batch)
+            # loss = self.loss()
         var_list = [layer.param_var_lay for layer in self.layers]
         grads = tape.gradient(loss, var_list)
-        if self.grads:
-            for i in range(len(grads)): self.grads[i] = tf.math.add(self.grads[i], grads[i])
-        else:
+        if not self.grads:
             self.grads = grads
+        else:
+            for i in range(len(grads)): self.grads[i] = tf.math.add(self.grads[i], grads[i])
 
         if apply_grads:
             if counter > 1:
