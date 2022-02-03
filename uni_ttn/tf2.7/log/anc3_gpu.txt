@@ -1,0 +1,105 @@
+{
+ "data": {
+  "path": "../../mnist8by8/mnist8by8",
+  "val_split": 0,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 5000,
+  "feature_dim": 2
+ },
+ "meta": {
+  "random_seed": 0,
+  "list_num_anc": [
+   3
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": true,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 70
+  },
+  "list_epochs": [
+   100
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": 0.1
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": false,
+    "lr": 0.0001
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 3
+Random Seed: 0
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.73160 accuracy
+Test Accuracy : 0.722
+Epoch 1: 0.74860 accuracy
+Epoch 2: 0.82340 accuracy
+Epoch 3: 0.78660 accuracy
+Epoch 4: 0.60240 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.53780 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.53700 accuracy
+Epoch 9: 0.53720 accuracy
+Epoch 10: 0.52500 accuracy
+Test Accuracy : 0.522
+Epoch 11: 0.46200 accuracy
+Epoch 12: 0.62600 accuracy
+Epoch 13: 0.50820 accuracy
+All Avg Test Accs:
+ []
+All Avg Train/Val Accs:
+ []
+All Std Test Accs:
+ []
+All Std Train/Val Accs:
+ []
+Time (hr): 0.3

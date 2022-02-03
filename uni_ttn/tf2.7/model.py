@@ -182,8 +182,8 @@ if __name__ == "__main__":
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1)); sys.stdout.flush()
 
-    np.random.seed(config['meta']['random_seed'])
-    tf.random.set_seed(config['meta']['random_seed'])
+    #np.random.seed(config['meta']['random_seed'])
+    #tf.random.set_seed(config['meta']['random_seed'])
 
     data_path = config['data']['path']
     val_split = config['data']['val_split']

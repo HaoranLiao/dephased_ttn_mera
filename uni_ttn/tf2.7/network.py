@@ -76,10 +76,14 @@ class Network:
             loss = self.loss()
         var_list = [layer.param_var_lay for layer in self.layers]
         grads = tape.gradient(loss, var_list)
-        if self.grads: self.grads = [tf.math.add(self.grads[i], grads[i]) for i in range(len(grads))]
-        else: self.grads = grads
+        if self.grads:
+            for i in range(len(grads)): self.grads[i] = tf.math.add(self.grads[i], grads[i])
+        #if self.grads: self.grads = [tf.math.add(self.grads[i], grads[i]) for i in range(len(grads))]
+        else:
+            self.grads = grads
         if apply_grads:
-            self.grads = [tf.divide(node_grads, counter) for node_grads in self.grads]
+            for i in range(len(self.grads)): self.grads[i] = tf.divide(self.grads[i], counter)
+            #self.grads = [tf.divide(node_grads, counter) for node_grads in self.grads]
             self.opt.apply_gradients(zip(self.grads, var_list))
 
     @tf.function
