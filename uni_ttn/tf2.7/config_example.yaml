@@ -3,7 +3,8 @@ data:
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
- execute_batch_size: 50
+ execute_batch_size: 125
+ eval_batch_size_factor: 1
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000                # int or None

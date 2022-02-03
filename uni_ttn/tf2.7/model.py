@@ -97,6 +97,8 @@ class Model:
         self.config = config
         self.network = network.Network(num_pixels, deph_p, num_anc, config)
 
+        self.b_factor = self.config['data']['eval_batch_size_factor']
+
     def train_network(self, epochs, batch_size, auto_epochs):
         if self.config['meta']['list_devices']: tf.config.list_physical_devices()
         sys.stdout.flush()
@@ -107,7 +109,7 @@ class Model:
             print('Epoch %d: %.5f accuracy' % (epoch, accuracy)); sys.stdout.flush()
 
             if epoch%5 == 0:
-                test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*3)
+                test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
                 print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
 
             self.epoch_acc.append(accuracy)
@@ -121,7 +123,7 @@ class Model:
         else: print('Validation Accuracy: %.3f' % train_or_val_accuracy)
         sys.stdout.flush()
 
-        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*3)
+        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
         print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
         return test_accuracy, train_or_val_accuracy
 
@@ -160,10 +162,10 @@ class Model:
 
         if val_split:
             assert self.config['data']['val_split'] > 0
-            val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*3)
+            val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
             return val_accuracy
         else:
-            train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*3)
+            train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
             return train_accuracy
 
 
