@@ -83,7 +83,8 @@ class Network:
             self.grads = grads
 
         if apply_grads:
-            for i in range(len(self.grads)): self.grads[i] = tf.divide(self.grads[i], counter)
+            if counter > 1:
+                for i in range(len(self.grads)): self.grads[i] = tf.divide(self.grads[i], counter)
             self.opt.apply_gradients(zip(self.grads, var_list))
 
     @tf.function

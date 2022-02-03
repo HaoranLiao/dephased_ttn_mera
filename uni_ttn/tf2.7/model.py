@@ -144,7 +144,7 @@ class Model:
     def run_epoch(self, batch_size):
         # batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
         # for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
-        #     self.network.update(train_image_batch, train_label_batch)
+        #     self.network.update_no_processing(train_image_batch, train_label_batch)
 
         exec_batch_size = self.config['data']['execute_batch_size']
         counter = batch_size // exec_batch_size
@@ -182,8 +182,8 @@ if __name__ == "__main__":
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1)); sys.stdout.flush()
 
-    #np.random.seed(config['meta']['random_seed'])
-    #tf.random.set_seed(config['meta']['random_seed'])
+    np.random.seed(config['meta']['random_seed'])
+    tf.random.set_seed(config['meta']['random_seed'])
 
     data_path = config['data']['path']
     val_split = config['data']['val_split']
