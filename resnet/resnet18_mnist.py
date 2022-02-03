@@ -1,6 +1,7 @@
 '''
 Using ResNet18 to give a baseline.
-accuracy: 0.990
+accuracy: 0.990 ([3,5] for 11000(full) training samples )
+accuracy: 0.984 ([3,5] for 5000 training samples )
 Reference materials:
 sTTN_Deph_MNIST.conv_net_mnist.conv_net_mnist.py
 pytroch.vision.references.classification.train.py
@@ -15,7 +16,7 @@ import numpy as np
 import torch.nn as nn
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
-sys.path.insert(1, './uni_ttn/tf2.7/')
+sys.path.insert(1, 'dephased_ttn_project/uni_ttn/tf2.7/')
 import data
 
 
@@ -87,7 +88,7 @@ def get_accuracy(output, target):
 
 def main():
 	digits = [3, 5]
-	sample_size = 20000
+	sample_size = 5000
 	num_epochs = 70
 	train_batch_size = 250
 
