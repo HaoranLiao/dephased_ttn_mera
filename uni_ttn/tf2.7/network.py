@@ -32,8 +32,8 @@ class Network:
                 self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
-        if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.SGD()
-        else: self.opt = tf.keras.optimizers.SGD(config['tree']['opt']['adam']['lr'])
+        if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
+        else: self.opt = tf.keras.optimizers.Adam(config['tree']['opt']['adam']['lr'])
 
         chars = string.ascii_lowercase
         self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'

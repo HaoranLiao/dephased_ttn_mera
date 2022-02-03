@@ -3,21 +3,21 @@ data:
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
- execute_batch_size: 125
+ execute_batch_size: 250
  load_from_file: True
  data_im_size: [8,8]
- sample_size: 1000                # int or None
+ sample_size: 5000                # int or None
  feature_dim: 2
 
 meta:
  random_seed: 0
- list_num_anc: [0]                # list or list of single
- num_repeat: 1
+ list_num_anc: [3]                # list or list of single
+ num_repeat: 5
  auto_epochs:
-  enabled: False
+  enabled: True
   criterion: 0.005
   num_match: 10
-  trigger: 60
+  trigger: 70
 
  list_epochs: [100]                        # list or list of single
  list_devices: True
@@ -25,7 +25,7 @@ meta:
  deph:
   data: True
   network: True
-  p: [0.0]
+  p: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
 
 tree:
  param:
