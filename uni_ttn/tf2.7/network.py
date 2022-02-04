@@ -85,7 +85,7 @@ class Network:
 
         if apply_grads:
             if counter > 1:
-                for node_grads in self.grads: node_grads /= counter
+                for i in range(len(self.grads)): self.grads[i] /= counter
             self.opt.apply_gradients(zip(self.grads, var_list))
             self.grads = None
 
