@@ -131,6 +131,7 @@ class Model:
         num_correct = 0
         batch_iter = data.batch_generator_np(images, labels, batch_size)
         for (image_batch, label_batch) in tqdm(batch_iter, total=len(images)//batch_size, **TQDM_DICT):
+            image_batch = tf.constant(image_batch, dtype=tf.float32)
             pred_probs = self.network.get_network_output(image_batch)
             num_correct += get_accuracy(pred_probs, label_batch)[1]
         accuracy = num_correct / images.shape[0]

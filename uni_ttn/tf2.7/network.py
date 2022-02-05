@@ -40,9 +40,9 @@ class Network:
 
         self.grads = None
 
-    def get_network_output(self, input_batch: np.ndarray):
+    def get_network_output(self, input_batch: tf.Tensor):
         self.batch_size = len(input_batch)
-        input_batch = tf.constant(input_batch, dtype=tf.complex64)
+        input_batch = tf.cast(input_batch, dtype=tf.complex64)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
         if self.num_anc:
             input_batch = tf.reshape(
@@ -70,14 +70,16 @@ class Network:
         self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
 
     def update(self, input_batch: np.ndarray, label_batch: np.ndarray, apply_grads=True, counter=1):
-        self.input_batch = input_batch
+        # self.input_batch = input_batch
+        self.input_batch = tf.constant(input_batch, dtype=tf.complex64)
         self.label_batch = tf.constant(label_batch, dtype=tf.float32)
 
         with tf.GradientTape() as tape:
             # loss = self.cce(self.get_network_output(self.input_batch), self.label_batch)
-            loss = self.loss()
+            loss = self.loss(self.input_batch, self.label_batch)
         var_list = [layer.param_var_lay for layer in self.layers]
         grads = tape.gradient(loss, var_list)
+
         if not self.grads:
             self.grads = grads
         else:
@@ -85,14 +87,15 @@ class Network:
 
         if apply_grads:
             if counter > 1:
-                for i in range(len(self.grads)): self.grads[i] /= counter
+                for i in range(len(self.grads)): self.grads[i] = tf.divide(self.grads[i], counter)
             self.opt.apply_gradients(zip(self.grads, var_list))
+            # print(self.grads)
             self.grads = None
 
     @tf.function
-    def loss(self):
-        pred_batch = self.get_network_output(self.input_batch)
-        return self.cce(pred_batch, self.label_batch)
+    def loss(self, input_batch, label_batch):
+        pred_batch = self.get_network_output(input_batch)
+        return self.cce(pred_batch, label_batch)
 
     def dephase(self, tensor):
         if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.krauss_ops, tensor, self.krauss_ops)

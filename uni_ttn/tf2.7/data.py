@@ -69,7 +69,8 @@ def batch_generator_tf(images, labels, batch_size):
 
 def batch_generator_np(images, labels, batch_size):
     num_images = images.shape[0]
-    random_perm = np.random.permutation(num_images)
+    # random_perm = np.random.permutation(num_images)
+    random_perm = np.arange(images.shape[0])
     randomized_images = images[random_perm]
     randomized_labels = labels[random_perm]
 
