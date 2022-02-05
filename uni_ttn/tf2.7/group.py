@@ -33,11 +33,11 @@ def update(input, apply_grads=True, counter=1):
     if not self_grads:
         self_grads = grads
     else:
-        self_grads = self_grads + grads
+        self_grads = tf.math.add(self_grads, grads)
 
     if apply_grads:
         if counter > 1:
-            self_grads = self_grads / counter
+            self_grads = tf.divide(self_grads, counter)
         print(self_grads)
         self_grads = None
 

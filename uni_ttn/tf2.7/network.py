@@ -83,13 +83,12 @@ class Network:
         if not self.grads:
             self.grads = grads
         else:
-            for i in range(len(grads)): self.grads[i] = tf.math.add(self.grads[i], grads[i])
+            for i in range(len(grads)): self.grads[i] += grads[i]
 
         if apply_grads:
             if counter > 1:
-                for i in range(len(self.grads)): self.grads[i] = tf.divide(self.grads[i], counter)
+                for i in range(len(self.grads)): self.grads[i] /= counter
             self.opt.apply_gradients(zip(self.grads, var_list))
-            # print(self.grads)
             self.grads = None
 
     @tf.function
