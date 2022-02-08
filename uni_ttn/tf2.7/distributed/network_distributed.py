@@ -20,12 +20,15 @@ class Network:
         self.num_out_qubits = self.num_anc + 1
         if self.num_anc and self.deph_p > 0: self.construct_dephasing_krauss()
 
-        with strategy.scope():
-            self.layers = []
-            self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
-            for i in range(self.num_layers):
-                self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
-            self.var_list = [layer.param_var_lay for layer in self.layers]
+        self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
+        if self.config['data']['distributed']:
+            with strategy.scope():
+                self.layers = [Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std)
+                               for i in range(self.num_layers)]
+        else:
+            self.layers = [Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std)
+                           for i in range(self.num_layers)]
+        self.var_list = [layer.param_var_lay for layer in self.layers]
 
         if num_anc:
             self.bond_dim = 2 ** (num_anc + 1)
@@ -34,8 +37,11 @@ class Network:
             for _ in range(self.num_anc-1):
                 self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
-        with strategy.scope():
-            self.cce = tf.keras.losses.CategoricalCrossentropy(reduction=tf.keras.losses.Reduction.NONE)
+        if self.config['data']['distributed']:
+            with strategy.scope():
+                self.cce = tf.keras.losses.CategoricalCrossentropy(reduction=tf.keras.losses.Reduction.NONE)
+        else:
+            self.cce = tf.keras.losses.CategoricalCrossentropy()
         if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
         else: self.opt = tf.keras.optimizers.Adam(config['tree']['opt']['adam']['lr'])
 
@@ -44,7 +50,8 @@ class Network:
 
         self.grads = None
 
-    def get_network_output(self, input_batch: tf.Tensor, label_batch=None):
+    @tf.function
+    def get_network_output(self, input_batch: tf.constant, label_batch=None):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
@@ -66,14 +73,9 @@ class Network:
         final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
 
         out_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
-        return out_probs if label_batch == None else model_dist.get_accuracy_tf(out_probs, label_batch)[1]
+        return out_probs if label_batch == None else model_dist.get_num_correct_tf(out_probs, label_batch)
 
-    def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):
-        input_batch = tf.constant(input_batch, dtype=tf.complex64)
-        label_batch = tf.constant(label_batch, dtype=tf.float32)
-        self.opt.minimize(self.loss(input_batch, label_batch), var_list=self.var_list)
-
-    def update_distributed(self, input_batch: tf.Tensor, label_batch: tf.Tensor):
+    def update_distributed(self, input_batch: tf.constant, label_batch: tf.constant):
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
         label_batch = tf.cast(label_batch, dtype=tf.float32)
         with tf.GradientTape() as tape:
@@ -81,9 +83,9 @@ class Network:
         grads = tape.gradient(loss, self.var_list)
         self.opt.apply_gradients(zip(grads, self.var_list))
 
-    def update(self, input_batch: np.ndarray, label_batch: np.ndarray, apply_grads=True, counter=1):
-        input_batch = tf.constant(input_batch, dtype=tf.complex64)
-        label_batch = tf.constant(label_batch, dtype=tf.float32)
+    def update(self, input_batch: tf.constant, label_batch: tf.constant, apply_grads=True, counter=1):
+        input_batch = tf.cast(input_batch, dtype=tf.complex64)
+        label_batch = tf.cast(label_batch, dtype=tf.float32)
 
         with tf.GradientTape() as tape:
             loss = self.loss(input_batch, label_batch)
@@ -99,6 +101,9 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
+    #TODO: Distributed Sub Batch if Needed
+
+    @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(self.get_network_output(input_batch), label_batch)
 

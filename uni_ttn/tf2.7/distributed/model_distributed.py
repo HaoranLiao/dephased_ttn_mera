@@ -14,7 +14,7 @@ def print_results(start_time):
     print('All Avg Train/Val Accs:\n', avg_repeated_train_acc)
     print('All Std Test Accs:\n', std_repeated_test_acc)
     print('All Std Train/Val Accs:\n', std_repeated_train_acc)
-    print('Time (hr): %.1f' % ((time.time()-start_time)/3600))
+    print('Time (hr): %.4f' % ((time.time()-start_time)/3600))
     sys.stdout.flush()
 
 
@@ -41,11 +41,13 @@ def run_all(i):
         print('Dephasing rate %.2f' % deph_p)
         print('Auto Epochs', auto_epochs)
         print('Batch Size: %s' % batch_size)
-        print('Exec Batch Size: %s' % config['data']['execute_batch_size'])
+        print('Sub Batch Size: %s' % config['data']['sub_batch_size'])
+        print('Distributed:', config['data']['distributed'])
         print('Number of Ancillas: %s' % num_anc)
         print('Random Seed:', config['meta']['random_seed'])
         sys.stdout.flush()
 
+        assert epochs; assert batch_size
         model = Model(data_path, digits, val_split, deph_p, num_anc, config)
         test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
 
@@ -105,8 +107,7 @@ class Model:
         self.b_factor = self.config['data']['eval_batch_size_factor']
 
     def train_network(self, epochs, batch_size, auto_epochs):
-        if self.config['meta']['list_devices']: tf.config.list_physical_devices()
-        sys.stdout.flush()
+        if self.config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
 
         self.epoch_acc = []
         for epoch in range(epochs):
@@ -140,54 +141,51 @@ class Model:
         return True
 
     @tf.function
-    def distributed_eval_step(self, image_batch: tf.Tensor, label_batch: tf.Tensor):
+    def distributed_eval_step(self, image_batch: tf.constant, label_batch: tf.constant):
         per_replica_num_corrects = self.strategy.run(self.network.get_network_output, args=(image_batch, label_batch))
         return self.strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_num_corrects, axis=None)
 
-    def run_network(self, images, labels, batch_size):
+    def run_network(self, images: np.ndarray, labels: np.ndarray, batch_size):
+        batch_iter = tf.data.Dataset.from_tensor_slices((images, labels))
+        batch_iter = batch_iter.with_options(self.options)
+        batch_iter = batch_iter.batch(batch_size)
+        num_correct = 0
         if self.config['data']['distributed']:
-            batch_iter = tf.data.Dataset.from_tensor_slices((images, labels))
-            batch_iter = batch_iter.with_options(self.options)
-            batch_iter = batch_iter.batch(batch_size)
             batch_iter = self.strategy.experimental_distribute_dataset(batch_iter)
-            num_correct = 0
-            for (image_batch, label_batch) in batch_iter:
-                num_correct += self.distributed_eval_step(image_batch, label_batch)
-            accuracy = num_correct / len(images)
-            return accuracy
-        else:
-            num_correct = 0
-            batch_iter = data.batch_generator_np(images, labels, batch_size)
             for (image_batch, label_batch) in tqdm(batch_iter, total=len(images)//batch_size, **TQDM_DICT):
-                image_batch = tf.constant(image_batch, dtype=tf.float32)
+                num_correct += self.distributed_eval_step(image_batch, label_batch)
+        else:
+            for (image_batch, label_batch) in tqdm(batch_iter, total=len(images)//batch_size, **TQDM_DICT):
                 pred_probs = self.network.get_network_output(image_batch)
-                num_correct += get_accuracy(pred_probs, label_batch)[1]
-            accuracy = num_correct / len(images)
-            return accuracy
+                num_correct += get_num_correct(pred_probs, label_batch)
+
+        accuracy = num_correct / len(images)
+        return float(accuracy)
 
     @tf.function
     def distributed_train_step(self, train_image_batch, train_label_batch):
         self.strategy.run(self.network.update_distributed, args=(train_image_batch, train_label_batch))
 
     def run_epoch(self, batch_size):
+        batch_iter = tf.data.Dataset.from_tensor_slices((self.train_images, self.train_labels))
+        batch_iter = batch_iter.with_options(self.options)
+        batch_iter = batch_iter.shuffle(len(self.train_images))
         if self.config['data']['distributed']:
-            batch_iter = tf.data.Dataset.from_tensor_slices((self.train_images, self.train_labels))
-            batch_iter = batch_iter.with_options(self.options)
-            batch_iter = batch_iter.shuffle(len(self.train_images)).batch(batch_size)
+            batch_iter = batch_iter.batch(batch_size)
             batch_iter = self.strategy.experimental_distribute_dataset(batch_iter)
-            for (train_image_batch, train_label_batch) in batch_iter:
+            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
                 self.distributed_train_step(train_image_batch, train_label_batch)
         else:
-            exec_batch_size = self.config['data']['execute_batch_size']
-            counter = batch_size // exec_batch_size
-            assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
-            batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
-            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
+            sub_batch_size = self.config['data']['sub_batch_size']
+            counter = batch_size // sub_batch_size
+            assert not batch_size % sub_batch_size, 'batch_size not divisible by exec_batch_size'
+            batch_iter = batch_iter.batch(sub_batch_size)
+            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//sub_batch_size, **TQDM_DICT):
                 if counter > 1:
                     counter -= 1
                     self.network.update(train_image_batch, train_label_batch, apply_grads=False)
                 else:
-                    counter = batch_size // exec_batch_size
+                    counter = batch_size // sub_batch_size
                     self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
 
         if val_split:
@@ -199,24 +197,19 @@ class Model:
             return train_accuracy
 
 
-def get_accuracy(guesses: np.ndarray, labels: np.ndarray):
+def get_num_correct(guesses: np.ndarray, labels: np.ndarray):
     guess_index = np.argmax(guesses, axis=1)
     label_index = np.argmax(labels, axis=1)
     compare = guess_index - label_index
     num_correct = float(np.sum(compare == 0))
-    total = float(len(guesses))
-    accuracy = num_correct / total
-    return accuracy, num_correct
+    return num_correct
 
-def get_accuracy_tf(guesses: tf.Tensor, labels: tf.Tensor):
+def get_num_correct_tf(guesses: tf.constant, labels: tf.constant):
     guess_index = tf.math.argmax(guesses, axis=1)
     label_index = tf.math.argmax(labels, axis=1)
     compare = guess_index - label_index
     num_correct = tf.reduce_sum(tf.cast(compare == 0, tf.int32))
-    total = guesses.shape[0]
-    accuracy = num_correct / total
-    return accuracy, num_correct
-
+    return num_correct
 
 if __name__ == "__main__":
     with open('config_example_distributed.yaml', 'r') as f:
