@@ -108,9 +108,9 @@ class Model:
             accuracy = self.run_epoch(batch_size)
             print('Epoch %d: %.5f accuracy' % (epoch, accuracy)); sys.stdout.flush()
 
-            if epoch%5 == 0:
+            if not epoch%5:
                 test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-                print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
+                print(f'Test Accuracy : {test_accuracy:.3f}'); sys.stdout.flush()
 
             self.epoch_acc.append(accuracy)
             if auto_epochs:
@@ -124,7 +124,7 @@ class Model:
         sys.stdout.flush()
 
         test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-        print('Test Accuracy : {:.3f}'.format(test_accuracy)); sys.stdout.flush()
+        print(f'Test Accuracy : {test_accuracy:.3f}'); sys.stdout.flush()
         return test_accuracy, train_or_val_accuracy
 
     def run_network(self, images, labels, batch_size):
@@ -134,7 +134,7 @@ class Model:
             image_batch = tf.constant(image_batch, dtype=tf.float32)
             pred_probs = self.network.get_network_output(image_batch)
             num_correct += get_accuracy(pred_probs, label_batch)[1]
-        accuracy = num_correct / images.shape[0]
+        accuracy = num_correct / len(images)
         return accuracy
 
     def check_acc_satified(self, accuracy):
@@ -144,22 +144,23 @@ class Model:
             else: return False
         return True
 
-    def run_epoch(self, batch_size):
-        # batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
-        # for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
-        #     self.network.update_no_processing(train_image_batch, train_label_batch)
-
-        exec_batch_size = self.config['data']['execute_batch_size']
-        counter = batch_size // exec_batch_size
-        assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
-        batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
-        for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
-            if counter > 1:
-                counter -= 1
-                self.network.update(train_image_batch, train_label_batch, apply_grads=False)
-            else:
-                counter = batch_size // exec_batch_size
-                self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
+    def run_epoch(self, batch_size, grad_accumulation=True):
+        if not grad_accumulation:
+            batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
+            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
+                self.network.update_no_processing(train_image_batch, train_label_batch)
+        else:
+            exec_batch_size = self.config['data']['execute_batch_size']
+            counter = batch_size // exec_batch_size
+            assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
+            batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
+            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
+                if counter > 1:
+                    counter -= 1
+                    self.network.update(train_image_batch, train_label_batch, apply_grads=False)
+                else:
+                    counter = batch_size // exec_batch_size
+                    self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
 
         if val_split:
             assert self.config['data']['val_split'] > 0
@@ -175,7 +176,7 @@ def get_accuracy(guesses, labels):
     label_index = np.argmax(labels, axis=1)
     compare = guess_index - label_index
     num_correct = float(np.sum(compare == 0))
-    total = float(guesses.shape[0])
+    total = float(len(guesses))
     accuracy = num_correct / total
     return accuracy, num_correct
 

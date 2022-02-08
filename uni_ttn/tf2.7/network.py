@@ -14,7 +14,7 @@ class Network:
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)
-        if deph_p == 0: self.deph_data, self.deph_net = False, False
+        if not deph_p: self.deph_data, self.deph_net = False, False
 
         self.num_out_qubits = self.num_anc + 1
         if self.num_anc and self.deph_p > 0: self.construct_dephasing_krauss()
@@ -23,6 +23,7 @@ class Network:
         self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
             self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
+        self.var_list = [layer.param_var_lay for layer in self.layers]
 
         if num_anc:
             self.bond_dim = 2 ** (num_anc + 1)
@@ -41,13 +42,13 @@ class Network:
         self.grads = None
 
     def get_network_output(self, input_batch: tf.Tensor):
-        self.batch_size = input_batch.shape[0]
+        batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
-                [self.batch_size, 2*self.list_num_nodes[0], self.bond_dim, self.bond_dim])
+                [batch_size, 2*self.list_num_nodes[0], self.bond_dim, self.bond_dim])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
         layer_out = self.layers[0].get_layer_output(input_batch)
@@ -58,28 +59,24 @@ class Network:
 
         final_layer_out = tf.reshape(
             self.layers[self.num_layers-1].get_layer_output(layer_out)[:, 0],
-            [self.batch_size, *[2]*(2*self.num_out_qubits)])
+            [batch_size, *[2]*(2*self.num_out_qubits)])
         final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
 
     def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):
-        self.input_batch = input_batch
-        self.label_batch = tf.constant(label_batch, dtype=tf.float32)
-        self.opt.minimize(self.loss, var_list=[layer.param_var_lay for layer in self.layers])
+        input_batch = tf.constant(input_batch, dtype=tf.complex64)
+        label_batch = tf.constant(label_batch, dtype=tf.float32)
+        self.opt.minimize(self.loss(input_batch, label_batch), var_list=self.var_list)
 
     def update(self, input_batch: np.ndarray, label_batch: np.ndarray, apply_grads=True, counter=1):
-        # self.input_batch = input_batch
-        self.input_batch = tf.constant(input_batch, dtype=tf.complex64)
-        self.label_batch = tf.constant(label_batch, dtype=tf.float32)
+        input_batch = tf.constant(input_batch, dtype=tf.complex64)
+        label_batch = tf.constant(label_batch, dtype=tf.float32)
 
         with tf.GradientTape() as tape:
-            # loss = self.cce(self.get_network_output(self.input_batch), self.label_batch)
-            loss = self.loss(self.input_batch, self.label_batch)
-        var_list = [layer.param_var_lay for layer in self.layers]
-        grads = tape.gradient(loss, var_list)
-
+            loss = self.loss(input_batch, label_batch)
+        grads = tape.gradient(loss, self.var_list)
         if not self.grads:
             self.grads = grads
         else:
@@ -88,13 +85,12 @@ class Network:
         if apply_grads:
             if counter > 1:
                 for i in range(len(self.grads)): self.grads[i] /= counter
-            self.opt.apply_gradients(zip(self.grads, var_list))
+            self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
     @tf.function
     def loss(self, input_batch, label_batch):
-        pred_batch = self.get_network_output(input_batch)
-        return self.cce(pred_batch, label_batch)
+        return self.cce(self.get_network_output(input_batch), label_batch)
 
     def dephase(self, tensor):
         if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.krauss_ops, tensor, self.krauss_ops)
@@ -132,31 +128,31 @@ class Layer:
 
     def get_unitary_tensor(self):
         num_off_diags = int(0.5 * (self.num_diags**2 - self.num_diags))
-        self.real_off_params = self.param_var_lay[:num_off_diags]
-        self.imag_off_params = self.param_var_lay[num_off_diags:2 * num_off_diags]
-        self.diag_params = self.param_var_lay[2 * num_off_diags:]
+        real_off_params = self.param_var_lay[:num_off_diags]
+        imag_off_params = self.param_var_lay[num_off_diags:2 * num_off_diags]
+        diag_params = self.param_var_lay[2 * num_off_diags:]
 
         herm_shape = (self.num_diags, self.num_diags, self.num_nodes)
-        diag_part = tf.transpose(tf.linalg.diag(tf.transpose(self.diag_params)), perm=[1, 2, 0])
+        diag_part = tf.transpose(tf.linalg.diag(tf.transpose(diag_params)), perm=[1, 2, 0])
         off_diag_indices = [[i, j] for i in range(self.num_diags) for j in range(i + 1, self.num_diags)]
         real_off_diag_part = tf.scatter_nd(
             indices=off_diag_indices,
-            updates=self.real_off_params,
+            updates=real_off_params,
             shape=herm_shape)
         imag_off_diag_part = tf.scatter_nd(
             indices=off_diag_indices,
-            updates=self.imag_off_params,
+            updates=imag_off_params,
             shape=herm_shape)
         imag_whole = imag_off_diag_part - tf.transpose(imag_off_diag_part, perm=[1, 0, 2])
         real_whole = diag_part + real_off_diag_part + tf.transpose(real_off_diag_part, perm=[1, 0, 2])
-        self.herm_matrix = tf.transpose(tf.complex(real_whole, imag_whole), perm=[2, 0, 1])
+        herm_matrix = tf.transpose(tf.complex(real_whole, imag_whole), perm=[2, 0, 1])
 
-        (eigenvalues, eigenvectors) = tf.linalg.eigh(self.herm_matrix)
+        (eigenvalues, eigenvectors) = tf.linalg.eigh(herm_matrix)
         eig_exp = tf.exp(1.0j * eigenvalues)
         diag_exp_mat = tf.linalg.diag(eig_exp)
-        self.unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
+        unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
                                         eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        unitary_tensor = tf.reshape(self.unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
+        unitary_tensor = tf.reshape(unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
         return unitary_tensor
 
     def get_layer_output(self, input):
