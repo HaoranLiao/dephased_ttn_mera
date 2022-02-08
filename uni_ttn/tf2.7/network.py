@@ -41,7 +41,7 @@ class Network:
         self.grads = None
 
     def get_network_output(self, input_batch: tf.Tensor):
-        self.batch_size = len(input_batch)
+        self.batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
         if self.num_anc:

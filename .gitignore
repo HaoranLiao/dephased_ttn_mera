@@ -11,3 +11,4 @@ uni_ttn/tf2.7/.DS_Store
 *.xml
 *.iml
 *.swp
+*.pyc
