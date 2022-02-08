@@ -54,9 +54,9 @@ def resize_images(images, shape):
     return new_images
 
 
-def batch_generator_tf(images, labels, batch_size):
+def batch_generator_tf(images: tf.Tensor, labels: tf.Tensor, batch_size):
     num_images = images.shape[0]
-    indices = tf.range(start=0, limit=num_images, dtype=tf.int32)
+    indices = tf.range(0, num_images, dtype=tf.int32)
     shuffled_indices = tf.random.shuffle(indices)
     randomized_images = tf.gather(images, shuffled_indices)
     randomized_labels = tf.gather(labels, shuffled_indices)
@@ -67,10 +67,9 @@ def batch_generator_tf(images, labels, batch_size):
         yield batch_images, batch_labels
 
 
-def batch_generator_np(images, labels, batch_size):
-    num_images = images.shape[0]
-    # random_perm = np.random.permutation(num_images)
-    random_perm = np.arange(images.shape[0])
+def batch_generator_np(images: np.ndarray, labels: np.ndarray, batch_size):
+    num_images = len(images)
+    random_perm = np.random.permutation(num_images)
     randomized_images = images[random_perm]
     randomized_labels = labels[random_perm]
 
@@ -81,7 +80,7 @@ def batch_generator_np(images, labels, batch_size):
 
 
 def flatten_images(images):
-    num_images = images.shape[0]
+    num_images = len(images)
     flattened_image = np.reshape(images, [num_images, -1])
     return flattened_image
 
@@ -114,7 +113,7 @@ def trig_featurize(images, dim):
 
 
 def split_data(images, labels, split):
-    num_images = images.shape[0]
+    num_images = len(images)
     split_point = int(split * num_images)
     true_train_data = (images[:split_point], labels[:split_point])
     val_data = (images[split_point:], labels[split_point:])
