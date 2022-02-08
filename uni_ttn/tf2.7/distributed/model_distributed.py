@@ -70,7 +70,7 @@ def run_all(i):
 class Model:
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, config):
 
-        self.strategy = tf.distribute.MirroredStrategy(["GPU:0", "GPU:1"])
+        self.strategy = tf.distribute.MirroredStrategy()
 
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
@@ -139,10 +139,9 @@ class Model:
         if self.config['data']['distributed']:
             options = tf.data.Options()
             options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
-            images = tf.convert_to_tensor(images, dtype=tf.float32)
-            labels = tf.convert_to_tensor(labels, dtype=tf.float32)
             batch_iter = tf.data.Dataset.from_tensor_slices((images, labels))
-            batch_iter = batch_iter.with_options(options).batch(batch_size)
+            batch_iter = batch_iter.with_options(options)
+            batch_iter = batch_iter.batch(batch_size)
             batch_iter = self.strategy.experimental_distribute_dataset(batch_iter)
             num_correct = 0
             for (image_batch, label_batch) in batch_iter:
