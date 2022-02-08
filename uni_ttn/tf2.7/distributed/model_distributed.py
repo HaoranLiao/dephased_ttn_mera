@@ -71,6 +71,8 @@ class Model:
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, config):
 
         self.strategy = tf.distribute.MirroredStrategy()
+        self.options = tf.data.Options()
+        self.options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
 
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
@@ -130,6 +132,13 @@ class Model:
         print(f'Test Accuracy : {test_accuracy:.3f}'); sys.stdout.flush()
         return test_accuracy, train_or_val_accuracy
 
+    def check_acc_satified(self, accuracy):
+        criterion = self.config['meta']['auto_epochs']['criterion']
+        for i in range(self.config['meta']['auto_epochs']['num_match']):
+            if abs(accuracy - self.epoch_acc[-(i + 2)]) <= criterion: continue
+            else: return False
+        return True
+
     @tf.function
     def distributed_eval_step(self, image_batch: tf.Tensor, label_batch: tf.Tensor):
         per_replica_num_corrects = self.strategy.run(self.network.get_network_output, args=(image_batch, label_batch))
@@ -137,10 +146,8 @@ class Model:
 
     def run_network(self, images, labels, batch_size):
         if self.config['data']['distributed']:
-            options = tf.data.Options()
-            options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
             batch_iter = tf.data.Dataset.from_tensor_slices((images, labels))
-            batch_iter = batch_iter.with_options(options)
+            batch_iter = batch_iter.with_options(self.options)
             batch_iter = batch_iter.batch(batch_size)
             batch_iter = self.strategy.experimental_distribute_dataset(batch_iter)
             num_correct = 0
@@ -158,23 +165,14 @@ class Model:
             accuracy = num_correct / len(images)
             return accuracy
 
-    def check_acc_satified(self, accuracy):
-        criterion = self.config['meta']['auto_epochs']['criterion']
-        for i in range(self.config['meta']['auto_epochs']['num_match']):
-            if abs(accuracy - self.epoch_acc[-(i + 2)]) <= criterion: continue
-            else: return False
-        return True
-
     @tf.function
     def distributed_train_step(self, train_image_batch, train_label_batch):
         self.strategy.run(self.network.update_distributed, args=(train_image_batch, train_label_batch))
 
     def run_epoch(self, batch_size):
         if self.config['data']['distributed']:
-            options = tf.data.Options()
-            options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
             batch_iter = tf.data.Dataset.from_tensor_slices((self.train_images, self.train_labels))
-            batch_iter = batch_iter.with_options(options)
+            batch_iter = batch_iter.with_options(self.options)
             batch_iter = batch_iter.shuffle(len(self.train_images)).batch(batch_size)
             batch_iter = self.strategy.experimental_distribute_dataset(batch_iter)
             for (train_image_batch, train_label_batch) in batch_iter:
