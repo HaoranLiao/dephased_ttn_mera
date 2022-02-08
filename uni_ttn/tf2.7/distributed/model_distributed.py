@@ -3,7 +3,7 @@ import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
 import network_distributed as network_dist
-import data_distributed as data_dist
+import data
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
@@ -130,15 +130,34 @@ class Model:
         print(f'Test Accuracy : {test_accuracy:.3f}'); sys.stdout.flush()
         return test_accuracy, train_or_val_accuracy
 
+    @tf.function
+    def distributed_eval_step(self, image_batch: tf.Tensor, label_batch: tf.Tensor):
+        per_replica_num_corrects = self.strategy.run(self.network.get_network_output, args=(image_batch, label_batch))
+        return self.strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_num_corrects, axis=None)
+
     def run_network(self, images, labels, batch_size):
-        num_correct = 0
-        batch_iter = data.batch_generator_np(images, labels, batch_size)
-        for (image_batch, label_batch) in tqdm(batch_iter, total=len(images)//batch_size, **TQDM_DICT):
-            image_batch = tf.constant(image_batch, dtype=tf.float32)
-            pred_probs = self.network.get_network_output(image_batch)
-            num_correct += get_accuracy(pred_probs, label_batch)[1]
-        accuracy = num_correct / len(images)
-        return accuracy
+        if self.config['data']['distributed']:
+            options = tf.data.Options()
+            options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
+            images = tf.convert_to_tensor(images, dtype=tf.float32)
+            labels = tf.convert_to_tensor(labels, dtype=tf.float32)
+            batch_iter = tf.data.Dataset.from_tensor_slices((images, labels))
+            batch_iter = batch_iter.with_options(options).batch(batch_size)
+            batch_iter = self.strategy.experimental_distribute_dataset(batch_iter)
+            num_correct = 0
+            for (image_batch, label_batch) in batch_iter:
+                num_correct += self.distributed_eval_step(image_batch, label_batch)
+            accuracy = num_correct / len(images)
+            return accuracy
+        else:
+            num_correct = 0
+            batch_iter = data.batch_generator_np(images, labels, batch_size)
+            for (image_batch, label_batch) in tqdm(batch_iter, total=len(images)//batch_size, **TQDM_DICT):
+                image_batch = tf.constant(image_batch, dtype=tf.float32)
+                pred_probs = self.network.get_network_output(image_batch)
+                num_correct += get_accuracy(pred_probs, label_batch)[1]
+            accuracy = num_correct / len(images)
+            return accuracy
 
     def check_acc_satified(self, accuracy):
         criterion = self.config['meta']['auto_epochs']['criterion']
@@ -147,11 +166,20 @@ class Model:
             else: return False
         return True
 
-    def run_epoch(self, batch_size, grad_accumulation=True):
-        if not grad_accumulation:
-            batch_iter = data_dist.batch_generator_np(self.train_images, self.train_labels, batch_size)
-            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
-                self.network.update_no_processing(train_image_batch, train_label_batch)
+    @tf.function
+    def distributed_train_step(self, train_image_batch, train_label_batch):
+        self.strategy.run(self.network.update_distributed, args=(train_image_batch, train_label_batch))
+
+    def run_epoch(self, batch_size):
+        if self.config['data']['distributed']:
+            options = tf.data.Options()
+            options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
+            batch_iter = tf.data.Dataset.from_tensor_slices((self.train_images, self.train_labels))
+            batch_iter = batch_iter.with_options(options)
+            batch_iter = batch_iter.shuffle(len(self.train_images)).batch(batch_size)
+            batch_iter = self.strategy.experimental_distribute_dataset(batch_iter)
+            for (train_image_batch, train_label_batch) in batch_iter:
+                self.distributed_train_step(train_image_batch, train_label_batch)
         else:
             exec_batch_size = self.config['data']['execute_batch_size']
             counter = batch_size // exec_batch_size
@@ -174,7 +202,7 @@ class Model:
             return train_accuracy
 
 
-def get_accuracy(guesses, labels):
+def get_accuracy(guesses: np.ndarray, labels: np.ndarray):
     guess_index = np.argmax(guesses, axis=1)
     label_index = np.argmax(labels, axis=1)
     compare = guess_index - label_index
@@ -183,9 +211,18 @@ def get_accuracy(guesses, labels):
     accuracy = num_correct / total
     return accuracy, num_correct
 
+def get_accuracy_tf(guesses: tf.Tensor, labels: tf.Tensor):
+    guess_index = tf.math.argmax(guesses, axis=1)
+    label_index = tf.math.argmax(labels, axis=1)
+    compare = guess_index - label_index
+    num_correct = tf.reduce_sum(tf.cast(compare == 0, tf.int32))
+    total = guesses.shape[0]
+    accuracy = num_correct / total
+    return accuracy, num_correct
+
 
 if __name__ == "__main__":
-    with open('../config_example.yaml', 'r') as f:
+    with open('config_example_distributed.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1)); sys.stdout.flush()
 

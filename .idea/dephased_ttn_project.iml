@@ -5,7 +5,4 @@
     <orderEntry type="jdk" jdkName="Remote Python 3.9.7 (sftp://haoranliao@bigboy2.cchem.berkeley.edu:22/home/haoranliao/anaconda3/envs/tf2.7/bin/python)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
-  <component name="PyDocumentationSettings">
-    <option name="renderExternalDocumentation" value="true" />
-  </component>
 </module>
