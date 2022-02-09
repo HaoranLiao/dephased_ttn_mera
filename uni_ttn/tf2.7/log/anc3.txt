@@ -1,0 +1,3147 @@
+{
+ "data": {
+  "path": "../../mnist8by8/mnist8by8",
+  "val_split": 0,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 125,
+  "eval_batch_size_factor": 2,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 5000,
+  "feature_dim": 2
+ },
+ "meta": {
+  "random_seed": 42,
+  "list_num_anc": [
+   3
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": true,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   80
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": 0.1
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": false,
+    "lr": 0.0001
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.56320 accuracy
+Epoch 2: 0.73700 accuracy
+Epoch 3: 0.82380 accuracy
+Epoch 4: 0.82720 accuracy
+Epoch 5: 0.83520 accuracy
+Test Accuracy : 0.836
+Epoch 6: 0.83860 accuracy
+Epoch 7: 0.85420 accuracy
+Epoch 8: 0.87800 accuracy
+Epoch 9: 0.87880 accuracy
+Epoch 10: 0.87840 accuracy
+Test Accuracy : 0.869
+Epoch 11: 0.88160 accuracy
+Epoch 12: 0.87520 accuracy
+Epoch 13: 0.87960 accuracy
+Epoch 14: 0.88480 accuracy
+Epoch 15: 0.88600 accuracy
+Test Accuracy : 0.870
+Epoch 16: 0.88320 accuracy
+Epoch 17: 0.88680 accuracy
+Epoch 18: 0.88340 accuracy
+Epoch 19: 0.88060 accuracy
+Epoch 20: 0.88880 accuracy
+Test Accuracy : 0.870
+Epoch 21: 0.88360 accuracy
+Epoch 22: 0.88100 accuracy
+Epoch 23: 0.88620 accuracy
+Epoch 24: 0.88240 accuracy
+Epoch 25: 0.87540 accuracy
+Test Accuracy : 0.864
+Epoch 26: 0.88780 accuracy
+Epoch 27: 0.88620 accuracy
+Epoch 28: 0.88160 accuracy
+Epoch 29: 0.87920 accuracy
+Epoch 30: 0.88220 accuracy
+Test Accuracy : 0.869
+Epoch 31: 0.88960 accuracy
+Epoch 32: 0.88540 accuracy
+Epoch 33: 0.89280 accuracy
+Epoch 34: 0.88240 accuracy
+Epoch 35: 0.88820 accuracy
+Test Accuracy : 0.873
+Epoch 36: 0.88740 accuracy
+Epoch 37: 0.89240 accuracy
+Epoch 38: 0.89140 accuracy
+Epoch 39: 0.89200 accuracy
+Epoch 40: 0.89220 accuracy
+Test Accuracy : 0.870
+Epoch 41: 0.89340 accuracy
+Epoch 42: 0.89040 accuracy
+Epoch 43: 0.89200 accuracy
+Epoch 44: 0.89680 accuracy
+Epoch 45: 0.89020 accuracy
+Test Accuracy : 0.871
+Epoch 46: 0.89380 accuracy
+Epoch 47: 0.89220 accuracy
+Epoch 48: 0.88540 accuracy
+Epoch 49: 0.89120 accuracy
+Epoch 50: 0.89260 accuracy
+Test Accuracy : 0.872
+Epoch 51: 0.89380 accuracy
+Epoch 52: 0.89480 accuracy
+Epoch 53: 0.89620 accuracy
+Epoch 54: 0.89620 accuracy
+Epoch 55: 0.89380 accuracy
+Test Accuracy : 0.876
+Epoch 56: 0.89440 accuracy
+Epoch 57: 0.89680 accuracy
+Epoch 58: 0.89820 accuracy
+Epoch 59: 0.90340 accuracy
+Epoch 60: 0.90680 accuracy
+Test Accuracy : 0.887
+Epoch 61: 0.91100 accuracy
+Epoch 62: 0.91000 accuracy
+Epoch 63: 0.90640 accuracy
+Epoch 64: 0.91140 accuracy
+Epoch 65: 0.90880 accuracy
+Test Accuracy : 0.889
+Epoch 66: 0.90820 accuracy
+Epoch 67: 0.90880 accuracy
+Epoch 68: 0.90760 accuracy
+Epoch 69: 0.91120 accuracy
+Epoch 70: 0.90300 accuracy
+Test Accuracy : 0.882
+Epoch 71: 0.90760 accuracy
+Train Accuracy: 0.908
+Test Accuracy : 0.891
+Time (hr): 1.2
+
+Repeat: 2/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.64100 accuracy
+Epoch 2: 0.71240 accuracy
+Epoch 3: 0.83080 accuracy
+Epoch 4: 0.85700 accuracy
+Epoch 5: 0.87500 accuracy
+Test Accuracy : 0.861
+Epoch 6: 0.87640 accuracy
+Epoch 7: 0.88420 accuracy
+Epoch 8: 0.88720 accuracy
+Epoch 9: 0.90100 accuracy
+Epoch 10: 0.90260 accuracy
+Test Accuracy : 0.894
+Epoch 11: 0.89760 accuracy
+Epoch 12: 0.91000 accuracy
+Epoch 13: 0.91020 accuracy
+Epoch 14: 0.91220 accuracy
+Epoch 15: 0.91080 accuracy
+Test Accuracy : 0.907
+Epoch 16: 0.90820 accuracy
+Epoch 17: 0.91440 accuracy
+Epoch 18: 0.90920 accuracy
+Epoch 19: 0.90720 accuracy
+Epoch 20: 0.90920 accuracy
+Test Accuracy : 0.900
+Epoch 21: 0.90960 accuracy
+Epoch 22: 0.91340 accuracy
+Epoch 23: 0.91020 accuracy
+Epoch 24: 0.91100 accuracy
+Epoch 25: 0.91300 accuracy
+Test Accuracy : 0.902
+Epoch 26: 0.91020 accuracy
+Epoch 27: 0.91020 accuracy
+Epoch 28: 0.91260 accuracy
+Epoch 29: 0.90920 accuracy
+Epoch 30: 0.91360 accuracy
+Test Accuracy : 0.906
+Epoch 31: 0.91260 accuracy
+Epoch 32: 0.90920 accuracy
+Epoch 33: 0.91300 accuracy
+Epoch 34: 0.90980 accuracy
+Epoch 35: 0.91480 accuracy
+Test Accuracy : 0.906
+Epoch 36: 0.91340 accuracy
+Epoch 37: 0.91560 accuracy
+Epoch 38: 0.91480 accuracy
+Epoch 39: 0.91500 accuracy
+Epoch 40: 0.91820 accuracy
+Test Accuracy : 0.916
+Epoch 41: 0.91500 accuracy
+Epoch 42: 0.91120 accuracy
+Epoch 43: 0.91600 accuracy
+Epoch 44: 0.91340 accuracy
+Epoch 45: 0.91480 accuracy
+Test Accuracy : 0.907
+Epoch 46: 0.90860 accuracy
+Epoch 47: 0.90600 accuracy
+Epoch 48: 0.90760 accuracy
+Epoch 49: 0.91380 accuracy
+Epoch 50: 0.91300 accuracy
+Test Accuracy : 0.910
+Epoch 51: 0.92140 accuracy
+Epoch 52: 0.91900 accuracy
+Epoch 53: 0.91580 accuracy
+Epoch 54: 0.90680 accuracy
+Epoch 55: 0.91740 accuracy
+Test Accuracy : 0.919
+Epoch 56: 0.91960 accuracy
+Epoch 57: 0.90840 accuracy
+Epoch 58: 0.92320 accuracy
+Epoch 59: 0.92620 accuracy
+Epoch 60: 0.92680 accuracy
+Test Accuracy : 0.925
+Epoch 61: 0.92680 accuracy
+Epoch 62: 0.91900 accuracy
+Epoch 63: 0.91940 accuracy
+Epoch 64: 0.92640 accuracy
+Epoch 65: 0.93020 accuracy
+Test Accuracy : 0.919
+Epoch 66: 0.92040 accuracy
+Epoch 67: 0.93420 accuracy
+Epoch 68: 0.92400 accuracy
+Epoch 69: 0.93080 accuracy
+Epoch 70: 0.93260 accuracy
+Test Accuracy : 0.926
+Epoch 71: 0.92800 accuracy
+Epoch 72: 0.94040 accuracy
+Epoch 73: 0.93420 accuracy
+Epoch 74: 0.94520 accuracy
+Epoch 75: 0.94540 accuracy
+Test Accuracy : 0.930
+Epoch 76: 0.94500 accuracy
+Epoch 77: 0.93820 accuracy
+Epoch 78: 0.94720 accuracy
+Epoch 79: 0.93840 accuracy
+Train Accuracy: 0.938
+Test Accuracy : 0.927
+Time (hr): 1.1
+
+Repeat: 3/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.68320 accuracy
+Epoch 2: 0.71280 accuracy
+Epoch 3: 0.82500 accuracy
+Epoch 4: 0.83480 accuracy
+Epoch 5: 0.83380 accuracy
+Test Accuracy : 0.833
+Epoch 6: 0.83780 accuracy
+Epoch 7: 0.83520 accuracy
+Epoch 8: 0.87880 accuracy
+Epoch 9: 0.87700 accuracy
+Epoch 10: 0.88160 accuracy
+Test Accuracy : 0.870
+Epoch 11: 0.87900 accuracy
+Epoch 12: 0.89440 accuracy
+Epoch 13: 0.89900 accuracy
+Epoch 14: 0.90400 accuracy
+Epoch 15: 0.90820 accuracy
+Test Accuracy : 0.896
+Epoch 16: 0.90560 accuracy
+Epoch 17: 0.91340 accuracy
+Epoch 18: 0.91020 accuracy
+Epoch 19: 0.91420 accuracy
+Epoch 20: 0.91300 accuracy
+Test Accuracy : 0.906
+Epoch 21: 0.91840 accuracy
+Epoch 22: 0.91780 accuracy
+Epoch 23: 0.91800 accuracy
+Epoch 24: 0.92080 accuracy
+Epoch 25: 0.91820 accuracy
+Test Accuracy : 0.909
+Epoch 26: 0.92100 accuracy
+Epoch 27: 0.92700 accuracy
+Epoch 28: 0.93080 accuracy
+Epoch 29: 0.93160 accuracy
+Epoch 30: 0.93620 accuracy
+Test Accuracy : 0.921
+Epoch 31: 0.93700 accuracy
+Epoch 32: 0.93200 accuracy
+Epoch 33: 0.93760 accuracy
+Epoch 34: 0.93260 accuracy
+Epoch 35: 0.92740 accuracy
+Test Accuracy : 0.915
+Epoch 36: 0.93780 accuracy
+Epoch 37: 0.93760 accuracy
+Epoch 38: 0.93660 accuracy
+Epoch 39: 0.93780 accuracy
+Epoch 40: 0.93140 accuracy
+Test Accuracy : 0.922
+Epoch 41: 0.93440 accuracy
+Epoch 42: 0.93320 accuracy
+Epoch 43: 0.93960 accuracy
+Epoch 44: 0.93920 accuracy
+Epoch 45: 0.93500 accuracy
+Test Accuracy : 0.921
+Epoch 46: 0.93700 accuracy
+Epoch 47: 0.94120 accuracy
+Epoch 48: 0.94020 accuracy
+Epoch 49: 0.93880 accuracy
+Epoch 50: 0.93960 accuracy
+Test Accuracy : 0.925
+Epoch 51: 0.93820 accuracy
+Epoch 52: 0.92000 accuracy
+Epoch 53: 0.93620 accuracy
+Epoch 54: 0.93000 accuracy
+Epoch 55: 0.93940 accuracy
+Test Accuracy : 0.924
+Epoch 56: 0.93980 accuracy
+Epoch 57: 0.93500 accuracy
+Epoch 58: 0.93840 accuracy
+Epoch 59: 0.94220 accuracy
+Epoch 60: 0.94080 accuracy
+Test Accuracy : 0.927
+Epoch 61: 0.93700 accuracy
+Epoch 62: 0.94460 accuracy
+Epoch 63: 0.94100 accuracy
+Epoch 64: 0.94180 accuracy
+Epoch 65: 0.93560 accuracy
+Test Accuracy : 0.924
+Epoch 66: 0.94060 accuracy
+Epoch 67: 0.94240 accuracy
+Epoch 68: 0.93960 accuracy
+Epoch 69: 0.92800 accuracy
+Epoch 70: 0.94280 accuracy
+Test Accuracy : 0.928
+Epoch 71: 0.93840 accuracy
+Epoch 72: 0.94380 accuracy
+Epoch 73: 0.93840 accuracy
+Epoch 74: 0.94520 accuracy
+Epoch 75: 0.94000 accuracy
+Test Accuracy : 0.930
+Epoch 76: 0.93140 accuracy
+Epoch 77: 0.94220 accuracy
+Epoch 78: 0.93620 accuracy
+Epoch 79: 0.94520 accuracy
+Train Accuracy: 0.945
+Test Accuracy : 0.935
+Time (hr): 1.1
+
+Repeat: 4/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.60420 accuracy
+Epoch 2: 0.68980 accuracy
+Epoch 3: 0.81680 accuracy
+Epoch 4: 0.84160 accuracy
+Epoch 5: 0.87580 accuracy
+Test Accuracy : 0.868
+Epoch 6: 0.87620 accuracy
+Epoch 7: 0.87720 accuracy
+Epoch 8: 0.88120 accuracy
+Epoch 9: 0.88620 accuracy
+Epoch 10: 0.89560 accuracy
+Test Accuracy : 0.882
+Epoch 11: 0.90520 accuracy
+Epoch 12: 0.90660 accuracy
+Epoch 13: 0.90840 accuracy
+Epoch 14: 0.91400 accuracy
+Epoch 15: 0.91780 accuracy
+Test Accuracy : 0.903
+Epoch 16: 0.91240 accuracy
+Epoch 17: 0.91460 accuracy
+Epoch 18: 0.92080 accuracy
+Epoch 19: 0.90300 accuracy
+Epoch 20: 0.91660 accuracy
+Test Accuracy : 0.904
+Epoch 21: 0.91680 accuracy
+Epoch 22: 0.92160 accuracy
+Epoch 23: 0.90860 accuracy
+Epoch 24: 0.91860 accuracy
+Epoch 25: 0.91860 accuracy
+Test Accuracy : 0.911
+Epoch 26: 0.91460 accuracy
+Epoch 27: 0.91680 accuracy
+Epoch 28: 0.92140 accuracy
+Epoch 29: 0.88640 accuracy
+Epoch 30: 0.90620 accuracy
+Test Accuracy : 0.901
+Epoch 31: 0.91540 accuracy
+Epoch 32: 0.90460 accuracy
+Epoch 33: 0.92000 accuracy
+Epoch 34: 0.91900 accuracy
+Epoch 35: 0.91120 accuracy
+Test Accuracy : 0.906
+Epoch 36: 0.91660 accuracy
+Epoch 37: 0.91180 accuracy
+Epoch 38: 0.90880 accuracy
+Epoch 39: 0.91920 accuracy
+Epoch 40: 0.92160 accuracy
+Test Accuracy : 0.913
+Epoch 41: 0.91680 accuracy
+Epoch 42: 0.91780 accuracy
+Epoch 43: 0.91120 accuracy
+Epoch 44: 0.91400 accuracy
+Epoch 45: 0.91980 accuracy
+Test Accuracy : 0.912
+Epoch 46: 0.91620 accuracy
+Epoch 47: 0.92460 accuracy
+Epoch 48: 0.92120 accuracy
+Epoch 49: 0.91500 accuracy
+Epoch 50: 0.91780 accuracy
+Test Accuracy : 0.913
+Epoch 51: 0.92060 accuracy
+Epoch 52: 0.92420 accuracy
+Epoch 53: 0.92440 accuracy
+Epoch 54: 0.92080 accuracy
+Epoch 55: 0.91900 accuracy
+Test Accuracy : 0.914
+Epoch 56: 0.91720 accuracy
+Epoch 57: 0.91540 accuracy
+Epoch 58: 0.92280 accuracy
+Epoch 59: 0.91980 accuracy
+Epoch 60: 0.91220 accuracy
+Test Accuracy : 0.908
+Epoch 61: 0.91780 accuracy
+Epoch 62: 0.91880 accuracy
+Epoch 63: 0.91680 accuracy
+Epoch 64: 0.91780 accuracy
+Epoch 65: 0.92460 accuracy
+Test Accuracy : 0.919
+Epoch 66: 0.92280 accuracy
+Epoch 67: 0.92500 accuracy
+Epoch 68: 0.92320 accuracy
+Epoch 69: 0.90700 accuracy
+Epoch 70: 0.92400 accuracy
+Test Accuracy : 0.917
+Epoch 71: 0.92700 accuracy
+Epoch 72: 0.92380 accuracy
+Epoch 73: 0.92320 accuracy
+Epoch 74: 0.92020 accuracy
+Epoch 75: 0.92600 accuracy
+Test Accuracy : 0.922
+Epoch 76: 0.89820 accuracy
+Epoch 77: 0.93000 accuracy
+Epoch 78: 0.90760 accuracy
+Epoch 79: 0.93120 accuracy
+Train Accuracy: 0.931
+Test Accuracy : 0.926
+Time (hr): 1.1
+
+Repeat: 5/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.71540 accuracy
+Epoch 2: 0.69020 accuracy
+Epoch 3: 0.83160 accuracy
+Epoch 4: 0.83420 accuracy
+Epoch 5: 0.87460 accuracy
+Test Accuracy : 0.866
+Epoch 6: 0.87860 accuracy
+Epoch 7: 0.87940 accuracy
+Epoch 8: 0.88000 accuracy
+Epoch 9: 0.88880 accuracy
+Epoch 10: 0.88660 accuracy
+Test Accuracy : 0.869
+Epoch 11: 0.89980 accuracy
+Epoch 12: 0.90580 accuracy
+Epoch 13: 0.89920 accuracy
+Epoch 14: 0.91220 accuracy
+Epoch 15: 0.91280 accuracy
+Test Accuracy : 0.900
+Epoch 16: 0.91140 accuracy
+Epoch 17: 0.91280 accuracy
+Epoch 18: 0.91400 accuracy
+Epoch 19: 0.91480 accuracy
+Epoch 20: 0.91940 accuracy
+Test Accuracy : 0.907
+Epoch 21: 0.91900 accuracy
+Epoch 22: 0.91140 accuracy
+Epoch 23: 0.91640 accuracy
+Epoch 24: 0.91640 accuracy
+Epoch 25: 0.92000 accuracy
+Test Accuracy : 0.912
+Epoch 26: 0.91880 accuracy
+Epoch 27: 0.91920 accuracy
+Epoch 28: 0.92600 accuracy
+Epoch 29: 0.92440 accuracy
+Epoch 30: 0.92640 accuracy
+Test Accuracy : 0.915
+Epoch 31: 0.92620 accuracy
+Epoch 32: 0.92720 accuracy
+Epoch 33: 0.92460 accuracy
+Epoch 34: 0.92400 accuracy
+Epoch 35: 0.92880 accuracy
+Test Accuracy : 0.914
+Epoch 36: 0.92660 accuracy
+Epoch 37: 0.93100 accuracy
+Epoch 38: 0.92480 accuracy
+Epoch 39: 0.92340 accuracy
+Epoch 40: 0.92880 accuracy
+Test Accuracy : 0.916
+Epoch 41: 0.92900 accuracy
+Epoch 42: 0.92260 accuracy
+Epoch 43: 0.92640 accuracy
+Epoch 44: 0.92980 accuracy
+Epoch 45: 0.92860 accuracy
+Test Accuracy : 0.916
+Epoch 46: 0.93240 accuracy
+Epoch 47: 0.92880 accuracy
+Epoch 48: 0.92980 accuracy
+Epoch 49: 0.92300 accuracy
+Epoch 50: 0.92720 accuracy
+Test Accuracy : 0.914
+Epoch 51: 0.92780 accuracy
+Epoch 52: 0.93000 accuracy
+Epoch 53: 0.91120 accuracy
+Epoch 54: 0.92520 accuracy
+Epoch 55: 0.92780 accuracy
+Test Accuracy : 0.916
+Epoch 56: 0.92080 accuracy
+Epoch 57: 0.93180 accuracy
+Epoch 58: 0.92460 accuracy
+Epoch 59: 0.93300 accuracy
+Epoch 60: 0.93280 accuracy
+Test Accuracy : 0.919
+Epoch 61: 0.93400 accuracy
+Epoch 62: 0.92520 accuracy
+Epoch 63: 0.92700 accuracy
+Epoch 64: 0.93500 accuracy
+Epoch 65: 0.93080 accuracy
+Test Accuracy : 0.919
+Epoch 66: 0.92000 accuracy
+Epoch 67: 0.93160 accuracy
+Epoch 68: 0.93120 accuracy
+Epoch 69: 0.93220 accuracy
+Epoch 70: 0.93520 accuracy
+Test Accuracy : 0.915
+Epoch 71: 0.93680 accuracy
+Epoch 72: 0.93700 accuracy
+Epoch 73: 0.93400 accuracy
+Epoch 74: 0.92560 accuracy
+Epoch 75: 0.92280 accuracy
+Test Accuracy : 0.920
+Epoch 76: 0.92660 accuracy
+Epoch 77: 0.92020 accuracy
+Epoch 78: 0.93860 accuracy
+Epoch 79: 0.93380 accuracy
+Train Accuracy: 0.934
+Test Accuracy : 0.922
+Time (hr): 1.1
+
+Setting 0 Train Accs: [0.9076, 0.9384, 0.9452, 0.9312, 0.9338]	
+Setting 0 Avg Train Acc: 0.931
+Setting 0 Std Train Acc: 0.013
+Setting 0 Test Accs: [0.8912, 0.9269, 0.9348, 0.9259, 0.9217]	
+Setting 0 Avg Test Acc: 0.920
+Setting 0 Std Test Acc: 0.015
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.20
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.53700 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.53820 accuracy
+Epoch 7: 0.78480 accuracy
+Epoch 8: 0.80320 accuracy
+Epoch 9: 0.84140 accuracy
+Epoch 10: 0.83480 accuracy
+Test Accuracy : 0.832
+Epoch 11: 0.83780 accuracy
+Epoch 12: 0.83960 accuracy
+Epoch 13: 0.83880 accuracy
+Epoch 14: 0.84220 accuracy
+Epoch 15: 0.85460 accuracy
+Test Accuracy : 0.860
+Epoch 16: 0.85100 accuracy
+Epoch 17: 0.85220 accuracy
+Epoch 18: 0.85820 accuracy
+Epoch 19: 0.85560 accuracy
+Epoch 20: 0.85780 accuracy
+Test Accuracy : 0.862
+Epoch 21: 0.86120 accuracy
+Epoch 22: 0.85560 accuracy
+Epoch 23: 0.86380 accuracy
+Epoch 24: 0.86180 accuracy
+Epoch 25: 0.85500 accuracy
+Test Accuracy : 0.863
+Epoch 26: 0.85720 accuracy
+Epoch 27: 0.86100 accuracy
+Epoch 28: 0.85600 accuracy
+Epoch 29: 0.85900 accuracy
+Epoch 30: 0.85580 accuracy
+Test Accuracy : 0.863
+Epoch 31: 0.85920 accuracy
+Epoch 32: 0.85820 accuracy
+Epoch 33: 0.85720 accuracy
+Epoch 34: 0.85940 accuracy
+Epoch 35: 0.85820 accuracy
+Test Accuracy : 0.864
+Epoch 36: 0.85600 accuracy
+Epoch 37: 0.86900 accuracy
+Epoch 38: 0.87580 accuracy
+Epoch 39: 0.88060 accuracy
+Epoch 40: 0.87680 accuracy
+Test Accuracy : 0.888
+Epoch 41: 0.88160 accuracy
+Epoch 42: 0.88760 accuracy
+Epoch 43: 0.88260 accuracy
+Epoch 44: 0.88020 accuracy
+Epoch 45: 0.88660 accuracy
+Test Accuracy : 0.887
+Epoch 46: 0.88360 accuracy
+Epoch 47: 0.88760 accuracy
+Epoch 48: 0.88380 accuracy
+Epoch 49: 0.88700 accuracy
+Epoch 50: 0.88600 accuracy
+Test Accuracy : 0.890
+Epoch 51: 0.89100 accuracy
+Epoch 52: 0.88160 accuracy
+Epoch 53: 0.88280 accuracy
+Epoch 54: 0.88600 accuracy
+Epoch 55: 0.88420 accuracy
+Test Accuracy : 0.888
+Epoch 56: 0.88740 accuracy
+Epoch 57: 0.88800 accuracy
+Epoch 58: 0.88460 accuracy
+Epoch 59: 0.88640 accuracy
+Epoch 60: 0.88680 accuracy
+Test Accuracy : 0.891
+Epoch 61: 0.88360 accuracy
+Epoch 62: 0.89220 accuracy
+Epoch 63: 0.88280 accuracy
+Epoch 64: 0.88860 accuracy
+Epoch 65: 0.88640 accuracy
+Test Accuracy : 0.890
+Epoch 66: 0.88960 accuracy
+Epoch 67: 0.88660 accuracy
+Epoch 68: 0.88280 accuracy
+Epoch 69: 0.88720 accuracy
+Epoch 70: 0.88900 accuracy
+Test Accuracy : 0.890
+Epoch 71: 0.88900 accuracy
+Epoch 72: 0.88700 accuracy
+Epoch 73: 0.87800 accuracy
+Epoch 74: 0.88920 accuracy
+Epoch 75: 0.88240 accuracy
+Test Accuracy : 0.888
+Epoch 76: 0.88320 accuracy
+Epoch 77: 0.89080 accuracy
+Epoch 78: 0.89020 accuracy
+Epoch 79: 0.89080 accuracy
+Train Accuracy: 0.891
+Test Accuracy : 0.892
+Time (hr): 1.1
+
+Repeat: 2/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.20
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.48800 accuracy
+Test Accuracy : 0.495
+Epoch 1: 0.60660 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.72320 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.68720 accuracy
+Epoch 7: 0.78180 accuracy
+Epoch 8: 0.82720 accuracy
+Epoch 9: 0.83420 accuracy
+Epoch 10: 0.83760 accuracy
+Test Accuracy : 0.828
+Epoch 11: 0.83960 accuracy
+Epoch 12: 0.83760 accuracy
+Epoch 13: 0.84000 accuracy
+Epoch 14: 0.85400 accuracy
+Epoch 15: 0.85140 accuracy
+Test Accuracy : 0.854
+Epoch 16: 0.85620 accuracy
+Epoch 17: 0.85140 accuracy
+Epoch 18: 0.85840 accuracy
+Epoch 19: 0.87180 accuracy
+Epoch 20: 0.86760 accuracy
+Test Accuracy : 0.875
+Epoch 21: 0.87480 accuracy
+Epoch 22: 0.87100 accuracy
+Epoch 23: 0.86880 accuracy
+Epoch 24: 0.87260 accuracy
+Epoch 25: 0.86840 accuracy
+Test Accuracy : 0.876
+Epoch 26: 0.86920 accuracy
+Epoch 27: 0.86560 accuracy
+Epoch 28: 0.86980 accuracy
+Epoch 29: 0.87420 accuracy
+Epoch 30: 0.86960 accuracy
+Test Accuracy : 0.878
+Epoch 31: 0.87020 accuracy
+Epoch 32: 0.87260 accuracy
+Epoch 33: 0.86480 accuracy
+Epoch 34: 0.87000 accuracy
+Epoch 35: 0.87320 accuracy
+Test Accuracy : 0.879
+Epoch 36: 0.87160 accuracy
+Epoch 37: 0.87380 accuracy
+Epoch 38: 0.87780 accuracy
+Epoch 39: 0.87400 accuracy
+Epoch 40: 0.86720 accuracy
+Test Accuracy : 0.875
+Epoch 41: 0.87700 accuracy
+Epoch 42: 0.87620 accuracy
+Epoch 43: 0.87060 accuracy
+Epoch 44: 0.87640 accuracy
+Epoch 45: 0.87260 accuracy
+Test Accuracy : 0.880
+Epoch 46: 0.87580 accuracy
+Epoch 47: 0.87140 accuracy
+Epoch 48: 0.87120 accuracy
+Epoch 49: 0.87100 accuracy
+Epoch 50: 0.87020 accuracy
+Test Accuracy : 0.877
+Epoch 51: 0.87080 accuracy
+Epoch 52: 0.86880 accuracy
+Epoch 53: 0.87340 accuracy
+Epoch 54: 0.87500 accuracy
+Epoch 55: 0.87360 accuracy
+Test Accuracy : 0.879
+Epoch 56: 0.87320 accuracy
+Epoch 57: 0.87260 accuracy
+Epoch 58: 0.87740 accuracy
+Epoch 59: 0.87480 accuracy
+Epoch 60: 0.87380 accuracy
+Test Accuracy : 0.880
+Epoch 61: 0.87820 accuracy
+Epoch 62: 0.88640 accuracy
+Epoch 63: 0.88700 accuracy
+Epoch 64: 0.90240 accuracy
+Epoch 65: 0.90280 accuracy
+Test Accuracy : 0.900
+Epoch 66: 0.90480 accuracy
+Epoch 67: 0.90440 accuracy
+Epoch 68: 0.90340 accuracy
+Epoch 69: 0.90520 accuracy
+Epoch 70: 0.90540 accuracy
+Test Accuracy : 0.900
+Epoch 71: 0.91440 accuracy
+Epoch 72: 0.91440 accuracy
+Epoch 73: 0.91440 accuracy
+Epoch 74: 0.91460 accuracy
+Epoch 75: 0.91380 accuracy
+Test Accuracy : 0.903
+Epoch 76: 0.91580 accuracy
+Epoch 77: 0.91540 accuracy
+Epoch 78: 0.91620 accuracy
+Epoch 79: 0.91560 accuracy
+Train Accuracy: 0.916
+Test Accuracy : 0.905
+Time (hr): 1.1
+
+Repeat: 3/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.20
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.49220 accuracy
+Test Accuracy : 0.519
+Epoch 1: 0.54800 accuracy
+Epoch 2: 0.53720 accuracy
+Epoch 3: 0.53700 accuracy
+Epoch 4: 0.53800 accuracy
+Epoch 5: 0.53840 accuracy
+Test Accuracy : 0.534
+Epoch 6: 0.77100 accuracy
+Epoch 7: 0.77460 accuracy
+Epoch 8: 0.83480 accuracy
+Epoch 9: 0.83400 accuracy
+Epoch 10: 0.84240 accuracy
+Test Accuracy : 0.846
+Epoch 11: 0.85480 accuracy
+Epoch 12: 0.85740 accuracy
+Epoch 13: 0.86440 accuracy
+Epoch 14: 0.86920 accuracy
+Epoch 15: 0.86620 accuracy
+Test Accuracy : 0.869
+Epoch 16: 0.86680 accuracy
+Epoch 17: 0.86720 accuracy
+Epoch 18: 0.85840 accuracy
+Epoch 19: 0.86420 accuracy
+Epoch 20: 0.86440 accuracy
+Test Accuracy : 0.868
+Epoch 21: 0.87140 accuracy
+Epoch 22: 0.87180 accuracy
+Epoch 23: 0.87180 accuracy
+Epoch 24: 0.86520 accuracy
+Epoch 25: 0.86860 accuracy
+Test Accuracy : 0.871
+Epoch 26: 0.86200 accuracy
+Epoch 27: 0.86760 accuracy
+Epoch 28: 0.86600 accuracy
+Epoch 29: 0.86540 accuracy
+Epoch 30: 0.86980 accuracy
+Test Accuracy : 0.870
+Epoch 31: 0.86880 accuracy
+Epoch 32: 0.86400 accuracy
+Epoch 33: 0.86280 accuracy
+Epoch 34: 0.86560 accuracy
+Epoch 35: 0.86660 accuracy
+Test Accuracy : 0.869
+Epoch 36: 0.87120 accuracy
+Epoch 37: 0.86360 accuracy
+Epoch 38: 0.86580 accuracy
+Epoch 39: 0.86820 accuracy
+Epoch 40: 0.86240 accuracy
+Test Accuracy : 0.864
+Epoch 41: 0.87300 accuracy
+Epoch 42: 0.86920 accuracy
+Epoch 43: 0.86900 accuracy
+Epoch 44: 0.86300 accuracy
+Epoch 45: 0.86140 accuracy
+Test Accuracy : 0.862
+Epoch 46: 0.86380 accuracy
+Epoch 47: 0.86760 accuracy
+Epoch 48: 0.87180 accuracy
+Epoch 49: 0.86360 accuracy
+Epoch 50: 0.86700 accuracy
+Test Accuracy : 0.870
+Epoch 51: 0.86980 accuracy
+Epoch 52: 0.87440 accuracy
+Epoch 53: 0.86000 accuracy
+Epoch 54: 0.86660 accuracy
+Epoch 55: 0.87200 accuracy
+Test Accuracy : 0.872
+Epoch 56: 0.86540 accuracy
+Epoch 57: 0.86120 accuracy
+Epoch 58: 0.87140 accuracy
+Epoch 59: 0.87280 accuracy
+Epoch 60: 0.87500 accuracy
+Test Accuracy : 0.874
+Epoch 61: 0.87140 accuracy
+Epoch 62: 0.87540 accuracy
+Epoch 63: 0.86600 accuracy
+Epoch 64: 0.86680 accuracy
+Epoch 65: 0.86360 accuracy
+Test Accuracy : 0.865
+Epoch 66: 0.86400 accuracy
+Epoch 67: 0.86820 accuracy
+Epoch 68: 0.86800 accuracy
+Epoch 69: 0.86540 accuracy
+Epoch 70: 0.86800 accuracy
+Test Accuracy : 0.869
+Epoch 71: 0.87000 accuracy
+Epoch 72: 0.86460 accuracy
+Epoch 73: 0.86500 accuracy
+Epoch 74: 0.87020 accuracy
+Epoch 75: 0.86520 accuracy
+Test Accuracy : 0.869
+Epoch 76: 0.86660 accuracy
+Train Accuracy: 0.867
+Test Accuracy : 0.871
+Time (hr): 1.0
+
+Repeat: 4/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.20
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 1: 0.55580 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.54540 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.56820 accuracy
+Epoch 7: 0.78460 accuracy
+Epoch 8: 0.79260 accuracy
+Epoch 9: 0.83880 accuracy
+Epoch 10: 0.83760 accuracy
+Test Accuracy : 0.832
+Epoch 11: 0.83940 accuracy
+Epoch 12: 0.85180 accuracy
+Epoch 13: 0.85040 accuracy
+Epoch 14: 0.85940 accuracy
+Epoch 15: 0.85480 accuracy
+Test Accuracy : 0.859
+Epoch 16: 0.85020 accuracy
+Epoch 17: 0.85900 accuracy
+Epoch 18: 0.86100 accuracy
+Epoch 19: 0.86320 accuracy
+Epoch 20: 0.87060 accuracy
+Test Accuracy : 0.876
+Epoch 21: 0.86640 accuracy
+Epoch 22: 0.87640 accuracy
+Epoch 23: 0.87080 accuracy
+Epoch 24: 0.86800 accuracy
+Epoch 25: 0.87220 accuracy
+Test Accuracy : 0.877
+Epoch 26: 0.87160 accuracy
+Epoch 27: 0.87140 accuracy
+Epoch 28: 0.87160 accuracy
+Epoch 29: 0.88060 accuracy
+Epoch 30: 0.87640 accuracy
+Test Accuracy : 0.882
+Epoch 31: 0.87320 accuracy
+Epoch 32: 0.87960 accuracy
+Epoch 33: 0.88160 accuracy
+Epoch 34: 0.87640 accuracy
+Epoch 35: 0.87440 accuracy
+Test Accuracy : 0.879
+Epoch 36: 0.87220 accuracy
+Epoch 37: 0.87400 accuracy
+Epoch 38: 0.87000 accuracy
+Epoch 39: 0.87080 accuracy
+Epoch 40: 0.87460 accuracy
+Test Accuracy : 0.880
+Epoch 41: 0.87960 accuracy
+Epoch 42: 0.88820 accuracy
+Epoch 43: 0.90060 accuracy
+Epoch 44: 0.90160 accuracy
+Epoch 45: 0.89680 accuracy
+Test Accuracy : 0.893
+Epoch 46: 0.90160 accuracy
+Epoch 47: 0.90200 accuracy
+Epoch 48: 0.90400 accuracy
+Epoch 49: 0.90080 accuracy
+Epoch 50: 0.90360 accuracy
+Test Accuracy : 0.899
+Epoch 51: 0.89960 accuracy
+Epoch 52: 0.90360 accuracy
+Epoch 53: 0.90200 accuracy
+Epoch 54: 0.90540 accuracy
+Epoch 55: 0.90700 accuracy
+Test Accuracy : 0.901
+Epoch 56: 0.90500 accuracy
+Epoch 57: 0.90820 accuracy
+Epoch 58: 0.90720 accuracy
+Epoch 59: 0.90700 accuracy
+Epoch 60: 0.90740 accuracy
+Test Accuracy : 0.900
+Epoch 61: 0.90640 accuracy
+Epoch 62: 0.90620 accuracy
+Train Accuracy: 0.906
+Test Accuracy : 0.901
+Time (hr): 0.8
+
+Repeat: 5/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.20
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46900 accuracy
+Test Accuracy : 0.458
+Epoch 1: 0.66600 accuracy
+Epoch 2: 0.56900 accuracy
+Epoch 3: 0.53700 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.53700 accuracy
+Epoch 7: 0.73700 accuracy
+Epoch 8: 0.75360 accuracy
+Epoch 9: 0.83820 accuracy
+Epoch 10: 0.84300 accuracy
+Test Accuracy : 0.840
+Epoch 11: 0.85180 accuracy
+Epoch 12: 0.85600 accuracy
+Epoch 13: 0.86160 accuracy
+Epoch 14: 0.86440 accuracy
+Epoch 15: 0.86460 accuracy
+Test Accuracy : 0.871
+Epoch 16: 0.85780 accuracy
+Epoch 17: 0.86400 accuracy
+Epoch 18: 0.87280 accuracy
+Epoch 19: 0.87180 accuracy
+Epoch 20: 0.87060 accuracy
+Test Accuracy : 0.873
+Epoch 21: 0.86120 accuracy
+Epoch 22: 0.87320 accuracy
+Epoch 23: 0.86360 accuracy
+Epoch 24: 0.86480 accuracy
+Epoch 25: 0.87140 accuracy
+Test Accuracy : 0.874
+Epoch 26: 0.86860 accuracy
+Epoch 27: 0.86240 accuracy
+Epoch 28: 0.87660 accuracy
+Epoch 29: 0.86380 accuracy
+Epoch 30: 0.87260 accuracy
+Test Accuracy : 0.873
+Epoch 31: 0.86640 accuracy
+Epoch 32: 0.86920 accuracy
+Epoch 33: 0.86420 accuracy
+Epoch 34: 0.87020 accuracy
+Epoch 35: 0.86480 accuracy
+Test Accuracy : 0.869
+Epoch 36: 0.87720 accuracy
+Epoch 37: 0.85940 accuracy
+Epoch 38: 0.87140 accuracy
+Epoch 39: 0.86680 accuracy
+Epoch 40: 0.86520 accuracy
+Test Accuracy : 0.868
+Epoch 41: 0.86920 accuracy
+Epoch 42: 0.87160 accuracy
+Epoch 43: 0.86820 accuracy
+Epoch 44: 0.87080 accuracy
+Epoch 45: 0.86920 accuracy
+Test Accuracy : 0.871
+Epoch 46: 0.86420 accuracy
+Epoch 47: 0.86840 accuracy
+Epoch 48: 0.86820 accuracy
+Epoch 49: 0.87260 accuracy
+Epoch 50: 0.87000 accuracy
+Test Accuracy : 0.871
+Epoch 51: 0.86780 accuracy
+Epoch 52: 0.87040 accuracy
+Epoch 53: 0.86840 accuracy
+Epoch 54: 0.86560 accuracy
+Epoch 55: 0.86540 accuracy
+Test Accuracy : 0.870
+Epoch 56: 0.86620 accuracy
+Epoch 57: 0.86620 accuracy
+Epoch 58: 0.87160 accuracy
+Epoch 59: 0.86560 accuracy
+Epoch 60: 0.86500 accuracy
+Test Accuracy : 0.869
+Epoch 61: 0.87320 accuracy
+Epoch 62: 0.86380 accuracy
+Epoch 63: 0.87400 accuracy
+Epoch 64: 0.86940 accuracy
+Epoch 65: 0.87120 accuracy
+Test Accuracy : 0.872
+Epoch 66: 0.87400 accuracy
+Epoch 67: 0.86700 accuracy
+Epoch 68: 0.86860 accuracy
+Epoch 69: 0.86280 accuracy
+Epoch 70: 0.86460 accuracy
+Test Accuracy : 0.870
+Epoch 71: 0.86420 accuracy
+Epoch 72: 0.86760 accuracy
+Epoch 73: 0.86640 accuracy
+Epoch 74: 0.87040 accuracy
+Epoch 75: 0.86860 accuracy
+Test Accuracy : 0.871
+Epoch 76: 0.87300 accuracy
+Epoch 77: 0.86900 accuracy
+Epoch 78: 0.86800 accuracy
+Epoch 79: 0.87040 accuracy
+Train Accuracy: 0.870
+Test Accuracy : 0.874
+Time (hr): 1.1
+
+Setting 1 Train Accs: [0.8908, 0.9156, 0.8666, 0.9062, 0.8704]	
+Setting 1 Avg Train Acc: 0.890
+Setting 1 Std Train Acc: 0.019
+Setting 1 Test Accs: [0.8922, 0.9048, 0.8712, 0.9006, 0.8738]	
+Setting 1 Avg Test Acc: 0.889
+Setting 1 Std Test Acc: 0.014
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.40
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 1: 0.54380 accuracy
+Epoch 2: 0.53060 accuracy
+Epoch 3: 0.53680 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.45760 accuracy
+Test Accuracy : 0.463
+Epoch 6: 0.53700 accuracy
+Epoch 7: 0.50100 accuracy
+Epoch 8: 0.53700 accuracy
+Epoch 9: 0.53700 accuracy
+Epoch 10: 0.54020 accuracy
+Test Accuracy : 0.537
+Epoch 11: 0.46300 accuracy
+Epoch 12: 0.46300 accuracy
+Epoch 13: 0.55940 accuracy
+Epoch 14: 0.57920 accuracy
+Epoch 15: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 16: 0.53700 accuracy
+Epoch 17: 0.54180 accuracy
+Epoch 18: 0.69840 accuracy
+Epoch 19: 0.68140 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.532
+Epoch 21: 0.53700 accuracy
+Epoch 22: 0.53700 accuracy
+Epoch 23: 0.59980 accuracy
+Epoch 24: 0.80020 accuracy
+Epoch 25: 0.83860 accuracy
+Test Accuracy : 0.832
+Epoch 26: 0.83920 accuracy
+Epoch 27: 0.83760 accuracy
+Epoch 28: 0.83900 accuracy
+Epoch 29: 0.83740 accuracy
+Epoch 30: 0.83760 accuracy
+Test Accuracy : 0.828
+Epoch 31: 0.83800 accuracy
+Epoch 32: 0.83840 accuracy
+Epoch 33: 0.83720 accuracy
+Epoch 34: 0.83800 accuracy
+Epoch 35: 0.83820 accuracy
+Test Accuracy : 0.830
+Epoch 36: 0.83840 accuracy
+Epoch 37: 0.83820 accuracy
+Epoch 38: 0.83780 accuracy
+Epoch 39: 0.83840 accuracy
+Epoch 40: 0.83780 accuracy
+Test Accuracy : 0.836
+Epoch 41: 0.83760 accuracy
+Epoch 42: 0.83820 accuracy
+Epoch 43: 0.83600 accuracy
+Epoch 44: 0.83920 accuracy
+Epoch 45: 0.83780 accuracy
+Test Accuracy : 0.835
+Epoch 46: 0.83840 accuracy
+Epoch 47: 0.83780 accuracy
+Epoch 48: 0.83900 accuracy
+Epoch 49: 0.83900 accuracy
+Epoch 50: 0.83840 accuracy
+Test Accuracy : 0.834
+Epoch 51: 0.83880 accuracy
+Epoch 52: 0.83860 accuracy
+Epoch 53: 0.83820 accuracy
+Epoch 54: 0.83840 accuracy
+Epoch 55: 0.83800 accuracy
+Test Accuracy : 0.832
+Epoch 56: 0.83880 accuracy
+Epoch 57: 0.84120 accuracy
+Epoch 58: 0.85160 accuracy
+Epoch 59: 0.85900 accuracy
+Epoch 60: 0.86560 accuracy
+Test Accuracy : 0.869
+Epoch 61: 0.86780 accuracy
+Epoch 62: 0.87300 accuracy
+Epoch 63: 0.87060 accuracy
+Epoch 64: 0.87260 accuracy
+Epoch 65: 0.87640 accuracy
+Test Accuracy : 0.884
+Epoch 66: 0.87440 accuracy
+Epoch 67: 0.87880 accuracy
+Epoch 68: 0.87680 accuracy
+Epoch 69: 0.87880 accuracy
+Epoch 70: 0.87900 accuracy
+Test Accuracy : 0.884
+Epoch 71: 0.87800 accuracy
+Epoch 72: 0.87720 accuracy
+Epoch 73: 0.88000 accuracy
+Epoch 74: 0.87920 accuracy
+Epoch 75: 0.88100 accuracy
+Test Accuracy : 0.886
+Epoch 76: 0.88260 accuracy
+Epoch 77: 0.88120 accuracy
+Train Accuracy: 0.881
+Test Accuracy : 0.884
+Time (hr): 1.0
+
+Repeat: 2/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.40
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 1: 0.55360 accuracy
+Epoch 2: 0.47340 accuracy
+Epoch 3: 0.46300 accuracy
+Epoch 4: 0.53680 accuracy
+Epoch 5: 0.54860 accuracy
+Test Accuracy : 0.538
+Epoch 6: 0.46300 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.53800 accuracy
+Epoch 9: 0.53760 accuracy
+Epoch 10: 0.47060 accuracy
+Test Accuracy : 0.467
+Epoch 11: 0.53700 accuracy
+Epoch 12: 0.46380 accuracy
+Epoch 13: 0.61000 accuracy
+Epoch 14: 0.59640 accuracy
+Epoch 15: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 16: 0.50300 accuracy
+Epoch 17: 0.53700 accuracy
+Epoch 18: 0.53700 accuracy
+Epoch 19: 0.55320 accuracy
+Epoch 20: 0.53800 accuracy
+Test Accuracy : 0.532
+Epoch 21: 0.56180 accuracy
+Epoch 22: 0.60260 accuracy
+Epoch 23: 0.77220 accuracy
+Epoch 24: 0.83660 accuracy
+Epoch 25: 0.83940 accuracy
+Test Accuracy : 0.833
+Epoch 26: 0.83800 accuracy
+Epoch 27: 0.83780 accuracy
+Epoch 28: 0.84020 accuracy
+Epoch 29: 0.83880 accuracy
+Epoch 30: 0.83840 accuracy
+Test Accuracy : 0.832
+Epoch 31: 0.83880 accuracy
+Epoch 32: 0.83740 accuracy
+Epoch 33: 0.83780 accuracy
+Epoch 34: 0.83860 accuracy
+Epoch 35: 0.83720 accuracy
+Test Accuracy : 0.827
+Epoch 36: 0.83840 accuracy
+Epoch 37: 0.83880 accuracy
+Epoch 38: 0.83720 accuracy
+Epoch 39: 0.83880 accuracy
+Epoch 40: 0.83780 accuracy
+Test Accuracy : 0.833
+Epoch 41: 0.83860 accuracy
+Epoch 42: 0.83840 accuracy
+Epoch 43: 0.83720 accuracy
+Epoch 44: 0.83800 accuracy
+Epoch 45: 0.83840 accuracy
+Test Accuracy : 0.832
+Epoch 46: 0.83880 accuracy
+Epoch 47: 0.84000 accuracy
+Epoch 48: 0.83980 accuracy
+Epoch 49: 0.83840 accuracy
+Epoch 50: 0.83880 accuracy
+Test Accuracy : 0.832
+Epoch 51: 0.83940 accuracy
+Epoch 52: 0.83820 accuracy
+Epoch 53: 0.83780 accuracy
+Epoch 54: 0.83880 accuracy
+Epoch 55: 0.83760 accuracy
+Test Accuracy : 0.836
+Epoch 56: 0.83860 accuracy
+Epoch 57: 0.83900 accuracy
+Epoch 58: 0.83840 accuracy
+Epoch 59: 0.83740 accuracy
+Epoch 60: 0.83840 accuracy
+Test Accuracy : 0.835
+Train Accuracy: 0.838
+Test Accuracy : 0.835
+Time (hr): 0.8
+
+Repeat: 3/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.40
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.52880 accuracy
+Test Accuracy : 0.528
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.53700 accuracy
+Epoch 4: 0.48480 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.53760 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.53660 accuracy
+Epoch 9: 0.53700 accuracy
+Epoch 10: 0.52220 accuracy
+Test Accuracy : 0.537
+Epoch 11: 0.47380 accuracy
+Epoch 12: 0.46300 accuracy
+Epoch 13: 0.46300 accuracy
+Epoch 14: 0.55960 accuracy
+Epoch 15: 0.53740 accuracy
+Test Accuracy : 0.532
+Epoch 16: 0.65000 accuracy
+Epoch 17: 0.53700 accuracy
+Epoch 18: 0.57820 accuracy
+Epoch 19: 0.54220 accuracy
+Epoch 20: 0.61320 accuracy
+Test Accuracy : 0.613
+Epoch 21: 0.70240 accuracy
+Epoch 22: 0.83600 accuracy
+Epoch 23: 0.83860 accuracy
+Epoch 24: 0.83820 accuracy
+Epoch 25: 0.83900 accuracy
+Test Accuracy : 0.830
+Epoch 26: 0.84000 accuracy
+Epoch 27: 0.83800 accuracy
+Epoch 28: 0.83700 accuracy
+Epoch 29: 0.83780 accuracy
+Epoch 30: 0.83940 accuracy
+Test Accuracy : 0.833
+Epoch 31: 0.83820 accuracy
+Epoch 32: 0.83780 accuracy
+Epoch 33: 0.83820 accuracy
+Epoch 34: 0.83880 accuracy
+Epoch 35: 0.83880 accuracy
+Test Accuracy : 0.834
+Epoch 36: 0.83820 accuracy
+Epoch 37: 0.83940 accuracy
+Epoch 38: 0.83980 accuracy
+Epoch 39: 0.83860 accuracy
+Epoch 40: 0.83880 accuracy
+Test Accuracy : 0.833
+Epoch 41: 0.83780 accuracy
+Epoch 42: 0.83880 accuracy
+Epoch 43: 0.83940 accuracy
+Epoch 44: 0.83860 accuracy
+Epoch 45: 0.83860 accuracy
+Test Accuracy : 0.835
+Epoch 46: 0.83960 accuracy
+Epoch 47: 0.84160 accuracy
+Epoch 48: 0.84200 accuracy
+Epoch 49: 0.84220 accuracy
+Epoch 50: 0.84120 accuracy
+Test Accuracy : 0.833
+Epoch 51: 0.84360 accuracy
+Epoch 52: 0.84080 accuracy
+Epoch 53: 0.84180 accuracy
+Epoch 54: 0.84200 accuracy
+Epoch 55: 0.84100 accuracy
+Test Accuracy : 0.839
+Epoch 56: 0.84220 accuracy
+Epoch 57: 0.84380 accuracy
+Epoch 58: 0.84260 accuracy
+Epoch 59: 0.84340 accuracy
+Epoch 60: 0.84340 accuracy
+Test Accuracy : 0.840
+Train Accuracy: 0.843
+Test Accuracy : 0.840
+Time (hr): 0.8
+
+Repeat: 4/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.40
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53680 accuracy
+Test Accuracy : 0.532
+Epoch 1: 0.53660 accuracy
+Epoch 2: 0.46160 accuracy
+Epoch 3: 0.52880 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.53740 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.53840 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.53700 accuracy
+Epoch 9: 0.55300 accuracy
+Epoch 10: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 11: 0.51580 accuracy
+Epoch 12: 0.67460 accuracy
+Epoch 13: 0.53700 accuracy
+Epoch 14: 0.53700 accuracy
+Epoch 15: 0.48860 accuracy
+Test Accuracy : 0.497
+Epoch 16: 0.46560 accuracy
+Epoch 17: 0.72020 accuracy
+Epoch 18: 0.53780 accuracy
+Epoch 19: 0.54520 accuracy
+Epoch 20: 0.64580 accuracy
+Test Accuracy : 0.649
+Epoch 21: 0.76100 accuracy
+Epoch 22: 0.83920 accuracy
+Epoch 23: 0.83840 accuracy
+Epoch 24: 0.83740 accuracy
+Epoch 25: 0.83820 accuracy
+Test Accuracy : 0.834
+Epoch 26: 0.83900 accuracy
+Epoch 27: 0.83780 accuracy
+Epoch 28: 0.83780 accuracy
+Epoch 29: 0.83760 accuracy
+Epoch 30: 0.83740 accuracy
+Test Accuracy : 0.833
+Epoch 31: 0.83820 accuracy
+Epoch 32: 0.83720 accuracy
+Epoch 33: 0.83720 accuracy
+Epoch 34: 0.83880 accuracy
+Epoch 35: 0.83920 accuracy
+Test Accuracy : 0.834
+Epoch 36: 0.83780 accuracy
+Epoch 37: 0.83820 accuracy
+Epoch 38: 0.83860 accuracy
+Epoch 39: 0.83840 accuracy
+Epoch 40: 0.83780 accuracy
+Test Accuracy : 0.832
+Epoch 41: 0.83960 accuracy
+Epoch 42: 0.83780 accuracy
+Epoch 43: 0.83720 accuracy
+Epoch 44: 0.83900 accuracy
+Epoch 45: 0.83740 accuracy
+Test Accuracy : 0.834
+Epoch 46: 0.83820 accuracy
+Epoch 47: 0.83800 accuracy
+Epoch 48: 0.83780 accuracy
+Epoch 49: 0.83800 accuracy
+Epoch 50: 0.83820 accuracy
+Test Accuracy : 0.833
+Epoch 51: 0.83940 accuracy
+Epoch 52: 0.83820 accuracy
+Epoch 53: 0.83800 accuracy
+Epoch 54: 0.83800 accuracy
+Epoch 55: 0.83920 accuracy
+Test Accuracy : 0.831
+Epoch 56: 0.83920 accuracy
+Epoch 57: 0.83940 accuracy
+Epoch 58: 0.84160 accuracy
+Epoch 59: 0.84120 accuracy
+Epoch 60: 0.84040 accuracy
+Test Accuracy : 0.833
+Train Accuracy: 0.840
+Test Accuracy : 0.833
+Time (hr): 0.8
+
+Repeat: 5/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.40
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.48360 accuracy
+Test Accuracy : 0.490
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.46440 accuracy
+Epoch 3: 0.46300 accuracy
+Epoch 4: 0.46300 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.53700 accuracy
+Epoch 7: 0.52660 accuracy
+Epoch 8: 0.46180 accuracy
+Epoch 9: 0.54060 accuracy
+Epoch 10: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 11: 0.53680 accuracy
+Epoch 12: 0.46300 accuracy
+Epoch 13: 0.53700 accuracy
+Epoch 14: 0.46300 accuracy
+Epoch 15: 0.53980 accuracy
+Test Accuracy : 0.533
+Epoch 16: 0.54560 accuracy
+Epoch 17: 0.53720 accuracy
+Epoch 18: 0.53700 accuracy
+Epoch 19: 0.67360 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.72080 accuracy
+Epoch 22: 0.76460 accuracy
+Epoch 23: 0.83380 accuracy
+Epoch 24: 0.83900 accuracy
+Epoch 25: 0.83940 accuracy
+Test Accuracy : 0.828
+Epoch 26: 0.83860 accuracy
+Epoch 27: 0.83780 accuracy
+Epoch 28: 0.83780 accuracy
+Epoch 29: 0.83860 accuracy
+Epoch 30: 0.84000 accuracy
+Test Accuracy : 0.836
+Epoch 31: 0.84140 accuracy
+Epoch 32: 0.84160 accuracy
+Epoch 33: 0.84200 accuracy
+Epoch 34: 0.84300 accuracy
+Epoch 35: 0.84340 accuracy
+Test Accuracy : 0.840
+Epoch 36: 0.84240 accuracy
+Epoch 37: 0.84420 accuracy
+Epoch 38: 0.84320 accuracy
+Epoch 39: 0.84240 accuracy
+Epoch 40: 0.84300 accuracy
+Test Accuracy : 0.840
+Epoch 41: 0.84300 accuracy
+Epoch 42: 0.84180 accuracy
+Epoch 43: 0.84280 accuracy
+Epoch 44: 0.84400 accuracy
+Epoch 45: 0.84360 accuracy
+Test Accuracy : 0.835
+Epoch 46: 0.84240 accuracy
+Epoch 47: 0.84380 accuracy
+Epoch 48: 0.84220 accuracy
+Epoch 49: 0.84280 accuracy
+Epoch 50: 0.84300 accuracy
+Test Accuracy : 0.839
+Epoch 51: 0.84320 accuracy
+Epoch 52: 0.84280 accuracy
+Epoch 53: 0.84260 accuracy
+Epoch 54: 0.84400 accuracy
+Epoch 55: 0.84320 accuracy
+Test Accuracy : 0.836
+Epoch 56: 0.84420 accuracy
+Epoch 57: 0.84340 accuracy
+Epoch 58: 0.84240 accuracy
+Epoch 59: 0.84320 accuracy
+Epoch 60: 0.84240 accuracy
+Test Accuracy : 0.836
+Train Accuracy: 0.842
+Test Accuracy : 0.836
+Time (hr): 0.8
+
+Setting 2 Train Accs: [0.8812, 0.8384, 0.8434, 0.8404, 0.8424]	
+Setting 2 Avg Train Acc: 0.849
+Setting 2 Std Train Acc: 0.016
+Setting 2 Test Accs: [0.8843, 0.8354, 0.8402, 0.8333, 0.836]	
+Setting 2 Avg Test Acc: 0.846
+Setting 2 Std Test Acc: 0.019
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.60
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.53700 accuracy
+Epoch 4: 0.46300 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.530
+Epoch 6: 0.53700 accuracy
+Epoch 7: 0.48240 accuracy
+Epoch 8: 0.46300 accuracy
+Epoch 9: 0.53700 accuracy
+Epoch 10: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 11: 0.53700 accuracy
+Epoch 12: 0.53700 accuracy
+Epoch 13: 0.49700 accuracy
+Epoch 14: 0.46300 accuracy
+Epoch 15: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 16: 0.53700 accuracy
+Epoch 17: 0.46300 accuracy
+Epoch 18: 0.52460 accuracy
+Epoch 19: 0.45980 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.53700 accuracy
+Epoch 22: 0.53700 accuracy
+Epoch 23: 0.53700 accuracy
+Epoch 24: 0.46300 accuracy
+Epoch 25: 0.53600 accuracy
+Test Accuracy : 0.530
+Epoch 26: 0.53700 accuracy
+Epoch 27: 0.46300 accuracy
+Epoch 28: 0.53700 accuracy
+Epoch 29: 0.46300 accuracy
+Epoch 30: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 31: 0.53700 accuracy
+Epoch 32: 0.46300 accuracy
+Epoch 33: 0.46300 accuracy
+Epoch 34: 0.46300 accuracy
+Epoch 35: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 36: 0.46300 accuracy
+Epoch 37: 0.46300 accuracy
+Epoch 38: 0.47120 accuracy
+Epoch 39: 0.46780 accuracy
+Epoch 40: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 41: 0.53640 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.46300 accuracy
+Epoch 44: 0.53700 accuracy
+Epoch 45: 0.53800 accuracy
+Test Accuracy : 0.533
+Epoch 46: 0.55720 accuracy
+Epoch 47: 0.59600 accuracy
+Epoch 48: 0.83460 accuracy
+Epoch 49: 0.83780 accuracy
+Epoch 50: 0.83700 accuracy
+Test Accuracy : 0.828
+Epoch 51: 0.83780 accuracy
+Epoch 52: 0.83840 accuracy
+Epoch 53: 0.83740 accuracy
+Epoch 54: 0.83820 accuracy
+Epoch 55: 0.83820 accuracy
+Test Accuracy : 0.829
+Epoch 56: 0.83840 accuracy
+Epoch 57: 0.83820 accuracy
+Epoch 58: 0.83840 accuracy
+Epoch 59: 0.83800 accuracy
+Epoch 60: 0.83780 accuracy
+Test Accuracy : 0.824
+Train Accuracy: 0.838
+Test Accuracy : 0.824
+Time (hr): 0.8
+
+Repeat: 2/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.60
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46320 accuracy
+Test Accuracy : 0.469
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.46300 accuracy
+Epoch 3: 0.46480 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.48620 accuracy
+Test Accuracy : 0.494
+Epoch 6: 0.53700 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.53480 accuracy
+Epoch 9: 0.53700 accuracy
+Epoch 10: 0.46160 accuracy
+Test Accuracy : 0.472
+Epoch 11: 0.53760 accuracy
+Epoch 12: 0.54120 accuracy
+Epoch 13: 0.46300 accuracy
+Epoch 14: 0.53000 accuracy
+Epoch 15: 0.48180 accuracy
+Test Accuracy : 0.485
+Epoch 16: 0.46300 accuracy
+Epoch 17: 0.53700 accuracy
+Epoch 18: 0.46300 accuracy
+Epoch 19: 0.53700 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.45660 accuracy
+Epoch 22: 0.53700 accuracy
+Epoch 23: 0.46420 accuracy
+Epoch 24: 0.46300 accuracy
+Epoch 25: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 26: 0.46300 accuracy
+Epoch 27: 0.46300 accuracy
+Epoch 28: 0.53700 accuracy
+Epoch 29: 0.53700 accuracy
+Epoch 30: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 31: 0.46300 accuracy
+Epoch 32: 0.53700 accuracy
+Epoch 33: 0.46300 accuracy
+Epoch 34: 0.48880 accuracy
+Epoch 35: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 36: 0.53700 accuracy
+Epoch 37: 0.53700 accuracy
+Epoch 38: 0.53700 accuracy
+Epoch 39: 0.53700 accuracy
+Epoch 40: 0.47160 accuracy
+Test Accuracy : 0.478
+Epoch 41: 0.53720 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.55880 accuracy
+Epoch 44: 0.54160 accuracy
+Epoch 45: 0.80900 accuracy
+Test Accuracy : 0.811
+Epoch 46: 0.83900 accuracy
+Epoch 47: 0.83740 accuracy
+Epoch 48: 0.83760 accuracy
+Epoch 49: 0.83760 accuracy
+Epoch 50: 0.83700 accuracy
+Test Accuracy : 0.828
+Epoch 51: 0.83780 accuracy
+Epoch 52: 0.83740 accuracy
+Epoch 53: 0.83800 accuracy
+Epoch 54: 0.83800 accuracy
+Epoch 55: 0.83760 accuracy
+Test Accuracy : 0.828
+Epoch 56: 0.83760 accuracy
+Epoch 57: 0.83820 accuracy
+Epoch 58: 0.83740 accuracy
+Epoch 59: 0.83760 accuracy
+Epoch 60: 0.83800 accuracy
+Test Accuracy : 0.828
+Train Accuracy: 0.838
+Test Accuracy : 0.828
+Time (hr): 0.8
+
+Repeat: 3/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.60
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46280 accuracy
+Test Accuracy : 0.465
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.46300 accuracy
+Epoch 4: 0.53740 accuracy
+Epoch 5: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 6: 0.46300 accuracy
+Epoch 7: 0.53380 accuracy
+Epoch 8: 0.53700 accuracy
+Epoch 9: 0.52600 accuracy
+Epoch 10: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 11: 0.55240 accuracy
+Epoch 12: 0.46300 accuracy
+Epoch 13: 0.51860 accuracy
+Epoch 14: 0.46220 accuracy
+Epoch 15: 0.51880 accuracy
+Test Accuracy : 0.509
+Epoch 16: 0.46300 accuracy
+Epoch 17: 0.46060 accuracy
+Epoch 18: 0.53740 accuracy
+Epoch 19: 0.54000 accuracy
+Epoch 20: 0.46240 accuracy
+Test Accuracy : 0.471
+Epoch 21: 0.53600 accuracy
+Epoch 22: 0.54520 accuracy
+Epoch 23: 0.53140 accuracy
+Epoch 24: 0.47100 accuracy
+Epoch 25: 0.44640 accuracy
+Test Accuracy : 0.448
+Epoch 26: 0.53700 accuracy
+Epoch 27: 0.53700 accuracy
+Epoch 28: 0.46160 accuracy
+Epoch 29: 0.46300 accuracy
+Epoch 30: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 31: 0.53700 accuracy
+Epoch 32: 0.53700 accuracy
+Epoch 33: 0.56720 accuracy
+Epoch 34: 0.46300 accuracy
+Epoch 35: 0.53520 accuracy
+Test Accuracy : 0.529
+Epoch 36: 0.53700 accuracy
+Epoch 37: 0.46320 accuracy
+Epoch 38: 0.46500 accuracy
+Epoch 39: 0.53700 accuracy
+Epoch 40: 0.53720 accuracy
+Test Accuracy : 0.531
+Epoch 41: 0.53700 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.58680 accuracy
+Epoch 44: 0.59060 accuracy
+Epoch 45: 0.83260 accuracy
+Test Accuracy : 0.825
+Epoch 46: 0.83820 accuracy
+Epoch 47: 0.83780 accuracy
+Epoch 48: 0.83800 accuracy
+Epoch 49: 0.83860 accuracy
+Epoch 50: 0.84020 accuracy
+Test Accuracy : 0.831
+Epoch 51: 0.84160 accuracy
+Epoch 52: 0.84060 accuracy
+Epoch 53: 0.84200 accuracy
+Epoch 54: 0.84180 accuracy
+Epoch 55: 0.84160 accuracy
+Test Accuracy : 0.832
+Epoch 56: 0.84080 accuracy
+Epoch 57: 0.84160 accuracy
+Epoch 58: 0.84160 accuracy
+Epoch 59: 0.84140 accuracy
+Epoch 60: 0.84160 accuracy
+Test Accuracy : 0.833
+Train Accuracy: 0.842
+Test Accuracy : 0.833
+Time (hr): 0.8
+
+Repeat: 4/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.60
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.52840 accuracy
+Test Accuracy : 0.532
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.44880 accuracy
+Epoch 4: 0.46340 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.50740 accuracy
+Epoch 7: 0.53960 accuracy
+Epoch 8: 0.53700 accuracy
+Epoch 9: 0.46340 accuracy
+Epoch 10: 0.56560 accuracy
+Test Accuracy : 0.564
+Epoch 11: 0.53700 accuracy
+Epoch 12: 0.48700 accuracy
+Epoch 13: 0.51080 accuracy
+Epoch 14: 0.51360 accuracy
+Epoch 15: 0.50820 accuracy
+Test Accuracy : 0.518
+Epoch 16: 0.46300 accuracy
+Epoch 17: 0.48480 accuracy
+Epoch 18: 0.53860 accuracy
+Epoch 19: 0.46320 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.46280 accuracy
+Epoch 22: 0.51120 accuracy
+Epoch 23: 0.53700 accuracy
+Epoch 24: 0.46300 accuracy
+Epoch 25: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 26: 0.54000 accuracy
+Epoch 27: 0.47420 accuracy
+Epoch 28: 0.53700 accuracy
+Epoch 29: 0.53700 accuracy
+Epoch 30: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 31: 0.46500 accuracy
+Epoch 32: 0.53700 accuracy
+Epoch 33: 0.53700 accuracy
+Epoch 34: 0.53700 accuracy
+Epoch 35: 0.47000 accuracy
+Test Accuracy : 0.478
+Epoch 36: 0.53740 accuracy
+Epoch 37: 0.73020 accuracy
+Epoch 38: 0.53700 accuracy
+Epoch 39: 0.66980 accuracy
+Epoch 40: 0.82860 accuracy
+Test Accuracy : 0.818
+Epoch 41: 0.83740 accuracy
+Epoch 42: 0.83820 accuracy
+Epoch 43: 0.83900 accuracy
+Epoch 44: 0.83800 accuracy
+Epoch 45: 0.83820 accuracy
+Test Accuracy : 0.827
+Epoch 46: 0.83800 accuracy
+Epoch 47: 0.83860 accuracy
+Epoch 48: 0.83820 accuracy
+Epoch 49: 0.83720 accuracy
+Epoch 50: 0.83780 accuracy
+Test Accuracy : 0.827
+Epoch 51: 0.83680 accuracy
+Epoch 52: 0.83760 accuracy
+Epoch 53: 0.83860 accuracy
+Epoch 54: 0.83780 accuracy
+Epoch 55: 0.83720 accuracy
+Test Accuracy : 0.828
+Epoch 56: 0.83820 accuracy
+Epoch 57: 0.83780 accuracy
+Epoch 58: 0.83820 accuracy
+Epoch 59: 0.83820 accuracy
+Epoch 60: 0.83840 accuracy
+Test Accuracy : 0.826
+Train Accuracy: 0.838
+Test Accuracy : 0.826
+Time (hr): 0.8
+
+Repeat: 5/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.60
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 1: 0.45600 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.53740 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.53700 accuracy
+Epoch 7: 0.53100 accuracy
+Epoch 8: 0.52740 accuracy
+Epoch 9: 0.53680 accuracy
+Epoch 10: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 11: 0.53700 accuracy
+Epoch 12: 0.46300 accuracy
+Epoch 13: 0.46320 accuracy
+Epoch 14: 0.46280 accuracy
+Epoch 15: 0.49120 accuracy
+Test Accuracy : 0.475
+Epoch 16: 0.46320 accuracy
+Epoch 17: 0.53700 accuracy
+Epoch 18: 0.53620 accuracy
+Epoch 19: 0.51620 accuracy
+Epoch 20: 0.47860 accuracy
+Test Accuracy : 0.479
+Epoch 21: 0.46320 accuracy
+Epoch 22: 0.53800 accuracy
+Epoch 23: 0.50940 accuracy
+Epoch 24: 0.53700 accuracy
+Epoch 25: 0.46060 accuracy
+Test Accuracy : 0.472
+Epoch 26: 0.46300 accuracy
+Epoch 27: 0.46300 accuracy
+Epoch 28: 0.53700 accuracy
+Epoch 29: 0.53700 accuracy
+Epoch 30: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 31: 0.45640 accuracy
+Epoch 32: 0.53700 accuracy
+Epoch 33: 0.53700 accuracy
+Epoch 34: 0.60960 accuracy
+Epoch 35: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 36: 0.46300 accuracy
+Epoch 37: 0.53720 accuracy
+Epoch 38: 0.54200 accuracy
+Epoch 39: 0.53700 accuracy
+Epoch 40: 0.66920 accuracy
+Test Accuracy : 0.674
+Epoch 41: 0.59780 accuracy
+Epoch 42: 0.83220 accuracy
+Epoch 43: 0.83640 accuracy
+Epoch 44: 0.83700 accuracy
+Epoch 45: 0.83800 accuracy
+Test Accuracy : 0.828
+Epoch 46: 0.83820 accuracy
+Epoch 47: 0.83900 accuracy
+Epoch 48: 0.83820 accuracy
+Epoch 49: 0.83880 accuracy
+Epoch 50: 0.83740 accuracy
+Test Accuracy : 0.828
+Epoch 51: 0.83880 accuracy
+Epoch 52: 0.83760 accuracy
+Epoch 53: 0.83680 accuracy
+Epoch 54: 0.83720 accuracy
+Epoch 55: 0.83780 accuracy
+Test Accuracy : 0.826
+Epoch 56: 0.83860 accuracy
+Epoch 57: 0.83760 accuracy
+Epoch 58: 0.83780 accuracy
+Epoch 59: 0.83760 accuracy
+Epoch 60: 0.83780 accuracy
+Test Accuracy : 0.830
+Train Accuracy: 0.838
+Test Accuracy : 0.830
+Time (hr): 0.8
+
+Setting 3 Train Accs: [0.8378, 0.838, 0.8416, 0.8384, 0.8378]	
+Setting 3 Avg Train Acc: 0.839
+Setting 3 Std Train Acc: 0.001
+Setting 3 Test Accs: [0.8244, 0.8281, 0.8328, 0.8265, 0.8302]	
+Setting 3 Avg Test Acc: 0.828
+Setting 3 Std Test Acc: 0.003
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.80
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46580 accuracy
+Test Accuracy : 0.469
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.46300 accuracy
+Epoch 3: 0.53700 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.53780 accuracy
+Test Accuracy : 0.532
+Epoch 6: 0.46300 accuracy
+Epoch 7: 0.53680 accuracy
+Epoch 8: 0.47760 accuracy
+Epoch 9: 0.46300 accuracy
+Epoch 10: 0.47100 accuracy
+Test Accuracy : 0.475
+Epoch 11: 0.46300 accuracy
+Epoch 12: 0.53700 accuracy
+Epoch 13: 0.47260 accuracy
+Epoch 14: 0.53700 accuracy
+Epoch 15: 0.53360 accuracy
+Test Accuracy : 0.535
+Epoch 16: 0.46300 accuracy
+Epoch 17: 0.53040 accuracy
+Epoch 18: 0.46280 accuracy
+Epoch 19: 0.46280 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.53700 accuracy
+Epoch 22: 0.53700 accuracy
+Epoch 23: 0.48200 accuracy
+Epoch 24: 0.53700 accuracy
+Epoch 25: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 26: 0.46300 accuracy
+Epoch 27: 0.53700 accuracy
+Epoch 28: 0.46300 accuracy
+Epoch 29: 0.53700 accuracy
+Epoch 30: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 31: 0.47280 accuracy
+Epoch 32: 0.46300 accuracy
+Epoch 33: 0.46280 accuracy
+Epoch 34: 0.53700 accuracy
+Epoch 35: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 36: 0.46180 accuracy
+Epoch 37: 0.47280 accuracy
+Epoch 38: 0.46300 accuracy
+Epoch 39: 0.47140 accuracy
+Epoch 40: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 41: 0.53260 accuracy
+Epoch 42: 0.46680 accuracy
+Epoch 43: 0.53700 accuracy
+Epoch 44: 0.53700 accuracy
+Epoch 45: 0.50960 accuracy
+Test Accuracy : 0.491
+Epoch 46: 0.52240 accuracy
+Epoch 47: 0.53700 accuracy
+Epoch 48: 0.53700 accuracy
+Epoch 49: 0.53700 accuracy
+Epoch 50: 0.46100 accuracy
+Test Accuracy : 0.462
+Epoch 51: 0.46300 accuracy
+Epoch 52: 0.53700 accuracy
+Epoch 53: 0.53700 accuracy
+Epoch 54: 0.53720 accuracy
+Epoch 55: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 56: 0.53500 accuracy
+Epoch 57: 0.47880 accuracy
+Epoch 58: 0.46300 accuracy
+Epoch 59: 0.49240 accuracy
+Epoch 60: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 61: 0.53700 accuracy
+Epoch 62: 0.70160 accuracy
+Epoch 63: 0.53700 accuracy
+Epoch 64: 0.56840 accuracy
+Epoch 65: 0.58820 accuracy
+Test Accuracy : 0.582
+Epoch 66: 0.83640 accuracy
+Epoch 67: 0.83840 accuracy
+Epoch 68: 0.83820 accuracy
+Epoch 69: 0.83780 accuracy
+Epoch 70: 0.83820 accuracy
+Test Accuracy : 0.826
+Epoch 71: 0.83820 accuracy
+Epoch 72: 0.83760 accuracy
+Epoch 73: 0.83780 accuracy
+Epoch 74: 0.83860 accuracy
+Epoch 75: 0.83800 accuracy
+Test Accuracy : 0.825
+Epoch 76: 0.83780 accuracy
+Train Accuracy: 0.838
+Test Accuracy : 0.825
+Time (hr): 1.0
+
+Repeat: 2/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.80
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.46300 accuracy
+Epoch 2: 0.46300 accuracy
+Epoch 3: 0.46320 accuracy
+Epoch 4: 0.46300 accuracy
+Epoch 5: 0.47280 accuracy
+Test Accuracy : 0.484
+Epoch 6: 0.48500 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.46300 accuracy
+Epoch 9: 0.45780 accuracy
+Epoch 10: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 11: 0.46300 accuracy
+Epoch 12: 0.53700 accuracy
+Epoch 13: 0.46300 accuracy
+Epoch 14: 0.53700 accuracy
+Epoch 15: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 16: 0.46300 accuracy
+Epoch 17: 0.46300 accuracy
+Epoch 18: 0.46300 accuracy
+Epoch 19: 0.53720 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.46300 accuracy
+Epoch 22: 0.46300 accuracy
+Epoch 23: 0.47680 accuracy
+Epoch 24: 0.51220 accuracy
+Epoch 25: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 26: 0.50460 accuracy
+Epoch 27: 0.46300 accuracy
+Epoch 28: 0.53700 accuracy
+Epoch 29: 0.46300 accuracy
+Epoch 30: 0.55560 accuracy
+Test Accuracy : 0.553
+Epoch 31: 0.46300 accuracy
+Epoch 32: 0.53700 accuracy
+Epoch 33: 0.53700 accuracy
+Epoch 34: 0.47600 accuracy
+Epoch 35: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 36: 0.44080 accuracy
+Epoch 37: 0.53720 accuracy
+Epoch 38: 0.53700 accuracy
+Epoch 39: 0.53700 accuracy
+Epoch 40: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 41: 0.52800 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.46300 accuracy
+Epoch 44: 0.53600 accuracy
+Epoch 45: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 46: 0.46000 accuracy
+Epoch 47: 0.46300 accuracy
+Epoch 48: 0.46300 accuracy
+Epoch 49: 0.46520 accuracy
+Epoch 50: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 51: 0.46300 accuracy
+Epoch 52: 0.53700 accuracy
+Epoch 53: 0.53700 accuracy
+Epoch 54: 0.53700 accuracy
+Epoch 55: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 56: 0.53700 accuracy
+Epoch 57: 0.53700 accuracy
+Epoch 58: 0.53700 accuracy
+Epoch 59: 0.53700 accuracy
+Epoch 60: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 61: 0.53700 accuracy
+Epoch 62: 0.59880 accuracy
+Epoch 63: 0.59740 accuracy
+Epoch 64: 0.59740 accuracy
+Epoch 65: 0.59740 accuracy
+Test Accuracy : 0.581
+Epoch 66: 0.59820 accuracy
+Epoch 67: 0.59780 accuracy
+Epoch 68: 0.59880 accuracy
+Epoch 69: 0.59780 accuracy
+Epoch 70: 0.59940 accuracy
+Test Accuracy : 0.580
+Epoch 71: 0.59960 accuracy
+Epoch 72: 0.59900 accuracy
+Train Accuracy: 0.599
+Test Accuracy : 0.582
+Time (hr): 1.0
+
+Repeat: 3/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.80
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46280 accuracy
+Test Accuracy : 0.469
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.48000 accuracy
+Epoch 3: 0.46300 accuracy
+Epoch 4: 0.52920 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.46300 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.53700 accuracy
+Epoch 9: 0.53780 accuracy
+Epoch 10: 0.46420 accuracy
+Test Accuracy : 0.471
+Epoch 11: 0.53700 accuracy
+Epoch 12: 0.46300 accuracy
+Epoch 13: 0.46300 accuracy
+Epoch 14: 0.46300 accuracy
+Epoch 15: 0.52660 accuracy
+Test Accuracy : 0.511
+Epoch 16: 0.53700 accuracy
+Epoch 17: 0.50340 accuracy
+Epoch 18: 0.46520 accuracy
+Epoch 19: 0.46300 accuracy
+Epoch 20: 0.56000 accuracy
+Test Accuracy : 0.570
+Epoch 21: 0.46380 accuracy
+Epoch 22: 0.53700 accuracy
+Epoch 23: 0.51800 accuracy
+Epoch 24: 0.53700 accuracy
+Epoch 25: 0.46800 accuracy
+Test Accuracy : 0.465
+Epoch 26: 0.53700 accuracy
+Epoch 27: 0.53700 accuracy
+Epoch 28: 0.46300 accuracy
+Epoch 29: 0.49680 accuracy
+Epoch 30: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 31: 0.46300 accuracy
+Epoch 32: 0.53840 accuracy
+Epoch 33: 0.49040 accuracy
+Epoch 34: 0.53700 accuracy
+Epoch 35: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 36: 0.53700 accuracy
+Epoch 37: 0.53420 accuracy
+Epoch 38: 0.46300 accuracy
+Epoch 39: 0.46300 accuracy
+Epoch 40: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 41: 0.53700 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.53700 accuracy
+Epoch 44: 0.54340 accuracy
+Epoch 45: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 46: 0.53700 accuracy
+Epoch 47: 0.53700 accuracy
+Epoch 48: 0.53700 accuracy
+Epoch 49: 0.53700 accuracy
+Epoch 50: 0.49020 accuracy
+Test Accuracy : 0.522
+Epoch 51: 0.53700 accuracy
+Epoch 52: 0.53700 accuracy
+Epoch 53: 0.53700 accuracy
+Epoch 54: 0.53700 accuracy
+Epoch 55: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 56: 0.53700 accuracy
+Epoch 57: 0.53700 accuracy
+Epoch 58: 0.53700 accuracy
+Epoch 59: 0.59360 accuracy
+Epoch 60: 0.59700 accuracy
+Test Accuracy : 0.581
+Epoch 61: 0.59840 accuracy
+Epoch 62: 0.60000 accuracy
+Epoch 63: 0.59780 accuracy
+Epoch 64: 0.59660 accuracy
+Epoch 65: 0.59780 accuracy
+Test Accuracy : 0.580
+Epoch 66: 0.59880 accuracy
+Epoch 67: 0.59880 accuracy
+Epoch 68: 0.59940 accuracy
+Epoch 69: 0.59860 accuracy
+Epoch 70: 0.59880 accuracy
+Test Accuracy : 0.581
+Train Accuracy: 0.599
+Test Accuracy : 0.581
+Time (hr): 1.0
+
+Repeat: 4/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.80
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.53720 accuracy
+Epoch 3: 0.47480 accuracy
+Epoch 4: 0.53660 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.46300 accuracy
+Epoch 7: 0.46440 accuracy
+Epoch 8: 0.53700 accuracy
+Epoch 9: 0.53700 accuracy
+Epoch 10: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 11: 0.53720 accuracy
+Epoch 12: 0.46300 accuracy
+Epoch 13: 0.53700 accuracy
+Epoch 14: 0.53700 accuracy
+Epoch 15: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 16: 0.53700 accuracy
+Epoch 17: 0.51460 accuracy
+Epoch 18: 0.46300 accuracy
+Epoch 19: 0.46300 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.51260 accuracy
+Epoch 22: 0.53360 accuracy
+Epoch 23: 0.46300 accuracy
+Epoch 24: 0.53700 accuracy
+Epoch 25: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 26: 0.53700 accuracy
+Epoch 27: 0.46300 accuracy
+Epoch 28: 0.46300 accuracy
+Epoch 29: 0.52540 accuracy
+Epoch 30: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 31: 0.45780 accuracy
+Epoch 32: 0.52660 accuracy
+Epoch 33: 0.53700 accuracy
+Epoch 34: 0.46300 accuracy
+Epoch 35: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 36: 0.47400 accuracy
+Epoch 37: 0.52320 accuracy
+Epoch 38: 0.53720 accuracy
+Epoch 39: 0.46800 accuracy
+Epoch 40: 0.46300 accuracy
+Test Accuracy : 0.470
+Epoch 41: 0.53700 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.46260 accuracy
+Epoch 44: 0.53880 accuracy
+Epoch 45: 0.48680 accuracy
+Test Accuracy : 0.476
+Epoch 46: 0.53700 accuracy
+Epoch 47: 0.56220 accuracy
+Epoch 48: 0.53700 accuracy
+Epoch 49: 0.44900 accuracy
+Epoch 50: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 51: 0.46300 accuracy
+Epoch 52: 0.46300 accuracy
+Epoch 53: 0.46300 accuracy
+Epoch 54: 0.46300 accuracy
+Epoch 55: 0.53700 accuracy
+Test Accuracy : 0.532
+Epoch 56: 0.53880 accuracy
+Epoch 57: 0.46440 accuracy
+Epoch 58: 0.53700 accuracy
+Epoch 59: 0.46740 accuracy
+Epoch 60: 0.51920 accuracy
+Test Accuracy : 0.514
+Epoch 61: 0.51740 accuracy
+Epoch 62: 0.53700 accuracy
+Epoch 63: 0.53700 accuracy
+Epoch 64: 0.53700 accuracy
+Epoch 65: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 66: 0.53700 accuracy
+Epoch 67: 0.53700 accuracy
+Epoch 68: 0.53700 accuracy
+Epoch 69: 0.53700 accuracy
+Epoch 70: 0.83840 accuracy
+Test Accuracy : 0.825
+Epoch 71: 0.83780 accuracy
+Epoch 72: 0.83780 accuracy
+Epoch 73: 0.83760 accuracy
+Epoch 74: 0.83760 accuracy
+Epoch 75: 0.83780 accuracy
+Test Accuracy : 0.824
+Epoch 76: 0.83780 accuracy
+Epoch 77: 0.83780 accuracy
+Epoch 78: 0.83760 accuracy
+Epoch 79: 0.83820 accuracy
+Train Accuracy: 0.838
+Test Accuracy : 0.826
+Time (hr): 1.1
+
+Repeat: 5/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.80
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.47760 accuracy
+Test Accuracy : 0.482
+Epoch 1: 0.53740 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.46300 accuracy
+Epoch 4: 0.47520 accuracy
+Epoch 5: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 6: 0.47960 accuracy
+Epoch 7: 0.47060 accuracy
+Epoch 8: 0.46380 accuracy
+Epoch 9: 0.53720 accuracy
+Epoch 10: 0.47040 accuracy
+Test Accuracy : 0.471
+Epoch 11: 0.53700 accuracy
+Epoch 12: 0.46300 accuracy
+Epoch 13: 0.53780 accuracy
+Epoch 14: 0.46300 accuracy
+Epoch 15: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 16: 0.53700 accuracy
+Epoch 17: 0.46680 accuracy
+Epoch 18: 0.49040 accuracy
+Epoch 19: 0.46740 accuracy
+Epoch 20: 0.52140 accuracy
+Test Accuracy : 0.518
+Epoch 21: 0.46300 accuracy
+Epoch 22: 0.44260 accuracy
+Epoch 23: 0.52160 accuracy
+Epoch 24: 0.46300 accuracy
+Epoch 25: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 26: 0.53700 accuracy
+Epoch 27: 0.55380 accuracy
+Epoch 28: 0.46300 accuracy
+Epoch 29: 0.46300 accuracy
+Epoch 30: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 31: 0.53780 accuracy
+Epoch 32: 0.46300 accuracy
+Epoch 33: 0.53740 accuracy
+Epoch 34: 0.46200 accuracy
+Epoch 35: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 36: 0.53700 accuracy
+Epoch 37: 0.48920 accuracy
+Epoch 38: 0.46300 accuracy
+Epoch 39: 0.47240 accuracy
+Epoch 40: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 41: 0.52360 accuracy
+Epoch 42: 0.53140 accuracy
+Epoch 43: 0.53640 accuracy
+Epoch 44: 0.53500 accuracy
+Epoch 45: 0.52560 accuracy
+Test Accuracy : 0.524
+Epoch 46: 0.47780 accuracy
+Epoch 47: 0.53700 accuracy
+Epoch 48: 0.53740 accuracy
+Epoch 49: 0.46300 accuracy
+Epoch 50: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 51: 0.54560 accuracy
+Epoch 52: 0.53700 accuracy
+Epoch 53: 0.52960 accuracy
+Epoch 54: 0.53680 accuracy
+Epoch 55: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 56: 0.46300 accuracy
+Epoch 57: 0.53600 accuracy
+Epoch 58: 0.53940 accuracy
+Epoch 59: 0.53700 accuracy
+Epoch 60: 0.52740 accuracy
+Test Accuracy : 0.521
+Epoch 61: 0.53460 accuracy
+Epoch 62: 0.47480 accuracy
+Epoch 63: 0.53700 accuracy
+Epoch 64: 0.53700 accuracy
+Epoch 65: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 66: 0.53700 accuracy
+Epoch 67: 0.46300 accuracy
+Epoch 68: 0.54060 accuracy
+Epoch 69: 0.53700 accuracy
+Epoch 70: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 71: 0.50060 accuracy
+Epoch 72: 0.53700 accuracy
+Epoch 73: 0.53720 accuracy
+Epoch 74: 0.54000 accuracy
+Epoch 75: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 76: 0.53700 accuracy
+Epoch 77: 0.53700 accuracy
+Epoch 78: 0.53700 accuracy
+Epoch 79: 0.53700 accuracy
+Train Accuracy: 0.537
+Test Accuracy : 0.531
+Time (hr): 1.1
+
+Setting 4 Train Accs: [0.8378, 0.599, 0.5988, 0.8382, 0.537]	
+Setting 4 Avg Train Acc: 0.682
+Setting 4 Std Train Acc: 0.129
+Setting 4 Test Accs: [0.8254, 0.582, 0.581, 0.8265, 0.531]	
+Setting 4 Avg Test Acc: 0.669
+Setting 4 Std Test Acc: 0.129
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 1.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46460 accuracy
+Test Accuracy : 0.470
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.48440 accuracy
+Epoch 3: 0.47960 accuracy
+Epoch 4: 0.46300 accuracy
+Epoch 5: 0.51560 accuracy
+Test Accuracy : 0.511
+Epoch 6: 0.45520 accuracy
+Epoch 7: 0.46300 accuracy
+Epoch 8: 0.49500 accuracy
+Epoch 9: 0.46300 accuracy
+Epoch 10: 0.53840 accuracy
+Test Accuracy : 0.531
+Epoch 11: 0.46300 accuracy
+Epoch 12: 0.53700 accuracy
+Epoch 13: 0.53700 accuracy
+Epoch 14: 0.46320 accuracy
+Epoch 15: 0.52140 accuracy
+Test Accuracy : 0.528
+Epoch 16: 0.52280 accuracy
+Epoch 17: 0.53700 accuracy
+Epoch 18: 0.57200 accuracy
+Epoch 19: 0.46300 accuracy
+Epoch 20: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 21: 0.53700 accuracy
+Epoch 22: 0.46740 accuracy
+Epoch 23: 0.52420 accuracy
+Epoch 24: 0.53700 accuracy
+Epoch 25: 0.45640 accuracy
+Test Accuracy : 0.476
+Epoch 26: 0.53700 accuracy
+Epoch 27: 0.47660 accuracy
+Epoch 28: 0.53700 accuracy
+Epoch 29: 0.46300 accuracy
+Epoch 30: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 31: 0.46300 accuracy
+Epoch 32: 0.53700 accuracy
+Epoch 33: 0.47940 accuracy
+Epoch 34: 0.46300 accuracy
+Epoch 35: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 36: 0.46300 accuracy
+Epoch 37: 0.54400 accuracy
+Epoch 38: 0.52900 accuracy
+Epoch 39: 0.54080 accuracy
+Epoch 40: 0.50200 accuracy
+Test Accuracy : 0.526
+Epoch 41: 0.46300 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.46300 accuracy
+Epoch 44: 0.53700 accuracy
+Epoch 45: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 46: 0.53700 accuracy
+Epoch 47: 0.53700 accuracy
+Epoch 48: 0.53700 accuracy
+Epoch 49: 0.53700 accuracy
+Epoch 50: 0.70820 accuracy
+Test Accuracy : 0.696
+Epoch 51: 0.83740 accuracy
+Epoch 52: 0.83800 accuracy
+Epoch 53: 0.83780 accuracy
+Epoch 54: 0.83780 accuracy
+Epoch 55: 0.83760 accuracy
+Test Accuracy : 0.828
+Epoch 56: 0.83760 accuracy
+Epoch 57: 0.83760 accuracy
+Epoch 58: 0.83760 accuracy
+Epoch 59: 0.83760 accuracy
+Epoch 60: 0.83760 accuracy
+Test Accuracy : 0.828
+Epoch 61: 0.83760 accuracy
+Train Accuracy: 0.838
+Test Accuracy : 0.828
+Time (hr): 0.8
+
+Repeat: 2/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 1.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 1: 0.45700 accuracy
+Epoch 2: 0.52800 accuracy
+Epoch 3: 0.46140 accuracy
+Epoch 4: 0.46120 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.46300 accuracy
+Epoch 7: 0.53680 accuracy
+Epoch 8: 0.46300 accuracy
+Epoch 9: 0.53860 accuracy
+Epoch 10: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 11: 0.53700 accuracy
+Epoch 12: 0.53340 accuracy
+Epoch 13: 0.53320 accuracy
+Epoch 14: 0.46300 accuracy
+Epoch 15: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 16: 0.46440 accuracy
+Epoch 17: 0.53700 accuracy
+Epoch 18: 0.53700 accuracy
+Epoch 19: 0.46260 accuracy
+Epoch 20: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 21: 0.46300 accuracy
+Epoch 22: 0.46540 accuracy
+Epoch 23: 0.46300 accuracy
+Epoch 24: 0.46920 accuracy
+Epoch 25: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 26: 0.53700 accuracy
+Epoch 27: 0.53700 accuracy
+Epoch 28: 0.54200 accuracy
+Epoch 29: 0.53700 accuracy
+Epoch 30: 0.52800 accuracy
+Test Accuracy : 0.519
+Epoch 31: 0.53700 accuracy
+Epoch 32: 0.53700 accuracy
+Epoch 33: 0.53320 accuracy
+Epoch 34: 0.53700 accuracy
+Epoch 35: 0.55960 accuracy
+Test Accuracy : 0.563
+Epoch 36: 0.53700 accuracy
+Epoch 37: 0.46420 accuracy
+Epoch 38: 0.53700 accuracy
+Epoch 39: 0.53700 accuracy
+Epoch 40: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 41: 0.53700 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.53980 accuracy
+Epoch 44: 0.83120 accuracy
+Epoch 45: 0.83800 accuracy
+Test Accuracy : 0.826
+Epoch 46: 0.83780 accuracy
+Epoch 47: 0.83780 accuracy
+Epoch 48: 0.83780 accuracy
+Epoch 49: 0.83880 accuracy
+Epoch 50: 0.85500 accuracy
+Test Accuracy : 0.854
+Epoch 51: 0.86000 accuracy
+Epoch 52: 0.86920 accuracy
+Epoch 53: 0.86920 accuracy
+Epoch 54: 0.86900 accuracy
+Epoch 55: 0.86900 accuracy
+Test Accuracy : 0.874
+Epoch 56: 0.86800 accuracy
+Epoch 57: 0.86780 accuracy
+Epoch 58: 0.86880 accuracy
+Epoch 59: 0.86960 accuracy
+Epoch 60: 0.87020 accuracy
+Test Accuracy : 0.875
+Epoch 61: 0.86960 accuracy
+Epoch 62: 0.87080 accuracy
+Train Accuracy: 0.871
+Test Accuracy : 0.873
+Time (hr): 0.8
+
+Repeat: 3/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 1.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53720 accuracy
+Test Accuracy : 0.530
+Epoch 1: 0.53700 accuracy
+Epoch 2: 0.46300 accuracy
+Epoch 3: 0.46300 accuracy
+Epoch 4: 0.53700 accuracy
+Epoch 5: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 6: 0.53700 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.53700 accuracy
+Epoch 9: 0.53700 accuracy
+Epoch 10: 0.50880 accuracy
+Test Accuracy : 0.494
+Epoch 11: 0.48420 accuracy
+Epoch 12: 0.46300 accuracy
+Epoch 13: 0.46300 accuracy
+Epoch 14: 0.53700 accuracy
+Epoch 15: 0.53620 accuracy
+Test Accuracy : 0.528
+Epoch 16: 0.53700 accuracy
+Epoch 17: 0.53700 accuracy
+Epoch 18: 0.53700 accuracy
+Epoch 19: 0.53700 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.53680 accuracy
+Epoch 22: 0.53700 accuracy
+Epoch 23: 0.53700 accuracy
+Epoch 24: 0.46880 accuracy
+Epoch 25: 0.46280 accuracy
+Test Accuracy : 0.469
+Epoch 26: 0.53700 accuracy
+Epoch 27: 0.53700 accuracy
+Epoch 28: 0.53700 accuracy
+Epoch 29: 0.53700 accuracy
+Epoch 30: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 31: 0.53620 accuracy
+Epoch 32: 0.46360 accuracy
+Epoch 33: 0.53700 accuracy
+Epoch 34: 0.53580 accuracy
+Epoch 35: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 36: 0.53700 accuracy
+Epoch 37: 0.53700 accuracy
+Epoch 38: 0.53700 accuracy
+Epoch 39: 0.53700 accuracy
+Epoch 40: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 41: 0.53700 accuracy
+Epoch 42: 0.58040 accuracy
+Epoch 43: 0.60140 accuracy
+Epoch 44: 0.59680 accuracy
+Epoch 45: 0.59740 accuracy
+Test Accuracy : 0.581
+Epoch 46: 0.59700 accuracy
+Epoch 47: 0.59660 accuracy
+Epoch 48: 0.59700 accuracy
+Epoch 49: 0.59800 accuracy
+Epoch 50: 0.59820 accuracy
+Test Accuracy : 0.580
+Epoch 51: 0.59940 accuracy
+Epoch 52: 0.59920 accuracy
+Epoch 53: 0.59940 accuracy
+Epoch 54: 0.59960 accuracy
+Epoch 55: 0.60160 accuracy
+Test Accuracy : 0.582
+Epoch 56: 0.60100 accuracy
+Epoch 57: 0.60080 accuracy
+Epoch 58: 0.60020 accuracy
+Epoch 59: 0.60040 accuracy
+Epoch 60: 0.60040 accuracy
+Test Accuracy : 0.582
+Train Accuracy: 0.600
+Test Accuracy : 0.582
+Time (hr): 0.8
+
+Repeat: 4/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 1.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.53700 accuracy
+Test Accuracy : 0.532
+Epoch 1: 0.45580 accuracy
+Epoch 2: 0.46300 accuracy
+Epoch 3: 0.55680 accuracy
+Epoch 4: 0.46300 accuracy
+Epoch 5: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 6: 0.46300 accuracy
+Epoch 7: 0.53700 accuracy
+Epoch 8: 0.42840 accuracy
+Epoch 9: 0.53700 accuracy
+Epoch 10: 0.47520 accuracy
+Test Accuracy : 0.460
+Epoch 11: 0.53700 accuracy
+Epoch 12: 0.46280 accuracy
+Epoch 13: 0.46380 accuracy
+Epoch 14: 0.53700 accuracy
+Epoch 15: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 16: 0.43500 accuracy
+Epoch 17: 0.53700 accuracy
+Epoch 18: 0.46300 accuracy
+Epoch 19: 0.51260 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.53700 accuracy
+Epoch 22: 0.47480 accuracy
+Epoch 23: 0.53700 accuracy
+Epoch 24: 0.51360 accuracy
+Epoch 25: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 26: 0.49680 accuracy
+Epoch 27: 0.53700 accuracy
+Epoch 28: 0.53860 accuracy
+Epoch 29: 0.46300 accuracy
+Epoch 30: 0.48640 accuracy
+Test Accuracy : 0.479
+Epoch 31: 0.53700 accuracy
+Epoch 32: 0.53700 accuracy
+Epoch 33: 0.53700 accuracy
+Epoch 34: 0.45900 accuracy
+Epoch 35: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 36: 0.46300 accuracy
+Epoch 37: 0.53700 accuracy
+Epoch 38: 0.53700 accuracy
+Epoch 39: 0.52140 accuracy
+Epoch 40: 0.46300 accuracy
+Test Accuracy : 0.472
+Epoch 41: 0.46300 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.46300 accuracy
+Epoch 44: 0.53700 accuracy
+Epoch 45: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 46: 0.58480 accuracy
+Epoch 47: 0.83880 accuracy
+Epoch 48: 0.83800 accuracy
+Epoch 49: 0.83780 accuracy
+Epoch 50: 0.83780 accuracy
+Test Accuracy : 0.828
+Epoch 51: 0.83760 accuracy
+Epoch 52: 0.83760 accuracy
+Epoch 53: 0.83780 accuracy
+Epoch 54: 0.83880 accuracy
+Epoch 55: 0.84040 accuracy
+Test Accuracy : 0.828
+Epoch 56: 0.84140 accuracy
+Epoch 57: 0.84240 accuracy
+Epoch 58: 0.84240 accuracy
+Epoch 59: 0.84220 accuracy
+Epoch 60: 0.84200 accuracy
+Test Accuracy : 0.831
+Train Accuracy: 0.842
+Test Accuracy : 0.831
+Time (hr): 0.8
+
+Repeat: 5/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 1.00
+Auto Epochs True
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.46400 accuracy
+Test Accuracy : 0.469
+Epoch 1: 0.42020 accuracy
+Epoch 2: 0.53700 accuracy
+Epoch 3: 0.53700 accuracy
+Epoch 4: 0.46300 accuracy
+Epoch 5: 0.51000 accuracy
+Test Accuracy : 0.530
+Epoch 6: 0.46300 accuracy
+Epoch 7: 0.53620 accuracy
+Epoch 8: 0.46300 accuracy
+Epoch 9: 0.53700 accuracy
+Epoch 10: 0.46300 accuracy
+Test Accuracy : 0.470
+Epoch 11: 0.46300 accuracy
+Epoch 12: 0.54220 accuracy
+Epoch 13: 0.53700 accuracy
+Epoch 14: 0.53820 accuracy
+Epoch 15: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 16: 0.53700 accuracy
+Epoch 17: 0.46300 accuracy
+Epoch 18: 0.53700 accuracy
+Epoch 19: 0.46300 accuracy
+Epoch 20: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 21: 0.46740 accuracy
+Epoch 22: 0.46220 accuracy
+Epoch 23: 0.46300 accuracy
+Epoch 24: 0.47300 accuracy
+Epoch 25: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 26: 0.53700 accuracy
+Epoch 27: 0.46540 accuracy
+Epoch 28: 0.53700 accuracy
+Epoch 29: 0.46300 accuracy
+Epoch 30: 0.46300 accuracy
+Test Accuracy : 0.469
+Epoch 31: 0.46300 accuracy
+Epoch 32: 0.51360 accuracy
+Epoch 33: 0.53700 accuracy
+Epoch 34: 0.53700 accuracy
+Epoch 35: 0.53680 accuracy
+Test Accuracy : 0.531
+Epoch 36: 0.53700 accuracy
+Epoch 37: 0.53700 accuracy
+Epoch 38: 0.53700 accuracy
+Epoch 39: 0.53700 accuracy
+Epoch 40: 0.53700 accuracy
+Test Accuracy : 0.531
+Epoch 41: 0.53700 accuracy
+Epoch 42: 0.53700 accuracy
+Epoch 43: 0.58560 accuracy
+Epoch 44: 0.59720 accuracy
+Epoch 45: 0.59800 accuracy
+Test Accuracy : 0.579
+Epoch 46: 0.60520 accuracy
+Epoch 47: 0.59940 accuracy
+Epoch 48: 0.60000 accuracy
+Epoch 49: 0.60060 accuracy
+Epoch 50: 0.59960 accuracy
+Test Accuracy : 0.581
+Epoch 51: 0.60080 accuracy
+Epoch 52: 0.60000 accuracy
+Epoch 53: 0.59960 accuracy
+Epoch 54: 0.59960 accuracy
+Epoch 55: 0.59960 accuracy
+Test Accuracy : 0.581
+Epoch 56: 0.60000 accuracy
+Epoch 57: 0.59960 accuracy
+Epoch 58: 0.59960 accuracy
+Epoch 59: 0.59960 accuracy
+Epoch 60: 0.59960 accuracy
+Test Accuracy : 0.581
+Train Accuracy: 0.600
+Test Accuracy : 0.581
+Time (hr): 0.8
+
+Setting 5 Train Accs: [0.8376, 0.8708, 0.6004, 0.842, 0.5996]	
+Setting 5 Avg Train Acc: 0.750
+Setting 5 Std Train Acc: 0.123
+Setting 5 Test Accs: [0.8275, 0.8733, 0.582, 0.8307, 0.581]	
+Setting 5 Avg Test Acc: 0.739
+Setting 5 Std Test Acc: 0.130
+All Avg Test Accs:
+ [0.92, 0.889, 0.846, 0.828, 0.669, 0.739]
+All Avg Train/Val Accs:
+ [0.931, 0.89, 0.849, 0.839, 0.682, 0.75]
+All Std Test Accs:
+ [0.015, 0.014, 0.019, 0.003, 0.129, 0.13]
+All Std Train/Val Accs:
+ [0.013, 0.019, 0.016, 0.001, 0.129, 0.123]
+Time (hr): 28.2
