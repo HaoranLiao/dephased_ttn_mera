@@ -53,7 +53,7 @@ class Network:
     @tf.function
     def get_network_output(self, input_batch: tf.constant, label_batch=None):
         batch_size = input_batch.shape[0]
-        input_batch = tf.cast(input_batch, dtype=tf.complex64)
+        input_batch = tf.cast(input_batch, tf.complex64)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
         if self.num_anc:
             input_batch = tf.reshape(
@@ -76,16 +76,16 @@ class Network:
         return out_probs if label_batch == None else model_dist.get_num_correct_tf(out_probs, label_batch)
 
     def update_distributed(self, input_batch: tf.constant, label_batch: tf.constant):
-        input_batch = tf.cast(input_batch, dtype=tf.complex64)
-        label_batch = tf.cast(label_batch, dtype=tf.float32)
+        input_batch = tf.cast(input_batch, tf.complex64)
+        label_batch = tf.cast(label_batch, tf.float32)
         with tf.GradientTape() as tape:
             loss = self.loss(input_batch, label_batch)
         grads = tape.gradient(loss, self.var_list)
         self.opt.apply_gradients(zip(grads, self.var_list))
 
     def update(self, input_batch: tf.constant, label_batch: tf.constant, apply_grads=True, counter=1):
-        input_batch = tf.cast(input_batch, dtype=tf.complex64)
-        label_batch = tf.cast(label_batch, dtype=tf.float32)
+        input_batch = tf.cast(input_batch, tf.complex64)
+        label_batch = tf.cast(label_batch, tf.float32)
 
         with tf.GradientTape() as tape:
             loss = self.loss(input_batch, label_batch)

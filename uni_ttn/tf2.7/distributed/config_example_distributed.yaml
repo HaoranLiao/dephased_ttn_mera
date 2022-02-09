@@ -13,9 +13,9 @@ data:
 
 meta:
  random_seed: 42
- list_num_anc: [1]                # list or list of single
+ list_num_anc: [0]                # list or list of single
  num_repeat: 1
- auto_epochs:
+ early_stop:
   enabled: False
   criterion: 0.005
   num_match: 10

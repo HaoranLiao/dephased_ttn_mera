@@ -30,7 +30,7 @@ def run_all(i):
     deph_p = variable_or_uniform(list_deph_p, i)
     num_anc = variable_or_uniform(list_num_anc, i)
 
-    auto_epochs = config['meta']['auto_epochs']['enabled']
+    early_stop = config['meta']['early_stop']['enabled']
     test_accs, train_accs = [], []
     for j in tqdm(range(num_repeat), total=num_repeat, leave=True):
         start_time = time.time()
@@ -39,7 +39,7 @@ def run_all(i):
         print('Dephasing data', config['meta']['deph']['data'])
         print('Dephasing network', config['meta']['deph']['network'])
         print('Dephasing rate %.2f' % deph_p)
-        print('Auto Epochs', auto_epochs)
+        print('Auto Epochs', early_stop)
         print('Batch Size: %s' % batch_size)
         print('Sub Batch Size: %s' % config['data']['sub_batch_size'])
         print('Distributed:', config['data']['distributed'])
@@ -49,7 +49,7 @@ def run_all(i):
 
         assert epochs; assert batch_size
         model = Model(data_path, digits, val_split, deph_p, num_anc, config)
-        test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
+        test_acc, train_acc = model.train_network(epochs, batch_size, early_stop)
 
         test_accs.append(round(test_acc, 4))
         train_accs.append(round(train_acc, 4))
@@ -106,7 +106,7 @@ class Model:
 
         self.b_factor = self.config['data']['eval_batch_size_factor']
 
-    def train_network(self, epochs, batch_size, auto_epochs):
+    def train_network(self, epochs, batch_size, early_stop):
         if self.config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
 
         self.epoch_acc = []
@@ -119,8 +119,8 @@ class Model:
                 print(f'Test Accuracy : {test_accuracy:.3f}'); sys.stdout.flush()
 
             self.epoch_acc.append(accuracy)
-            if auto_epochs:
-                trigger = self.config['meta']['auto_epochs']['trigger']
+            if early_stop:
+                trigger = self.config['meta']['early_stop']['trigger']
                 assert trigger < epochs
                 if epoch >= trigger and self.check_acc_satified(accuracy): break
 
@@ -134,8 +134,8 @@ class Model:
         return test_accuracy, train_or_val_accuracy
 
     def check_acc_satified(self, accuracy):
-        criterion = self.config['meta']['auto_epochs']['criterion']
-        for i in range(self.config['meta']['auto_epochs']['num_match']):
+        criterion = self.config['meta']['early_stop']['criterion']
+        for i in range(self.config['meta']['early_stop']['num_match']):
             if abs(accuracy - self.epoch_acc[-(i + 2)]) <= criterion: continue
             else: return False
         return True
