@@ -2,15 +2,9 @@ data:
  path: '../../mnist8by8/mnist8by8'
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
-<<<<<<< HEAD
  list_batch_sizes: [250]                  # list or list of single
- execute_batch_size: 125
- eval_batch_size_factor: 2
-=======
- list_batch_sizes: [200]                  # list or list of single
- execute_batch_size: 100
- eval_batch_size_factor: 1
->>>>>>> a21e724358c65c944dd731d2ff40af25008969d4
+ execute_batch_size: 250
+ eval_batch_size_factor: 100
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000                # int or None
@@ -18,15 +12,15 @@ data:
 
 meta:
  random_seed: 42
- list_num_anc: [3]                # list or list of single
+ list_num_anc: [0]                # list or list of single
  num_repeat: 5
  auto_epochs:
-  enabled: True
+  enabled: False
   criterion: 0.005
   num_match: 10
   trigger: 60
 
- list_epochs: [80]                        # list or list of single
+ list_epochs: [100]                        # list or list of single
  list_devices: True
 
  deph:
