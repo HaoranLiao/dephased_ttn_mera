@@ -40,7 +40,8 @@ class Network:
         self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
 
         self.grads = None
-
+	
+    @tf.function
     def get_network_output(self, input_batch: tf.Tensor):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
