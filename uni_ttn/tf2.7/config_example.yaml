@@ -12,7 +12,7 @@ data:
 
 meta:
  random_seed: 42
- list_num_anc: [0]                # list or list of single
+ list_num_anc: [1]                # list or list of single
  num_repeat: 5
  auto_epochs:
   enabled: False
