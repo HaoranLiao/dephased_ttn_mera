@@ -179,3 +179,5 @@ Epoch 79: 0.97080 accuracy
 Epoch 80: 0.97040 accuracy
 Test Accuracy : 0.962
 Epoch 81: 0.96980 accuracy
+Epoch 82: 0.97100 accuracy
+Epoch 83: 0.97140 accuracy
