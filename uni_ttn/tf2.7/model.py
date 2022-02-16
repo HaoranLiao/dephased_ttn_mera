@@ -69,6 +69,14 @@ def run_all(i):
 
 class Model:
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, config):
+
+        if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
+        gpus = tf.config.list_physical_devices('GPU')
+        if gpus:
+            for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, True)
+            logical_gpus = tf.config.list_logical_devices('GPU')
+            print(len(gpus), "Physical GPU,", len(logical_gpus), "Logical GPUs", flush=True)
+
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
@@ -100,9 +108,6 @@ class Model:
         self.b_factor = self.config['data']['eval_batch_size_factor']
 
     def train_network(self, epochs, batch_size, auto_epochs):
-        if self.config['meta']['list_devices']: tf.config.list_physical_devices()
-        sys.stdout.flush()
-
         self.epoch_acc = []
         for epoch in range(epochs):
             accuracy = self.run_epoch(batch_size)
