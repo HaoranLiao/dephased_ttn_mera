@@ -72,6 +72,13 @@ def run_all(i):
 class Model:
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, config):
 
+        if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
+        gpus = tf.config.list_physical_devices('GPU')
+        if gpus:
+            for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, True)
+            logical_gpus = tf.config.list_logical_devices('GPU')
+            print(len(gpus), "Physical GPU,", len(logical_gpus), "Logical GPUs", flush=True)
+
         self.strategy = tf.distribute.MirroredStrategy()
         self.options = tf.data.Options()
         self.options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
@@ -91,12 +98,11 @@ class Model:
         print('Sample Size: %s' % self.train_images.shape[0])
 
         if val_data is not None:
-            print('Validation Split: %.2f' % val_split)
+            print('Validation Split: %.2f' % val_split, flush=True)
             self.val_images, self.val_labels = val_data
         else:
             assert config['data']['val_split'] == 0
-            print('No Validation')
-        sys.stdout.flush()
+            print('No Validation', flush=True)
 
         self.test_images, self.test_labels = test_data
 
@@ -107,16 +113,14 @@ class Model:
         self.b_factor = self.config['data']['eval_batch_size_factor']
 
     def train_network(self, epochs, batch_size, early_stop):
-        if self.config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
-
         self.epoch_acc = []
         for epoch in range(epochs):
             accuracy = self.run_epoch(batch_size)
-            print('Epoch %d: %.5f accuracy' % (epoch, accuracy)); sys.stdout.flush()
+            print('Epoch %d: %.5f accuracy' % (epoch, accuracy), flush=True)
 
             if not epoch%5:
                 test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-                print(f'Test Accuracy : {test_accuracy:.3f}'); sys.stdout.flush()
+                print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
 
             self.epoch_acc.append(accuracy)
             if early_stop:
@@ -125,12 +129,11 @@ class Model:
                 if epoch >= trigger and self.check_acc_satified(accuracy): break
 
         train_or_val_accuracy = accuracy
-        if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy)
-        else: print('Validation Accuracy: %.3f' % train_or_val_accuracy)
-        sys.stdout.flush()
+        if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy, flush=True)
+        else: print('Validation Accuracy: %.3f' % train_or_val_accuracy, flush=True)
 
         test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-        print(f'Test Accuracy : {test_accuracy:.3f}'); sys.stdout.flush()
+        print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
         return test_accuracy, train_or_val_accuracy
 
     def check_acc_satified(self, accuracy):
