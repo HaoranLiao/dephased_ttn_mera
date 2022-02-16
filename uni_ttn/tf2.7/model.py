@@ -14,7 +14,7 @@ def print_results(start_time):
     print('All Avg Train/Val Accs:\n', avg_repeated_train_acc)
     print('All Std Test Accs:\n', std_repeated_test_acc)
     print('All Std Train/Val Accs:\n', std_repeated_train_acc)
-    print('Time (hr): %.1f' % ((time.time()-start_time)/3600))
+    print('Time (hr): %.4f' % ((time.time()-start_time)/3600))
     sys.stdout.flush()
 
 
