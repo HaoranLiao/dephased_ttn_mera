@@ -2,10 +2,10 @@ data:
  path: '../../../mnist8by8/mnist8by8'
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
- list_batch_sizes: [240]                  # list or list of single
- sub_batch_size: 240
- distributed: True
- eval_batch_size_factor: 10
+ list_batch_sizes: [250]                  # list or list of single
+ sub_batch_size: 125
+ distributed: False
+ eval_batch_size_factor: 3
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000                # int or None
@@ -13,26 +13,26 @@ data:
 
 meta:
  random_seed: 42
- list_num_anc: [1]                # list or list of single
- num_repeat: 1
+ list_num_anc: [3]                # list or list of single
+ num_repeat: 2
  early_stop:
-  enabled: False
+  enabled: True
   criterion: 0.005
   num_match: 10
-  trigger: 70
+  trigger: 60
 
- list_epochs: [30]                        # list or list of single
+ list_epochs: [70]                        # list or list of single
  list_devices: True
 
  deph:
   data: True
   network: True
-  p: [0.0] #[0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+  p: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
 
 tree:
  param:
   init_mean: 0
-  init_std: 0.1
+  init_std: 0.01
 
  opt:
   opt: 'adam'
