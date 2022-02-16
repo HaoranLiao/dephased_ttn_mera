@@ -75,7 +75,7 @@ class Model:
         if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
         gpus = tf.config.list_physical_devices('GPU')
         if gpus:
-            for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, True)
+            for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, config['meta']['set_memory_growth'])
             logical_gpus = tf.config.list_logical_devices('GPU')
             print(len(gpus), "Physical GPU,", len(logical_gpus), "Logical GPUs", flush=True)
 
