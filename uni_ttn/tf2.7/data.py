@@ -54,7 +54,7 @@ def resize_images(images, shape):
     return new_images
 
 
-def batch_generator_tf(images: tf.Tensor, labels: tf.Tensor, batch_size):
+def batch_generator_tf(images: tf.constant, labels: tf.constant, batch_size):
     num_images = images.shape[0]
     indices = tf.range(0, num_images, dtype=tf.int32)
     shuffled_indices = tf.random.shuffle(indices)
