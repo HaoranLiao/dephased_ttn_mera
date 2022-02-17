@@ -14,7 +14,7 @@ meta:
  set_memory_growth: False
  random_seed: 42
  list_num_anc: [3]                # list or list of single
- num_repeat: 2
+ num_repeat: 5
  auto_epochs:
   enabled: True
   criterion: 0.005
