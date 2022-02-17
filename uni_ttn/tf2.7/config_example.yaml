@@ -13,11 +13,7 @@ data:
 meta:
  set_memory_growth: True
  random_seed: 42
-<<<<<<< HEAD
- list_num_anc: [3]                # list or list of single
-=======
  list_num_anc: [2]                # list or list of single
->>>>>>> b3db7c2ec14ccfc22b458dc7016aebb95ada6ae4
  num_repeat: 5
  auto_epochs:
   enabled: False
