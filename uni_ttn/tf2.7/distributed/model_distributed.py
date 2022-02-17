@@ -3,6 +3,7 @@ import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
 import network_distributed as network_dist
+sys.path.append('../')
 import data
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 TQDM_DISABLED = False
