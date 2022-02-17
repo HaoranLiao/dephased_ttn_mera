@@ -3,31 +3,35 @@ data:
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
- execute_batch_size: 125
- eval_batch_size_factor: 2
+ execute_batch_size: 250
+ eval_batch_size_factor: 6
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000                # int or None
  feature_dim: 2
 
 meta:
- set_memory_growth: False
+ set_memory_growth: True
  random_seed: 42
+<<<<<<< HEAD
  list_num_anc: [3]                # list or list of single
+=======
+ list_num_anc: [2]                # list or list of single
+>>>>>>> b3db7c2ec14ccfc22b458dc7016aebb95ada6ae4
  num_repeat: 5
  auto_epochs:
-  enabled: True
+  enabled: False
   criterion: 0.005
   num_match: 10
   trigger: 60
 
- list_epochs: [70]                        # list or list of single
+ list_epochs: [100]                        # list or list of single
  list_devices: True
 
  deph:
   data: True
   network: True
-  p: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+  p: [0.8, 1.0]
 
 tree:
  param:
