@@ -1,4 +1,4 @@
-name: qttn
+name: torch
 channels:
   - pytorch
   - conda-forge
