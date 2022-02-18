@@ -98,8 +98,8 @@ def main():
 			test_accuracy = network.run_network(test_images, test_labels)
 			print('Test Accuracy: %.3f'%test_accuracy, flush=True)
 	
-	torch.save(network.state_dict(), './trained_models/samp5000_size8.pth')
-	print('Model saved', flush=True)
+	#torch.save(network.state_dict(), './trained_models/samp5000_size8.pth')
+	#print('Model saved', flush=True)
 
 
 if __name__ == "__main__":
