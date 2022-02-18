@@ -93,13 +93,13 @@ def main():
 	
 	for epoch in range(num_epochs):
 		training_accuracy = network.train_network(train_images, train_labels, train_batch_size)
-		print(f'Epoch: {epoch}: {training_accuracy:.3f}')
+		print(f'Epoch: {epoch}: {training_accuracy:.3f}', flush=True)
 		if not epoch%5:
 			test_accuracy = network.run_network(test_images, test_labels)
-			print('Test Accuracy: %.3f'%test_accuracy)
+			print('Test Accuracy: %.3f'%test_accuracy, flush=True)
 	
 	torch.save(network.state_dict(), './trained_models/samp5000_size8.pth')
-	print('Model saved')
+	print('Model saved', flush=True)
 
 
 if __name__ == "__main__":

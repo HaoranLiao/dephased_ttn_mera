@@ -1,0 +1,4 @@
+Epoch: 0: 0.969
+Test Accuracy: 0.944
+Epoch: 1: 0.993
+Epoch: 2: 0.996

@@ -27,11 +27,11 @@ dependencies:
   - bzip2=1.0.8=h7f98852_4
   - c-ares=1.18.1=h7f98852_0
   - c-blosc2=2.0.4=h5f21a17_1
-  - ca-certificates=2021.10.8=ha878542_0
+  - ca-certificates=2021.10.26=h06a4308_2
   - cached-property=1.5.2=hd8ed1ab_1
   - cached_property=1.5.2=pyha770c72_1
   - cachetools=4.2.4=pyhd8ed1ab_0
-  - certifi=2021.10.8=py39hf3d152e_1
+  - certifi=2021.10.8=py39h06a4308_2
   - cffi=1.15.0=py39h4bc2ebd_0
   - cfitsio=4.0.0=h9a35b8e_0
   - charls=2.2.0=h9c3ff4c_0
@@ -78,7 +78,7 @@ dependencies:
   - jbig=2.1=h7f98852_2003
   - jpeg=9d=h36c2ea0_0
   - jxrlib=1.1=h7f98852_2
-  - keras=2.6.0=py39hd3eb1b0_0
+  - keras=2.6.0=pyhd3eb1b0_0
   - keras-preprocessing=1.1.2=pyhd8ed1ab_0
   - kiwisolver=1.3.2=py39h1a9c180_1
   - krb5=1.19.2=hcc1bbae_3
@@ -146,7 +146,7 @@ dependencies:
   - olefile=0.46=pyh9f0ad1d_1
   - openh264=2.1.1=h780b84a_0
   - openjpeg=2.4.0=hb52868f_1
-  - openssl=1.1.1l=h7f98852_0
+  - openssl=1.1.1m=h7f8727e_0
   - opt_einsum=3.3.0=pyhd8ed1ab_1
   - packaging=21.3=pyhd8ed1ab_0
   - pandas=1.3.4=py39hde0f152_1
@@ -223,4 +223,4 @@ dependencies:
   - pip:
     - transformations==2021.6.6
     - transforms==0.1
-prefix: /home/li87o/anaconda3/envs/qttn
+prefix: /home/haoranliao/anaconda3/envs/qttn
