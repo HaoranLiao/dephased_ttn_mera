@@ -2,8 +2,8 @@ data:
  path: '../../mnist8by8/mnist8by8'
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
- list_batch_sizes: [250]                  # list or list of single
- execute_batch_size: 125
+ list_batch_sizes: [240]                  # list or list of single
+ execute_batch_size: 30
  eval_batch_size_factor: 2
  load_from_file: True
  data_im_size: [8,8]
@@ -11,10 +11,10 @@ data:
  feature_dim: 2
 
 meta:
- set_memory_growth: True
+ set_memory_growth: False
  random_seed: 42
- list_num_anc: [3]                # list or list of single
- num_repeat: 5
+ list_num_anc: [4]                # list or list of single
+ num_repeat: 1
  auto_epochs:
   enabled: False
   criterion: 0.005
@@ -27,7 +27,7 @@ meta:
  deph:
   data: True
   network: True
-  p: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+  p: [0.0] #[0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
 
 tree:
  param:

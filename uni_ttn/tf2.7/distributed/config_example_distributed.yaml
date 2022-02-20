@@ -3,9 +3,9 @@ data:
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
- sub_batch_size: 125
- distributed: False
- eval_batch_size_factor: 3
+ sub_batch_size: 250
+ distributed: True
+ eval_batch_size_factor: 30
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000                # int or None
@@ -14,8 +14,8 @@ data:
 meta:
  set_memory_growth: False
  random_seed: 42
- list_num_anc: [3]                # list or list of single
- num_repeat: 2
+ list_num_anc: [4]                # list or list of single
+ num_repeat: 1
  early_stop:
   enabled: True
   criterion: 0.005
