@@ -37,11 +37,15 @@ class Network:
         else: self.opt = tf.keras.optimizers.Adam(config['tree']['opt']['adam']['lr'])
 
         chars = string.ascii_lowercase
-        self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
+        # self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
+        # print(self.trace_einsum)
+        if self.num_anc < 4:
+            self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
+        elif self.num_anc == 4:     # 'zacdefbcdef-> zab'
+            self.trace_einsums = ['zacdefbghef -> zacdbgh', 'zacdbcd -> zab']
 
         self.grads = None
-	
-    @tf.function
+
     def get_network_output(self, input_batch: tf.Tensor):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
@@ -61,7 +65,13 @@ class Network:
         final_layer_out = tf.reshape(
             self.layers[self.num_layers-1].get_layer_output(layer_out)[:, 0],
             [batch_size, *[2]*(2*self.num_out_qubits)])
-        final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
+        # final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
+        if self.num_anc < 4:
+            final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
+        elif self.num_anc == 4:
+            # for ein_str in self.trace_einsums:  final_layer_out = tf.einsum(ein_str, final_layer_out)
+            final_layer_out = tf.einsum(self.trace_einsums[0], final_layer_out)
+            final_layer_out = tf.einsum(self.trace_einsums[1], final_layer_out)
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
@@ -89,7 +99,6 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
-    @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(self.get_network_output(input_batch), label_batch)
 
