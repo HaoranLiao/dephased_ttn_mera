@@ -11,7 +11,7 @@ data:
  feature_dim: 2
 
 meta:
- set_memory_growth: False
+ set_memory_growth: True
  random_seed: 42
  list_num_anc: [4]                # list or list of single
  num_repeat: 1

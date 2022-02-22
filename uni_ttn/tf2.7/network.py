@@ -46,6 +46,7 @@ class Network:
 
         self.grads = None
 
+    @tf.function
     def get_network_output(self, input_batch: tf.Tensor):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
@@ -70,8 +71,12 @@ class Network:
             final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
         elif self.num_anc == 4:
             # for ein_str in self.trace_einsums:  final_layer_out = tf.einsum(ein_str, final_layer_out)
-            final_layer_out = tf.einsum(self.trace_einsums[0], final_layer_out)
-            final_layer_out = tf.einsum(self.trace_einsums[1], final_layer_out)
+            # final_layer_out = tf.einsum(self.trace_einsums[0], final_layer_out)
+            # final_layer_out = tf.einsum(self.trace_einsums[1], final_layer_out)
+
+            # 'z abcde fghij -> z af bg ch di ej'
+            final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])
+            for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
@@ -99,6 +104,7 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
+    @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(self.get_network_output(input_batch), label_batch)
 
