@@ -70,7 +70,11 @@ class Network:
         final_layer_out = tf.reshape(
             self.layers[self.num_layers-1].get_layer_output(layer_out)[:, 0],
             [batch_size, *[2]*(2*self.num_out_qubits)])
-        final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
+        if self.num_anc < 4:
+            final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
+        elif self.num_anc == 4:
+            final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10]) # zabcdefghij -> zafbgchdiej
+            for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
 
         out_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return out_probs if label_batch == None else model_dist.get_num_correct_tf(out_probs, label_batch)

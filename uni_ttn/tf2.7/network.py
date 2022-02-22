@@ -74,8 +74,7 @@ class Network:
             # final_layer_out = tf.einsum(self.trace_einsums[0], final_layer_out)
             # final_layer_out = tf.einsum(self.trace_einsums[1], final_layer_out)
 
-            # 'z abcde fghij -> z af bg ch di ej'
-            final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])
+            final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10]) # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))

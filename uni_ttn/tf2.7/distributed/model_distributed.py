@@ -5,7 +5,7 @@ from tqdm import tqdm
 import network_distributed as network_dist
 sys.path.append('../')
 import data
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
+
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
