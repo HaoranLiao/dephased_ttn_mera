@@ -1,0 +1,154 @@
+ram": {
+   "init_mean": 0,
+   "init_std": 0.01
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": false,
+    "lr": 0.0001
+   }
+  }
+ }
+} 
+  0%|                                                                                                                                                                                                                           | 0/6 [00:00<?, ?it/s]
+Repeat: 1/1                                                                                                                                                                                                                     | 0/1 [00:00<?, ?it/s]
+Digits:  [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs True
+Batch Size: 250
+Sub Batch Size: 250
+Distributed: True
+Number of Ancillas: 4
+Random Seed: 42
+2022-02-22 19:21:51.291158: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.
+1 SSE4.2 AVX AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-02-22 19:22:02.727891: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 38394 MB memory:  -> device: 0, name: A100-SXM4-40GB, pci bus id: 0000:00:04.0, compute capabili
+ty: 8.0
+2022-02-22 19:22:02.738097: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 38394 MB memory:  -> device: 1, name: A100-SXM4-40GB, pci bus id: 0000:00:05.0, compute capabili
+ty: 8.0
+2022-02-22 19:22:02.743982: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:2 with 38394 MB memory:  -> device: 2, name: A100-SXM4-40GB, pci bus id: 0000:00:06.0, compute capabili
+ty: 8.0
+2022-02-22 19:22:02.747255: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:3 with 38394 MB memory:  -> device: 3, name: A100-SXM4-40GB, pci bus id: 0000:00:07.0, compute capabili
+ty: 8.0
+2022-02-22 19:22:02.750875: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:4 with 38394 MB memory:  -> device: 4, name: A100-SXM4-40GB, pci bus id: 0000:80:00.0, compute capabili
+ty: 8.0
+2022-02-22 19:22:02.754336: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:5 with 38394 MB memory:  -> device: 5, name: A100-SXM4-40GB, pci bus id: 0000:80:01.0, compute capabili
+ty: 8.0
+2022-02-22 19:22:02.757887: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:6 with 38394 MB memory:  -> device: 6, name: A100-SXM4-40GB, pci bus id: 0000:80:02.0, compute capabili
+ty: 8.0
+2022-02-22 19:22:02.761286: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:7 with 38394 MB memory:  -> device: 7, name: A100-SXM4-40GB, pci bus id: 0000:80:03.0, compute capabili
+ty: 8.0
+8 Physical GPU, 8 Logical GPUs
+Load Data From File
+Sample Size: 5000
+No Validation
+  0%|                                                                                                                                                                                                                          | 0/20 [00:00<?, ?it/s]
+2022-02-22 19:24:31.788900: I tensorflow/core/util/cuda_solvers.cc:179] Creating GpuSolver handles for stream 0x55a2be5f4900
+2022-02-22 19:24:32.902571: I tensorflow/core/util/cuda_solvers.cc:179] Creating GpuSolver handles for stream 0x55a2bca81860
+2022-02-22 19:24:35.415816: I tensorflow/core/util/cuda_solvers.cc:179] Creating GpuSolver handles for stream 0x55a2bc9a9380
+2022-02-22 19:24:36.289215: I tensorflow/core/util/cuda_solvers.cc:179] Creating GpuSolver handles for stream 0x55a2bca99420
+2022-02-22 19:24:38.081777: I tensorflow/core/util/cuda_solvers.cc:179] Creating GpuSolver handles for stream 0x55a2bd299fc0
+2022-02-22 19:24:39.002715: I tensorflow/core/util/cuda_solvers.cc:179] Creating GpuSolver handles for stream 0x55a2be70bab0
+2022-02-22 19:24:41.403324: I tensorflow/core/util/cuda_solvers.cc:179] Creating GpuSolver handles for stream 0x55a2bcabcd50
+2022-02-22 19:24:42.722671: I tensorflow/core/util/cuda_solvers.cc:179] Creating GpuSolver handles for stream 0x55a26adb99a0
+Epoch 0: 0.91460 accuracy
+Test Accuracy : 0.910
+
+
+Epoch 3: 0.95500 accuracy
+ 85%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋                               | 17/20 [02:30<00:26,  8.74s/i 9
+Epoch 4: 0.95700 accuracy
+Epoch 5: 0.95940 accuracy
+Test Accuracy : 0.947
+Epoch 6: 0.96480 accuracy
+Epoch 7: 0.96780 accuracy
+Epoch 8: 0.96780 accuracy
+Epoch 9: 0.97060 accuracy
+  "sample_size": 5000,
+  "sample_size": 5000,
+  }
+1 SSE4.2 AVX AVX2 AVX512F FMA
+Epoch 10: 0.96840 accuracy
+Test Accuracy : 0.961
+Epoch 11: 0.96940 accuracy
+Epoch 12: 0.97320 accuracy
+Epoch 13: 0.97220 accuracy
+Epoch 14: 0.97080 accuracy
+Epoch 15: 0.97340 accuracy
+Test Accuracy : 0.966
+Epoch 16: 0.97220 accuracy
+Epoch 17: 0.97340 accuracy
+Epoch 18: 0.97160 accuracy
+Epoch 19: 0.97440 accuracy
+Epoch 20: 0.97380 accuracy
+Test Accuracy : 0.965
+Epoch 21: 0.97640 accuracy
+Epoch 22: 0.97520 accuracy
+Train Accuracy: 0.975
+Test Accuracy : 0.971
+Time (hr): 2.6
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [2:38:11<00:00, 9491.27s/it]
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [2:38:11<00:00, 9491.27s/it]
+Setting 0 Train Accs: [0.9752]
+Setting 0 Avg Train Acc: 0.975
+Setting 0 Std Train Acc: 0.000
+Setting 0 Test Accs: [0.9706]
+Setting 0 Avg Test Acc: 0.971
+Setting 0 Std Test Acc: 0.000
+
+
+
+Repeat: 1/1                                                                                                                                                                                                                     | 0/1 [00:00<?, ?it/s]
+Digits:  [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.20
+Auto Epochs True
+Batch Size: 250
+Sub Batch Size: 250
+Distributed: True
+Number of Ancillas: 4
+Random Seed: 42
+8 Physical GPU, 8 Logical GPUs
+Load Data From File
+Sample Size: 5000
+No Validation
+Epoch 0: 0.69020 accuracy
+Test Accuracy : 0.682
+Epoch 1: 0.86440 accuracy
+Epoch 2: 0.88440 accuracy
+Epoch 3: 0.88880 accuracy
+Epoch 4: 0.90300 accuracy
+Epoch 5: 0.90420 accuracy
+Test Accuracy : 0.900
+Epoch 6: 0.91040 accuracy
+Epoch 7: 0.91040 accuracy
+Epoch 8: 0.91340 accuracy
+Epoch 9: 0.91540 accuracy
+Epoch 10: 0.91700 accuracy
+Test Accuracy : 0.913
+Epoch 11: 0.91680 accuracy
+Epoch 12: 0.91780 accuracy
+Epoch 13: 0.91940 accuracy
+Epoch 14: 0.91800 accuracy
+Epoch 15: 0.91840 accuracy
+Test Accuracy : 0.912
+Epoch 16: 0.91580 accuracy
+Epoch 17: 0.91740 accuracy
+Epoch 18: 0.91940 accuracy
+Epoch 19: 0.91920 accuracy
+Epoch 20: 0.91820 accuracy
+Test Accuracy : 0.913
+Train Accuracy: 0.918
+Test Accuracy : 0.913
+Time (hr): 2.4
+Setting 1 Train Accs: [0.9182]
+Setting 1 Avg Train Acc: 0.918
+Setting 1 Std Train Acc: 0.000
+Setting 1 Test Accs: [0.9132]
+Setting 1 Avg Test Acc: 0.913
+Setting 1 Std Test Acc: 0.000
