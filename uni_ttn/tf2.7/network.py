@@ -37,12 +37,8 @@ class Network:
         else: self.opt = tf.keras.optimizers.Adam(config['tree']['opt']['adam']['lr'])
 
         chars = string.ascii_lowercase
-        # self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
-        # print(self.trace_einsum)
         if self.num_anc < 4:
             self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
-        elif self.num_anc == 4:     # 'zacdefbcdef-> zab'
-            self.trace_einsums = ['zacdefbghef -> zacdbgh', 'zacdbcd -> zab']
 
         self.grads = None
 
@@ -70,11 +66,10 @@ class Network:
         if self.num_anc < 4:
             final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
         elif self.num_anc == 4:
-            # for ein_str in self.trace_einsums:  final_layer_out = tf.einsum(ein_str, final_layer_out)
             final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
         else:
-            raise Exception('Not supported. Hard to simulate classically')
+            raise Exception('Too hard to simulate classically')
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
