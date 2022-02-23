@@ -73,6 +73,8 @@ class Network:
             # for ein_str in self.trace_einsums:  final_layer_out = tf.einsum(ein_str, final_layer_out)
             final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
+        else:
+            raise Exception('Not supported. Hard to simulate classically')
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
