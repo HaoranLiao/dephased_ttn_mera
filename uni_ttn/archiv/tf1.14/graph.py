@@ -1,8 +1,11 @@
 import numpy as np
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 import itertools as itr
 import sys
 import model
+
+np.random.seed(42)
+tf.random.set_random_seed(42)
 
 class Graph:
     def __init__(self, num_pixels, bd_dims, deph, deph_only_input, num_anc, batch_size, config):
@@ -18,6 +21,7 @@ class Graph:
 
         self.data_nodes = self.create_data_layer()
         self.num_layers = int(np.log2(self.num_pixels))
+        # self.num_layers = 1
 
         self.op_layers = self.create_all_op_nodes()
         self.create_params_var()
@@ -71,58 +75,27 @@ class Graph:
         self.opt_config = self.config['tree']['opt']
         self.init_mean = self.config['tree']['param']['init_mean']
         self.init_std = self.config['tree']['param']['init_std']
-        if self.opt_config['opt'] == 'sweep':
-            for (ind, op_node) in enumerate(self.op_nodes):
-                param_var_name = 'param_var_%s' % ind
-                self.param_var = tf.get_variable(
-                    param_var_name,
-                    shape=[self.num_op_params],
-                    dtype=tf.float64,
-                    initializer=tf.random_normal_initializer(
-                        mean=self.init_mean, stddev=self.init_std), trainable=True)
-                op_node.create_node_tensor(ind, self.param_var)
-        else:
-            self.param_var_all = tf.get_variable(
-                'param_var_all',
-                shape=[self.num_op_params * len(self.op_nodes)],
-                dtype=tf.float64,
-                initializer=tf.random_normal_initializer(
-                    mean=self.init_mean, stddev=self.init_std), trainable=True)
-            for (ind, op_node) in enumerate(self.op_nodes):
-                op_node.create_node_tensor(ind, self.param_var_all)
+
+        # self.param_var_all = tf.get_variable(
+        #     'param_var_all',
+        #     shape=[self.num_op_params * len(self.op_nodes)],
+        #     dtype=tf.float64,
+        #     initializer=tf.random_normal_initializer(
+        #         mean=self.init_mean, stddev=self.init_std), trainable=True)
+        self.param_var_all = tf.Variable(tf.cast(tf.fill([self.num_op_params * len(self.op_nodes)], 1), tf.float64),
+            name='param_var_all',
+            shape=[self.num_op_params * len(self.op_nodes)],
+            dtype=tf.float64)
+        for (ind, op_node) in enumerate(self.op_nodes):
+            op_node.create_node_tensor(ind, self.param_var_all)
 
     def optimizer(self):
-        self.loss_config = self.config['tree']['loss']
-        if self.loss_config == 'l2':
-            self.loss = tf.reduce_sum(tf.square(self.pred_batch - self.label_batch)); print('L2 Loss')
-        elif self.loss_config == 'l1':
-            self.loss = tf.losses.absolute_difference(self.label_batch, self.pred_batch); print('L1 Loss')
-        elif self.loss_config == 'log':
-            self.loss = tf.losses.log_loss(self.label_batch, self.pred_batch); print('Log Loss')
-        else:
-            raise Exception('Invalid Loss')
+        self.loss = tf.losses.log_loss(self.label_batch, self.pred_batch); print('Log Loss')
 
-        if self.opt_config['opt'] == 'adam':
-            opt = tf.train.AdamOptimizer()
-            self.grad_var = opt.compute_gradients(self.loss)
-            self.train_op = opt.apply_gradients(self.grad_var)
-            print('Adam Optimizer')
-        elif self.opt_config['opt'] == 'sgd':
-            step_size = self.opt_config['sgd']['step_size']
-            self.train_op = tf.train.GradientDescentOptimizer(step_size).minimize(self.loss)
-            print('SGD Optimizer')
-        elif self.opt_config['opt'] == 'sweep':
-            self.train_ops = [0] * len(self.op_nodes)
-            for (ind, op_node) in enumerate(self.op_nodes):
-                self.train_ops[ind] = tf.train.AdamOptimizer().minimize(self.loss, var_list=[op_node.param_var])
-            print('Sweep with Adam Optimizer')
-        elif self.opt_config['opt'] == 'rmsprop':
-            learning_rate = self.opt_config['rmsprop']['learning_rate']
-            self.train_op = tf.train.RMSPropOptimizer(learning_rate).minimize(self.loss)
-            print('RMSProp Optimizer')
-        else:
-            raise Exception('Invalid Optimizer')
-
+        opt = tf.train.AdamOptimizer()
+        self.grad_var = opt.compute_gradients(self.loss)
+        self.train_op = opt.apply_gradients(self.grad_var)
+        print('Adam Optimizer')
         sys.stdout.flush()
 
     def run_graph(self, sess, image_batch):
@@ -131,19 +104,8 @@ class Graph:
         return pred_batch
 
     def create_pixel_dict(self, image_batch):
-        if self.config['data']['data_im_size'] == [8, 8]:
-            pixel_dict = {}
-            for (index, node) in enumerate(self.data_nodes):
-                quad = index // 16
-                quad_quad = (index % 16) // 4
-                pos = index % 4
-                row = (pos // 2) + 2 * (quad_quad // 2) + 4 * (quad // 2)
-                col = (pos % 2) + 2 * (quad_quad % 2) + 4 * (quad % 2)
-                pixel = col + 8 * row
-                pixel_dict[node.pixel_batch] = image_batch[:, pixel, :]
-        else:
-            pixel_dict = {
-                node.pixel_batch: image_batch[:, pixel, :] for (pixel, node) in enumerate(self.data_nodes)}
+        pixel_dict = {
+            node.pixel_batch: image_batch[:, pixel, :] for (pixel, node) in enumerate(self.data_nodes)}
 
         return pixel_dict
 
@@ -152,29 +114,14 @@ class Graph:
         fd_dict.update({self.label_batch: label_batch})
 
         self.avg_grad, self.std_grad = None, None
-        if self.opt_config['opt'] == 'sweep':
-            for (ind, __) in enumerate(self.op_nodes):
-                sess.run(self.train_ops[ind], feed_dict=fd_dict)
-                if self.opt_config['sweep']['inspection']:
-                    self.run_graph(sess, image_batch)
-                    pred_batch = self.run_graph(sess, image_batch)
-                    print('%s/%s-%.3f' % (ind, len(self.op_nodes), model.get_accuracy(pred_batch, label_batch)))
-                    sys.stdout.flush()
-        else:
-            sess.run(self.train_op, feed_dict=fd_dict)
-            if self.opt_config['adam']['show_grad']:
-                for gv in self.grad_var:
-                    self.avg_grad = round(float(np.mean(sess.run(gv[0], feed_dict=fd_dict))), 3)
-                    self.std_grad = round(float(np.std(sess.run(gv[0], feed_dict=fd_dict))), 3)
+        sess.run(self.train_op, feed_dict=fd_dict)
+        if self.opt_config['adam']['show_grad']:
+            for gv in self.grad_var:
+                self.avg_grad = round(float(np.mean(sess.run(gv[0], feed_dict=fd_dict))), 8)
+                self.std_grad = round(float(np.std(sess.run(gv[0], feed_dict=fd_dict))), 8)
 
-            if self.opt_config['adam']['show_hess']:
-                real_off_params = []
-                for (ind, op_node) in enumerate(self.op_nodes):
-                    if ind == 0:
-                        real_off_params = op_node.real_off_params
-
-                self.hess = tf.hessians(self.loss, real_off_params)
-                self.hess_val = sess.run(self.hess, feed_dict=fd_dict)
+        self.loss_ = float(np.mean(sess.run(self.loss, feed_dict=fd_dict)))
+        self.pred_batch_ = sess.run(self.pred_batch, feed_dict=fd_dict)
 
 
 class Data_Node:
@@ -207,15 +154,9 @@ class Op_Node:
         (self.fir_lay_op_shape, self.mid_lay_op_shape, self.last_lay_op_shape) = op_shapes
         self.fir_lay_mat_shape = get_mat_shapes(self.fir_lay_op_shape)
         self.last_lay_mat_shape = get_mat_shapes(self.last_lay_op_shape)
-        if self.fir_lay_op_shape[0] > self.mid_lay_op_shape[0]:
-            self.max_op_size = self.fir_lay_op_shape[0] ** num_in_bd
-            if lay_ind != 0:
-                self.op_size = self.mid_lay_op_shape[0] ** num_in_bd
-            else:
-                self.op_size = self.fir_lay_op_shape[0] ** num_in_bd
-        else:
-            self.op_size = self.mid_lay_op_shape[0] ** num_in_bd
-            self.max_op_size = self.op_size
+
+        self.op_size = self.mid_lay_op_shape[0] ** num_in_bd
+        self.max_op_size = self.op_size
 
         self.deph = deph
         self.deph_only_input = deph_only_input
@@ -272,65 +213,29 @@ class Op_Node:
         return unitary_matrix_raw
 
     def create_unitary_tensor(self, unitary_matrix_raw):
-        if self.lay_ind == 0:  # if is first op layer
-            if self.fir_lay_op_shape[0] <= self.mid_lay_op_shape[0]:
-                # if data bd dim smaller or equal to vir bd dim
-                self.unitary_tensor = tf.reshape(
-                    tf.transpose(
-                        tf.slice(
-                            unitary_matrix_raw, [0, 0], self.fir_lay_mat_shape)
-                    ),
-                    self.fir_lay_op_shape
-                )
-                self.op_shape = self.fir_lay_op_shape
-            else:
-                self.unitary_tensor = tf.reshape(
-                    tf.slice(unitary_matrix_raw, [0, 0], list(reversed(self.fir_lay_mat_shape))),
-                    self.fir_lay_op_shape
-                )
-                self.op_shape = self.fir_lay_op_shape
+        if self.lay_ind == 0:
+            self.unitary_tensor = tf.reshape(
+                tf.transpose(unitary_matrix_raw),
+                # unitary_matrix_raw,
+                self.fir_lay_op_shape
+            )
+            self.op_shape = self.fir_lay_op_shape
         elif self.lay_ind == (self.num_layers - 1):
             self.unitary_tensor = tf.reshape(
-                tf.transpose(
-                    tf.slice(
-                        unitary_matrix_raw, [0, 0], self.last_lay_mat_shape)
-                ),
+                tf.transpose(unitary_matrix_raw),
+                # unitary_matrix_raw,
                 self.last_lay_op_shape
             )
             self.op_shape = self.last_lay_op_shape
         else:
-            assert 0 < self.lay_ind < (self.num_layers - 1)
             self.unitary_tensor = tf.reshape(unitary_matrix_raw, self.mid_lay_op_shape)
             self.op_shape = self.mid_lay_op_shape
 
     def create_contractions(self):
         (left_node, right_node) = self.input_nodes
-        if self.deph_only_input:
-            if self.lay_ind == 0:
-                left_input = dephase(left_node.output, self.deph)
-                right_input = dephase(right_node.output, self.deph)
-            else:
-                assert self.lay_ind > 0
-                left_input = dephase(left_node.output, 0)
-                right_input = dephase(right_node.output, 0)
-        else:
-            left_input = dephase(left_node.output, self.deph)
-            right_input = dephase(right_node.output, self.deph)
+        left_input = dephase(left_node.output, 0)
+        right_input = dephase(right_node.output, 0)
 
-        if self.num_anc == 0:
-            contract_left = tf.einsum('abcd, zea -> zebcd', self.unitary_tensor, left_input)
-            contract_right = tf.einsum('zebcd, zfb -> zefcd', contract_left, right_input)
-            self.output = tf.einsum('zefcd, efcg -> zdg', contract_right, tf.conj(self.unitary_tensor))
-        elif self.num_anc == 1:
-            indices = [-1] * self.op_shape[2]
-            indices[0] = 1
-            ancilla = tf.one_hot(
-                indices=indices,
-                depth=self.op_shape[2],
-                dtype=tf.complex128)
-            uni_and_anc = tf.einsum('abcdef, ag -> gbcdef', self.unitary_tensor, ancilla)
-            contract_left = tf.einsum('gbcdef, zhb -> zghcdef', uni_and_anc, left_input)
-            contract_right = tf.einsum('zghcdef, zic -> zghidef', contract_left, right_input)
-            self.output = tf.einsum('zghidef, ghidej -> zfj', contract_right, tf.conj(uni_and_anc))
-        else:
-            raise Exception('Invalid Ancilla Number')
+        contract_left = tf.einsum('abcd, zea -> zebcd', self.unitary_tensor, left_input)
+        contract_right = tf.einsum('zebcd, zfb -> zefcd', contract_left, right_input)
+        self.output = tf.einsum('zefcd, efcg -> zdg', contract_right, tf.conj(self.unitary_tensor))
