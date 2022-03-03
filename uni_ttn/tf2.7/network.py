@@ -136,7 +136,7 @@ class Layer:
             ), name='param_var_lay_%s' % layer_idx, trainable=True)
 
     def get_unitary_tensor(self):
-        num_off_diags = int(0.5 * (self.num_diags**2 - self.num_diags))
+        num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
         real_off_params = self.param_var_lay[:num_off_diags]
         imag_off_params = self.param_var_lay[num_off_diags:2 * num_off_diags]
         diag_params = self.param_var_lay[2 * num_off_diags:]
