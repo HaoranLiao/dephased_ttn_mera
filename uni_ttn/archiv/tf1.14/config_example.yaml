@@ -1,35 +1,35 @@
 data:
- path: '../mnist8by8/mnist8by8'
+ path: '../../../mnist8by8/mnist8by8'
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
- list_batch_sizes: [100]                  # list or list of single
+ list_batch_sizes: [250]                  # list or list of single
  load_from_file: False
- data_im_size: [4,4]
+ data_im_size: [8,8]
  list_data_bd_dim: [2]            # list or list of single
- sample_size: 1000                # int or None
+ sample_size: 1000               # int or None
 
 meta:
- num_repeat: 1
+ num_repeat: 5
  auto_epochs:
   enabled: False
   criterion: 0.005
   num_match: 7
   trigger: 10
 
- list_epochs: [5]                        # list or list of single
- log_device_placement: True
+ list_epochs: [100]                        # list or list of single
+ log_device_placement: False
  list_devices: True
  gpu: True
 
 tree:
  param:
   init_mean: 0
-  init_std: 1
+  init_std: 0.1
 
  list_vir_bd_dim: [2]             # list or list of single
  num_anc: 0
 
- loss: 'l2'                               # 'l2', 'log', 'l1'
+ loss: 'log'                               # 'l2', 'log', 'l1'
  deph:
   only_input: False
   list_deph: [0]                        # list or list of single, p = 0 / 1 makes sense

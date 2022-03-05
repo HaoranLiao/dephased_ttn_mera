@@ -1,8 +1,8 @@
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 import numpy as np
 import sys, data, os, time, yaml, json
 import graph
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 
 
 def invoke(config):
@@ -132,7 +132,7 @@ class Model:
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
         if config['data']['load_from_file']:
-            assert data_im_size == (8, 8)
+            assert data_im_size == [8, 8]
             (train_data, val_data, test_data) = data.get_data_file(
                 data_path, digits, val_split, sample_size=sample_size)
         else:
@@ -155,6 +155,9 @@ class Model:
         num_pixels = self.train_images.shape[1]
         self.config = config
 
+        # self.train_images = np.vstack([self.train_images[0, 0] for _ in range(4)])[None, :, :]
+        # self.test_images = np.vstack([self.test_images[0, 0] for _ in range(4)])[None, :, :]
+
         tf.reset_default_graph()
         self.graph = graph.Graph(num_pixels, bd_dims, deph,
                                  deph_only_input, num_anc, batch_size, config)
@@ -176,11 +179,16 @@ class Model:
         for epoch in range(epochs):
             sys.stdout.flush()
             accuracy = self.run_epoch(sess, batch_size)
-            last_bat_avg_grad = self.graph.avg_grad
-            last_bat_std_grad = self.graph.std_grad
             if self.graph.opt_config['adam']['show_grad']:
-                print('%s/%s : %.3f\t\t%8.4f\t%6.2f' %
+                last_bat_avg_grad = self.graph.avg_grad
+                last_bat_std_grad = self.graph.std_grad
+                print('%s/%s : %.3f\t\t%s\t%s' %
                       (epoch + 1, epochs, accuracy, last_bat_avg_grad, last_bat_std_grad))
+                print(f'loss: {self.graph.loss_}')
+                print(f'pred_batch: {self.graph.pred_batch_}')
+                print(f'label_batch: {self.graph.label_batch_}')
+                print(f'output_density_mat: {self.graph.root_node.output_}')
+                print(f'all_grads: {self.graph.all_grads}')
             else:
                 print('%s/%s : %.3f' % (epoch + 1, epochs, accuracy))
             sys.stdout.flush()
@@ -252,5 +260,8 @@ if __name__ == "__main__":
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=2))
         sys.stdout.flush()
+
+    np.random.seed(45)
+    tf.random.set_random_seed(45)
 
     invoke(config)

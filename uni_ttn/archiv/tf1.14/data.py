@@ -57,6 +57,7 @@ def resize_images(images, shape):
 def batch_generator(images, labels, batch_size):
     num_images = images.shape[0]
     random_perm = np.random.permutation(num_images)
+    # random_perm = np.arange(num_images)
     randomized_images = images[random_perm]
     randomized_labels = labels[random_perm]
     

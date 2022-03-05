@@ -1,11 +1,15 @@
 import numpy as np
 import tensorflow as tf
 import itertools as itr
-import sys
 import model
 
-np.random.seed(42)
-tf.random.set_random_seed(42)
+np.random.seed(45)
+tf.random.set_random_seed(45)
+
+'''
+This version of the code if a simplified version of graph_original, in which the ancilla part, the various optimizers/losses,
+the change of virtual bond dimensions and possibly more are removed.
+'''
 
 class Graph:
     def __init__(self, num_pixels, bd_dims, deph, deph_only_input, num_anc, batch_size, config):
@@ -21,14 +25,14 @@ class Graph:
 
         self.data_nodes = self.create_data_layer()
         self.num_layers = int(np.log2(self.num_pixels))
-        # self.num_layers = 1
 
         self.op_layers = self.create_all_op_nodes()
         self.create_params_var()
 
         self.root_node = self.op_layers[self.num_layers - 1][0]
-        self.pred_batch = tf.real(tf.matrix_diag_part(self.root_node.output))
-        self.label_batch = tf.placeholder(tf.float64, shape=(None, 2))
+        # self.pred_batch = tf.real(tf.matrix_diag_part(self.root_node.output)) # either works fine
+        self.pred_batch = tf.abs(tf.matrix_diag_part(self.root_node.output))
+        self.label_batch = tf.placeholder(tf.float32, shape=(None, 2))
         self.optimizer()
 
         self.init = tf.global_variables_initializer()
@@ -76,27 +80,29 @@ class Graph:
         self.init_mean = self.config['tree']['param']['init_mean']
         self.init_std = self.config['tree']['param']['init_std']
 
-        # self.param_var_all = tf.get_variable(
-        #     'param_var_all',
-        #     shape=[self.num_op_params * len(self.op_nodes)],
-        #     dtype=tf.float64,
-        #     initializer=tf.random_normal_initializer(
-        #         mean=self.init_mean, stddev=self.init_std), trainable=True)
-        self.param_var_all = tf.Variable(tf.cast(tf.fill([self.num_op_params * len(self.op_nodes)], 1), tf.float64),
-            name='param_var_all',
+        self.param_var_all = tf.get_variable(
+            'param_var_all',
             shape=[self.num_op_params * len(self.op_nodes)],
-            dtype=tf.float64)
+            dtype=tf.float32,
+            initializer=tf.random_normal_initializer(
+                mean=self.init_mean, stddev=self.init_std), trainable=True)
+        # self.param_var_all = tf.Variable(tf.cast(tf.fill([self.num_op_params * len(self.op_nodes)], 1), tf.float32),
+        #     name='param_var_all',
+        #     shape=[self.num_op_params * len(self.op_nodes)],
+        #     dtype=tf.float32,
+        #     )
+
         for (ind, op_node) in enumerate(self.op_nodes):
             op_node.create_node_tensor(ind, self.param_var_all)
 
     def optimizer(self):
-        self.loss = tf.losses.log_loss(self.label_batch, self.pred_batch); print('Log Loss')
+        self.loss = tf.losses.log_loss(self.label_batch, self.pred_batch); print('Log Loss')    # equivalent to CCE, checked
+        # self.loss = tf.keras.losses.CategoricalCrossentropy()(self.label_batch, self.pred_batch)
 
         opt = tf.train.AdamOptimizer()
         self.grad_var = opt.compute_gradients(self.loss)
         self.train_op = opt.apply_gradients(self.grad_var)
-        print('Adam Optimizer')
-        sys.stdout.flush()
+        print('Adam Optimizer', flush=True)
 
     def run_graph(self, sess, image_batch):
         fd_dict = self.create_pixel_dict(image_batch)
@@ -104,6 +110,17 @@ class Graph:
         return pred_batch
 
     def create_pixel_dict(self, image_batch):
+        # if self.config['data']['data_im_size'] == [8, 8]:
+        #     pixel_dict = {}
+        #     for (index, node) in enumerate(self.data_nodes):
+        #         quad = index // 16
+        #         quad_quad = (index % 16) // 4
+        #         pos = index % 4
+        #         row = (pos // 2) + 2 * (quad_quad // 2) + 4 * (quad // 2)
+        #         col = (pos % 2) + 2 * (quad_quad % 2) + 4 * (quad % 2)
+        #         pixel = col + 8 * row
+        #         pixel_dict[node.pixel_batch] = image_batch[:, pixel, :]
+        # else:
         pixel_dict = {
             node.pixel_batch: image_batch[:, pixel, :] for (pixel, node) in enumerate(self.data_nodes)}
 
@@ -113,23 +130,28 @@ class Graph:
         fd_dict = self.create_pixel_dict(image_batch)
         fd_dict.update({self.label_batch: label_batch})
 
-        self.avg_grad, self.std_grad = None, None
-        sess.run(self.train_op, feed_dict=fd_dict)
         if self.opt_config['adam']['show_grad']:
-            for gv in self.grad_var:
-                self.avg_grad = round(float(np.mean(sess.run(gv[0], feed_dict=fd_dict))), 8)
-                self.std_grad = round(float(np.std(sess.run(gv[0], feed_dict=fd_dict))), 8)
+            self.loss_ = float(sess.run(self.loss, feed_dict=fd_dict))
 
-        self.loss_ = float(np.mean(sess.run(self.loss, feed_dict=fd_dict)))
-        self.pred_batch_ = sess.run(self.pred_batch, feed_dict=fd_dict)
+            self.avg_grad = round(float(np.mean(sess.run(self.grad_var[0][0], feed_dict=fd_dict))), 8)
+            self.std_grad = round(float(np.std(sess.run(self.grad_var[0][0], feed_dict=fd_dict))), 8)
+
+            self.pred_batch_ = sess.run(self.pred_batch, feed_dict=fd_dict)
+            self.label_batch_ = sess.run(self.label_batch, feed_dict=fd_dict)
+            check = sess.run(tf.keras.losses.CategoricalCrossentropy()(self.label_batch, self.pred_batch), feed_dict=fd_dict)
+            self.root_node.output_ = sess.run(self.root_node.output, feed_dict=fd_dict)
+            self.all_grads = sess.run(self.grad_var[0][0], feed_dict=fd_dict)
+
+        sess.run(self.train_op, feed_dict=fd_dict)
 
 
 class Data_Node:
     def __init__(self, batch_size, data_bd_dim):
         self.data_bd_dim = data_bd_dim
         self.batch_size = batch_size
-        self.pixel_batch = tf.placeholder(tf.complex128, shape=(None, self.data_bd_dim))
-        conj_pixel_batch = tf.conj(self.pixel_batch)
+        self.pixel_batch = tf.placeholder(tf.complex64, shape=(None, self.data_bd_dim))
+        conj_pixel_batch = tf.conj(self.pixel_batch)  # not necessary, self.pixel_batch is real
+        # conj_pixel_batch = self.pixel_batch
         self.output = tf.einsum('za, zb -> zab', self.pixel_batch, conj_pixel_batch)
 
 
@@ -176,8 +198,7 @@ class Op_Node:
         num_diags = op_size
         num_off_diags = int(0.5 * op_size * (op_size - 1))
         max_total_params = max_op_size ** 2
-        if self.config['tree']['opt']['opt'] == 'sweep': start_slice = 0
-        else:  start_slice = self.index * max_total_params
+        start_slice = self.index * max_total_params
         diag_end = start_slice + num_diags
         real_end = diag_end + num_off_diags
         self.diag_params = tf.slice(param_var, [start_slice], [num_diags])
@@ -215,15 +236,15 @@ class Op_Node:
     def create_unitary_tensor(self, unitary_matrix_raw):
         if self.lay_ind == 0:
             self.unitary_tensor = tf.reshape(
-                tf.transpose(unitary_matrix_raw),
-                # unitary_matrix_raw,
+                # tf.transpose(unitary_matrix_raw), # not necessary, but still unitary
+                unitary_matrix_raw,
                 self.fir_lay_op_shape
             )
             self.op_shape = self.fir_lay_op_shape
         elif self.lay_ind == (self.num_layers - 1):
             self.unitary_tensor = tf.reshape(
-                tf.transpose(unitary_matrix_raw),
-                # unitary_matrix_raw,
+                # tf.transpose(unitary_matrix_raw),
+                unitary_matrix_raw,
                 self.last_lay_op_shape
             )
             self.op_shape = self.last_lay_op_shape
@@ -236,6 +257,12 @@ class Op_Node:
         left_input = dephase(left_node.output, 0)
         right_input = dephase(right_node.output, 0)
 
-        contract_left = tf.einsum('abcd, zea -> zebcd', self.unitary_tensor, left_input)
-        contract_right = tf.einsum('zebcd, zfb -> zefcd', contract_left, right_input)
-        self.output = tf.einsum('zefcd, efcg -> zdg', contract_right, tf.conj(self.unitary_tensor))
+        # either should work
+
+        # contract_left = tf.einsum('abcd, zea -> zebcd', self.unitary_tensor, left_input)
+        # contract_right = tf.einsum('zebcd, zfb -> zefcd', contract_left, right_input)
+        # self.output = tf.einsum('zefcd, efcg -> zgd', contract_right, tf.conj(self.unitary_tensor))
+
+        contract_left = tf.einsum('abcd, zce -> zabed', self.unitary_tensor, left_input)
+        contract_right = tf.einsum('zabed, zdf -> zabef', contract_left, right_input)
+        self.output = tf.einsum('zabef, agef -> zbg', contract_right, tf.conj(self.unitary_tensor))
