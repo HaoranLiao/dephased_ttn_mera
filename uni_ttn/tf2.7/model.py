@@ -4,7 +4,7 @@ import sys, os, time, yaml, json
 from tqdm import tqdm
 import network
 import data
-# os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
@@ -78,15 +78,15 @@ class Model:
             print(len(gpus), "Physical GPU,", len(logical_gpus), "Logical GPUs", flush=True)
 
         sample_size = config['data']['sample_size']
-        data_im_size = config['data']['data_im_size']
+        self.data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
         if config['data']['load_from_file']:
-            assert data_im_size == [8, 8] and feature_dim == 2
+            assert self.data_im_size == [8, 8] and feature_dim == 2
             train_data, val_data, test_data = data.get_data_file(
                 data_path, digits, val_split, sample_size=sample_size)
         else:
             train_data, val_data, test_data = data.get_data_web(
-                digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
+                digits, val_split, self.data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
         print('Sample Size: %s' % self.train_images.shape[0])
@@ -101,11 +101,45 @@ class Model:
 
         self.test_images, self.test_labels = test_data
 
+        # if self.data_im_size == [8, 8]:
+        #     print('Using pixel dict')
+        #     self.create_pixel_dict()
+        #     self.train_images = self.rearrange_pixels(self.train_images)
+        #     self.test_images = self.rearrange_pixels(self.test_images)
+        #     if val_data: self.val_images = self.rearrange_pixels(self.val_images)
+
+        # a = np.full(len(self.train_labels), 0)
+        # label_ohe = np.zeros((a.size, 2))
+        # label_ohe[np.arange(a.size), a] = 1
+        # self.train_images, self.train_labels = np.full(self.train_images.shape, 0.5), label_ohe
+
+        # a = np.full(len(self.test_labels), 0)
+        # label_ohe = np.zeros((a.size, 2))
+        # label_ohe[np.arange(a.size), a] = 1
+        # self.test_images, self.test_labels = np.full(self.test_images.shape, 0.5), label_ohe
+
+        # self.train_images = np.vstack([self.train_images[0, 0] for _ in range(4)])[None, :, :]
+        # self.test_images = np.vstack([self.test_images[0, 0] for _ in range(4)])[None, :, :]
+
         num_pixels = self.train_images.shape[1]
         self.config = config
         self.network = network.Network(num_pixels, deph_p, num_anc, config)
 
         self.b_factor = self.config['data']['eval_batch_size_factor']
+
+    def create_pixel_dict(self):
+        self.pixel_dict = []
+        for index in range(64):
+            quad = index // 16
+            quad_quad = (index % 16) // 4
+            pos = index % 4
+            row = (pos // 2) + 2 * (quad_quad // 2) + 4 * (quad // 2)
+            col = (pos % 2) + 2 * (quad_quad % 2) + 4 * (quad % 2)
+            pixel = col + 8 * row
+            self.pixel_dict.append(pixel)
+
+    def rearrange_pixels(self, images):
+        return images[:, self.pixel_dict]
 
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc = []

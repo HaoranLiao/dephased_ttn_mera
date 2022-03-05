@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import string
+import string, sys
 
 
 class Network:
@@ -42,11 +42,11 @@ class Network:
 
         self.grads = None
 
-    @tf.function
+    # @tf.function
     def get_network_output(self, input_batch: tf.Tensor):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
-        input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)
+        input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
@@ -72,6 +72,7 @@ class Network:
             raise Exception('Too hard to simulate classically')
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
+        self.final_layer_out = final_layer_out
         return output_probs
 
     def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):
@@ -84,8 +85,24 @@ class Network:
         label_batch = tf.constant(label_batch, dtype=tf.float32)
 
         with tf.GradientTape() as tape:
-            loss = self.loss(input_batch, label_batch)
+            loss, pred_batch = self.loss(input_batch, label_batch)
         grads = tape.gradient(loss, self.var_list)
+
+        # print('')
+        # print(f'pred_batch: {pred_batch}')
+        # print(f'label_batch: {label_batch}')
+        #
+        # print('')
+        # grads_all = tf.concat([tf.reshape(grads[i], (-1,)) for i in range(len(grads))], 0)
+        # print(f'Mean grad: {np.mean(grads_all)}', flush=True)
+        # print(f'Std grad: {np.std(grads_all)}', flush=True)
+        # print('All grads: ', grads_all)
+        # print(f'Loss: {loss}', flush=True)
+        # print(f'output_density_mat: {self.final_layer_out}', flush=True)
+
+        # var_value_before = tf.concat([tf.reshape(self.var_list[i], (-1,)) for i in range(len(grads))], 0)
+        # print(f'variable: {var_value_before}')
+
         if not self.grads:
             self.grads = grads
         else:
@@ -97,9 +114,9 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
-    @tf.function
+    # @tf.function
     def loss(self, input_batch, label_batch):
-        return self.cce(self.get_network_output(input_batch), label_batch)
+        return self.cce(label_batch, self.get_network_output(input_batch)), self.get_network_output(input_batch)
 
     def dephase(self, tensor):
         if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.krauss_ops, tensor, self.krauss_ops)
@@ -134,6 +151,10 @@ class Layer:
             tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
             ), name='param_var_lay_%s' % layer_idx, trainable=True)
+        # self.param_var_lay = tf.Variable(tf.cast(tf.fill([self.num_op_params, num_nodes], 1), tf.float32),
+        #         name='param_var_lay_%s' % layer_idx,
+        #         shape=[self.num_op_params, num_nodes],
+        #         dtype=tf.float32)
 
     def get_unitary_tensor(self):
         num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
@@ -161,6 +182,7 @@ class Layer:
         diag_exp_mat = tf.linalg.diag(eig_exp)
         unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
                                         eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
+        check = tf.matmul(unitary_matrix, tf.transpose(tf.math.conj(unitary_matrix), perm=[0, 2, 1]))
         unitary_tensor = tf.reshape(unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
         return unitary_tensor
 
@@ -168,7 +190,7 @@ class Layer:
         left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor = self.get_unitary_tensor()
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
-        output = tf.einsum('znabef, nahef -> znbh', left_contracted, tf.math.conj(unitary_tensor))
+        output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
         return output
 
 
