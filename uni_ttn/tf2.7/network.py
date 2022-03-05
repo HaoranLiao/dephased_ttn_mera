@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import string, sys
+import string
 
 
 class Network:
@@ -42,7 +42,7 @@ class Network:
 
         self.grads = None
 
-    # @tf.function
+    @tf.function
     def get_network_output(self, input_batch: tf.Tensor):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, dtype=tf.complex64)
@@ -69,7 +69,7 @@ class Network:
             final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
         else:
-            raise Exception('Too hard to simulate classically')
+            raise Exception('Not supported')
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         self.final_layer_out = final_layer_out
@@ -88,21 +88,6 @@ class Network:
             loss, pred_batch = self.loss(input_batch, label_batch)
         grads = tape.gradient(loss, self.var_list)
 
-        # print('')
-        # print(f'pred_batch: {pred_batch}')
-        # print(f'label_batch: {label_batch}')
-        #
-        # print('')
-        # grads_all = tf.concat([tf.reshape(grads[i], (-1,)) for i in range(len(grads))], 0)
-        # print(f'Mean grad: {np.mean(grads_all)}', flush=True)
-        # print(f'Std grad: {np.std(grads_all)}', flush=True)
-        # print('All grads: ', grads_all)
-        # print(f'Loss: {loss}', flush=True)
-        # print(f'output_density_mat: {self.final_layer_out}', flush=True)
-
-        # var_value_before = tf.concat([tf.reshape(self.var_list[i], (-1,)) for i in range(len(grads))], 0)
-        # print(f'variable: {var_value_before}')
-
         if not self.grads:
             self.grads = grads
         else:
@@ -114,7 +99,7 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
-    # @tf.function
+    @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(label_batch, self.get_network_output(input_batch)), self.get_network_output(input_batch)
 
@@ -151,10 +136,6 @@ class Layer:
             tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
             ), name='param_var_lay_%s' % layer_idx, trainable=True)
-        # self.param_var_lay = tf.Variable(tf.cast(tf.fill([self.num_op_params, num_nodes], 1), tf.float32),
-        #         name='param_var_lay_%s' % layer_idx,
-        #         shape=[self.num_op_params, num_nodes],
-        #         dtype=tf.float32)
 
     def get_unitary_tensor(self):
         num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
@@ -182,7 +163,6 @@ class Layer:
         diag_exp_mat = tf.linalg.diag(eig_exp)
         unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
                                         eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        check = tf.matmul(unitary_matrix, tf.transpose(tf.math.conj(unitary_matrix), perm=[0, 2, 1]))
         unitary_tensor = tf.reshape(unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
         return unitary_tensor
 

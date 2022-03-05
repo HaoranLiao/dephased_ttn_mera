@@ -78,15 +78,15 @@ class Model:
             print(len(gpus), "Physical GPU,", len(logical_gpus), "Logical GPUs", flush=True)
 
         sample_size = config['data']['sample_size']
-        self.data_im_size = config['data']['data_im_size']
+        data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
         if config['data']['load_from_file']:
-            assert self.data_im_size == [8, 8] and feature_dim == 2
+            assert data_im_size == [8, 8] and feature_dim == 2
             train_data, val_data, test_data = data.get_data_file(
                 data_path, digits, val_split, sample_size=sample_size)
         else:
             train_data, val_data, test_data = data.get_data_web(
-                digits, val_split, self.data_im_size, feature_dim, sample_size=sample_size)
+                digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
         print('Sample Size: %s' % self.train_images.shape[0])
@@ -101,25 +101,12 @@ class Model:
 
         self.test_images, self.test_labels = test_data
 
-        # if self.data_im_size == [8, 8]:
-        #     print('Using pixel dict')
-        #     self.create_pixel_dict()
-        #     self.train_images = self.rearrange_pixels(self.train_images)
-        #     self.test_images = self.rearrange_pixels(self.test_images)
-        #     if val_data: self.val_images = self.rearrange_pixels(self.val_images)
-
-        # a = np.full(len(self.train_labels), 0)
-        # label_ohe = np.zeros((a.size, 2))
-        # label_ohe[np.arange(a.size), a] = 1
-        # self.train_images, self.train_labels = np.full(self.train_images.shape, 0.5), label_ohe
-
-        # a = np.full(len(self.test_labels), 0)
-        # label_ohe = np.zeros((a.size, 2))
-        # label_ohe[np.arange(a.size), a] = 1
-        # self.test_images, self.test_labels = np.full(self.test_images.shape, 0.5), label_ohe
-
-        # self.train_images = np.vstack([self.train_images[0, 0] for _ in range(4)])[None, :, :]
-        # self.test_images = np.vstack([self.test_images[0, 0] for _ in range(4)])[None, :, :]
+        if data_im_size == [8, 8]:
+            print('Using pixel dict')
+            self.create_pixel_dict()
+            self.train_images = self.rearrange_pixels(self.train_images)
+            self.test_images = self.rearrange_pixels(self.test_images)
+            if val_data: self.val_images = self.rearrange_pixels(self.val_images)
 
         num_pixels = self.train_images.shape[1]
         self.config = config
