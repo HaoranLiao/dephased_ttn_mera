@@ -72,7 +72,7 @@ class Model:
         if gpus:
             for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, config['meta']['set_memory_growth'])
             logical_gpus = tf.config.list_logical_devices('GPU')
-            print("Physical GPUs:,", len(gpus), "Logical GPUs: ", len(logical_gpus), flush=True)
+            print('Physical GPUs:,', len(gpus), 'Logical GPUs: ', len(logical_gpus), flush=True)
 
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
@@ -151,7 +151,7 @@ class Model:
         for (image_batch, label_batch) in tqdm(batch_iter, total=len(images)//batch_size, **TQDM_DICT):
             image_batch = tf.constant(image_batch, dtype=tf.float32)
             pred_probs = self.network.get_network_output(image_batch)
-            num_correct += get_accuracy(pred_probs, label_batch)[1]
+            num_correct += get_num_correct(pred_probs, label_batch)
         accuracy = num_correct / len(images)
         return accuracy
 
@@ -189,20 +189,18 @@ class Model:
             return train_accuracy
 
 
-def get_accuracy(guesses, labels):
+def get_num_correct(guesses, labels):
     guess_index = np.argmax(guesses, axis=1)
     label_index = np.argmax(labels, axis=1)
     compare = guess_index - label_index
     num_correct = float(np.sum(compare == 0))
-    total = float(len(guesses))
-    accuracy = num_correct / total
-    return accuracy, num_correct
+    return num_correct
 
 
 if __name__ == "__main__":
     with open('config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
-        print(json.dumps(config, indent=1)); sys.stdout.flush()
+        print(json.dumps(config, indent=1), flush=True)
 
     np.random.seed(config['meta']['random_seed'])
     tf.random.set_seed(config['meta']['random_seed'])
