@@ -2818,3 +2818,12 @@ Epoch 58: 0.93280 accuracy
 Epoch 59: 0.93240 accuracy
 Epoch 60: 0.93300 accuracy
 Test Accuracy : 0.932
+Epoch 61: 0.93280 accuracy
+Epoch 62: 0.93340 accuracy
+Epoch 63: 0.93320 accuracy
+Epoch 64: 0.93280 accuracy
+Epoch 65: 0.93280 accuracy
+Test Accuracy : 0.934
+Epoch 66: 0.93260 accuracy
+Epoch 67: 0.93300 accuracy
+Epoch 68: 0.93300 accuracy
