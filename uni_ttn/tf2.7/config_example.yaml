@@ -32,7 +32,7 @@ meta:
 tree:
  param:
   init_mean: 0
-  init_std: 0.1
+  init_std: 0.01
 
  opt:
   opt: 'adam'
