@@ -1,0 +1,2 @@
+epoch,train_accuracy,test_accuracy,done,timesteps_total,episodes_total,training_iteration,experiment_id,date,timestamp,time_this_iter_s,time_total_s,pid,hostname,node_ip,time_since_restore,timesteps_since_restore,iterations_since_restore,trial_id
+0,77.4,76.97160883280758,False,,,1,89bf0828b4d549f8b97f69a681816b81,2022-03-05_03-18-58,1646468338,5.606745481491089,5.606745481491089,6843,bigboy2.cchem.berkeley.edu,128.32.17.9,5.606745481491089,0,1,e1ec6_00001

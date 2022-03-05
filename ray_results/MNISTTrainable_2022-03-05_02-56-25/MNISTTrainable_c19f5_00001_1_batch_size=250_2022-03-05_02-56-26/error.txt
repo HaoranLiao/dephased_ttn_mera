@@ -1,0 +1,31 @@
+Failure # 1 (occurred at 2022-03-05_02-56-29)
+Traceback (most recent call last):
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/trial_runner.py", line 718, in _process_trial
+    results = self.trial_executor.fetch_result(trial)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/ray_trial_executor.py", line 688, in fetch_result
+    result = ray.get(trial_future[0], timeout=DEFAULT_GET_TIMEOUT)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/_private/client_mode_hook.py", line 62, in wrapper
+    return func(*args, **kwargs)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/worker.py", line 1494, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ValueError): [36mray::MNISTTrainable.train_buffered()[39m (pid=239177, ip=128.32.17.9)
+  File "python/ray/_raylet.pyx", line 501, in ray._raylet.execute_task
+  File "python/ray/_raylet.pyx", line 451, in ray._raylet.execute_task.function_executor
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/_private/function_manager.py", line 563, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/trainable.py", line 173, in train_buffered
+    result = self.train()
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/trainable.py", line 232, in train
+    result = self.step()
+  File "/tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/model.py", line 217, in step
+    train_accuracy = self.model.run_epoch(batch_size, grad_accumulation=False)
+  File "/tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/model.py", line 172, in run_epoch
+    self.network.update_no_processing(train_image_batch, train_label_batch)
+  File "/tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/network.py", line 81, in update_no_processing
+    self.opt.minimize(self.loss(input_batch, label_batch), var_list=self.var_list)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/tensorflow/python/keras/optimizer_v2/optimizer_v2.py", line 496, in minimize
+    grads_and_vars = self._compute_gradients(
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/tensorflow/python/keras/optimizer_v2/optimizer_v2.py", line 532, in _compute_gradients
+    raise ValueError("`tape` is required when a `Tensor` loss is passed.")
+ValueError: `tape` is required when a `Tensor` loss is passed.
+
