@@ -14,7 +14,7 @@ data:
 meta:
  set_memory_growth: True
  random_seed: 42
- list_num_anc: [0]                # list or list of single
+ list_num_anc: [2]                # list or list of single
  num_repeat: 5
  auto_epochs:
   enabled: False
@@ -33,7 +33,7 @@ meta:
 tree:
  param:
   init_mean: 0
-  init_std: 0.01
+  init_std: 0.1
 
  opt:
   opt: 'adam'
