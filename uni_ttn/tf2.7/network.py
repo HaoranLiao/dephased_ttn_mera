@@ -85,9 +85,8 @@ class Network:
         label_batch = tf.constant(label_batch, dtype=tf.float32)
 
         with tf.GradientTape() as tape:
-            loss, pred_batch = self.loss(input_batch, label_batch)
+            loss = self.loss(input_batch, label_batch)
         grads = tape.gradient(loss, self.var_list)
-
         if not self.grads:
             self.grads = grads
         else:
@@ -101,7 +100,7 @@ class Network:
 
     @tf.function
     def loss(self, input_batch, label_batch):
-        return self.cce(label_batch, self.get_network_output(input_batch)), self.get_network_output(input_batch)
+        return self.cce(label_batch, self.get_network_output(input_batch))
 
     def dephase(self, tensor):
         if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.krauss_ops, tensor, self.krauss_ops)
