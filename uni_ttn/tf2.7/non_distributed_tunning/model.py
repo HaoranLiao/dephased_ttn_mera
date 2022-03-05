@@ -4,8 +4,11 @@ import sys, os, time, yaml, json
 from tqdm import tqdm
 import network
 import data
+from ray import tune
+from filelock import FileLock
+
 os.environ["CUDA_VISIBLE_DEVICES"] = '-1'
-TQDM_DISABLED = False
+TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
 
@@ -77,13 +80,15 @@ class Model:
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
-        if config['data']['load_from_file']:
-            assert data_im_size == [8, 8] and feature_dim == 2
-            train_data, val_data, test_data = data.get_data_file(
-                data_path, digits, val_split, sample_size=sample_size)
-        else:
-            train_data, val_data, test_data = data.get_data_web(
-                digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
+
+        with FileLock(os.path.expanduser("~/.tune.lock")):
+            if config['data']['load_from_file']:
+                assert data_im_size == [8, 8] and feature_dim == 2
+                train_data, val_data, test_data = data.get_data_file(
+                    data_path, digits, val_split, sample_size=sample_size)
+            else:
+                train_data, val_data, test_data = data.get_data_web(
+                    digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
         print('Sample Size: %s' % self.train_images.shape[0])
@@ -169,6 +174,7 @@ class Model:
                 self.network.update_no_processing(train_image_batch, train_label_batch)
         else:
             exec_batch_size = self.config['data']['execute_batch_size']
+            # exec_batch_size = batch_size
             counter = batch_size // exec_batch_size
             assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
             batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
@@ -197,6 +203,28 @@ def get_num_correct(guesses, labels):
     return num_correct
 
 
+class MNISTTrainable(tune.Trainable):
+    def setup(self, tune_config):
+        import tensorflow as tf     # required by ray tune
+        print(os.getcwd())  # the cwd may not be the current file path
+
+        self.tune_config = tune_config
+        digits = variable_or_uniform(list_digits, 0)
+        deph_p = variable_or_uniform(list_deph_p, 0)
+        num_anc = variable_or_uniform(list_num_anc, 0)
+        self.model = Model(data_path, digits, val_split, deph_p, num_anc, config)
+
+    def step(self):
+        batch_size = self.tune_config['batch_size']
+        train_accuracy = self.model.run_epoch(batch_size, grad_accumulation=False)
+        test_accuracy = self.model.run_network(self.model.test_images, self.model.test_labels, batch_size*self.model.b_factor)
+        return {
+            "epoch": self.iteration,
+            "train_accuracy": train_accuracy * 100,
+            "test_accuracy": test_accuracy * 100
+        }
+
+
 if __name__ == "__main__":
     with open('config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
@@ -214,14 +242,24 @@ if __name__ == "__main__":
     list_deph_p = config['meta']['deph']['p']
     list_num_anc = config['meta']['list_num_anc']
 
-    num_settings = max(len(list_digits), len(list_num_anc),
-                       len(list_batch_sizes), len(list_epochs), len(list_deph_p))
+    analysis = tune.run(
+        MNISTTrainable,
+        metric="test_accuracy",
+        mode="max",
+        stop={"training_iteration": 100},
+        verbose=3,
+        config={"batch_size": tune.grid_search([25, 50, 100, 250])},
+    )
+    print("Best hyperparameters found were: ", analysis.best_config)
 
-    avg_repeated_test_acc, avg_repeated_train_acc = [], []
-    std_repeated_test_acc, std_repeated_train_acc = [], []
-
-    start_time = time.time()
-    try:
-        for i in tqdm(range(num_settings), total=num_settings, leave=True): run_all(i)
-    finally:
-        print_results(start_time)
+    # num_settings = max(len(list_digits), len(list_num_anc),
+    #                    len(list_batch_sizes), len(list_epochs), len(list_deph_p))
+    #
+    # avg_repeated_test_acc, avg_repeated_train_acc = [], []
+    # std_repeated_test_acc, std_repeated_train_acc = [], []
+    #
+    # start_time = time.time()
+    # try:
+    #     for i in tqdm(range(num_settings), total=num_settings, leave=True): run_all(i)
+    # finally:
+    #     print_results(start_time)
