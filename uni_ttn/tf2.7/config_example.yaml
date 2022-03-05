@@ -9,6 +9,7 @@ data:
  data_im_size: [8,8]
  sample_size: 5000              # int or None
  feature_dim: 2
+ use_8by8_pixel_dict: True
 
 meta:
  set_memory_growth: True
