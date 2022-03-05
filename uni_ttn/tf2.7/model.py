@@ -17,11 +17,8 @@ def print_results(start_time):
     print('Time (hr): %.4f' % ((time.time()-start_time)/3600))
     sys.stdout.flush()
 
-
 def variable_or_uniform(input, i):
-    if len(input) > 1: return input[i]
-    else: return input[0]
-
+    return input[i] if len(input) > 1 else input[0]
 
 def run_all(i):
     digits = variable_or_uniform(list_digits, i)
@@ -51,7 +48,7 @@ def run_all(i):
 
         test_accs.append(round(test_acc, 4))
         train_accs.append(round(train_acc, 4))
-        print('Time (hr): %.1f' % ((time.time()-start_time)/3600)); sys.stdout.flush()
+        print('Time (hr): %.1f' % ((time.time()-start_time)/3600), flush=True)
 
     print(f'\nSetting {i} Train Accs: {train_accs}\t')
     print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
@@ -75,7 +72,7 @@ class Model:
         if gpus:
             for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, config['meta']['set_memory_growth'])
             logical_gpus = tf.config.list_logical_devices('GPU')
-            print(len(gpus), "Physical GPU,", len(logical_gpus), "Logical GPUs", flush=True)
+            print("Physical GPUs:,", len(gpus), "Logical GPUs: ", len(logical_gpus), flush=True)
 
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
@@ -92,21 +89,20 @@ class Model:
         print('Sample Size: %s' % self.train_images.shape[0])
 
         if val_data is not None:
-            print('Validation Split: %.2f' % val_split)
+            print('Validation Split: %.2f' % val_split, flush=True)
             self.val_images, self.val_labels = val_data
         else:
             assert config['data']['val_split'] == 0
-            print('No Validation')
-        sys.stdout.flush()
+            print('No Validation', flush=True)
 
         self.test_images, self.test_labels = test_data
 
-        if data_im_size == [8, 8]:
-            print('Using pixel dict')
+        if data_im_size == [8, 8] and config['data']['use_8by8_pixel_dict']:
+            print('Using 8x8 Pixel Dict', flush=True)
             self.create_pixel_dict()
-            self.train_images = self.rearrange_pixels(self.train_images)
-            self.test_images = self.rearrange_pixels(self.test_images)
-            if val_data: self.val_images = self.rearrange_pixels(self.val_images)
+            self.train_images = self.train_images[:, self.pixel_dict]
+            self.test_images = self.test_images[:, self.pixel_dict]
+            if val_data: self.val_images = self.val_images[:, self.pixel_dict]
 
         num_pixels = self.train_images.shape[1]
         self.config = config
@@ -125,18 +121,15 @@ class Model:
             pixel = col + 8 * row
             self.pixel_dict.append(pixel)
 
-    def rearrange_pixels(self, images):
-        return images[:, self.pixel_dict]
-
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc = []
         for epoch in range(epochs):
             accuracy = self.run_epoch(batch_size)
-            print('Epoch %d: %.5f accuracy' % (epoch, accuracy)); sys.stdout.flush()
+            print('Epoch %d: %.5f accuracy' % (epoch, accuracy), flush=True)
 
             if not epoch%5:
                 test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-                print(f'Test Accuracy : {test_accuracy:.3f}'); sys.stdout.flush()
+                print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
 
             self.epoch_acc.append(accuracy)
             if auto_epochs:
@@ -145,12 +138,11 @@ class Model:
                 if epoch >= trigger and self.check_acc_satified(accuracy): break
 
         train_or_val_accuracy = accuracy
-        if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy)
-        else: print('Validation Accuracy: %.3f' % train_or_val_accuracy)
-        sys.stdout.flush()
+        if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy, flush=True)
+        else: print('Validation Accuracy: %.3f' % train_or_val_accuracy, flush=True)
 
         test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-        print(f'Test Accuracy : {test_accuracy:.3f}'); sys.stdout.flush()
+        print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
         return test_accuracy, train_or_val_accuracy
 
     def run_network(self, images, labels, batch_size):
