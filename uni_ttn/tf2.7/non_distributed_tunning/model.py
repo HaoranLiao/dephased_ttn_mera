@@ -11,7 +11,7 @@ import data
 from ray import tune
 from filelock import FileLock
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '-1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
@@ -262,13 +262,15 @@ if __name__ == "__main__":
         verbose=3,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.001, 0.003]),
-                'tune_init_std': tune.grid_search([1, 0.1, 0.01])},
+                'tune_lr': tune.grid_search([0.001, 0.005, 0.025, 0.125]),
+                'tune_init_std': tune.grid_search([1, 0.1, 0.01, 0.001])},
         local_dir='~/dephased_ttn_project/uni_ttn/ray_results',
-        resources_per_trial={'cpu': 2},
+        resources_per_trial={'cpu': 10, 'gpu': 1},
         scheduler=asha_scheduler,
-        log_to_file=True
+        log_to_file=True,
+        name='anc%.0f_deph%.0f' % (num_anc, deph_p)
     )
+
     print("Best hyperparameters found were: ", analysis.best_config)
 
     # num_settings = max(len(list_digits), len(list_num_anc),
