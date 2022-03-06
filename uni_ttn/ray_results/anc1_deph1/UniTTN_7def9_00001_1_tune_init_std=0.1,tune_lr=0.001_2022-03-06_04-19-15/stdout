@@ -1,0 +1,6 @@
+/home/haoranliao/dephased_ttn_project/uni_ttn/ray_results/anc1_deph1/UniTTN_7def9_00001_1_tune_init_std=0.1,tune_lr=0.001_2022-03-06_04-19-15
+Physical GPUs:, 1 Logical GPUs:  1
+Load Data From File
+Sample Size: 5000
+No Validation
+Using 8x8 Pixel Dict
