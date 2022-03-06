@@ -4,7 +4,7 @@ import string
 
 
 class Network:
-    def __init__(self, num_pixels, deph_p, num_anc, config):
+    def __init__(self, num_pixels, deph_p, num_anc, config, tune_config):
         self.config = config
         self.num_anc = num_anc
         self.num_pixels = num_pixels
@@ -22,7 +22,7 @@ class Network:
         self.layers = []
         self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
-            self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
+            self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, tune_config['tune_init_std']))
         self.var_list = [layer.param_var_lay for layer in self.layers]
 
         if num_anc:
@@ -33,8 +33,8 @@ class Network:
                 self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
-        if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
-        else: self.opt = tf.keras.optimizers.Adam(config['tree']['opt']['adam']['lr'])
+        if not tune_config.get('tune_lr', False): self.opt = tf.keras.optimizers.Adam()
+        else: self.opt = tf.keras.optimizers.Adam(tune_config['tune_lr'])
 
         chars = string.ascii_lowercase
         if self.num_anc < 4:

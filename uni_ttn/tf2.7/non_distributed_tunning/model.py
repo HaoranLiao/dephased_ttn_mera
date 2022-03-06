@@ -1,3 +1,7 @@
+'''
+https://github.com/ray-project/ray/blob/master/python/ray/tune/examples/tf_mnist_example.py
+'''
+
 import tensorflow as tf
 import numpy as np
 import sys, os, time, yaml, json
@@ -68,7 +72,7 @@ def run_all(i):
 
 
 class Model:
-    def __init__(self, data_path, digits, val_split, deph_p, num_anc, config):
+    def __init__(self, data_path, digits, val_split, deph_p, num_anc, config, tune_config):
 
         if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
         gpus = tf.config.list_physical_devices('GPU')
@@ -111,7 +115,7 @@ class Model:
 
         num_pixels = self.train_images.shape[1]
         self.config = config
-        self.network = network.Network(num_pixels, deph_p, num_anc, config)
+        self.network = network.Network(num_pixels, deph_p, num_anc, config, tune_config)
 
         self.b_factor = self.config['data']['eval_batch_size_factor']
 
@@ -186,13 +190,13 @@ class Model:
                     counter = batch_size // exec_batch_size
                     self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
 
-        if val_split:
-            assert self.config['data']['val_split'] > 0
-            val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
-            return val_accuracy
-        else:
-            train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
-            return train_accuracy
+        # if val_split:
+        #     assert self.config['data']['val_split'] > 0
+        #     val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
+        #     return val_accuracy
+        # else:
+        #     train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
+        #     return train_accuracy
 
 
 def get_num_correct(guesses, labels):
@@ -203,7 +207,7 @@ def get_num_correct(guesses, labels):
     return num_correct
 
 
-class MNISTTrainable(tune.Trainable):
+class UniTTN(tune.Trainable):
     def setup(self, tune_config):
         import tensorflow as tf     # required by ray tune
         print(os.getcwd())  # the cwd may not be the current file path
@@ -212,15 +216,14 @@ class MNISTTrainable(tune.Trainable):
         digits = variable_or_uniform(list_digits, 0)
         deph_p = variable_or_uniform(list_deph_p, 0)
         num_anc = variable_or_uniform(list_num_anc, 0)
-        self.model = Model(data_path, digits, val_split, deph_p, num_anc, config)
+        self.model = Model(data_path, digits, val_split, deph_p, num_anc, config, tune_config)
 
     def step(self):
-        batch_size = self.tune_config['batch_size']
-        train_accuracy = self.model.run_epoch(batch_size, grad_accumulation=False)
+        batch_size = 250
+        self.model.run_epoch(batch_size, grad_accumulation=False)
         test_accuracy = self.model.run_network(self.model.test_images, self.model.test_labels, batch_size*self.model.b_factor)
         return {
             "epoch": self.iteration,
-            "train_accuracy": train_accuracy * 100,
             "test_accuracy": test_accuracy * 100
         }
 
@@ -242,13 +245,29 @@ if __name__ == "__main__":
     list_deph_p = config['meta']['deph']['p']
     list_num_anc = config['meta']['list_num_anc']
 
+    deph_p = variable_or_uniform(list_deph_p, 0)
+    num_anc = variable_or_uniform(list_num_anc, 0)
+
+    asha_scheduler = tune.schedulers.ASHAScheduler(
+        time_attr='training_iteration',
+        max_t=100,
+        grace_period=50
+    )
+
     analysis = tune.run(
-        MNISTTrainable,
-        metric="test_accuracy",
-        mode="max",
+        UniTTN,
+        metric='test_accuracy',
+        mode='max',
         stop={"training_iteration": 100},
         verbose=3,
-        config={"batch_size": tune.grid_search([25, 50, 100, 250])},
+        config={'num_anc': num_anc,
+                'deph_p': deph_p,
+                'tune_lr': tune.grid_search([0.001, 0.003]),
+                'tune_init_std': tune.grid_search([1, 0.1, 0.01])},
+        local_dir='~/dephased_ttn_project/uni_ttn/ray_results',
+        resources_per_trial={'cpu': 2},
+        scheduler=asha_scheduler,
+        log_to_file=True
     )
     print("Best hyperparameters found were: ", analysis.best_config)
 
