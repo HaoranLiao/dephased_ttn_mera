@@ -1,0 +1,6 @@
+{
+  "deph_p": 1.0,
+  "num_anc": 0,
+  "tune_init_std": 1,
+  "tune_lr": 0.001
+}
