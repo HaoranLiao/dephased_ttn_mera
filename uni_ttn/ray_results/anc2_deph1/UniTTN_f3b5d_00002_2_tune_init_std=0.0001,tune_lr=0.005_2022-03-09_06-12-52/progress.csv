@@ -1,3 +1,0 @@
-epoch,test_accuracy,done,timesteps_total,episodes_total,training_iteration,experiment_id,date,timestamp,time_this_iter_s,time_total_s,pid,hostname,node_ip,time_since_restore,timesteps_since_restore,iterations_since_restore,trial_id
-0,46.89800210304942,False,,,1,7ed70726fa2c4dda950b9112a2568e98,2022-03-09_06-13-05,1646806385,6.047655344009399,6.047655344009399,75760,nvidia-gpu-cloud-tensorflow-image-8gpus-vm,10.128.0.8,6.047655344009399,0,1,f3b5d_00002
-1,77.65509989484752,False,,,2,7ed70726fa2c4dda950b9112a2568e98,2022-03-09_06-13-07,1646806387,2.0845000743865967,8.132155418395996,75760,nvidia-gpu-cloud-tensorflow-image-8gpus-vm,10.128.0.8,8.132155418395996,0,2,f3b5d_00002
