@@ -265,7 +265,7 @@ if __name__ == "__main__":
                 'tune_lr': tune.grid_search([0.005, 0.025]),
                 'tune_init_std': tune.grid_search([0.01, 0.001, 0.0001])},
         local_dir='~/dephased_ttn_project/uni_ttn/ray_results',
-        resources_per_trial={'cpu': 10, 'gpu': 1},
+        resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
         log_to_file=True,
         name='anc%.0f_deph%.0f' % (num_anc, deph_p)

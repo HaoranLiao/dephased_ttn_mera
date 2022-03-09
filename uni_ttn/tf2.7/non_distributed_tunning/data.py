@@ -1,7 +1,7 @@
 import pickle as pk
 import numpy as np
 import tensorflow as tf
-import skimage.transform
+#import skimage.transform
 import math
 
 
