@@ -1,3 +1,0 @@
-epoch,test_accuracy,done,timesteps_total,episodes_total,training_iteration,experiment_id,date,timestamp,time_this_iter_s,time_total_s,pid,hostname,node_ip,time_since_restore,timesteps_since_restore,iterations_since_restore,trial_id
-0,86.33017875920083,False,,,1,4417e6863d144761b33d8083bcad27eb,2022-03-09_04-27-42,1646800062,67.58499908447266,67.58499908447266,24332,instance-2,10.128.0.5,67.58499908447266,0,1,18c59_00000
-1,94.42691903259727,False,,,2,4417e6863d144761b33d8083bcad27eb,2022-03-09_04-28-47,1646800127,64.9066367149353,132.49163579940796,24332,instance-2,10.128.0.5,132.49163579940796,0,2,18c59_00000
