@@ -5,7 +5,7 @@ data:
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
- eval_batch_size_factor: 5
+ eval_batch_size_factor: 10
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000              # int or None
@@ -29,7 +29,7 @@ meta:
  deph:
   data: True
   network: True
-  p: [0]
+  p: [1]
 
 tree:
  param:
