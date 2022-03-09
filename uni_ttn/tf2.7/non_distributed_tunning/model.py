@@ -244,6 +244,8 @@ if __name__ == "__main__":
     list_deph_p = config['meta']['deph']['p']
     list_num_anc = config['meta']['list_num_anc']
 
+    print(config['data']['grad_accumulation'])
+
     deph_p = variable_or_uniform(list_deph_p, 0)
     num_anc = variable_or_uniform(list_num_anc, 0)
     batch_size = variable_or_uniform(list_batch_sizes, 0)
@@ -260,8 +262,10 @@ if __name__ == "__main__":
         mode='max',
         stop={"training_iteration": 100},
         verbose=3,
-        config={'tune_lr': tune.grid_search([0.001, 0.005, 0.025]),
-                'tune_init_std': tune.grid_search([0.01, 0.001, 0.0001])},
+        config={'num_anc': num_anc,
+                'deph_p': deph_p,
+                'tune_lr': tune.grid_search([0.005, 0.025]),
+                'tune_init_std': tune.grid_search([1, 0.1, 0.01, 0.001])},
         local_dir='~/dephased_ttn_project/uni_ttn/ray_results',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
