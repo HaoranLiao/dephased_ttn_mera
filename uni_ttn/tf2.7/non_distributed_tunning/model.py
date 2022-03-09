@@ -11,7 +11,7 @@ import data
 from ray import tune
 from filelock import FileLock
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+#os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
@@ -263,7 +263,7 @@ if __name__ == "__main__":
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
                 'tune_lr': tune.grid_search([0.005, 0.025]),
-                'tune_init_std': tune.grid_search([0.1, 0.01, 0.001, 0.0001])},
+                'tune_init_std': tune.grid_search([0.01, 0.001, 0.0001])},
         local_dir='~/dephased_ttn_project/uni_ttn/ray_results',
         resources_per_trial={'cpu': 10, 'gpu': 1},
         scheduler=asha_scheduler,
