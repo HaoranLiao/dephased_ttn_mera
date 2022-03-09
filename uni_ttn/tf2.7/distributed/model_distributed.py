@@ -194,7 +194,7 @@ class Model:
                     counter = batch_size // sub_batch_size
                     self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
 
-        if not epoch % 5:
+        if not epoch%5:
             if val_split:
                 assert self.config['data']['val_split'] > 0
                 val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
@@ -202,6 +202,8 @@ class Model:
             else:
                 train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
                 return train_accuracy
+        else:
+            return -1
 
 
 def get_num_correct(guesses: np.ndarray, labels: np.ndarray):
