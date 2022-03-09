@@ -244,8 +244,6 @@ if __name__ == "__main__":
     list_deph_p = config['meta']['deph']['p']
     list_num_anc = config['meta']['list_num_anc']
 
-    print(config['data']['grad_accumulation'])
-
     deph_p = variable_or_uniform(list_deph_p, 0)
     num_anc = variable_or_uniform(list_num_anc, 0)
     batch_size = variable_or_uniform(list_batch_sizes, 0)
