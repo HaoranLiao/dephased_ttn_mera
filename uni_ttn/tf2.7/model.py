@@ -72,7 +72,7 @@ class Model:
         if gpus:
             for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, config['meta']['set_memory_growth'])
             logical_gpus = tf.config.list_logical_devices('GPU')
-            print('Physical GPUs:,', len(gpus), 'Logical GPUs: ', len(logical_gpus), flush=True)
+            print('Physical GPUs:', len(gpus), 'Logical GPUs:', len(logical_gpus), flush=True)
 
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
