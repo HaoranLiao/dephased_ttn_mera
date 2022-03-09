@@ -5,13 +5,14 @@ import model_distributed as model_dist
 
 
 class Network:
-    def __init__(self, num_pixels, deph_p, num_anc, config, strategy):
+    def __init__(self, num_pixels, deph_p, num_anc, init_std, config, strategy):
         self.config = config
         self.num_anc = num_anc
         self.num_pixels = num_pixels
         self.num_layers = int(np.log2(num_pixels))
         self.init_mean = config['tree']['param']['init_mean']
-        self.init_std = config['tree']['param']['init_std']
+        # self.init_std = config['tree']['param']['init_std']
+        self.init_std = init_std
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)

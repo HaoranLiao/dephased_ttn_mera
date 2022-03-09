@@ -30,6 +30,7 @@ def run_all(i):
     batch_size = variable_or_uniform(list_batch_sizes, i)
     deph_p = variable_or_uniform(list_deph_p, i)
     num_anc = variable_or_uniform(list_num_anc, i)
+    init_std = variable_or_uniform(list_init_std, i)
 
     early_stop = config['meta']['early_stop']['enabled']
     test_accs, train_accs = [], []
@@ -46,10 +47,11 @@ def run_all(i):
         print('Distributed:', config['data']['distributed'])
         print('Number of Ancillas: %s' % num_anc)
         print('Random Seed:', config['meta']['random_seed'])
+        print(f'Init Std: {init_std}')
         sys.stdout.flush()
 
         assert epochs; assert batch_size
-        model = Model(data_path, digits, val_split, deph_p, num_anc, config)
+        model = Model(data_path, digits, val_split, deph_p, num_anc, init_std, config)
         test_acc, train_acc = model.train_network(epochs, batch_size, early_stop)
 
         test_accs.append(round(test_acc, 4))
@@ -71,7 +73,7 @@ def run_all(i):
 
 
 class Model:
-    def __init__(self, data_path, digits, val_split, deph_p, num_anc, config):
+    def __init__(self, data_path, digits, val_split, deph_p, num_anc, init_std, config):
 
         if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
         gpus = tf.config.list_physical_devices('GPU')
@@ -109,7 +111,7 @@ class Model:
 
         num_pixels = self.train_images.shape[1]
         self.config = config
-        self.network = network_dist.Network(num_pixels, deph_p, num_anc, config, self.strategy)
+        self.network = network_dist.Network(num_pixels, deph_p, num_anc, init_std, config, self.strategy)
 
         self.b_factor = self.config['data']['eval_batch_size_factor']
 
@@ -231,6 +233,7 @@ if __name__ == "__main__":
     list_epochs = config['meta']['list_epochs']
     list_deph_p = config['meta']['deph']['p']
     list_num_anc = config['meta']['list_num_anc']
+    list_init_std = config['tree']['param']['init_std']
 
     num_settings = max(len(list_digits), len(list_num_anc),
                        len(list_batch_sizes), len(list_epochs), len(list_deph_p))
