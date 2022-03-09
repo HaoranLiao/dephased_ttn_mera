@@ -43,9 +43,9 @@ class Network:
         self.grads = None
 
     @tf.function
-    def get_network_output(self, input_batch: tf.Tensor):
+    def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
-        input_batch = tf.cast(input_batch, dtype=tf.complex64)
+        input_batch = tf.cast(input_batch, tf.complex64)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
         if self.num_anc:
             input_batch = tf.reshape(
@@ -72,7 +72,6 @@ class Network:
             raise Exception('Not supported')
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
-        self.final_layer_out = final_layer_out
         return output_probs
 
     def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):

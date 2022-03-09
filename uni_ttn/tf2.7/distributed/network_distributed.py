@@ -71,11 +71,14 @@ class Network:
         final_layer_out = tf.reshape(
             self.layers[self.num_layers-1].get_layer_output(layer_out)[:, 0],
             [batch_size, *[2]*(2*self.num_out_qubits)])
+
         if self.num_anc < 4:
             final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
         elif self.num_anc == 4:
             final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10]) # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
+        else:
+            raise Exception('Not supported')
 
         out_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return out_probs if label_batch == None else model_dist.get_num_correct_tf(out_probs, label_batch)
@@ -110,7 +113,7 @@ class Network:
 
     @tf.function
     def loss(self, input_batch, label_batch):
-        return self.cce(self.get_network_output(input_batch), label_batch)
+        return self.cce(label_batch, self.get_network_output(input_batch))
 
     def dephase(self, tensor):
         if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.krauss_ops, tensor, self.krauss_ops)
@@ -147,7 +150,7 @@ class Layer:
             ), name='param_var_lay_%s' % layer_idx, trainable=True)
 
     def get_unitary_tensor(self):
-        num_off_diags = int(0.5 * (self.num_diags**2 - self.num_diags))
+        num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
         real_off_params = self.param_var_lay[:num_off_diags]
         imag_off_params = self.param_var_lay[num_off_diags:2 * num_off_diags]
         diag_params = self.param_var_lay[2 * num_off_diags:]
@@ -179,7 +182,7 @@ class Layer:
         left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor = self.get_unitary_tensor()
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
-        output = tf.einsum('znabef, nahef -> znbh', left_contracted, tf.math.conj(unitary_tensor))
+        output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
         return output
 
 
