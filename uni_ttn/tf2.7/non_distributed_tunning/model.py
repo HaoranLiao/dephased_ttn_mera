@@ -219,8 +219,7 @@ class UniTTN(tune.Trainable):
         self.model = Model(data_path, digits, val_split, deph_p, num_anc, config, tune_config)
 
     def step(self):
-        batch_size = 250
-        self.model.run_epoch(batch_size, grad_accumulation=False)
+        self.model.run_epoch(batch_size, grad_accumulation=config['data']['grad_accumulation'])
         test_accuracy = self.model.run_network(self.model.test_images, self.model.test_labels, batch_size*self.model.b_factor)
         return {
             "epoch": self.iteration,
@@ -247,11 +246,12 @@ if __name__ == "__main__":
 
     deph_p = variable_or_uniform(list_deph_p, 0)
     num_anc = variable_or_uniform(list_num_anc, 0)
+    batch_size = variable_or_uniform(list_batch_sizes, 0)
 
     asha_scheduler = tune.schedulers.ASHAScheduler(
         time_attr='training_iteration',
-        max_t=100,
-        grace_period=50
+        max_t=80,
+        grace_period=40
     )
 
     analysis = tune.run(
@@ -260,9 +260,7 @@ if __name__ == "__main__":
         mode='max',
         stop={"training_iteration": 100},
         verbose=3,
-        config={'num_anc': num_anc,
-                'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.005, 0.025]),
+        config={'tune_lr': tune.grid_search([0.001, 0.005, 0.025]),
                 'tune_init_std': tune.grid_search([0.01, 0.001, 0.0001])},
         local_dir='~/dephased_ttn_project/uni_ttn/ray_results',
         resources_per_trial={'cpu': 12, 'gpu': 1},
