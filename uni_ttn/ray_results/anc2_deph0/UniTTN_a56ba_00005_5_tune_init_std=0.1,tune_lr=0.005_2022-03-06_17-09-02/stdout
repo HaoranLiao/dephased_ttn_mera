@@ -1,0 +1,6 @@
+/home/haoranliao/dephased_ttn_project/uni_ttn/ray_results/anc2_deph0/UniTTN_a56ba_00005_5_tune_init_std=0.1,tune_lr=0.005_2022-03-06_17-09-02
+Physical GPUs:, 1 Logical GPUs:  1
+Load Data From File
+Sample Size: 5000
+No Validation
+Using 8x8 Pixel Dict
