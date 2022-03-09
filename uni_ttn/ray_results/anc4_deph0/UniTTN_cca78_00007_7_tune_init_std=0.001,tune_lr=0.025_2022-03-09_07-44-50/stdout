@@ -1,0 +1,6 @@
+/home/qc_whaley/dephased_ttn_project/uni_ttn/ray_results/anc4_deph0/UniTTN_cca78_00007_7_tune_init_std=0.001,tune_lr=0.025_2022-03-09_07-44-50
+Physical GPUs:, 1 Logical GPUs:  1
+Load Data From File
+Sample Size: 5000
+No Validation
+Using 8x8 Pixel Dict
