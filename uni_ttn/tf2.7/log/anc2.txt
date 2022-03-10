@@ -416,3 +416,7 @@ Epoch 26: 0.97620 accuracy
 Epoch 27: 0.97920 accuracy
 Epoch 28: 0.97680 accuracy
 Epoch 29: 0.97600 accuracy
+Epoch 30: 0.97600 accuracy
+Test Accuracy : 0.972
+Epoch 31: 0.97280 accuracy
+Epoch 32: 0.97700 accuracy
