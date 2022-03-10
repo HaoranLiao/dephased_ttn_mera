@@ -4,7 +4,7 @@ data:
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
- eval_batch_size_factor: 2
+ eval_batch_size_factor: 3
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000              # int or None
@@ -14,15 +14,20 @@ data:
 meta:
  set_memory_growth: False
  random_seed: 42
+<<<<<<< HEAD
  list_num_anc: [3]                # list or list of single
+ num_repeat: 3
+=======
+ list_num_anc: [2]                # list or list of single
  num_repeat: 5
+>>>>>>> 6ab8fed815d763eef0b8132988eddfa8a0b1c12f
  auto_epochs:
   enabled: False
   criterion: 0.005
   num_match: 10
   trigger: 60
 
- list_epochs: [100]                        # list or list of single
+ list_epochs: [150]                        # list or list of single
  list_devices: True
 
  deph:
@@ -33,11 +38,19 @@ meta:
 tree:
  param:
   init_mean: 0
-  init_std: [0.01]
+  init_std: [0.001, 0.001, 0.001, 0.001, 0.001, 0.001]
 
  opt:
   opt: 'adam'
   adam:
    user_lr: True
+<<<<<<< HEAD
    lr: [0.005, 0.005, 0.005, 0.005, 0.005, 0.005]
+=======
+<<<<<<< HEAD
+   lr: [0.005, 0.005, 0.005, 0.005, 0.005, 0.005]
+=======
+   lr: [0.025, 0.025, 0.025, 0.025, 0.025, 0.025]
+>>>>>>> 6ab8fed815d763eef0b8132988eddfa8a0b1c12f
+>>>>>>> e53cb36996efc7e66a071a06b53665766d6c5fb3
 
