@@ -14,20 +14,15 @@ data:
 meta:
  set_memory_growth: False
  random_seed: 42
-<<<<<<< HEAD
  list_num_anc: [3]                # list or list of single
- num_repeat: 3
-=======
- list_num_anc: [2]                # list or list of single
  num_repeat: 5
->>>>>>> 6ab8fed815d763eef0b8132988eddfa8a0b1c12f
  auto_epochs:
   enabled: False
   criterion: 0.005
   num_match: 10
   trigger: 60
 
- list_epochs: [150]                        # list or list of single
+ list_epochs: [100]                        # list or list of single
  list_devices: True
 
  deph:
@@ -44,9 +39,5 @@ tree:
   opt: 'adam'
   adam:
    user_lr: True
-<<<<<<< HEAD
    lr: [0.005, 0.005, 0.005, 0.005, 0.005, 0.005]
-=======
-   lr: [0.025, 0.025, 0.025, 0.025, 0.025, 0.025]
->>>>>>> 6ab8fed815d763eef0b8132988eddfa8a0b1c12f
 
