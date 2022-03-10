@@ -218,7 +218,7 @@ if __name__ == "__main__":
     list_deph_p = config['meta']['deph']['p']
     list_num_anc = config['meta']['list_num_anc']
     list_init_std = config['tree']['param']['init_std']
-    list_lr = config['opt']['adam']['user_lr']
+    list_lr = config['tree']['opt']['adam']['lr']
 
     num_settings = max(len(list_digits), len(list_num_anc), len(list_init_std),
                        len(list_batch_sizes), len(list_epochs), len(list_deph_p),
