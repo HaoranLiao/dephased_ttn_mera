@@ -30,6 +30,8 @@ def load_data(digits, sample_size):
 	)
 
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+	print('Is Cuda available:', torch.cuda.is_available())
+	sys.stdout.flush()
 				
 	train_images = np.reshape(train_images, [-1, 1, 8, 8])
 	train_images = torch.from_numpy(train_images).to(dtype=torch.float32, device=device)
@@ -101,6 +103,9 @@ def main():
 		if not epoch%5:
 			test_accuracy = network.run_network(test_images, test_labels)
 			print('Test Accuracy: %.3f'%test_accuracy, flush=True)
+
+	test_accuracy = network.run_network(test_images, test_labels)
+	print('Test Accuracy: %.3f'%test_accuracy, flush=True)
 	
 	#torch.save(network.state_dict(), './trained_models/samp5000_size8.pth')
 	#print('Model saved', flush=True)
