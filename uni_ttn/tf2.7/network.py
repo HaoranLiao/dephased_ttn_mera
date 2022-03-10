@@ -121,6 +121,7 @@ class Network:
             self.krauss_ops.append(tensor_prod)
         self.krauss_ops = tf.stack(self.krauss_ops)
 
+
 class Layer:
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         self.num_anc = num_anc
@@ -160,8 +161,7 @@ class Layer:
         (eigenvalues, eigenvectors) = tf.linalg.eigh(herm_matrix)
         eig_exp = tf.exp(1.0j * eigenvalues)
         diag_exp_mat = tf.linalg.diag(eig_exp)
-        unitary_matrix = tf.einsum('nab, nbc, ndc -> nad',
-                                        eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
+        unitary_matrix = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
         unitary_tensor = tf.reshape(unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
         return unitary_tensor
 
@@ -171,5 +171,3 @@ class Layer:
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
         output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
         return output
-
-
