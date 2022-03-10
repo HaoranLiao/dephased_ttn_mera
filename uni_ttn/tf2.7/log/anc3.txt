@@ -3052,3 +3052,4 @@ Epoch 89: 0.94660 accuracy
 Epoch 90: 0.94580 accuracy
 Test Accuracy : 0.941
 Epoch 91: 0.94640 accuracy
+Epoch 92: 0.94640 accuracy
