@@ -4,7 +4,7 @@ data:
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
- eval_batch_size_factor: 4
+ eval_batch_size_factor: 2
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000              # int or None
@@ -12,9 +12,9 @@ data:
  use_8by8_pixel_dict: True
 
 meta:
- set_memory_growth: True
+ set_memory_growth: False
  random_seed: 42
- list_num_anc: [2]                # list or list of single
+ list_num_anc: [3]                # list or list of single
  num_repeat: 5
  auto_epochs:
   enabled: False
@@ -33,11 +33,11 @@ meta:
 tree:
  param:
   init_mean: 0
-  init_std: 0.1
+  init_std: [0.01]
 
  opt:
   opt: 'adam'
   adam:
-   user_lr: False
-   lr: 0.0001
+   user_lr: True
+   lr: [0.025, 0.025, 0.025, 0.005, 0.005, 0.005]
 
