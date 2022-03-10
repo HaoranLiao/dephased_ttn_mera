@@ -20,13 +20,18 @@ import data
 
 
 def load_data(digits, sample_size):
-	datagen = data.DataGenerator()
-	datagen.shrink_images([8, 8])
-	(train_images, train_labels), _, (test_images, test_labels) = data.process(
-		datagen.train_images, datagen.train_labels, 
-		datagen.test_images, datagen.test_labels,
-		digits, 0, sample_size=sample_size
-	)
+	# datagen = data.DataGenerator()
+	# datagen.shrink_images([8, 8])
+	# (train_images, train_labels), _, (test_images, test_labels) = data.process(
+	# 	datagen.train_images, datagen.train_labels,
+	# 	datagen.test_images, datagen.test_labels,
+	# 	digits, 0, sample_size=sample_size
+	# )
+
+	train_data, _, test_data = data.get_data_file(
+		'../mnist8by8/mnist8by8', digits, 0, sample_size=sample_size)
+	train_images, train_labels = train_data
+	test_images, test_labels = test_data
 
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 				
@@ -51,7 +56,7 @@ class resnet18_mod(models.resnet.ResNet):
 		self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
 
 		self.loss_func = nn.CrossEntropyLoss()
-		self.optimizer = optim.Adam(self.parameters())
+		self.optimizer = optim.Adam(self.parameters(), lr=0.005)
 
 	def train_network(self, train_images, train_labels, batch_size):
 		batch_iter = data.batch_generator_np(train_images, train_labels, batch_size)
@@ -85,8 +90,11 @@ def get_accuracy(output, target_index):
 def main():
 	digits = [3, 5]
 	sample_size = 5000
-	num_epochs = 70
+	num_epochs = 80
 	train_batch_size = 250
+
+	np.random.seed(42)
+	torch.manual_seed(42)
 
 	train_images, train_labels, test_images, test_labels = load_data(digits, sample_size)
 	network = resnet18_mod(block=models.resnet.Bottleneck, layers=[2, 2, 2, 2])
