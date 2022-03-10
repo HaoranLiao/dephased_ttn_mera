@@ -14,7 +14,7 @@ data:
 meta:
  set_memory_growth: False
  random_seed: 42
- list_num_anc: [4]                # list or list of single
+ list_num_anc: [3]                # list or list of single
  num_repeat: 1
  early_stop:
   enabled: False
@@ -22,22 +22,22 @@ meta:
   num_match: 10
   trigger: 20
 
- list_epochs: [60]                        # list or list of single
+ list_epochs: [80]                        # list or list of single
  list_devices: True
 
  deph:
   data: True
   network: True
-  p: [0.0, 1.0, 0.0, 1.0]
+  p: [0.0, 1.0]
 
 tree:
  param:
   init_mean: 0
-  init_std: [0.01, 0.01, 0.001, 0.001]
+  init_std: [0.01]
 
  opt:
   opt: 'adam'
   adam:
    user_lr: True
-   lr: 0.025
+   lr: 0.005
 
