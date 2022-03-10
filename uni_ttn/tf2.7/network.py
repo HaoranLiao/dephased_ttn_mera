@@ -4,13 +4,14 @@ import string
 
 
 class Network:
-    def __init__(self, num_pixels, deph_p, num_anc, config):
+    def __init__(self, num_pixels, deph_p, num_anc, init_std, lr, config):
         self.config = config
         self.num_anc = num_anc
         self.num_pixels = num_pixels
         self.num_layers = int(np.log2(num_pixels))
         self.init_mean = config['tree']['param']['init_mean']
-        self.init_std = config['tree']['param']['init_std']
+        # self.init_std = config['tree']['param']['init_std']
+        self.init_std = init_std
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)
@@ -34,7 +35,7 @@ class Network:
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
         if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
-        else: self.opt = tf.keras.optimizers.Adam(config['tree']['opt']['adam']['lr'])
+        else: self.opt = tf.keras.optimizers.Adam(lr)
 
         chars = string.ascii_lowercase
         if self.num_anc < 4:

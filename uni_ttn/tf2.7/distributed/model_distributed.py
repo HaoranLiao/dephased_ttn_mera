@@ -238,7 +238,7 @@ if __name__ == "__main__":
     list_num_anc = config['meta']['list_num_anc']
     list_init_std = config['tree']['param']['init_std']
 
-    num_settings = max(len(list_digits), len(list_num_anc),
+    num_settings = max(len(list_digits), len(list_num_anc), len(list_init_std),
                        len(list_batch_sizes), len(list_epochs), len(list_deph_p))
 
     avg_repeated_test_acc, avg_repeated_train_acc = [], []

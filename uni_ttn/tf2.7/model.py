@@ -26,6 +26,8 @@ def run_all(i):
     batch_size = variable_or_uniform(list_batch_sizes, i)
     deph_p = variable_or_uniform(list_deph_p, i)
     num_anc = variable_or_uniform(list_num_anc, i)
+    init_std = variable_or_uniform(list_init_std, i)
+    lr = variable_or_uniform(list_lr, i)
 
     auto_epochs = config['meta']['auto_epochs']['enabled']
     test_accs, train_accs = [], []
@@ -41,9 +43,11 @@ def run_all(i):
         print('Exec Batch Size: %s' % config['data']['execute_batch_size'])
         print('Number of Ancillas: %s' % num_anc)
         print('Random Seed:', config['meta']['random_seed'])
+        print(f'Init Std: {init_std}')
+        print(f'Adam Learning Rate: {lr}')
         sys.stdout.flush()
 
-        model = Model(data_path, digits, val_split, deph_p, num_anc, config)
+        model = Model(data_path, digits, val_split, deph_p, num_anc, init_std, lr, config)
         test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
 
         test_accs.append(round(test_acc, 4))
@@ -65,7 +69,7 @@ def run_all(i):
 
 
 class Model:
-    def __init__(self, data_path, digits, val_split, deph_p, num_anc, config):
+    def __init__(self, data_path, digits, val_split, deph_p, num_anc, init_std, lr, config):
 
         if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
         gpus = tf.config.list_physical_devices('GPU')
@@ -106,7 +110,7 @@ class Model:
 
         num_pixels = self.train_images.shape[1]
         self.config = config
-        self.network = network.Network(num_pixels, deph_p, num_anc, config)
+        self.network = network.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
 
         self.b_factor = self.config['data']['eval_batch_size_factor']
 
@@ -213,9 +217,12 @@ if __name__ == "__main__":
     list_epochs = config['meta']['list_epochs']
     list_deph_p = config['meta']['deph']['p']
     list_num_anc = config['meta']['list_num_anc']
+    list_init_std = config['tree']['param']['init_std']
+    list_lr = config['opt']['adam']['user_lr']
 
-    num_settings = max(len(list_digits), len(list_num_anc),
-                       len(list_batch_sizes), len(list_epochs), len(list_deph_p))
+    num_settings = max(len(list_digits), len(list_num_anc), len(list_init_std),
+                       len(list_batch_sizes), len(list_epochs), len(list_deph_p),
+                       len(list_lr))
 
     avg_repeated_test_acc, avg_repeated_train_acc = [], []
     std_repeated_test_acc, std_repeated_train_acc = [], []
