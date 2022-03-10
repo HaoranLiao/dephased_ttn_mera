@@ -20,18 +20,14 @@ import data
 
 
 def load_data(digits, sample_size):
-	# datagen = data.DataGenerator()
-	# datagen.shrink_images([8, 8])
-	# (train_images, train_labels), _, (test_images, test_labels) = data.process(
-	# 	datagen.train_images, datagen.train_labels,
-	# 	datagen.test_images, datagen.test_labels,
-	# 	digits, 0, sample_size=sample_size
-	# )
-
-	train_data, _, test_data = data.get_data_file(
-		'../mnist8by8/mnist8by8', digits, 0, sample_size=sample_size)
-	train_images, train_labels = train_data
-	test_images, test_labels = test_data
+	# load not-quantum-featurized data
+	datagen = data.DataGenerator()
+	datagen.shrink_images([8, 8])
+	(train_images, train_labels), _, (test_images, test_labels) = data.process(
+		datagen.train_images, datagen.train_labels,
+		datagen.test_images, datagen.test_labels,
+		digits, 0, sample_size=sample_size
+	)
 
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 				
