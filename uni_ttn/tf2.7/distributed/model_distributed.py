@@ -56,7 +56,7 @@ def run_all(i):
 
         test_accs.append(round(test_acc, 4))
         train_accs.append(round(train_acc, 4))
-        print('Time (hr): %.1f' % ((time.time()-start_time)/3600)); sys.stdout.flush()
+        print('Time (hr): %.4f' % ((time.time()-start_time)/3600)); sys.stdout.flush()
 
     print(f'\nSetting {i} Train Accs: {train_accs}\t')
     print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
