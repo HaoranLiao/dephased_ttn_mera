@@ -1,7 +1,7 @@
 '''
 Using ResNet18 to give a baseline.
-accuracy: 0.990 ([3,5] for 11000(full) training samples )
-accuracy: 0.984 ([3,5] for 5000 training samples )
+accuracy: 0.990 ([3,5] for 11000(full) training samples)
+accuracy: 0.987 ([3,5] for 5000 training samples)
 Reference materials:
 sTTN_Deph_MNIST.conv_net_mnist.conv_net_mnist.py
 pytroch.vision.references.classification.train.py
@@ -20,16 +20,15 @@ import data
 
 
 def load_data(digits, sample_size):
-	datagen = data.DataGenerator()
+	# load not-quantum-featurized data
+	datagen = data. DataGenerator()
 	datagen.shrink_images([8, 8])
 	(train_images, train_labels), _, (test_images, test_labels) = data.process(
-		datagen.train_images, datagen.train_labels, 
+		datagen.train_images, datagen.train_labels,
 		datagen.test_images, datagen.test_labels,
 		digits, 0, sample_size=sample_size
 	)
 
-	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-				
 	train_images = np.reshape(train_images, [-1, 1, 8, 8])
 	train_images = torch.from_numpy(train_images).to(dtype=torch.float32, device=device)
 	train_labels = torch.from_numpy(np.argmax(train_labels, axis=1)).to(dtype=torch.long, device=device)
@@ -51,7 +50,8 @@ class resnet18_mod(models.resnet.ResNet):
 		self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
 
 		self.loss_func = nn.CrossEntropyLoss()
-		self.optimizer = optim.Adam(self.parameters())
+		self.optimizer = optim.Adam(self.parameters(), lr=0.005)
+
 
 	def train_network(self, train_images, train_labels, batch_size):
 		batch_iter = data.batch_generator_np(train_images, train_labels, batch_size)
@@ -70,37 +70,49 @@ class resnet18_mod(models.resnet.ResNet):
 			batch_iter = data.batch_generator_np(images, labels, batch_size)
 			for image_batch, label_batch in batch_iter:
 				pred_labels = self(image_batch)
-				num_correct += get_accuracy(pred_labels, label_batch)
+				num_correct += get_accuracy_torch(pred_labels, label_batch)
 
 		accuracy = num_correct / len(images)
 		return accuracy
 
-def get_accuracy(output, target_index):
-	output_index = np.argmax(output, axis=1)
+def get_accuracy_torch(output, target_index):
+	output_index = torch.argmax(output, dim=1)
 	compare = output_index - target_index
-	compare = compare.numpy()
-	num_correct = float(np.sum(compare == 0))
+	compare = compare
+	num_correct = torch.sum(compare == 0).float()
 	return num_correct
 
 def main():
 	digits = [3, 5]
 	sample_size = 5000
-	num_epochs = 70
+	num_epochs = 55
 	train_batch_size = 250
 
 	train_images, train_labels, test_images, test_labels = load_data(digits, sample_size)
 	network = resnet18_mod(block=models.resnet.Bottleneck, layers=[2, 2, 2, 2])
-	
+
+	network.to(device=device)
+
 	for epoch in range(num_epochs):
 		training_accuracy = network.train_network(train_images, train_labels, train_batch_size)
 		print(f'Epoch: {epoch}: {training_accuracy:.3f}', flush=True)
 		if not epoch%5:
 			test_accuracy = network.run_network(test_images, test_labels)
 			print('Test Accuracy: %.3f'%test_accuracy, flush=True)
-	
+
+	test_accuracy = network.run_network(test_images, test_labels)
+	print('Test Accuracy: %.3f'%test_accuracy, flush=True)
+
 	#torch.save(network.state_dict(), './trained_models/samp5000_size8.pth')
 	#print('Model saved', flush=True)
 
 
 if __name__ == "__main__":
+	np.random.seed(42)
+	torch.manual_seed(42)
+
+	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+	print('Is Cuda available:', torch.cuda.is_available())
+	sys.stdout.flush()
+
 	main()

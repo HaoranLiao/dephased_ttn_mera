@@ -114,7 +114,7 @@ def trig_featurize(images, dim):
 
 def split_data(images, labels, split):
     num_images = len(images)
-    split_point = int(split * num_images)
+    split_point = int((1 - split) * num_images)
     true_train_data = (images[:split_point], labels[:split_point])
     val_data = (images[split_point:], labels[split_point:])
     return true_train_data, val_data
