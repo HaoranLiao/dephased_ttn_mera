@@ -126,14 +126,17 @@ class Model:
             self.pixel_dict.append(pixel)
 
     def train_network(self, epochs, batch_size, auto_epochs):
-        self.epoch_acc = []
+        self.epoch_acc, self.history_val_acc = [], [-1]
         for epoch in range(epochs):
             accuracy = self.run_epoch(batch_size)
             print('Epoch %d: %.5f accuracy' % (epoch, accuracy), flush=True)
 
-            if not epoch%5:
-                test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-                print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
+            if not epoch % 2:
+                val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
+                print(f'Val Accuracy : {val_accuracy:.3f}', flush=True)
+                if val_accuracy >= max(self.history_val_acc):
+                    ckpt = tf.train.Checkpoint(step=epoch, net=self.network)
+                    manager = tf.train.CheckpointManager(ckpt, './tf_ckpts', max_to_keep=1)
 
             self.epoch_acc.append(accuracy)
             if auto_epochs:
@@ -145,6 +148,8 @@ class Model:
         if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy, flush=True)
         else: print('Validation Accuracy: %.3f' % train_or_val_accuracy, flush=True)
 
+        ckpt.restore(manager.latest_checkpoint)
+        print("Restored from {}".format(manager.latest_checkpoint), flush=True)
         test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
         print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
         return test_accuracy, train_or_val_accuracy
