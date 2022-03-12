@@ -11,10 +11,10 @@ TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
 
 def print_results(start_time):
-    print('All Avg Test Accs:\n', avg_repeated_test_acc)
-    print('All Avg Train/Val Accs:\n', avg_repeated_train_acc)
-    print('All Std Test Accs:\n', std_repeated_test_acc)
-    print('All Std Train/Val Accs:\n', std_repeated_train_acc)
+    print('All Settings Avg Test Accs:\n', avg_repeated_test_acc)
+    print('All Settings Avg Train/Val Accs:\n', avg_repeated_train_acc)
+    print('All Settings Std Test Accs:\n', std_repeated_test_acc)
+    print('All Settings Std Train/Val Accs:\n', std_repeated_train_acc)
     print('Time (hr): %.4f' % ((time.time()-start_time)/3600))
     sys.stdout.flush()
 
