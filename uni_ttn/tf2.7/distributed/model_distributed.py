@@ -18,11 +18,9 @@ def print_results(start_time):
     print('Time (hr): %.4f' % ((time.time()-start_time)/3600))
     sys.stdout.flush()
 
-
 def variable_or_uniform(input, i):
     if len(input) > 1: return input[i]
     else: return input[0]
-
 
 def run_all(i):
     digits = variable_or_uniform(list_digits, i)
