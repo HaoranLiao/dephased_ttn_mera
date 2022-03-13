@@ -1,0 +1,44 @@
+data:
+ path: '../../../mnist8by8/mnist8by8'
+ val_split: 0
+ list_digits: [[3,5]]                     # list of pairs or one pair
+ list_batch_sizes: [250]                  # list or list of single
+ execute_batch_size: 250
+ eval_batch_size_factor: 20
+ load_from_file: True
+ data_im_size: [8,8]
+ sample_size: 5000              # int or None
+ feature_dim: 2
+ use_8by8_pixel_dict: True
+
+meta:
+ set_memory_growth: False
+ random_seed: 42
+ list_num_anc: [1]                # list or list of single
+ num_repeat: 5
+ auto_epochs:
+  enabled: False
+  criterion: 0.005
+  num_match: 10
+  trigger: 60
+
+ list_epochs: [500]                        # list or list of single
+ list_devices: True
+
+ deph:
+  data: True
+  network: True
+  p: [0.0, 1.0]
+
+tree:
+ param:
+  init_mean: 0
+  init_std: [10]
+
+ opt:
+  opt: 'adam'
+  adam:
+   user_lr: True
+   lr: [0.005]
+
+
