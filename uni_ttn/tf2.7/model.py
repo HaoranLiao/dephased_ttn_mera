@@ -4,7 +4,7 @@ import sys, os, time, yaml, json
 from tqdm import tqdm
 import network
 import data
-os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '-1'
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
@@ -128,28 +128,33 @@ class Model:
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc, self.history_val_acc = [], [-1]
         for epoch in range(epochs):
-            accuracy = self.run_epoch(batch_size)
-            print('Epoch %d: %.5f accuracy' % (epoch, accuracy), flush=True)
+            train_accuracy = self.run_epoch(batch_size)
+            print('Epoch {0:2} Train Accuracy: {1:.4}'.format(epoch, train_accuracy), flush=True)
 
             if not epoch % 2:
                 val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
-                print(f'Val Accuracy : {val_accuracy:.3f}', flush=True)
+                print('Epoch {0:2} Valid Accuracy: {1:.4}'.format(epoch, val_accuracy), flush=True)
                 if val_accuracy >= max(self.history_val_acc):
-                    ckpt = tf.train.Checkpoint(step=epoch, net=self.network)
-                    manager = tf.train.CheckpointManager(ckpt, './tf_ckpts', max_to_keep=1)
+                    to_save = {f'lay_{i}': layer.param_var_lay for i, layer in enumerate(self.network.layers)}
+                    to_save['epoch'] = tf.Variable(epoch)
+                    checkpoint = tf.train.Checkpoint(**to_save)
+                    checkpoint_path = checkpoint.save('/home/haoranliao/dephased_ttn_project/uni_ttn/tf2.7/tf_ckpts/')
+                    print('Checkpoint saved', flush=True)
 
-            self.epoch_acc.append(accuracy)
+            self.epoch_acc.append(train_accuracy)
             if auto_epochs:
                 trigger = self.config['meta']['auto_epochs']['trigger']
                 assert trigger < epochs
-                if epoch >= trigger and self.check_acc_satified(accuracy): break
+                if epoch >= trigger and self.check_acc_satified(train_accuracy): break
 
-        train_or_val_accuracy = accuracy
+        train_or_val_accuracy = train_accuracy
         if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy, flush=True)
         else: print('Validation Accuracy: %.3f' % train_or_val_accuracy, flush=True)
 
-        ckpt.restore(manager.latest_checkpoint)
-        print("Restored from {}".format(manager.latest_checkpoint), flush=True)
+        status = checkpoint.restore(checkpoint_path)
+        status.assert_consumed(); status.assert_existing_objects_matched()
+        print("Restored epoch %d from %s" % (checkpoint.epoch, checkpoint_path), flush=True)
+
         test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
         print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
         return test_accuracy, train_or_val_accuracy
@@ -189,13 +194,13 @@ class Model:
                     counter = batch_size // exec_batch_size
                     self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
 
-        if val_split:
-            assert self.config['data']['val_split'] > 0
-            val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
-            return val_accuracy
-        else:
-            train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
-            return train_accuracy
+        # if val_split:
+        #     assert self.config['data']['val_split'] > 0
+        #     val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
+        #     return val_accuracy
+        # else:
+        train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
+        return train_accuracy
 
 
 def get_num_correct(guesses, labels):
