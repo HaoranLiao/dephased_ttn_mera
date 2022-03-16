@@ -1,0 +1,139 @@
+{
+ "data": {
+  "path": "../../mnist8by8/mnist8by8",
+  "val_split": 0.2857,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 20,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 7000,
+  "feature_dim": 2,
+  "use_8by8_pixel_dict": true
+ },
+ "meta": {
+  "set_memory_growth": true,
+  "random_seed": 42,
+  "list_num_anc": [
+   1
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   120
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.01,
+    0.01,
+    0.01,
+    0.001,
+    0.001,
+    0.001
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": [
+     0.025,
+     0.025,
+     0.025,
+     0.025,
+     0.025,
+     0.025
+    ]
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.025
+Physical GPUs: 1 Logical GPUs: 1
+Load Data From File
+Train Sample Size: 5000
+Validation Split: 0.29	 Size: 2000
+Test Sample Size: 1902
+Using 8x8 Pixel Dict
+Epoch   0 Train : 0.9186	Valid : 0.9165
+Checkpoint saved...
+Epoch   1 Train : 0.9438
+Epoch   2 Train : 0.951	Valid : 0.9525
+Checkpoint saved...
+Epoch   3 Train : 0.9586
+Epoch   4 Train : 0.9618	Valid : 0.9615
+Checkpoint saved...
+Epoch   5 Train : 0.9664
+Epoch   6 Train : 0.9664	Valid : 0.9645
+Checkpoint saved...
+Epoch   7 Train : 0.9634
+Epoch   8 Train : 0.9684	Valid : 0.967
+Checkpoint saved...
+Epoch   9 Train : 0.9682
+Epoch  10 Train : 0.9698	Valid : 0.967
+Checkpoint saved...
+Epoch  11 Train : 0.9726
+Epoch  12 Train : 0.9714	Valid : 0.9675
+Checkpoint saved...
+Epoch  13 Train : 0.9708
+Epoch  14 Train : 0.9692	Valid : 0.9715
+Checkpoint saved...
+Epoch  15 Train : 0.9722
+Epoch  16 Train : 0.9676	Valid : 0.9695
+Epoch  17 Train : 0.9684
+Epoch  18 Train : 0.9724	Valid : 0.9725
+Checkpoint saved...
+Epoch  19 Train : 0.975
+Epoch  20 Train : 0.9744	Valid : 0.9735
+Checkpoint saved...
+Epoch  21 Train : 0.9692
+Epoch  22 Train : 0.9752	Valid : 0.975
+Checkpoint saved...
+Epoch  23 Train : 0.976
+Epoch  24 Train : 0.9736	Valid : 0.971
+Epoch  25 Train : 0.9736
+Epoch  26 Train : 0.9718	Valid : 0.9715
