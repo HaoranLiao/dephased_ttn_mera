@@ -154,8 +154,9 @@ class Model:
         print('Restored from epoch %d' % (checkpoint['epoch']), flush=True)
 
         tf.config.run_functions_eagerly(True)
-        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-        print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
+        train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
+        test_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
+        print(f'Test Accuracy : {test_accuracy:.3f}\tTrain Accuracy : {train_accuracy:.3f}', flush=True)
         return test_accuracy, train_accuracy
 
     def run_network(self, images, labels, batch_size):
