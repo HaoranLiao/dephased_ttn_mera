@@ -607,3 +607,11 @@ Epoch 45 Train : 0.9352
 Epoch 46 Train : 0.9358	Valid : 0.9315
 Epoch 47 Train : 0.9368
 Epoch 48 Train : 0.9308	Valid : 0.9275
+Epoch 49 Train : 0.9342
+Epoch 50 Train : 0.931	Valid : 0.933
+Epoch 51 Train : 0.932
+Epoch 52 Train : 0.935	Valid : 0.9365
+Epoch 53 Train : 0.9372
+Epoch 54 Train : 0.9252	Valid : 0.9305
+Epoch 55 Train : 0.938
+Epoch 56 Train : 0.933	Valid : 0.931
