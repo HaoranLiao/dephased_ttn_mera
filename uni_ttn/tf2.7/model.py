@@ -139,6 +139,7 @@ class Model:
                                       tf.identity(layer.param_var_lay) for i, layer in enumerate(self.network.layers)}
                     checkpoint['epoch'] = epoch
                     print('Checkpoint saved...', flush=True)
+                self.history_val_acc.append(val_accuracy)
             else:
                 print('Epoch {0:2} Train : {1:.4}'.format(epoch, train_accuracy), flush=True)
 
