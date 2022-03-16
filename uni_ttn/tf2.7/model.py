@@ -193,11 +193,6 @@ class Model:
                     counter = batch_size // exec_batch_size
                     self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
 
-        # if val_split:
-        #     assert self.config['data']['val_split'] > 0
-        #     val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
-        #     return val_accuracy
-        # else:
         train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
         return train_accuracy
 
