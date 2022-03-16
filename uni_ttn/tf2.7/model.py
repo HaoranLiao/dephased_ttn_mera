@@ -132,7 +132,7 @@ class Model:
 
             if not epoch % 2:
                 val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
-                print('Epoch {0:2} Train : {1:.4}\tValid : {2:.4}'
+                print('Epoch {0:3} Train : {1:.4}\tValid : {2:.4}'
                       .format(epoch, train_accuracy, val_accuracy), flush=True)
                 if val_accuracy >= max(self.history_val_acc):
                     checkpoint = {f'param_var_lay_{i}':
@@ -141,7 +141,7 @@ class Model:
                     print('Checkpoint saved...', flush=True)
                 self.history_val_acc.append(val_accuracy)
             else:
-                print('Epoch {0:2} Train : {1:.4}'.format(epoch, train_accuracy), flush=True)
+                print('Epoch {0:3} Train : {1:.4}'.format(epoch, train_accuracy), flush=True)
 
             self.epoch_acc.append(train_accuracy)
             if auto_epochs:
@@ -151,7 +151,7 @@ class Model:
 
         for i in range(len(self.network.layers)):
             self.network.layers[i].param_var_lay = checkpoint[f'param_var_lay_{i}']
-        print('Restored from Epoch %d' % (checkpoint['epoch']), flush=True)
+        print('Training Done\nRestored from Epoch %d...' % (checkpoint['epoch']), flush=True)
 
         tf.config.run_functions_eagerly(True)
         train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
