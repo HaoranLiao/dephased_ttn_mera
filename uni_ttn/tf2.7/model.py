@@ -110,6 +110,7 @@ class Model:
 
         num_pixels = self.train_images.shape[1]
         self.config = config
+        self.num_anc = num_anc
         self.network = network.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
 
         self.b_factor = self.config['data']['eval_batch_size_factor']
@@ -129,17 +130,18 @@ class Model:
         self.epoch_acc, self.history_val_acc = [], [-1]
         for epoch in range(epochs):
             train_accuracy = self.run_epoch(batch_size)
-            print('Epoch {0:2} Train Accuracy: {1:.4}'.format(epoch, train_accuracy), flush=True)
 
             if not epoch % 2:
                 val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
-                print('Epoch {0:2} Valid Accuracy: {1:.4}'.format(epoch, val_accuracy), flush=True)
+                print('Epoch {0:2} Train Accuracy: {1:.4}\tValid Accuracy: {2:.4}'
+                      .format(epoch, train_accuracy, val_accuracy), flush=True)
                 if val_accuracy >= max(self.history_val_acc):
-                    to_save = {f'lay_{i}': layer.param_var_lay for i, layer in enumerate(self.network.layers)}
-                    to_save['epoch'] = tf.Variable(epoch)
-                    checkpoint = tf.train.Checkpoint(**to_save)
-                    checkpoint_path = checkpoint.save('/home/haoranliao/dephased_ttn_project/uni_ttn/tf2.7/tf_ckpts/')
-                    print('Checkpoint saved', flush=True)
+                    checkpoint = {f'param_var_lay_{i}':
+                                      tf.identity(layer.param_var_lay) for i, layer in enumerate(self.network.layers)}
+                    checkpoint['epoch'] = epoch
+                    print('Checkpoint saved...', flush=True)
+            else:
+                print('Epoch {0:2} Train Accuracy: {1:.4}'.format(epoch, train_accuracy), flush=True)
 
             self.epoch_acc.append(train_accuracy)
             if auto_epochs:
@@ -147,17 +149,14 @@ class Model:
                 assert trigger < epochs
                 if epoch >= trigger and self.check_acc_satified(train_accuracy): break
 
-        train_or_val_accuracy = train_accuracy
-        if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy, flush=True)
-        else: print('Validation Accuracy: %.3f' % train_or_val_accuracy, flush=True)
+        for i in range(len(self.network.layers)):
+            self.network.layers[i].param_var_lay = checkpoint[f'param_var_lay_{i}']
+        print('Restored from epoch %d' % (checkpoint['epoch']), flush=True)
 
-        status = checkpoint.restore(checkpoint_path)
-        status.assert_consumed(); status.assert_existing_objects_matched()
-        print("Restored epoch %d from %s" % (checkpoint.epoch, checkpoint_path), flush=True)
-
+        tf.config.run_functions_eagerly(True)
         test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
         print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
-        return test_accuracy, train_or_val_accuracy
+        return test_accuracy, train_accuracy
 
     def run_network(self, images, labels, batch_size):
         num_correct = 0
