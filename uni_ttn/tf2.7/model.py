@@ -132,7 +132,7 @@ class Model:
 
             if not epoch % 2:
                 val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
-                print('Epoch {0:3}\tTrain : {1:.4f}\tValid : {2:.4f}'
+                print('Epoch {0:3}  Train : {1:.4f}\tValid : {2:.4f}'
                       .format(epoch, train_accuracy, val_accuracy), flush=True)
                 if val_accuracy >= max(self.history_val_acc):
                     checkpoint = {f'param_var_lay_{i}':
@@ -141,7 +141,7 @@ class Model:
                     print('Checkpoint saved...', flush=True)
                 self.history_val_acc.append(val_accuracy)
             else:
-                print('Epoch {0:3}\tTrain : {1:.4f}'.format(epoch, train_accuracy), flush=True)
+                print('Epoch {0:3}  Train : {1:.4f}'.format(epoch, train_accuracy), flush=True)
 
             self.epoch_acc.append(train_accuracy)
             if auto_epochs:
@@ -155,7 +155,7 @@ class Model:
 
         tf.config.run_functions_eagerly(True)
         train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
-        test_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
+        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
         print(f'Test Accuracy : {test_accuracy:.3f}\tTrain Accuracy : {train_accuracy:.3f}', flush=True)
         return test_accuracy, train_accuracy
 
