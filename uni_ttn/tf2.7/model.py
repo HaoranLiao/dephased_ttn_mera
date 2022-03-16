@@ -90,16 +90,16 @@ class Model:
                 digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
-        print('Sample Size: %s' % self.train_images.shape[0])
+        print('Train Sample Size: %s' % len(self.train_images), flush=True)
 
         if val_data is not None:
-            print('Validation Split: %.2f' % val_split, flush=True)
             self.val_images, self.val_labels = val_data
+            print('Validation Split: %.2f\t Size: %d' % (val_split, len(self.val_images)), flush=True)
         else:
-            assert config['data']['val_split'] == 0
-            print('No Validation', flush=True)
+            assert not config['data']['val_split']; print('No Validation', flush=True)
 
         self.test_images, self.test_labels = test_data
+        print('Test Sample Size: %s' % len(self.test_images), flush=True)
 
         if data_im_size == [8, 8] and config['data']['use_8by8_pixel_dict']:
             print('Using 8x8 Pixel Dict', flush=True)
@@ -109,8 +109,7 @@ class Model:
             if val_data: self.val_images = self.val_images[:, self.pixel_dict]
 
         num_pixels = self.train_images.shape[1]
-        self.config = config
-        self.num_anc = num_anc
+        self.config, self.num_anc = config, num_anc
         self.network = network.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
 
         self.b_factor = self.config['data']['eval_batch_size_factor']
