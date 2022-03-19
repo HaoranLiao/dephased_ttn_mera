@@ -12,9 +12,13 @@ data:
  use_8by8_pixel_dict: True
 
 meta:
- set_memory_growth: True
+ set_memory_growth: False
  random_seed: 42
+<<<<<<< HEAD
  list_num_anc: [3]                # list or list of single
+=======
+ list_num_anc: [2]                # list or list of single
+>>>>>>> 3444b6b27f9b837b8da0d0c966b6a48f43efd049
  num_repeat: 5
  auto_epochs:
   enabled: False
@@ -33,7 +37,11 @@ meta:
 tree:
  param:
   init_mean: 0
+<<<<<<< HEAD
   init_std: [0.01]
+=======
+  init_std: [0.001]
+>>>>>>> 3444b6b27f9b837b8da0d0c966b6a48f43efd049
 
  opt:
   opt: 'adam'
