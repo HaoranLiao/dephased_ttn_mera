@@ -1347,3 +1347,4 @@ Epoch  13  Train : 0.9522
 Epoch  14  Train : 0.9508	Valid : 0.9480
 Epoch  15  Train : 0.9520
 Epoch  16  Train : 0.9520	Valid : 0.9490
+Epoch  17  Train : 0.9510
