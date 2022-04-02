@@ -84,6 +84,14 @@ def flatten_images(images):
     flattened_image = np.reshape(images, [num_images, -1])
     return flattened_image
 
+def exp_featurize(images):
+    flat_images = flatten_images(images)
+    (num_images, num_pixels) = flat_images.shape
+    prep_axes = np.reshape(flat_images, (num_images, num_pixels, 1))
+    pix_copy = np.tile(prep_axes, [1, 1, 2])
+    pix_copy[:, :, 0] = 1 / np.sqrt(pix_copy[:, :, 0]**2 + 1)
+    pix_copy[:, :, 1] = pix_copy[:, :, 1] / np.sqrt(pix_copy[:, :, 1]**2 + 1)
+    return pix_copy
 
 def trig_featurize_qubit(images):
     flat_images = flatten_images(images)
