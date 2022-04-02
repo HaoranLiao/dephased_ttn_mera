@@ -126,11 +126,27 @@ class Model:
             pixel = col + 8 * row
             self.pixel_dict.append(pixel)
 
+    def monitor_network(self):
+        with tf.GradientTape(persistent=True) as tape:
+            self.network.layers[-1].get_unitary_tensor()
+            eigenvalues, eigenvectors = tf.linalg.eigh(self.network.layers[-1].unitary_matrix)
+        a = tape.gradient(eigenvalues, self.network.var_list[-1])
+        print(tf.reduce_mean(a))
+        b = tape.gradient(eigenvectors, self.network.var_list[-1])
+        print(tf.reduce_mean(b))
+
+        # print('Eigen Val:', eigenvalues)
+        # print('Eigen Vec:', eigenvectors)
+
+
+
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc = []
         for epoch in range(epochs):
             accuracy = self.run_epoch(batch_size)
             print('Epoch %d: %.5f accuracy' % (epoch, accuracy), flush=True)
+
+            self.monitor_network()
 
             if not epoch%5:
                 test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)

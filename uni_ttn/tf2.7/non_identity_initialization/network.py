@@ -34,14 +34,15 @@ class Network:
                 self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
-        if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
-        else:
-            lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
-                0.025,
-                decay_steps=200,
-                decay_rate=1,
-                staircase=True)
-            self.opt = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
+        # if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
+        # else:
+        #     lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
+        #         0.025,
+        #         decay_steps=200,
+        #         decay_rate=1,
+        #         staircase=True)
+        #     self.opt = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
+        self.opt = tf.keras.optimizers.SGD()
 
         chars = string.ascii_lowercase
         if self.num_anc < 4:
@@ -49,7 +50,7 @@ class Network:
 
         self.grads = None
 
-    @tf.function
+    # @tf.function
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
@@ -104,7 +105,7 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
-    @tf.function
+    # @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(label_batch, self.get_network_output(input_batch))
 
@@ -204,6 +205,7 @@ class Layer:
         unitary_matrix = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
 
         # unitary_matrix = self.apply_fixed_unitary(unitary_matrix)
+        self.unitary_matrix = unitary_matrix
 
         unitary_tensor = tf.reshape(unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
         return unitary_tensor
