@@ -42,8 +42,8 @@ class Network:
         else:
             raise NotImplemented
 
-        chars = string.ascii_lowercase
         if self.num_anc < 4:
+            chars = string.ascii_lowercase
             self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
 
         self.grads = None
