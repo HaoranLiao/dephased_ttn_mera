@@ -11,7 +11,7 @@ import data
 from ray import tune
 from filelock import FileLock
 
-#os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
@@ -55,7 +55,7 @@ def run_all(i):
 
         test_accs.append(round(test_acc, 4))
         train_accs.append(round(train_acc, 4))
-        print('Time (hr): %.1f' % ((time.time()-start_time)/3600), flush=True)
+        print('Time (hr): %.4f' % ((time.time()-start_time)/3600), flush=True)
 
     print(f'\nSetting {i} Train Accs: {train_accs}\t')
     print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
@@ -79,7 +79,7 @@ class Model:
         if gpus:
             for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, config['meta']['set_memory_growth'])
             logical_gpus = tf.config.list_logical_devices('GPU')
-            print('Physical GPUs:,', len(gpus), 'Logical GPUs: ', len(logical_gpus), flush=True)
+            print('Physical GPUs:', len(gpus), 'Logical GPUs:', len(logical_gpus), flush=True)
 
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
@@ -95,16 +95,16 @@ class Model:
                     digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
-        print('Sample Size: %s' % self.train_images.shape[0])
+        print('Train Sample Size: %s' % len(self.train_images), flush=True)
 
         if val_data is not None:
-            print('Validation Split: %.2f' % val_split, flush=True)
             self.val_images, self.val_labels = val_data
+            print('Validation Split: %.2f\t Size: %d' % (val_split, len(self.val_images)), flush=True)
         else:
-            assert config['data']['val_split'] == 0
-            print('No Validation', flush=True)
+            assert not config['data']['val_split']; print('No Validation', flush=True)
 
         self.test_images, self.test_labels = test_data
+        print('Test Sample Size: %s' % len(self.test_images), flush=True)
 
         if data_im_size == [8, 8] and config['data']['use_8by8_pixel_dict']:
             print('Using 8x8 Pixel Dict', flush=True)
@@ -136,7 +136,7 @@ class Model:
             accuracy = self.run_epoch(batch_size)
             print('Epoch %d: %.5f accuracy' % (epoch, accuracy), flush=True)
 
-            if not epoch%5:
+            if not epoch % 1:
                 test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
                 print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
 
@@ -171,24 +171,23 @@ class Model:
             else: return False
         return True
 
-    def run_epoch(self, batch_size, grad_accumulation=True):
+    def run_epoch(self, batch_size, epoch, grad_accumulation=True):
         if not grad_accumulation:
             batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
             for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
                 self.network.update_no_processing(train_image_batch, train_label_batch)
         else:
             exec_batch_size = self.config['data']['execute_batch_size']
-            # exec_batch_size = batch_size
             counter = batch_size // exec_batch_size
             assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
             batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
             for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
                 if counter > 1:
                     counter -= 1
-                    self.network.update(train_image_batch, train_label_batch, apply_grads=False)
+                    self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=False)
                 else:
                     counter = batch_size // exec_batch_size
-                    self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
+                    self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=True, counter=counter)
 
         # if val_split:
         #     assert self.config['data']['val_split'] > 0
