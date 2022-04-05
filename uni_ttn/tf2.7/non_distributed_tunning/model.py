@@ -136,7 +136,7 @@ class Model:
             accuracy = self.run_epoch(batch_size)
             print('Epoch %d: %.5f accuracy' % (epoch, accuracy), flush=True)
 
-            if not epoch % 1:
+            if not epoch % 2:
                 test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
                 print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
 
@@ -261,10 +261,15 @@ if __name__ == "__main__":
         verbose=3,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.005, 0.025]),
-                'tune_init_std': tune.grid_search([1, 0.1, 0.01, 0.001])},
-                'a':
-        local_dir='~/dephased_ttn_project/uni_ttn/ray_results',
+                'tune_lr': 0.005, # not used in spsa
+                'tune_init_std': 0.01,
+                'a': tune.choice(np.arange(1, 50)),
+                'b': tune.choice(np.arange(1, 50)),
+                'A': tune.choice(np.arange(1, 10)),
+                's': tune.sample_from(lambda _: np.random.uniform(0, 5)),
+                't': tune.sample_from(lambda _: np.random.uniform(0, 3)),
+                'gamma': tune.sample_from(lambda _: np.random.uniform(0, 1))},
+        local_dir='~/dephased_ttn_project/uni_ttn/ray_results/angle_spsa/',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
         log_to_file=True,
