@@ -38,7 +38,7 @@ class Network:
             if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
             else: self.opt = tf.keras.optimizers.Adam(lr)
         elif config['tree']['opt']['opt'] == 'spsa':
-            self.opt = spsa.Spsa(self, self.config)
+            self.opt = spsa.Spsa(self, self.config['tree']['opt']['spsa'])
         else:
             raise NotImplemented
 

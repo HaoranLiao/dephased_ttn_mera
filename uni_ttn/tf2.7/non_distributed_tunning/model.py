@@ -264,6 +264,7 @@ if __name__ == "__main__":
                 'deph_p': deph_p,
                 'tune_lr': tune.grid_search([0.005, 0.025]),
                 'tune_init_std': tune.grid_search([1, 0.1, 0.01, 0.001])},
+                'a':
         local_dir='~/dephased_ttn_project/uni_ttn/ray_results',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,

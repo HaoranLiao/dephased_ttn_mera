@@ -3,8 +3,7 @@ import tensorflow as tf
 class Spsa():
     _name = 'Spsa'
 
-    def __init__(self, network, config):
-        hparams = config['tree']['opt']['spsa']
+    def __init__(self, network, hparams):
         self.a = hparams['a']
         self.b = hparams['b']
         self.A = hparams['A']
