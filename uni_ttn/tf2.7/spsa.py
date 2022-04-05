@@ -1,6 +1,8 @@
 import tensorflow as tf
 
-class Spsa_Optimizer():
+class Spsa():
+    _name = 'Spsa'
+
     def __init__(self, network, config):
         hparams = config['tree']['opt']['spsa']
         self.a = hparams['a']

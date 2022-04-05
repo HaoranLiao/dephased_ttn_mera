@@ -35,12 +35,12 @@ class Network:
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
         if config['tree']['opt']['opt'] == 'adam':
-            self.exact_grad = True
             if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
             else: self.opt = tf.keras.optimizers.Adam(lr)
         elif config['tree']['opt']['opt'] == 'spsa':
-            self.exact_grad = False
-            self.opt = spsa.Spsa_Optimizer(self, self.config)
+            self.opt = spsa.Spsa(self, self.config)
+        else:
+            raise NotImplemented
 
         chars = string.ascii_lowercase
         if self.num_anc < 4:
@@ -75,7 +75,7 @@ class Network:
             final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
         else:
-            raise Exception('Not supported')
+            raise NotImplemented
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
@@ -89,11 +89,11 @@ class Network:
         input_batch = tf.constant(input_batch, dtype=tf.complex64)
         label_batch = tf.constant(label_batch, dtype=tf.float32)
 
-        if self.exact_grad:
+        if self.opt._name == 'Adam':
             with tf.GradientTape() as tape:
                 loss = self.loss(input_batch, label_batch)
             grads = tape.gradient(loss, self.var_list)
-        else:
+        elif self.opt._name == 'Spsa':
             grads = self.opt.get_update(epoch, input_batch, label_batch)
 
         if not self.grads:
