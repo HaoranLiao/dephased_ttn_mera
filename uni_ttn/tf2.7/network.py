@@ -1,6 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import string
+import spsa
 
 
 class Network:
@@ -33,8 +34,13 @@ class Network:
                 self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
-        if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
-        else: self.opt = tf.keras.optimizers.Adam(lr)
+        if config['tree']['opt']['opt'] == 'adam':
+            self.exact_grad = True
+            if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
+            else: self.opt = tf.keras.optimizers.Adam(lr)
+        elif config['tree']['opt']['opt'] == 'spsa':
+            self.exact_grad = False
+            self.opt = spsa.Spsa_Optimizer(self, self.config)
 
         chars = string.ascii_lowercase
         if self.num_anc < 4:
@@ -79,13 +85,17 @@ class Network:
         label_batch = tf.constant(label_batch, dtype=tf.float32)
         self.opt.minimize(self.loss(input_batch, label_batch), var_list=self.var_list)
 
-    def update(self, input_batch: np.ndarray, label_batch: np.ndarray, apply_grads=True, counter=1):
+    def update(self, input_batch: np.ndarray, label_batch: np.ndarray, epoch, apply_grads=True, counter=1):
         input_batch = tf.constant(input_batch, dtype=tf.complex64)
         label_batch = tf.constant(label_batch, dtype=tf.float32)
 
-        with tf.GradientTape() as tape:
-            loss = self.loss(input_batch, label_batch)
-        grads = tape.gradient(loss, self.var_list)
+        if self.exact_grad:
+            with tf.GradientTape() as tape:
+                loss = self.loss(input_batch, label_batch)
+            grads = tape.gradient(loss, self.var_list)
+        else:
+            grads = self.opt.get_update(epoch, input_batch, label_batch)
+
         if not self.grads:
             self.grads = grads
         else:

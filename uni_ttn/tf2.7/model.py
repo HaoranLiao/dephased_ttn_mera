@@ -128,7 +128,7 @@ class Model:
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc, self.history_val_acc = [], [-1]
         for epoch in range(epochs):
-            train_accuracy = self.run_epoch(batch_size)
+            train_accuracy = self.run_epoch(batch_size, epoch)
 
             if not epoch % 2:
                 val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
@@ -176,7 +176,7 @@ class Model:
             else: return False
         return True
 
-    def run_epoch(self, batch_size, grad_accumulation=True):
+    def run_epoch(self, batch_size, epoch, grad_accumulation=True):
         if not grad_accumulation:
             batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
             for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
@@ -189,10 +189,10 @@ class Model:
             for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
                 if counter > 1:
                     counter -= 1
-                    self.network.update(train_image_batch, train_label_batch, apply_grads=False)
+                    self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=False)
                 else:
                     counter = batch_size // exec_batch_size
-                    self.network.update(train_image_batch, train_label_batch, apply_grads=True, counter=counter)
+                    self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=True, counter=counter)
 
         train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
         return train_accuracy
