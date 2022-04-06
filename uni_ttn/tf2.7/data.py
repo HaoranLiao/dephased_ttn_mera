@@ -25,9 +25,13 @@ class DataGenerator:
         self.train_images = trig_featurize_qubit(self.train_images)
         self.test_images = trig_featurize_qubit(self.test_images)
 
+    def featurize_exp(self):
+        self.train_images = exp_featurize(self.train_images)
+        self.test_images = exp_featurize(self.test_images)
+
     def export(self, path):
-        train_dest = path + '_train'
-        test_dest = path + '_test'
+        train_dest = path + '_train_exp'
+        test_dest = path + '_test_exp'
         save_data(self.train_images, self.train_labels, train_dest)
         save_data(self.test_images, self.test_labels, test_dest)
 
@@ -203,7 +207,11 @@ if __name__ == '__main__':
     data1.shrink_images([8, 8])
     dim = 2
     data1.featurize(dim)
-    
+
     data2 = DataGenerator()
     data2.shrink_images([8, 8])
     data2.featurize_qubit()
+
+    data3 = DataGenerator()
+    data3.shrink_images([8, 8])
+    data3.featurize_exp()
