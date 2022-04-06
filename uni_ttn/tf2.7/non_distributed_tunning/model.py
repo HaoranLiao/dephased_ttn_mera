@@ -273,6 +273,7 @@ if __name__ == "__main__":
         local_dir='~/dephased_ttn_project/uni_ttn/ray_results/angle_spsa/',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
+        progress_reporter=tune.CLIReporter(max_progress_rows=100),
         log_to_file=True,
         name='anc%.0f_deph%.0f' % (num_anc, deph_p)
     )
