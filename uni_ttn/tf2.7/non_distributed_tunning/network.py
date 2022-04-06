@@ -1,8 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import string, sys
-sys.path.append('../')
-import spsa
+import string
 
 
 class Network:
@@ -35,16 +33,11 @@ class Network:
                 self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
-        if config['tree']['opt']['opt'] == 'adam':
-            if not tune_config.get('tune_lr', False): self.opt = tf.keras.optimizers.Adam()
-            else: self.opt = tf.keras.optimizers.Adam(tune_config['tune_lr'])
-        elif config['tree']['opt']['opt'] == 'spsa':
-            self.opt = spsa.Spsa(self, tune_config)
-        else:
-            raise NotImplemented
+        if not tune_config.get('tune_lr', False): self.opt = tf.keras.optimizers.Adam()
+        else: self.opt = tf.keras.optimizers.Adam(tune_config['tune_lr'])
 
+        chars = string.ascii_lowercase
         if self.num_anc < 4:
-            chars = string.ascii_lowercase
             self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
 
         self.grads = None
@@ -76,7 +69,7 @@ class Network:
             final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
         else:
-            raise NotImplemented
+            raise Exception('Not supported')
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
@@ -84,22 +77,19 @@ class Network:
     def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):
         input_batch = tf.constant(input_batch, dtype=tf.complex64)
         label_batch = tf.constant(label_batch, dtype=tf.float32)
+        # self.opt.minimize(self.loss(input_batch, label_batch), var_list=self.var_list)
         with tf.GradientTape() as tape:
             loss = self.loss(input_batch, label_batch)
         grads = tape.gradient(loss, self.var_list)
         self.opt.apply_gradients(zip(grads, self.var_list))
 
-    def update(self, input_batch: np.ndarray, label_batch: np.ndarray, epoch, apply_grads=True, counter=1):
+    def update(self, input_batch: np.ndarray, label_batch: np.ndarray, apply_grads=True, counter=1):
         input_batch = tf.constant(input_batch, dtype=tf.complex64)
         label_batch = tf.constant(label_batch, dtype=tf.float32)
 
-        if self.opt._name == 'Adam':
-            with tf.GradientTape() as tape:
-                loss = self.loss(input_batch, label_batch)
-            grads = tape.gradient(loss, self.var_list)
-        elif self.opt._name == 'Spsa':
-            grads = self.opt.get_update(epoch, input_batch, label_batch)
-
+        with tf.GradientTape() as tape:
+            loss = self.loss(input_batch, label_batch)
+        grads = tape.gradient(loss, self.var_list)
         if not self.grads:
             self.grads = grads
         else:
@@ -184,3 +174,5 @@ class Layer:
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
         output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
         return output
+
+
