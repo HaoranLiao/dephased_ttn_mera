@@ -1,7 +1,0 @@
-/home/qc_whaley/dephased_ttn_project/uni_ttn/ray_results/angle_spsa/anc0_deph0/UniTTN_fe71c_00018_18_A=4,a=44,b=44,gamma=0.80744,s=4.4628,t=1.618_2022-04-06_01-45-43
-Physical GPUs: 1 Logical GPUs: 1
-Load Data From File
-Train Sample Size: 5000
-No Validation
-Test Sample Size: 1902
-Using 8x8 Pixel Dict

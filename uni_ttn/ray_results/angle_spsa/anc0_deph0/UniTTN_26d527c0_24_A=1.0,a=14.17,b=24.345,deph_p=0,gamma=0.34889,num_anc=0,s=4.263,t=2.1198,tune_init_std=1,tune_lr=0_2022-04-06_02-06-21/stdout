@@ -1,7 +1,0 @@
-/home/qc_whaley/dephased_ttn_project/uni_ttn/ray_results/angle_spsa/anc0_deph0/UniTTN_26d527c0_24_A=1.0,a=14.17,b=24.345,deph_p=0,gamma=0.34889,num_anc=0,s=4.263,t=2.1198,tune_init_std=1,tune_lr=0_2022-04-06_02-06-21
-Physical GPUs: 1 Logical GPUs: 1
-Load Data From File
-Train Sample Size: 5000
-No Validation
-Test Sample Size: 1902
-Using 8x8 Pixel Dict
