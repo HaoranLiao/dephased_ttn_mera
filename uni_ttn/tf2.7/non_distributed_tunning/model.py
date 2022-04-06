@@ -257,7 +257,6 @@ if __name__ == "__main__":
         UniTTN,
         metric='test_accuracy',
         mode='max',
-        #stop={"training_iteration": 100},
         verbose=3,
         num_samples=40,
         config={'num_anc': num_anc,
@@ -274,6 +273,7 @@ if __name__ == "__main__":
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
         progress_reporter=tune.CLIReporter(max_progress_rows=100),
+        search_alg=tune.suggest.ax.AxSearch(metric="score"),
         log_to_file=True,
         name='anc%.0f_deph%.0f' % (num_anc, deph_p)
     )
