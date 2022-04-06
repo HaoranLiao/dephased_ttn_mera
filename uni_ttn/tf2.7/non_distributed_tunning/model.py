@@ -249,7 +249,7 @@ if __name__ == "__main__":
 
     asha_scheduler = tune.schedulers.ASHAScheduler(
         time_attr='training_iteration',
-        max_t=300,
+        max_t=200,
         grace_period=50
     )
 
@@ -257,7 +257,7 @@ if __name__ == "__main__":
         UniTTN,
         metric='test_accuracy',
         mode='max',
-        stop={"training_iteration": 100},
+        #stop={"training_iteration": 100},
         verbose=3,
         num_samples=40,
         config={'num_anc': num_anc,
