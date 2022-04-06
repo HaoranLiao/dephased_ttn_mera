@@ -9,6 +9,7 @@ from tqdm import tqdm
 import network
 import data
 from ray import tune
+from ray.tune.suggest.ax import AxSearch
 from filelock import FileLock
 
 #os.environ["CUDA_VISIBLE_DEVICES"] = '1'
@@ -263,17 +264,17 @@ if __name__ == "__main__":
                 'deph_p': deph_p,
                 'tune_lr': 0, # not used in spsa
                 'tune_init_std': 1,
-                'a': tune.choice(np.arange(1, 50)),
-                'b': tune.choice(np.arange(1, 50)),
-                'A': tune.choice(np.arange(1, 10)),
-                's': tune.sample_from(lambda _: np.random.uniform(0, 5)),
-                't': tune.sample_from(lambda _: np.random.uniform(0, 3)),
-                'gamma': tune.sample_from(lambda _: np.random.uniform(0, 1))},
+                'a': tune.uniform(1, 50),
+                'b': tune.uniform(1, 50),
+                'A': tune.uniform(1, 10),
+                's': tune.uniform(0, 5),
+                't': tune.uniform(0, 3),
+                'gamma': tune.uniform(0, 1)},
         local_dir='~/dephased_ttn_project/uni_ttn/ray_results/angle_spsa/',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
         progress_reporter=tune.CLIReporter(max_progress_rows=100),
-        search_alg=tune.suggest.ax.AxSearch(metric="score"),
+        search_alg=AxSearch(metric="score"),
         log_to_file=True,
         name='anc%.0f_deph%.0f' % (num_anc, deph_p)
     )
