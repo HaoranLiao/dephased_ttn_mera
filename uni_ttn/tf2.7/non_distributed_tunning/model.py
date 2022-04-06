@@ -11,7 +11,7 @@ import data
 from ray import tune
 from filelock import FileLock
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+#os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
@@ -249,8 +249,8 @@ if __name__ == "__main__":
 
     asha_scheduler = tune.schedulers.ASHAScheduler(
         time_attr='training_iteration',
-        max_t=100,
-        grace_period=30
+        max_t=300,
+        grace_period=50
     )
 
     analysis = tune.run(
@@ -262,8 +262,8 @@ if __name__ == "__main__":
         num_samples=40,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': 0.005, # not used in spsa
-                'tune_init_std': 0.01,
+                'tune_lr': 0, # not used in spsa
+                'tune_init_std': 1,
                 'a': tune.choice(np.arange(1, 50)),
                 'b': tune.choice(np.arange(1, 50)),
                 'A': tune.choice(np.arange(1, 10)),

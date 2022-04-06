@@ -1,6 +1,6 @@
 data:
- path: '/home/haoranliao/dephased_ttn_project/mnist8by8/mnist8by8'
-# path: '/home/qc_whaley/dephased_ttn_project/mnist8by8/mnist8by8'
+ #path: '/home/haoranliao/dephased_ttn_project/mnist8by8/mnist8by8'
+ path: '/home/qc_whaley/dephased_ttn_project/mnist8by8/mnist8by8'
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                 # list or list of single
@@ -14,7 +14,7 @@ data:
  use_8by8_pixel_dict: True
 
 meta:
- set_memory_growth: False
+ set_memory_growth: True
  random_seed: 42
  list_num_anc: [0]                # list or list of single
  num_repeat: -1
@@ -38,8 +38,8 @@ tree:
   init_std: -1
 
  opt:
-  opt: 'adam'
+  opt: 'spsa'
   adam:
-   user_lr: False
+   user_lr: True
    lr: 0.0001
 
