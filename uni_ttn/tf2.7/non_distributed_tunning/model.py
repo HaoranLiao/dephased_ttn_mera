@@ -259,6 +259,7 @@ if __name__ == "__main__":
         mode='max',
         stop={"training_iteration": 100},
         verbose=3,
+        num_samples=40,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
                 'tune_lr': 0.005, # not used in spsa
