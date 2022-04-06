@@ -254,6 +254,9 @@ if __name__ == "__main__":
         grace_period=50
     )
 
+    ax_search = AxSearch(metric="score",
+                         points_to_evaluate=[{'num_anc': 0, 'deph_p': 0, 'tune_lr': 0, 'tune_init_std': 1, 'a': 14.206306419883958, 'b': 26.33438842614464, 'A': 1.0, 's': 3.1529545707111484, 't': 1.606894338729561, 'gamma': 0.3942720565688982}])
+
     analysis = tune.run(
         UniTTN,
         metric='test_accuracy',
@@ -274,7 +277,7 @@ if __name__ == "__main__":
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
         progress_reporter=tune.CLIReporter(max_progress_rows=100),
-        search_alg=AxSearch(metric="score"),
+        search_alg=ax_search,
         log_to_file=True,
         name='anc%.0f_deph%.0f' % (num_anc, deph_p)
     )
