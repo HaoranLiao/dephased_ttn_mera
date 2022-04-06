@@ -254,19 +254,22 @@ if __name__ == "__main__":
         grace_period=50
     )
 
-    ax_search = AxSearch(metric="score",
-                         points_to_evaluate=[{'num_anc': 0, 'deph_p': 0, 'tune_lr': 0, 'tune_init_std': 1, 'a': 14.206306419883958, 'b': 26.33438842614464, 'A': 1.0, 's': 3.1529545707111484, 't': 1.606894338729561, 'gamma': 0.3942720565688982}])
+    ax_search = AxSearch(metric="score")
+                         #points_to_evaluate=[
+                             #{'num_anc': 0, 'deph_p': 0, 'tune_lr': 0, 'tune_init_std': 1, 'a': 14.206306419883958, 'b': 26.33438842614464, 'A': 1.0, 's': 3.1529545707111484, 't': 1.606894338729561, 'gamma': 0.3942720565688982},
+                             #{'num_anc': 0, 'deph_p': 0, 'tune_lr': 0, 'tune_init_std': 1, 'a': 14.618012336082757, 'b': 35.91944892145693, 'A': 6.50742934923619, 's': 2.9242282127961516, 't': 2.1714670211076736, 'gamma': 0.1734970062971115}
+                             #])
 
     analysis = tune.run(
         UniTTN,
         metric='test_accuracy',
         mode='max',
         verbose=3,
-        num_samples=40,
+        num_samples=60,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
                 'tune_lr': 0, # not used in spsa
-                'tune_init_std': 1,
+                'tune_init_std': 0.1,
                 'a': tune.uniform(1, 50),
                 'b': tune.uniform(1, 50),
                 'A': tune.uniform(1, 10),
