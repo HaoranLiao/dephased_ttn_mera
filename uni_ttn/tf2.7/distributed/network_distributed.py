@@ -19,7 +19,7 @@ class Network:
         if not deph_p: self.deph_data, self.deph_net = False, False
 
         self.num_out_qubits = self.num_anc + 1
-        if self.num_anc and self.deph_p > 0: self.construct_dephasing_krauss()
+        if self.num_anc and self.deph_p > 0: self.construct_dephasing_kraus()
 
         self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
         if self.config['data']['distributed']:
@@ -116,10 +116,10 @@ class Network:
         return self.cce(label_batch, self.get_network_output(input_batch))
 
     def dephase(self, tensor):
-        if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.krauss_ops, tensor, self.krauss_ops)
+        if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.kraus_ops, tensor, self.kraus_ops)
         else: return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
 
-    def construct_dephasing_krauss(self):
+    def construct_dephasing_kraus(self):
         m1 = tf.cast(tf.math.sqrt(1 - self.deph_p), tf.complex64) * tf.eye(2, dtype=tf.complex64)
         m2 = tf.cast(tf.math.sqrt(self.deph_p), tf.complex64) * tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
         m3 = tf.cast(tf.math.sqrt(self.deph_p), tf.complex64) * tf.constant([[0, 0], [0, 1]], dtype=tf.complex64)
@@ -127,12 +127,12 @@ class Network:
         combinations = tf.reshape(
             tf.transpose(tf.meshgrid(*[[0, 1, 2]]*self.num_out_qubits)),
             [-1, self.num_out_qubits])
-        self.krauss_ops = []
+        self.kraus_ops = []
         for combo in combinations:
             tensor_prod = m[combo[0]]
             for idx in combo[1:]: tensor_prod = tf.experimental.numpy.kron(tensor_prod, m[idx])
-            self.krauss_ops.append(tensor_prod)
-        self.krauss_ops = tf.stack(self.krauss_ops)
+            self.kraus_ops.append(tensor_prod)
+        self.kraus_ops = tf.stack(self.kraus_ops)
 
 
 class Layer:
