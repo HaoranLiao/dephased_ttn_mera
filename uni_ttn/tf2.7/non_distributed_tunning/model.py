@@ -268,8 +268,8 @@ if __name__ == "__main__":
         num_samples=1,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.005, 0.025, 0.125]) #0, # not used in spsa
-                'tune_init_std': tune.grid_search([10, 1, 0.1, 0.01, 0.001]) #0.1,
+                'tune_lr': tune.grid_search([0.005, 0.025, 0.125]), #0, # not used in spsa
+                'tune_init_std': tune.grid_search([10, 1, 0.1, 0.01, 0.001]), #0.1,
                 # 'a': tune.uniform(1, 50),
                 # 'b': tune.uniform(1, 50),
                 # 'A': tune.uniform(1, 10),
