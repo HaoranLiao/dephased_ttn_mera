@@ -265,11 +265,11 @@ if __name__ == "__main__":
         metric='test_accuracy',
         mode='max',
         verbose=3,
-        num_samples=1,
+        num_samples=30,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.005, 0.025, 0.125]), #0, # not used in spsa
-                'tune_init_std': tune.grid_search([10, 1, 0.1, 0.01, 0.001]), #0.1,
+                'tune_lr': 0.025, #tune.grid_search([0.005, 0.025, 0.125]), #0, # not used in spsa
+                'tune_init_std': tune.uniform(0.001, 1) #tune.grid_search([0.1, 0.01, 0.001, 0.0001]), #0.1,
                 # 'a': tune.uniform(1, 50),
                 # 'b': tune.uniform(1, 50),
                 # 'A': tune.uniform(1, 10),
@@ -277,11 +277,11 @@ if __name__ == "__main__":
                 # 't': tune.uniform(0, 3),
                 # 'gamma': tune.uniform(0, 1)
                 },
-        local_dir='~/dephased_ttn_project/uni_ttn/ray_results/angle_spsa/',
+        local_dir='~/dephased_ttn_project/uni_ttn/ray_results/exp_adam/',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
         progress_reporter=tune.CLIReporter(max_progress_rows=100),
-        # search_alg=ax_search,
+        search_alg=ax_search,
         log_to_file=True,
         name='anc%.0f_deph%.0f' % (num_anc, deph_p)
     )
