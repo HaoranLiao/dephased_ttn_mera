@@ -250,8 +250,8 @@ if __name__ == "__main__":
 
     asha_scheduler = tune.schedulers.ASHAScheduler(
         time_attr='training_iteration',
-        max_t=100,
-        grace_period=40
+        max_t=80,
+        grace_period=30
     )
 
     ax_search = AxSearch(metric="score")
@@ -268,8 +268,8 @@ if __name__ == "__main__":
         num_samples=1,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.001, 0.005, 0.025]), #0, # not used in spsa
-                'tune_init_std': tune.grid_search([1, 0.1, 0.01, 0.001, 0.0001]), #0.1,
+                'tune_lr': tune.grid_search([0.005, 0.025]), #0, # not used in spsa
+                'tune_init_std': tune.grid_search([0.5, 0.1, 0.05, 0.01, 0.005, 0.001]), #0.1,
                 # 'a': tune.uniform(1, 50),
                 # 'b': tune.uniform(1, 50),
                 # 'A': tune.uniform(1, 10),
@@ -277,7 +277,7 @@ if __name__ == "__main__":
                 # 't': tune.uniform(0, 3),
                 # 'gamma': tune.uniform(0, 1)
                 },
-        local_dir='~/dephased_ttn_project/uni_ttn/ray_results/angle_adam/',
+        local_dir='~/dephased_ttn_project/uni_ttn/ray_results/exp_adam/',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
         progress_reporter=tune.CLIReporter(max_progress_rows=100),

@@ -5,8 +5,8 @@ data:
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                 # list or list of single
  grad_accumulation: True
- execute_batch_size: 250
- eval_batch_size_factor: 250
+ execute_batch_size: 125
+ eval_batch_size_factor: 2
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000              # int or None
@@ -14,9 +14,9 @@ data:
  use_8by8_pixel_dict: True
 
 meta:
- set_memory_growth: True
+ set_memory_growth: False
  random_seed: 42
- list_num_anc: [0]                # list or list of single
+ list_num_anc: [3]                # list or list of single
  num_repeat: -1
  auto_epochs:
   enabled: False
@@ -30,7 +30,7 @@ meta:
  deph:
   data: True
   network: True
-  p: [0]
+  p: [1]
 
 tree:
  param:
