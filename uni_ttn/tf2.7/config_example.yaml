@@ -3,8 +3,8 @@ data:
  val_split: 0.2857
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
- execute_batch_size: 125
- eval_batch_size_factor: 2
+ execute_batch_size: 250
+ eval_batch_size_factor: 20
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 7000              # int or None
@@ -14,7 +14,7 @@ data:
 meta:
  set_memory_growth: False
  random_seed: 42
- list_num_anc: [3]                # list or list of single
+ list_num_anc: [0, 1, 2]                # list or list of single
  num_repeat: 5
  auto_epochs:
   enabled: False
@@ -28,12 +28,12 @@ meta:
  deph:
   data: True
   network: True
-  p: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+  p: [0.6]
 
 tree:
  param:
   init_mean: 0
-  init_std: [0.001, 0.001, 0.001, 0.05, 0.05, 0.05]
+  init_std: [0.5, 0.2, 0.01]
 
  opt:
   opt: 'adam'
