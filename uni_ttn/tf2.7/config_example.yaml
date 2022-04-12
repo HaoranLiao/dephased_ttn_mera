@@ -28,7 +28,11 @@ meta:
  deph:
   data: True
   network: True
+<<<<<<< HEAD
+  p: [0.4]
+=======
   p: [0.8]
+>>>>>>> 9fa8ae705cd8d681d4258ed63eda09cb2d94d00f
 
 tree:
  param:
