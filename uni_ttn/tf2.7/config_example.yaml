@@ -39,7 +39,7 @@ tree:
   opt: 'adam'
   adam:
    user_lr: True
-   lr: [0.005]
+   lr: [0.025]
 
   spsa:
    a: 28
