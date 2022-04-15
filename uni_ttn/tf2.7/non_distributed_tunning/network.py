@@ -120,12 +120,11 @@ class Network:
         else: return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
 
     def construct_dephasing_kraus(self):
-        m1 = tf.cast(tf.math.sqrt(1 - self.deph_p), tf.complex64) * tf.eye(2, dtype=tf.complex64)
-        m2 = tf.cast(tf.math.sqrt(self.deph_p), tf.complex64) * tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
-        m3 = tf.cast(tf.math.sqrt(self.deph_p), tf.complex64) * tf.constant([[0, 0], [0, 1]], dtype=tf.complex64)
-        m = (m1, m2, m3)
+        m1 = tf.cast(tf.math.sqrt((2 - self.deph_p) / 2), tf.complex64) * tf.constant([[1, 0], [0, 1]], dtype=tf.complex64)
+        m2 = tf.cast(tf.math.sqrt(self.deph_p / 2), tf.complex64) * tf.constant([[1, 0], [0, -1]], dtype=tf.complex64)
+        m = (m1, m2)
         combinations = tf.reshape(
-            tf.transpose(tf.meshgrid(*[[0, 1, 2]]*self.num_out_qubits)),
+            tf.transpose(tf.meshgrid(*[[0, 1]]*self.num_out_qubits)),
             [-1, self.num_out_qubits])
         self.kraus_ops = []
         for combo in combinations:
