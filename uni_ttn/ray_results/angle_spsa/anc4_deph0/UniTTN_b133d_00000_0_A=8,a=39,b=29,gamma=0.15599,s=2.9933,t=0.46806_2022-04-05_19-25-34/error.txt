@@ -1,0 +1,27 @@
+Failure # 1 (occurred at 2022-04-05_19-25-37)
+Traceback (most recent call last):
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/trial_runner.py", line 718, in _process_trial
+    results = self.trial_executor.fetch_result(trial)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/ray_trial_executor.py", line 688, in fetch_result
+    result = ray.get(trial_future[0], timeout=DEFAULT_GET_TIMEOUT)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/_private/client_mode_hook.py", line 62, in wrapper
+    return func(*args, **kwargs)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/worker.py", line 1496, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::UniTTN.__init__()[39m (pid=97626, ip=128.32.17.9)
+  File "python/ray/_raylet.pyx", line 501, in ray._raylet.execute_task
+  File "python/ray/_raylet.pyx", line 451, in ray._raylet.execute_task.function_executor
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/_private/function_manager.py", line 563, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/trainable.py", line 98, in __init__
+    self.setup(copy.deepcopy(self.config))
+  File "/tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/model.py", line 218, in setup
+    self.model = Model(data_path, digits, val_split, deph_p, num_anc, config, tune_config)
+  File "/tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/model.py", line 91, in __init__
+    train_data, val_data, test_data = data.get_data_file(
+  File "/tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/data.py", line 143, in get_data_file
+    (train_raw_im, train_raw_lab) = load_data(data_path + '_train')
+  File "/tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/data.py", line 188, in load_data
+    dest = open(path, 'rb')
+FileNotFoundError: [Errno 2] No such file or directory: '/home/qc_whaley/dephased_ttn_project/mnist8by8/mnist8by8_train'
+

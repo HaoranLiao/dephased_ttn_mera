@@ -1,0 +1,18 @@
+/home/haoranliao/dephased_ttn_project/uni_ttn/ray_results/angle_spsa/anc1_deph0/UniTTN_1bc96_00000_0_A=8,a=39,b=29,gamma=0.15599,s=2.9933,t=0.46806_2022-04-05_19-50-02
+Physical GPUs: 1 Logical GPUs: 1
+Load Data From File
+Train Sample Size: 5000
+No Validation
+Test Sample Size: 1902
+Using 8x8 Pixel Dict
+> /tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/model.py(192)run_epoch()
+-> self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=True, counter=counter)
+(Pdb) TypeError: update() got multiple values for argument 'apply_grads'
+> /tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/model.py(192)run_epoch()
+-> self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=True, counter=counter)
+(Pdb) *** TypeError: update() missing 2 required positional arguments: 'input_batch' and 'label_batch'
+(Pdb) *** AttributeError: 'Network' object has no attribute 'update_no_preprocessing'
+(Pdb) *** TypeError: update_no_processing() missing 2 required positional arguments: 'input_batch' and 'label_batch'
+(Pdb) <bound method Network.update of <network.Network object at 0x7f22c0e9d4f0>>
+(Pdb) *** TypeError: update() missing 2 required positional arguments: 'input_batch' and 'label_batch'
+(Pdb) (Pdb) (Pdb) 

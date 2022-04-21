@@ -1,0 +1,15 @@
+/home/haoranliao/dephased_ttn_project/uni_ttn/ray_results/angle_spsa/anc4_deph0/UniTTN_23ffe_00000_0_A=8,a=39,b=29,gamma=0.15599,s=2.9933,t=0.46806_2022-04-05_19-43-06
+Physical GPUs: 1 Logical GPUs: 1
+Load Data From File
+Train Sample Size: 5000
+No Validation
+Test Sample Size: 1902
+Using 8x8 Pixel Dict
+> /tmp/pycharm_project_948/uni_ttn/tf2.7/non_distributed_tunning/model.py(223)step()
+-> self.model.run_epoch(batch_size, self.iteration, grad_accumulation=config['data']['grad_accumulation'])
+(Pdb) *** TypeError: update() got multiple values for argument 'apply_grads'
+(Pdb) 0
+(Pdb) <class 'int'>
+(Pdb) True
+(Pdb) 250
+(Pdb) 
