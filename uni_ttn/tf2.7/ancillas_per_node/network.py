@@ -158,7 +158,16 @@ class Layer:
                              + ',y' + cs[self.num_bd:num_bd+num_bd//2] + cs[:num_bd//2] \
                              + '->zy' + cs[num_bd//2:num_bd] + cs[:num_bd//2]
         contracted = tf.einsum(right_contract_str, left_contracted, tf.math.conj(unitary_tensor))
-        # 'zyxabwab -> zyxw'
-        trace_str = 'zyx' + cs[:num_bd//2-1] + 'w' + cs[:num_bd//2-1] + '->zyxw'
-        output = tf.einsum(trace_str, contracted)
+
+        if self.num_anc <= 1:
+            # 'zyxabwab -> zyxw'
+            trace_str = 'zyx' + cs[:num_bd//2-1] + 'w' + cs[:num_bd//2-1] + '->zyxw'
+            output = tf.einsum(trace_str, contracted)
+        elif self.num_anc == 2:
+            # 'zyefghabcd -> zyeafbgchd'
+            output = tf.transpose(contracted, perm=[0, 1, 2, 6, 3, 7, 4, 8, 5, 9])
+            for _ in range(3): output = tf.linalg.trace(output)
+        else:
+            raise NotImplemented
+
         return output
