@@ -211,7 +211,7 @@ if __name__ == '__main__':
     data2 = DataGenerator()
     data2.shrink_images([4, 4])
     data2.featurize_qubit()
-    data2.export('/home/haoranliao/dephased_project/mnist4by4/mnist4by4')
+    data2.export('/home/haoranliao/dephased_ttn_project/mnist4by4/mnist4by4')
 
     # data3 = DataGenerator()
     # data3.shrink_images([8, 8])
