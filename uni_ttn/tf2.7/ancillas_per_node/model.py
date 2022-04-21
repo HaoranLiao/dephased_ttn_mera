@@ -5,7 +5,7 @@ from tqdm import tqdm
 import network
 sys.path.append('../')
 import data
-os.environ["CUDA_VISIBLE_DEVICES"] = '-1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 

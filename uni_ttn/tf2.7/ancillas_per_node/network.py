@@ -138,23 +138,27 @@ class Layer:
         return unitary_tensor
 
     def get_layer_output(self, input):
+        cs, num_bd = self.cs, self.num_bd
+
         left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor = self.get_unitary_tensor()
         ancilla = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
         input = tf.einsum('znab, zncd -> znabcd', left_input, right_input)
         for _ in range(self.num_anc):  input = tf.tensordot(input, ancilla, 0)
-        input = tf.transpose(input, perm=[0, 1, *list(range(2, 2+self.num_bd, 2)), *list(range(3, 3+self.num_bd, 2))])
+        perm = [0, 1, *list(range(2, 2+num_bd, 2)), *list(range(3, 3+num_bd, 2))]
+        input = tf.transpose(input, perm=perm)
 
-        cs, num_bd = self.cs, self.num_bd
-        # left_contracted = tf.tensordot(unitary_tensor, input, [list(range(1, 1+self.num_bd//2)), list(range(2, 2+self.num_bd//2))])
-        # 'nabcdef, znabcghi -> znghidef'
-        left_contract_str = 'n' + cs[:num_bd] + ', zn' + cs[:num_bd//2] + cs[num_bd:num_bd+num_bd//2] \
-                            + '-> zn' + cs[self.num_bd:num_bd+num_bd//2] + cs[num_bd//2:num_bd]
+        # use y instead of n in the following strings
+        # 'yabcdef, zyabcghi -> zydefghi'
+        left_contract_str = 'y' + cs[:num_bd] + ',zy' + cs[:num_bd//2] + cs[num_bd:num_bd+num_bd//2] \
+                             + '->zy' + cs[num_bd//2:num_bd] + cs[self.num_bd:num_bd+num_bd//2]
         left_contracted = tf.einsum(left_contract_str, unitary_tensor, input)
-        # 'zyghidef, ydefabc-> zyghiabc'
-        right_contract_str = 'zy' + left_contract_str.split('->')[1].strip()[2:] + ', y' + cs[num_bd//2:num_bd] + cs[:num_bd//2] \
-                            + '-> zy' + cs[self.num_bd:num_bd+num_bd//2] + cs[:num_bd//2]
-        right_contracted = tf.einsum(right_contract_str, left_contracted, tf.math.conj(unitary_tensor))
-
-        output = 
+        # 'zydefghi, yghiabc -> zydefabc'
+        right_contract_str = 'zy' + left_contract_str.split('->')[1].strip()[2:] \
+                             + ',y' + cs[self.num_bd:num_bd+num_bd//2] + cs[:num_bd//2] \
+                             + '->zy' + cs[num_bd//2:num_bd] + cs[:num_bd//2]
+        contracted = tf.einsum(right_contract_str, left_contracted, tf.math.conj(unitary_tensor))
+        # 'zyxabwab -> zyxw'
+        trace_str = 'zyx' + cs[:num_bd//2-1] + 'w' + cs[:num_bd//2-1] + '->zyxw'
+        output = tf.einsum(trace_str, contracted)
         return output
