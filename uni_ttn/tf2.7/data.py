@@ -203,15 +203,16 @@ def load_data(path):
 
 
 if __name__ == '__main__':
-    data1 = DataGenerator()
-    data1.shrink_images([8, 8])
-    dim = 2
-    data1.featurize(dim)
+    # data1 = DataGenerator()
+    # data1.shrink_images([8, 8])
+    # dim = 2
+    # data1.featurize(dim)
 
     data2 = DataGenerator()
-    data2.shrink_images([8, 8])
+    data2.shrink_images([4, 4])
     data2.featurize_qubit()
+    data2.export('~/dephased_project/mnist4by4/mnist4by4')
 
-    data3 = DataGenerator()
-    data3.shrink_images([8, 8])
-    data3.featurize_exp()
+    # data3 = DataGenerator()
+    # data3.shrink_images([8, 8])
+    # data3.featurize_exp()
