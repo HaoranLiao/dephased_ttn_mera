@@ -1,9 +1,0 @@
-/home/haoranliao/dephased_ttn_project/uni_ttn/ray_results/angle_spsa/anc4_deph0/UniTTN_c5992_00000_0_A=8,a=39,b=29,gamma=0.15599,s=2.9933,t=0.46806_2022-04-05_19-40-28
-Physical GPUs: 1 Logical GPUs: 1
-Load Data From File
-Train Sample Size: 5000
-No Validation
-Test Sample Size: 1902
-Using 8x8 Pixel Dict
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-0
