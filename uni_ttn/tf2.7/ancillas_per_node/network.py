@@ -1,6 +1,7 @@
 import tensorflow as tf
 import numpy as np
-import string
+import string, sys
+sys.path.append('../')
 import spsa
 
 
@@ -144,11 +145,16 @@ class Layer:
         for _ in range(self.num_anc):  input = tf.tensordot(input, ancilla, 0)
         input = tf.transpose(input, perm=[0, 1, *list(range(2, 2+self.num_bd, 2)), *list(range(3, 3+self.num_bd, 2))])
 
-        # left_contration_string = 'n' + self.cs[:self.num_bd] + ', zn' + self.cs[:self.num_bd][-2] + self.cs[self.num_bd] \
-        #                          + ', zn' + self.cs[:self.num_bd][-1] + self.cs[self.num_bd+1] \
-        #                          + '-> zn' + self.cs[:self.num_bd-2] + self.cs[self.num_bd] + self.cs[self.num_bd+1]
-        # # 'nabcdef, zneg, znfh -> znabcdgh'
-        # left_contracted = tf.einsum(left_contration_string, unitary_tensor, left_input, right_input)
+        cs, num_bd = self.cs, self.num_bd
+        # left_contracted = tf.tensordot(unitary_tensor, input, [list(range(1, 1+self.num_bd//2)), list(range(2, 2+self.num_bd//2))])
+        # 'nabcdef, znabcghi -> znghidef'
+        left_contract_str = 'n' + cs[:num_bd] + ', zn' + cs[:num_bd//2] + cs[num_bd:num_bd+num_bd//2] \
+                            + '-> zn' + cs[self.num_bd:num_bd+num_bd//2] + cs[num_bd//2:num_bd]
+        left_contracted = tf.einsum(left_contract_str, unitary_tensor, input)
+        # 'zyghidef, ydefabc-> zyghiabc'
+        right_contract_str = 'zy' + left_contract_str.split('->')[1].strip()[2:] + ', y' + cs[num_bd//2:num_bd] + cs[:num_bd//2] \
+                            + '-> zy' + cs[self.num_bd:num_bd+num_bd//2] + cs[:num_bd//2]
+        right_contracted = tf.einsum(right_contract_str, left_contracted, tf.math.conj(unitary_tensor))
 
-        output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
+        output = 
         return output
