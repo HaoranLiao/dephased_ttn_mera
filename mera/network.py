@@ -1,6 +1,8 @@
 import tensorflow as tf
 import numpy as np
-import string
+import string, sys
+sys.path.append('../uni_ttn/tf2.7/')
+import spsa
 
 
 class Network:
@@ -8,7 +10,8 @@ class Network:
         self.config = config
         self.num_anc = num_anc
         self.num_pixels = num_pixels
-        self.num_layers = int(np.log2(num_pixels))
+        self.num_uni_layers = int(np.log2(num_pixels))
+        self.num_iso_layers = self.num_uni_layers - 1
         self.init_std = init_std
         self.init_mean = config['tree']['param']['init_mean']
         self.deph_data = config['meta']['deph']['data']
@@ -20,9 +23,12 @@ class Network:
         if self.num_anc and self.deph_p > 0: self.construct_dephasing_kraus()
 
         self.layers = []
-        self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
-        for i in range(self.num_layers):
-            self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
+        self.list_num_uni_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_uni_layers)]
+        self.list_num_iso_nodes = self.list_num_uni_nodes[:][:-1]
+        for i in range(self.num_iso_layers):
+            self.layers.append(Uni_Layer(self.list_num_uni_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
+            self.layers.append(Iso_Layer(self.list_num_iso_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
+        self.layers.append(Uni_Layer(self.list_num_uni_nodes[-1], self.num_uni_layers-1, self.num_anc, self.init_mean, self.init_std))
         self.var_list = [layer.param_var_lay for layer in self.layers]
 
         if num_anc:
@@ -55,11 +61,11 @@ class Network:
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
-                [batch_size, 2*self.list_num_nodes[0], self.bond_dim, self.bond_dim])
+                [batch_size, 2*self.list_num_uni_nodes[0], self.bond_dim, self.bond_dim])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
-        layer_out = self.layers[0].get_layer_output(input_batch)
-        if self.deph_net: layer_out = self.dephase(layer_out)
+        uni_layer_out = self.layers[0].get_layer_output(input_batch)
+        if self.deph_net: layer_out = self.dephase(uni_layer_out)
         for i in range(1, self.num_layers-1):
             layer_out = self.layers[i].get_layer_output(layer_out)
             if self.deph_net: layer_out = self.dephase(layer_out)
@@ -110,12 +116,15 @@ class Network:
     def loss(self, input_batch, label_batch):
         return self.cce(label_batch, self.get_network_output(input_batch))
 
-    def dephase(self, tensor):
-        if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.kraus_ops, tensor, self.kraus_ops)
-        else: return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
+    def dephase(self, tensor, is_uni_lay_out=False):
+        if is_uni_lay_out:
+            pass
+        else:
+            if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.kraus_ops, tensor, self.kraus_ops)
+            else: return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
 
     def construct_dephasing_kraus(self):
-        m1 = tf.cast(tf.math.sqrt((2 - self.deph_p) / 2), tf.complex64) * tf.constant([[1, 0], [0, 1]], dtype=tf.complex64)
+        m1 = tf.cast(tf.math.sqrt((2 - self.deph_p) / 2), tf.complex64) * tf.eye(2, dtype=tf.complex64)
         m2 = tf.cast(tf.math.sqrt(self.deph_p / 2), tf.complex64) * tf.constant([[1, 0], [0, -1]], dtype=tf.complex64)
         m = (m1, m2)
         combinations = tf.reshape(
@@ -129,7 +138,9 @@ class Network:
         self.kraus_ops = tf.stack(self.kraus_ops)
 
 
-class Layer:
+class Uni_Layer:
+    _name = 'uni_layer'
+
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         self.num_anc = num_anc
         self.layer_idx = layer_idx
@@ -142,7 +153,7 @@ class Layer:
         self.param_var_lay = tf.Variable(
             tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
-            ), name='param_var_lay_%s' % layer_idx, trainable=True)
+            ), name='param_var_uni_lay_%s' % layer_idx, trainable=True)
 
     def get_unitary_tensor(self):
         num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
@@ -170,11 +181,38 @@ class Layer:
         diag_exp_mat = tf.linalg.diag(eig_exp)
         unitary_matrix = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
         unitary_tensor = tf.reshape(unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
-        return unitary_tensor
+        return unitary_tensor, unitary_matrix
 
     def get_layer_output(self, input):
         left_input, right_input = input[:, ::2], input[:, 1::2]
-        unitary_tensor = self.get_unitary_tensor()
+        unitary_tensor, _ = self.get_unitary_tensor()
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
-        output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
+        output = tf.einsum('znabef, nghef -> znabgh', left_contracted, tf.math.conj(unitary_tensor))
         return output
+
+
+class Iso_Layer(Uni_Layer):
+    _name = 'iso_layer'
+
+    def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
+        super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
+
+        self.param_var_lay = tf.Variable(
+            tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
+                shape=[self.num_op_params, num_nodes], dtype=tf.float32,
+            ), name='param_var_iso_lay_%s' % layer_idx, trainable=True)
+
+    def get_isometry_tensor(self):
+        _, unitary_matrix = self.get_unitary_tensor()
+        num_row = unitary_matrix.shape[1]
+        isometry_matrix = unitary_matrix[:, :num_row//2]
+        isometry_tensor = tf.reshape(isometry_matrix, [self.num_nodes, *[self.bond_dim]*3])
+        return isometry_tensor
+
+    def get_layer_output(self, input):
+        left_input, right_input = input[:, ::2], input[:, 1::2]
+        isometry_tensor = self.get_isometry_tensor()
+        left_contracted = tf.einsum('nabc, znbd, znce -> znade', isometry_tensor, left_input, right_input)
+        output = tf.einsum('znade, nfde -> znaf', left_contracted, tf.math.conj(isometry_tensor))
+        return output
+
