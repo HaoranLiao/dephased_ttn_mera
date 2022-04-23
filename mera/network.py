@@ -51,14 +51,14 @@ class Network:
 
         self.grads = None
 
-    @tf.function
+    # @tf.function
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
         if self.num_anc:
             input_batch = tf.reshape(
-                tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
+                tf.einsum('zxyab, cd -> zxyacbd', input_batch, self.ancillas),
                 [batch_size, 2*self.list_num_nodes[0], self.bond_dim, self.bond_dim])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
@@ -116,7 +116,7 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
-    @tf.function
+    # @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(label_batch, self.get_network_output(input_batch))
 
@@ -208,17 +208,10 @@ class Iso_Layer(Uni_Layer):
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
             ), name='param_var_iso_lay_%s' % layer_idx, trainable=True)
 
-    def get_isometry_tensor(self):
-        _, unitary_matrix = self.get_unitary_tensor()
-        num_row = unitary_matrix.shape[1]
-        isometry_matrix = unitary_matrix[:, :num_row//2]
-        isometry_tensor = tf.reshape(isometry_matrix, [self.num_nodes, *[self.bond_dim]*3])
-        return isometry_tensor
-
     def get_iso_layer_output(self, input):
         left_input, right_input = input[:, ::2], input[:, 1::2]
-        isometry_tensor = self.get_isometry_tensor()
-        left_contracted = tf.einsum('nabc, znbd, znce -> znade', isometry_tensor, left_input, right_input)
-        output = tf.einsum('znade, nfde -> znaf', left_contracted, tf.math.conj(isometry_tensor))
+        unitary_tensor, _ = self.get_unitary_tensor()
+        left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
+        output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
         return output
 

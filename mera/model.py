@@ -4,7 +4,7 @@ import sys, os, time, yaml, json
 from tqdm import tqdm
 import network
 import data
-#os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
@@ -82,7 +82,7 @@ class Model:
         data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
         if config['data']['load_from_file']:
-            assert data_im_size == [8, 8] and feature_dim == 2
+            assert data_im_size == [4, 4] and feature_dim == 2
             train_data, val_data, test_data = data.get_data_file(
                 data_path, digits, val_split, sample_size=sample_size)
         else:
