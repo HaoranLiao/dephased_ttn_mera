@@ -64,18 +64,27 @@ class Network:
 
         left_over = tf.gather(input_batch, [0, 15], axis=1)
         layer_out = self.layers[0].get_fir_ent_lay_out(input_batch[:, 1:15])
+        # layer_out in canonical indices
         if self.deph_net: layer_out = self.dephase(layer_out, num_bd=2)
+        # layer_out in canonical indices
 
         layer_out = self.layers[1].get_fir_iso_lay_out(layer_out, left_over)
+        # layer_out in alternating indices
         if self.deph_net: layer_out = self.dephase_mem_sav(layer_out)
+        # layer_out in alternating indices
         layer_out = tf.transpose(layer_out, perm=[0, *np.arange(1, 16, 2), *np.arange(2, 17, 2)])
+        # layer_out in canonical indices
 
         layer_out = self.layers[2].get_mid_ent_lay_out(layer_out)
+        # layer_out in canonical indices
         if self.deph_net: layer_out = self.dephase_mid_lay_mem_sav(layer_out)
+        # layer_out in canonical indices
+
+        layer_out = self.layers[3].get_mid_iso_lay_out(layer_out)
 
         raise NotImplementedError
-        
-        # layer_out = self.layers[3].get_mid_iso_lay_out(layer_out)
+
+
         # if self.deph_net: layer_out = self.dephase(layer_out)
         #
         # layer_out = self.layers[4].get_ent_layer_output(layer_out)
@@ -136,6 +145,10 @@ class Network:
         return tf.reshape(dephased, [batch_size, num_nodes, *[self.bond_dim]*num_bd*2])
 
     def dephase_mem_sav(self, tensor):
+        '''
+        :param tensor: single tensor in alternating indices
+        :return: single tensor in alternating indices
+        '''
         l, u = Network._lowercases, Network._uppercases
         for i in range(0, 16, 2):
             contract_str = 'X'+u[i]+l[i]+', Z'+l[:16]+', X'+u[i+1]+l[i+1]+' -> Z'+l[:i]+u[i:i+2]+l[i+2:16]
@@ -143,6 +156,10 @@ class Network:
         return tensor
 
     def dephase_mid_lay_mem_sav(self, tensor):
+        '''
+        :param tensor: single tensor in canonical indices
+        :return: singel tensor in canonical indices
+        '''
         l, u = Network._lowercases, Network._uppercases
         for i in range(6):
             contract_str = 'U'+u[i]+l[i]+', Z Y'+l[:6]+'XW'+l[6:12]+'V, U'+u[6+i]+l[6+i]+\
@@ -212,6 +229,10 @@ class Ent_Layer:
         return unitary_tensor
 
     def get_fir_ent_lay_out(self, input):
+        '''
+        :param input: matrics
+        :return: tensors in canonical indices
+        '''
         left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor = self.get_unitary_tensor()
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
@@ -219,6 +240,10 @@ class Ent_Layer:
         return output
 
     def get_mid_ent_lay_out(self, input):
+        '''
+        :param input: single tensor in canonical indices
+        :return: single tensor in canonical indices
+        '''
         l = Ent_Layer._lowercases
         unitary_tensor = self.get_unitary_tensor()
         contract_str = 'ZY'+l[:6]+'XW'+l[6:12]+'V, AB'+l[:2]+', CD'+l[2:4]+', EF'+l[4:6]+', GH'+l[6:8]+', IJ'+l[8:10]+', KL'+l[10:12]+\
@@ -230,6 +255,7 @@ class Ent_Layer:
 class Iso_Layer(Ent_Layer):
     _name = 'isometry_layer'
     _chars = string.ascii_lowercase + string.ascii_uppercase[:-10]
+    _lowercases = string.ascii_lowercase
 
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
@@ -240,6 +266,11 @@ class Iso_Layer(Ent_Layer):
             ), name='param_var_iso_lay_%s' % layer_idx, trainable=True)
 
     def get_fir_iso_lay_out(self, input, left_over_data_input):
+        '''
+        :param input: tensors in canonical indices
+        :param left_over_data_input: matrices
+        :return: single tensor in alternating indices
+        '''
         c = Iso_Layer._chars
         unitary_tensor = self.get_unitary_tensor()
 
@@ -254,5 +285,16 @@ class Iso_Layer(Ent_Layer):
         contract_str = 'YXWV, Z'+bond_inds+'WU, ZVT, QXUT -> Z'+bond_inds+'YQ'
         output = tf.einsum(contract_str,
                         unitary_tensor[last], contracted, left_over_data_input[:, -1], tf.math.conj(unitary_tensor[last]))
+
+        output = tf.transpose(output, perm=[0, *np.arange(1, 16, 2), *np.arange(2, 17, 2)])
+        
         return output
+
+    def get_mid_iso_lay_out(self, input):
+        l = Iso_Layer._lowercases
+        unitary_tensor = self.get_unitary_tensor()
+        pass
+
+
+
 
