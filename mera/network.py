@@ -19,16 +19,13 @@ class Network:
         if not deph_p: self.deph_data, self.deph_net = False, False
 
         self.num_out_qubits = self.num_anc + 1
-        self.kraus_ops_1_bd = self.construct_dephasing_kraus(self.num_out_qubits)
-        self.kraus_ops_2_bd = self.construct_dephasing_kraus(2*self.num_out_qubits)
-        self.kraus_ops_4_bd = self.construct_dephasing_kraus(4*self.num_out_qubits)
-        self.kraus_ops_8_bd = self.construct_dephasing_kraus(8*self.num_out_qubits)
+        self.kraus_ops_1_bd = self.construct_dephasing_multiqubit_kraus(self.num_out_qubits)
+        self.kraus_ops_2_bd = self.construct_dephasing_multiqubit_kraus(2*self.num_out_qubits)
+        # self.kraus_ops_4_bd = self.construct_dephasing_multiqubit_kraus(4*self.num_out_qubits)
+        # self.kraus_ops_8_bd = self.construct_dephasing_multiqubit_kraus(8*self.num_out_qubits)
 
         self.layers = []
-        self.list_num_nodes = tf.nest.flatten(
-                [[int(self.num_pixels/2**(i+1)) - 1, int(self.num_pixels/2**(i+1))] for i in range((self.num_layers+1)//2)])
-        self.list_num_nodes = self.list_num_nodes[:-2] + self.list_num_nodes[-1:]    # remove the 0 node entangler layer
-        assert len(self.list_num_nodes) == self.num_layers
+        self.list_num_nodes = [7, 8, 3, 4, 1, 2, 1]
         for i in range(0, self.num_layers-1, 2):
             self.layers.append(Ent_Layer(self.list_num_nodes[i], i+1, self.num_anc, self.init_mean, self.init_std))
             self.layers.append(Iso_Layer(self.list_num_nodes[i+1], i+2, self.num_anc, self.init_mean, self.init_std))
@@ -61,11 +58,11 @@ class Network:
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
-                [batch_size, 2*self.list_num_nodes[1], self.bond_dim, self.bond_dim])
+                [batch_size, 16, self.bond_dim, self.bond_dim])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
-        left_over = tf.concat([input_batch[:, :1], input_batch[:, -1:]], 1)
-        layer_out = self.layers[0].get_fir_ent_lay_out(input_batch[:, 1:-1])
+        left_over = tf.gather(input_batch, [0, 15], axis=1)
+        layer_out = self.layers[0].get_fir_ent_lay_out(input_batch[:, 1:15])
         if self.deph_net:
             left_over = self.dephase(left_over)
             layer_out = self.dephase(layer_out, num_bd=2)
@@ -132,15 +129,18 @@ class Network:
         tensor = tf.reshape(tensor, [batch_size, num_nodes, *[self.bond_dim**num_bd]*2])
         if num_bd == 1:     kraus_ops = self.kraus_ops_1_bd
         elif num_bd == 2:   kraus_ops = self.kraus_ops_2_bd
-        elif num_bd == 4:   kraus_ops = self.kraus_ops_4_bd
-        elif num_bd == 8:   kraus_ops = self.kraus_ops_8_bd
+        # elif num_bd == 4:   kraus_ops = self.kraus_ops_4_bd
+        # elif num_bd == 8:   kraus_ops = self.kraus_ops_8_bd
         dephased = tf.einsum('kab, znbc, kdc -> znad', kraus_ops, tensor, kraus_ops)
         return tf.reshape(dephased, [batch_size, num_nodes, *[self.bond_dim]*num_bd*2])
 
-    def construct_dephasing_kraus(self, num_out_qubits):
-        m1 = tf.cast(tf.math.sqrt((2 - self.deph_p) / 2), tf.complex64) * tf.eye(2, dtype=tf.complex64)
-        m2 = tf.cast(tf.math.sqrt(self.deph_p / 2), tf.complex64) * tf.constant([[1, 0], [0, -1]], dtype=tf.complex64)
-        m = (m1, m2)
+    def dephase_memory_saving(self, tensor):
+        num_bonds = len(tensor.shape) - 1
+
+    def construct_dephasing_multiqubit_kraus(self, num_out_qubits):
+        self.m1 = tf.cast(tf.math.sqrt((2 - self.deph_p) / 2), tf.complex64) * tf.eye(2, dtype=tf.complex64)
+        self.m2 = tf.cast(tf.math.sqrt(self.deph_p / 2), tf.complex64) * tf.constant([[1, 0], [0, -1]], dtype=tf.complex64)
+        m = (self.m1, self.m2)
         combinations = tf.reshape(
             tf.transpose(tf.meshgrid(*[[0, 1]]*num_out_qubits)),
             [-1, num_out_qubits])
@@ -199,7 +199,7 @@ class Ent_Layer:
 
     def get_fir_ent_lay_out(self, input):
         left_input, right_input = input[:, ::2], input[:, 1::2]
-        unitary_tensor, _ = self.get_unitary_tensor()
+        unitary_tensor = self.get_unitary_tensor()
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
         output = tf.einsum('znabef, nghef -> znabgh', left_contracted, tf.math.conj(unitary_tensor))
         return output
@@ -222,15 +222,15 @@ class Iso_Layer(Ent_Layer):
         unitary_tensor = self.get_unitary_tensor()
 
         contracted = tf.einsum('abcd, zce, zdfgh, ibeg -> zaifh',
-                                    unitary_tensor[0], left_over_data_input[:, 0], input[:, 0], tf.math.conj(unitary_tensor[0]))
+                            unitary_tensor[0], left_over_data_input[:, 0], input[:, 0], tf.math.conj(unitary_tensor[0]))
         for i in range(1, len(unitary_tensor)-1):
-            contracted = tf.einsum('YXWV, Z'+c[:2*i]+'WU, VTSR, QXUS ->' + 'Z'+c[:2*i]+'YQTR',
-                                   unitary_tensor[i], contracted, input[:, i], tf.math.conj(unitary_tensor[i]))
+            contracted = tf.einsum('YXWV, Z'+c[:2*i]+'WU, ZVTSR, QXUS ->' + 'Z'+c[:2*i]+'YQTR',
+                            unitary_tensor[i], contracted, input[:, i], tf.math.conj(unitary_tensor[i]))
 
         bond_inds, last = c[:2 * (len(unitary_tensor)-1)], len(unitary_tensor) - 1
-        contracted = tf.einsum('YXWV, Z'+bond_inds+'WU, VT, QXUT ->' + 'Z'+bond_inds+'YQ',
+        contracted = tf.einsum('YXWV, Z'+bond_inds+'WU, ZVT, QXUT ->' + 'Z'+bond_inds+'YQ',
                                unitary_tensor[last], contracted, left_over_data_input[:, -1], tf.math.conj(unitary_tensor[last]))
-        output = tf.transpose(contracted, perm=[0, 2, 4, 6, 8, 10, 12, 14, 16, 1, 3, 5, 7, 9, 11])
+        output = tf.transpose(contracted, perm=[0, 1, 3, 5, 7, 9, 11, 13, 15, 2, 4, 6, 8, 10, 12, 14, 16])
         output = tf.expand_dims(output, 1)
         return output
 
