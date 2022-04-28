@@ -10,7 +10,7 @@ class Network:
         self.config = config
         self.num_anc = num_anc
         self.num_pixels = num_pixels
-        self.num_layers = int(np.log2(num_pixels)) * 2
+        self.num_layers = int(np.log2(num_pixels)) * 2 - 1
         self.init_std = init_std
         self.init_mean = config['tree']['param']['init_mean']
         self.deph_data = config['meta']['deph']['data']
@@ -19,14 +19,20 @@ class Network:
         if not deph_p: self.deph_data, self.deph_net = False, False
 
         self.num_out_qubits = self.num_anc + 1
-        self.kraus_ops_iso_out = self.construct_dephasing_kraus(self.num_out_qubits)
-        self.kraus_ops_uni_out = self.construct_dephasing_kraus(2 * self.num_out_qubits)
+        self.kraus_ops_1_bd = self.construct_dephasing_kraus(self.num_out_qubits)
+        self.kraus_ops_2_bd = self.construct_dephasing_kraus(2*self.num_out_qubits)
+        self.kraus_ops_4_bd = self.construct_dephasing_kraus(4*self.num_out_qubits)
+        self.kraus_ops_8_bd = self.construct_dephasing_kraus(8*self.num_out_qubits)
 
         self.layers = []
-        self.list_num_nodes = tf.repeat([int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers//2)], 2)
-        for i in range(0, self.num_layers, 2):
-            self.layers.append(Uni_Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
-            self.layers.append(Iso_Layer(self.list_num_nodes[i+1], i+1, self.num_anc, self.init_mean, self.init_std))
+        self.list_num_nodes = tf.nest.flatten(
+                [[int(self.num_pixels/2**(i+1)) - 1, int(self.num_pixels/2**(i+1))] for i in range((self.num_layers+1)//2)])
+        self.list_num_nodes = self.list_num_nodes[:-2] + self.list_num_nodes[-1:]    # remove the 0 node entangler layer
+        assert len(self.list_num_nodes) == self.num_layers
+        for i in range(0, self.num_layers-1, 2):
+            self.layers.append(Ent_Layer(self.list_num_nodes[i], i+1, self.num_anc, self.init_mean, self.init_std))
+            self.layers.append(Iso_Layer(self.list_num_nodes[i+1], i+2, self.num_anc, self.init_mean, self.init_std))
+        self.layers.append(Iso_Layer(self.list_num_nodes[-1], self.num_layers, self.num_anc, self.init_mean, self.init_std))
         self.var_list = [layer.param_var_lay for layer in self.layers]
 
         self.bond_dim = 2 ** (num_anc + 1)
@@ -45,10 +51,6 @@ class Network:
         else:
             raise NotImplemented
 
-        if self.num_anc < 4:
-            chars = string.ascii_lowercase
-            self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
-
         self.grads = None
 
     # @tf.function
@@ -58,36 +60,41 @@ class Network:
         input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
         if self.num_anc:
             input_batch = tf.reshape(
-                tf.einsum('zxyab, cd -> zxyacbd', input_batch, self.ancillas),
-                [batch_size, 2*self.list_num_nodes[0], self.bond_dim, self.bond_dim])
+                tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
+                [batch_size, 2*self.list_num_nodes[1], self.bond_dim, self.bond_dim])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
-        layer_out = self.layers[0].get_uni_layer_output(input_batch)
-        if self.deph_net: layer_out = self.dephase(layer_out, is_uni_lay_out=True)
-        layer_out = self.layers[1].get_iso_layer_output(layer_out)
-        if self.deph_net: layer_out = self.dephase(layer_out)
-        for i in range(2, self.num_layers-2, 2):
-            layer_out = self.layers[i].get_uni_layer_output(layer_out)
-            if self.deph_net: layer_out = self.dephase(layer_out, is_uni_lay_out=True)
-            layer_out = self.layers[i+1].get_iso_layer_output(layer_out)
-            if self.deph_net: layer_out = self.dephase(layer_out)
+        left_over = tf.concat([input_batch[:, :1], input_batch[:, -1:]], 1)
+        layer_out = self.layers[0].get_fir_ent_lay_out(input_batch[:, 1:-1])
+        if self.deph_net:
+            left_over = self.dephase(left_over)
+            layer_out = self.dephase(layer_out, num_bd=2)
 
-        layer_out = self.layers[-2].get_uni_layer_output(layer_out)
-        if self.deph_net: layer_out = self.dephase(layer_out, is_uni_lay_out=True)
-        final_layer_out = tf.reshape(
-            self.layers[-1].get_iso_layer_output(layer_out)[:, 0],
-            [batch_size, *[2]*(2*self.num_out_qubits)])
+        layer_out = self.layers[1].get_fir_iso_lay_out(layer_out, left_over)
+        if self.deph_net: layer_out = self.dephase(layer_out, num_bd=8)
 
-        if self.num_anc < 4:
-            final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
-        elif self.num_anc == 4:
-            final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
-            for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
-        else:
-            raise NotImplemented
+        # layer_out = self.layers[2].get_mid_ent_lay_out(layer_out)
+        # if self.deph_net: layer_out = self.dephase(layer_out, )
+        #
+        # layer_out = self.layers[3].get_mid_iso_lay_out(layer_out)
+        # if self.deph_net: layer_out = self.dephase(layer_out)
+        #
+        # layer_out = self.layers[4].get_ent_layer_output(layer_out)
+        # if self.deph_net: layer_out = self.dephase(layer_out, is_ent_lay_out=True)
+        # final_layer_out = tf.reshape(
+        #     self.layers[-1].get_iso_layer_output(layer_out)[:, 0],
+        #     [batch_size, *[2]*(2*self.num_out_qubits)])
+        #
+        # if self.num_anc < 4:
+        #     final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
+        # elif self.num_anc == 4:
+        #     final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
+        #     for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
+        # else:
+        #     raise NotImplemented
 
-        output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
-        return output_probs
+        # output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
+        # return output_probs
 
     def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):
         input_batch = tf.constant(input_batch, dtype=tf.complex64)
@@ -120,14 +127,15 @@ class Network:
     def loss(self, input_batch, label_batch):
         return self.cce(label_batch, self.get_network_output(input_batch))
 
-    def dephase(self, tensor, is_uni_lay_out=False):
-        if is_uni_lay_out:
-            batch_size, num_nodes = tensor.shape[:2]
-            tensor = tf.reshape(tensor, [batch_size, num_nodes, *[self.bond_dim**2]*2])
-            dephased = tf.einsum('kab, znbc, kdc -> znad', self.kraus_ops_uni_out, tensor, self.kraus_ops_uni_out)
-            return tf.reshape(dephased, [batch_size, num_nodes, *[self.bond_dim]*4])
-        else:
-            return tf.einsum('kab, znbc, kdc -> znad', self.kraus_ops_iso_out, tensor, self.kraus_ops_iso_out)
+    def dephase(self, tensor, num_bd=1):
+        batch_size, num_nodes = tensor.shape[:2]
+        tensor = tf.reshape(tensor, [batch_size, num_nodes, *[self.bond_dim**num_bd]*2])
+        if num_bd == 1:     kraus_ops = self.kraus_ops_1_bd
+        elif num_bd == 2:   kraus_ops = self.kraus_ops_2_bd
+        elif num_bd == 4:   kraus_ops = self.kraus_ops_4_bd
+        elif num_bd == 8:   kraus_ops = self.kraus_ops_8_bd
+        dephased = tf.einsum('kab, znbc, kdc -> znad', kraus_ops, tensor, kraus_ops)
+        return tf.reshape(dephased, [batch_size, num_nodes, *[self.bond_dim]*num_bd*2])
 
     def construct_dephasing_kraus(self, num_out_qubits):
         m1 = tf.cast(tf.math.sqrt((2 - self.deph_p) / 2), tf.complex64) * tf.eye(2, dtype=tf.complex64)
@@ -144,8 +152,8 @@ class Network:
         return tf.stack(kraus_ops)
 
 
-class Uni_Layer:
-    _name = 'uni_layer'
+class Ent_Layer:
+    _name = 'ent_layer'
 
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         self.num_anc = num_anc
@@ -159,7 +167,7 @@ class Uni_Layer:
         self.param_var_lay = tf.Variable(
             tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
-            ), name='param_var_uni_lay_%s' % layer_idx, trainable=True)
+            ), name='param_var_ent_lay_%s' % layer_idx, trainable=True)
 
     def get_unitary_tensor(self):
         num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
@@ -187,9 +195,9 @@ class Uni_Layer:
         diag_exp_mat = tf.linalg.diag(eig_exp)
         unitary_matrix = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
         unitary_tensor = tf.reshape(unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
-        return unitary_tensor, unitary_matrix
+        return unitary_tensor
 
-    def get_uni_layer_output(self, input):
+    def get_fir_ent_lay_out(self, input):
         left_input, right_input = input[:, ::2], input[:, 1::2]
         unitary_tensor, _ = self.get_unitary_tensor()
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
@@ -197,8 +205,9 @@ class Uni_Layer:
         return output
 
 
-class Iso_Layer(Uni_Layer):
+class Iso_Layer(Ent_Layer):
     _name = 'iso_layer'
+    _chars = string.ascii_lowercase + string.ascii_uppercase[:-10]
 
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
@@ -208,10 +217,20 @@ class Iso_Layer(Uni_Layer):
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
             ), name='param_var_iso_lay_%s' % layer_idx, trainable=True)
 
-    def get_iso_layer_output(self, input):
-        left_input, right_input = input[:, ::2], input[:, 1::2]
-        unitary_tensor, _ = self.get_unitary_tensor()
-        left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
-        output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
+    def get_fir_iso_lay_out(self, input, left_over_data_input):
+        c = Iso_Layer._chars
+        unitary_tensor = self.get_unitary_tensor()
+
+        contracted = tf.einsum('abcd, zce, zdfgh, ibeg -> zaifh',
+                                    unitary_tensor[0], left_over_data_input[:, 0], input[:, 0], tf.math.conj(unitary_tensor[0]))
+        for i in range(1, len(unitary_tensor)-1):
+            contracted = tf.einsum('YXWV, Z'+c[:2*i]+'WU, VTSR, QXUS ->' + 'Z'+c[:2*i]+'YQTR',
+                                   unitary_tensor[i], contracted, input[:, i], tf.math.conj(unitary_tensor[i]))
+
+        bond_inds, last = c[:2 * (len(unitary_tensor)-1)], len(unitary_tensor) - 1
+        contracted = tf.einsum('YXWV, Z'+bond_inds+'WU, VT, QXUT ->' + 'Z'+bond_inds+'YQ',
+                               unitary_tensor[last], contracted, left_over_data_input[:, -1], tf.math.conj(unitary_tensor[last]))
+        output = tf.transpose(contracted, perm=[0, 2, 4, 6, 8, 10, 12, 14, 16, 1, 3, 5, 7, 9, 11])
+        output = tf.expand_dims(output, 1)
         return output
 
