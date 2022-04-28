@@ -23,7 +23,7 @@ class Network:
         self.num_out_qubits = self.num_anc + 1
         self.kraus_ops_1_bd = self.construct_dephasing_multiqubit_kraus(self.num_out_qubits)
         self.kraus_ops_2_bd = self.construct_dephasing_multiqubit_kraus(2*self.num_out_qubits)
-        # self.kraus_ops_4_bd = self.construct_dephasing_multiqubit_kraus(4*self.num_out_qubits)
+        self.kraus_ops_4_bd = self.construct_dephasing_multiqubit_kraus(4*self.num_out_qubits)
 
         self.layers = []
         self.list_num_nodes = [7, 8, 3, 4, 1, 2, 1]
@@ -67,14 +67,14 @@ class Network:
         if self.deph_net: layer_out = self.dephase(layer_out, num_bd=2)
 
         layer_out = self.layers[1].get_fir_iso_lay_out(layer_out, left_over)
-        if self.deph_net: layer_out = self.dephase_memory_saving(layer_out)
-        layer_out = tf.transpose(layer_out, perm=[0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 3, 5, 7, 9, 11, 13, 15, 17])
+        if self.deph_net: layer_out = self.dephase_mem_sav(layer_out)
+        layer_out = tf.transpose(layer_out, perm=[0, *np.arange(1, 16, 2), *np.arange(2, 17, 2)])
+
+        layer_out = self.layers[2].get_mid_ent_lay_out(layer_out)
+        if self.deph_net: layer_out = self.dephase_mid_lay_mem_sav(layer_out)
 
         raise NotImplementedError
-
-        # layer_out = self.layers[2].get_mid_ent_lay_out(layer_out)
-        # if self.deph_net: layer_out = self.dephase(layer_out, )
-        #
+        
         # layer_out = self.layers[3].get_mid_iso_lay_out(layer_out)
         # if self.deph_net: layer_out = self.dephase(layer_out)
         #
@@ -131,14 +131,22 @@ class Network:
         tensor = tf.reshape(tensor, [batch_size, num_nodes, *[self.bond_dim**num_bd]*2])
         if num_bd == 1:     kraus_ops = self.kraus_ops_1_bd
         elif num_bd == 2:   kraus_ops = self.kraus_ops_2_bd
-        # elif num_bd == 4:   kraus_ops = self.kraus_ops_4_bd
+        elif num_bd == 4:   kraus_ops = self.kraus_ops_4_bd
         dephased = tf.einsum('kab, znbc, kdc -> znad', kraus_ops, tensor, kraus_ops)
         return tf.reshape(dephased, [batch_size, num_nodes, *[self.bond_dim]*num_bd*2])
 
-    def dephase_memory_saving(self, tensor):
+    def dephase_mem_sav(self, tensor):
         l, u = Network._lowercases, Network._uppercases
         for i in range(0, 16, 2):
-            contract_str = 'X'+u[i]+l[i]+', ZY'+l[:16]+', X'+u[i+1]+l[i+1] + '-> ZY'+l[:i]+u[i:i+2]+l[i+2:16]
+            contract_str = 'X'+u[i]+l[i]+', Z'+l[:16]+', X'+u[i+1]+l[i+1]+' -> Z'+l[:i]+u[i:i+2]+l[i+2:16]
+            tensor = tf.einsum(contract_str, self.kraus_ops_1_bd, tensor, self.kraus_ops_1_bd)
+        return tensor
+
+    def dephase_mid_lay_mem_sav(self, tensor):
+        l, u = Network._lowercases, Network._uppercases
+        for i in range(6):
+            contract_str = 'U'+u[i]+l[i]+', Z Y'+l[:6]+'XW'+l[6:12]+'V, U'+u[6+i]+l[6+i]+\
+                           ' -> Z Y'+l[:i]+u[i]+l[i+1:6]+'XW'+l[6:6+i]+u[6+i]+l[7+i:12]+'V'
             tensor = tf.einsum(contract_str, self.kraus_ops_1_bd, tensor, self.kraus_ops_1_bd)
         return tensor
 
@@ -158,7 +166,8 @@ class Network:
 
 
 class Ent_Layer:
-    _name = 'ent_layer'
+    _name = 'entangler_layer'
+    _lowercases, _uppercases = string.ascii_lowercase, string.ascii_uppercase
 
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         self.num_anc = num_anc
@@ -209,9 +218,17 @@ class Ent_Layer:
         output = tf.einsum('znabef, nghef -> znabgh', left_contracted, tf.math.conj(unitary_tensor))
         return output
 
+    def get_mid_ent_lay_out(self, input):
+        l = Ent_Layer._lowercases
+        unitary_tensor = self.get_unitary_tensor()
+        contract_str = 'ZY'+l[:6]+'XW'+l[6:12]+'V, AB'+l[:2]+', CD'+l[2:4]+', EF'+l[4:6]+', GH'+l[6:8]+', IJ'+l[8:10]+', KL'+l[10:12]+\
+                       ' -> Z YABCDEFX WGHIJKLV'
+        output = tf.einsum(contract_str, input, unitary_tensor[0], unitary_tensor[1], unitary_tensor[2],
+                           tf.math.conj(unitary_tensor[0]), tf.math.conj(unitary_tensor[1]), tf.math.conj(unitary_tensor[2]))
+        return output
 
 class Iso_Layer(Ent_Layer):
-    _name = 'iso_layer'
+    _name = 'isometry_layer'
     _chars = string.ascii_lowercase + string.ascii_uppercase[:-10]
 
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
@@ -229,15 +246,13 @@ class Iso_Layer(Ent_Layer):
         contracted = tf.einsum('abcd, zce, zdfgh, ibeg -> zaifh',
                         unitary_tensor[0], left_over_data_input[:, 0], input[:, 0], tf.math.conj(unitary_tensor[0]))
         for i in range(1, len(unitary_tensor)-1):
-            contract_str= 'YXWV, Z'+c[:2*i]+'WU, ZVTSR, QXUS ->' + 'Z'+c[:2*i]+'YQTR'
+            contract_str= 'YXWV, Z'+c[:2*i]+'WU, ZVTSR, QXUS -> Z'+c[:2*i]+'YQTR'
             contracted = tf.einsum(contract_str,
                             unitary_tensor[i], contracted, input[:, i], tf.math.conj(unitary_tensor[i]))
 
         bond_inds, last = c[:2 * (len(unitary_tensor)-1)], len(unitary_tensor) - 1
-        contract_str = 'YXWV, Z'+bond_inds+'WU, ZVT, QXUT ->' + 'Z'+bond_inds+'YQ'
-        contracted = tf.einsum(contract_str,
+        contract_str = 'YXWV, Z'+bond_inds+'WU, ZVT, QXUT -> Z'+bond_inds+'YQ'
+        output = tf.einsum(contract_str,
                         unitary_tensor[last], contracted, left_over_data_input[:, -1], tf.math.conj(unitary_tensor[last]))
-
-        output = tf.expand_dims(contracted, 1)
         return output
 
