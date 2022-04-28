@@ -6,6 +6,8 @@ import spsa
 
 
 class Network:
+    _lowercases, _uppercases = string.ascii_lowercase, string.ascii_uppercase
+
     def __init__(self, num_pixels, deph_p, num_anc, init_std, lr, config):
         self.config = config
         self.num_anc = num_anc
@@ -22,7 +24,6 @@ class Network:
         self.kraus_ops_1_bd = self.construct_dephasing_multiqubit_kraus(self.num_out_qubits)
         self.kraus_ops_2_bd = self.construct_dephasing_multiqubit_kraus(2*self.num_out_qubits)
         # self.kraus_ops_4_bd = self.construct_dephasing_multiqubit_kraus(4*self.num_out_qubits)
-        # self.kraus_ops_8_bd = self.construct_dephasing_multiqubit_kraus(8*self.num_out_qubits)
 
         self.layers = []
         self.list_num_nodes = [7, 8, 3, 4, 1, 2, 1]
@@ -46,7 +47,7 @@ class Network:
         elif config['tree']['opt']['opt'] == 'spsa':
             self.opt = spsa.Spsa(self, self.config['tree']['opt']['spsa'])
         else:
-            raise NotImplemented
+            raise NotImplementedError
 
         self.grads = None
 
@@ -68,7 +69,10 @@ class Network:
             layer_out = self.dephase(layer_out, num_bd=2)
 
         layer_out = self.layers[1].get_fir_iso_lay_out(layer_out, left_over)
-        if self.deph_net: layer_out = self.dephase(layer_out, num_bd=8)
+        if self.deph_net: layer_out = self.dephase_memory_saving(layer_out)
+        layer_out = tf.transpose(layer_out, perm=[0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 3, 5, 7, 9, 11, 13, 15, 17])
+
+        raise NotImplementedError
 
         # layer_out = self.layers[2].get_mid_ent_lay_out(layer_out)
         # if self.deph_net: layer_out = self.dephase(layer_out, )
@@ -130,17 +134,20 @@ class Network:
         if num_bd == 1:     kraus_ops = self.kraus_ops_1_bd
         elif num_bd == 2:   kraus_ops = self.kraus_ops_2_bd
         # elif num_bd == 4:   kraus_ops = self.kraus_ops_4_bd
-        # elif num_bd == 8:   kraus_ops = self.kraus_ops_8_bd
         dephased = tf.einsum('kab, znbc, kdc -> znad', kraus_ops, tensor, kraus_ops)
         return tf.reshape(dephased, [batch_size, num_nodes, *[self.bond_dim]*num_bd*2])
 
     def dephase_memory_saving(self, tensor):
-        num_bonds = len(tensor.shape) - 1
+        l, u = Network._lowercases, Network._uppercases
+        for i in range(0, 16, 2):
+            contract_str = 'X'+u[i]+l[i]+', ZY'+l[:16]+', X'+u[i+1]+l[i+1] + '-> ZY'+l[:i]+u[i:i+2]+l[i+2:16]
+            tensor = tf.einsum(contract_str, self.kraus_ops_1_bd, tensor, self.kraus_ops_1_bd)
+        return tensor
 
     def construct_dephasing_multiqubit_kraus(self, num_out_qubits):
-        self.m1 = tf.cast(tf.math.sqrt((2 - self.deph_p) / 2), tf.complex64) * tf.eye(2, dtype=tf.complex64)
-        self.m2 = tf.cast(tf.math.sqrt(self.deph_p / 2), tf.complex64) * tf.constant([[1, 0], [0, -1]], dtype=tf.complex64)
-        m = (self.m1, self.m2)
+        m1 = tf.cast(tf.math.sqrt((2 - self.deph_p) / 2), tf.complex64) * tf.eye(2, dtype=tf.complex64)
+        m2 = tf.cast(tf.math.sqrt(self.deph_p / 2), tf.complex64) * tf.constant([[1, 0], [0, -1]], dtype=tf.complex64)
+        m = (m1, m2)
         combinations = tf.reshape(
             tf.transpose(tf.meshgrid(*[[0, 1]]*num_out_qubits)),
             [-1, num_out_qubits])
@@ -222,15 +229,17 @@ class Iso_Layer(Ent_Layer):
         unitary_tensor = self.get_unitary_tensor()
 
         contracted = tf.einsum('abcd, zce, zdfgh, ibeg -> zaifh',
-                            unitary_tensor[0], left_over_data_input[:, 0], input[:, 0], tf.math.conj(unitary_tensor[0]))
+                        unitary_tensor[0], left_over_data_input[:, 0], input[:, 0], tf.math.conj(unitary_tensor[0]))
         for i in range(1, len(unitary_tensor)-1):
-            contracted = tf.einsum('YXWV, Z'+c[:2*i]+'WU, ZVTSR, QXUS ->' + 'Z'+c[:2*i]+'YQTR',
+            contract_str= 'YXWV, Z'+c[:2*i]+'WU, ZVTSR, QXUS ->' + 'Z'+c[:2*i]+'YQTR'
+            contracted = tf.einsum(contract_str,
                             unitary_tensor[i], contracted, input[:, i], tf.math.conj(unitary_tensor[i]))
 
         bond_inds, last = c[:2 * (len(unitary_tensor)-1)], len(unitary_tensor) - 1
-        contracted = tf.einsum('YXWV, Z'+bond_inds+'WU, ZVT, QXUT ->' + 'Z'+bond_inds+'YQ',
-                               unitary_tensor[last], contracted, left_over_data_input[:, -1], tf.math.conj(unitary_tensor[last]))
-        output = tf.transpose(contracted, perm=[0, 1, 3, 5, 7, 9, 11, 13, 15, 2, 4, 6, 8, 10, 12, 14, 16])
-        output = tf.expand_dims(output, 1)
+        contract_str = 'YXWV, Z'+bond_inds+'WU, ZVT, QXUT ->' + 'Z'+bond_inds+'YQ'
+        contracted = tf.einsum(contract_str,
+                        unitary_tensor[last], contracted, left_over_data_input[:, -1], tf.math.conj(unitary_tensor[last]))
+
+        output = tf.expand_dims(contracted, 1)
         return output
 
