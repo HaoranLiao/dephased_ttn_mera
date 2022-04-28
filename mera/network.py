@@ -64,9 +64,7 @@ class Network:
 
         left_over = tf.gather(input_batch, [0, 15], axis=1)
         layer_out = self.layers[0].get_fir_ent_lay_out(input_batch[:, 1:15])
-        if self.deph_net:
-            left_over = self.dephase(left_over)
-            layer_out = self.dephase(layer_out, num_bd=2)
+        if self.deph_net: layer_out = self.dephase(layer_out, num_bd=2)
 
         layer_out = self.layers[1].get_fir_iso_lay_out(layer_out, left_over)
         if self.deph_net: layer_out = self.dephase_memory_saving(layer_out)
