@@ -33,7 +33,7 @@ class Network:
         elif config['tree']['opt']['opt'] == 'spsa':
             self.opt = spsa.Spsa(self, self.config['tree']['opt']['spsa'])
         else:
-            raise NotImplemented
+            raise NotImplementedError
 
         self.grads = None
 
@@ -168,6 +168,6 @@ class Layer:
             output = tf.transpose(contracted, perm=[0, 1, 2, 6, 3, 7, 4, 8, 5, 9])
             for _ in range(3): output = tf.linalg.trace(output)
         else:
-            raise NotImplemented
+            raise NotImplementedError
 
         return output

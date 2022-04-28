@@ -41,7 +41,7 @@ class Network:
         elif config['tree']['opt']['opt'] == 'spsa':
             self.opt = spsa.Spsa(self, tune_config)
         else:
-            raise NotImplemented
+            raise NotImplementedError
 
         if self.num_anc < 4:
             chars = string.ascii_lowercase
@@ -76,7 +76,7 @@ class Network:
             final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
         else:
-            raise NotImplemented
+            raise NotImplementedError
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
