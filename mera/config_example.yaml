@@ -28,7 +28,7 @@ meta:
  deph:
   data: True
   network: True
-  p: [0]
+  p: [1]
 
 tree:
  param:
@@ -39,7 +39,7 @@ tree:
   opt: 'adam'
   adam:
    user_lr: True
-   lr: [0.025]
+   lr: [0.005]
 
   spsa:
    a: 28

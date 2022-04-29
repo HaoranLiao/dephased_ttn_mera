@@ -95,7 +95,7 @@ class Network:
             layer_out = self.dephase(layer_out, num_bd=2)
             layer_out = layer_out[:, 0]
 
-        final_layer_out = self.layers[5].get_4th_iso_lay_out(layer_out)
+        final_layer_out = self.layers[6].get_4th_iso_lay_out(layer_out)
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
@@ -142,6 +142,7 @@ class Network:
         if num_bd == 1:     kraus_ops = self.kraus_ops_1_bd
         elif num_bd == 2:   kraus_ops = self.kraus_ops_2_bd
         elif num_bd == 4:   kraus_ops = self.kraus_ops_4_bd
+        else: raise NotImplementedError
         dephased = tf.einsum('kab, znbc, kdc -> znad', kraus_ops, matrices, kraus_ops)
         return tf.reshape(dephased, [batch_size, num_nodes, *[self.bond_dim]*num_bd*2])
 
@@ -283,7 +284,6 @@ class Ent_Layer:
 
 class Iso_Layer(Ent_Layer):
     _name = 'isometry_layer'
-    _lowercases = string.ascii_lowercase
 
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
@@ -301,6 +301,7 @@ class Iso_Layer(Ent_Layer):
         :param left_over_data_input: matrices
         :return: single tensor with canonical indices
         '''
+        assert left_over_data_inputs.shape[1] == 2
         l = Iso_Layer._lowercases
         unitary_tensors = self.get_unitary_tensors()
         num_nodes = unitary_tensors.shape[0]
@@ -317,7 +318,7 @@ class Iso_Layer(Ent_Layer):
         bond_inds, last = l[:2 * (num_nodes-1)], num_nodes - 1
         contract_str_with_tracing = 'ABCD, Z'+bond_inds+'CE, ZDF, GBEF -> Z'+bond_inds+'AG'
         output = tf.einsum(contract_str_with_tracing,
-                        unitary_tensors[last], contracted, left_over_data_inputs[:, -1], tf.math.conj(unitary_tensors[last]))
+                    unitary_tensors[last], contracted, left_over_data_inputs[:, 1], tf.math.conj(unitary_tensors[last]))
         # :output: single tensor with alternating indices
         output = tf.transpose(output, perm=[0, *np.arange(1, 16, 2), *np.arange(2, 17, 2)])
         # :output: single tensor with canonical indices
