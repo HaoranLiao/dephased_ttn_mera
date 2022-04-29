@@ -72,6 +72,8 @@ class Network:
             grads = tape.gradient(loss, self.var_list)
         elif self.opt._name == 'Spsa':
             grads = self.opt.get_update(epoch, input_batch, label_batch)
+        else:
+            raise NotImplementedError
 
         if not self.grads:
             self.grads = grads
