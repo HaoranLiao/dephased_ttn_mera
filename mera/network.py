@@ -1,3 +1,9 @@
+'''
+All tensors are batched with the first dimension being the batch axis. Except single tensor, tensors should have a
+second axis for nodes. Canonical indices index all input dimensions before indexing all output dimension. Alternating
+indices index one input dimension, one output dimension and so forth.
+'''
+
 import tensorflow as tf
 import numpy as np
 import string, sys
@@ -74,11 +80,15 @@ class Network:
         if self.deph_net: layer_out = self.dephase_mid_lay_mem_sav(layer_out)
 
         layer_out = self.layers[3].get_mid_iso_lay_out(layer_out)
+        if self.deph_net:
+            layer_out = tf.expand_dims(layer_out, 1)
+            layer_out = self.dephase(layer_out, num_bd=4)
+            layer_out = layer_out[:, 0]
 
         raise NotImplementedError
 
 
-        # if self.deph_net: layer_out = self.dephase(layer_out)
+
         #
         # layer_out = self.layers[4].get_ent_layer_output(layer_out)
         # if self.deph_net: layer_out = self.dephase(layer_out, is_ent_lay_out=True)
@@ -201,7 +211,7 @@ class Ent_Layer:
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
             ), name='param_var_ent_lay_%s' % layer_idx, trainable=True)
 
-    def get_unitary_tensor(self):
+    def get_unitary_tensors(self):
         num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
         real_off_params = self.param_var_lay[:num_off_diags]
         imag_off_params = self.param_var_lay[num_off_diags:2 * num_off_diags]
@@ -225,9 +235,9 @@ class Ent_Layer:
         (eigenvalues, eigenvectors) = tf.linalg.eigh(herm_matrix)
         eig_exp = tf.exp(1.0j * eigenvalues)
         diag_exp_mat = tf.linalg.diag(eig_exp)
-        unitary_matrix = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        unitary_tensor = tf.reshape(unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
-        return unitary_tensor
+        unitary_matrices = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
+        unitary_tensors = tf.reshape(unitary_matrices, [self.num_nodes, *[self.bond_dim]*4])
+        return unitary_tensors
 
     def get_fir_ent_lay_out(self, inputs):
         '''
@@ -235,9 +245,9 @@ class Ent_Layer:
         :return: tensors with canonical indices
         '''
         first_half_inputs, second_half_inputs = inputs[:, ::2], inputs[:, 1::2]
-        unitary_tensor = self.get_unitary_tensor()
-        left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, first_half_inputs, second_half_inputs)
-        outputs = tf.einsum('znabef, nghef -> znabgh', left_contracted, tf.math.conj(unitary_tensor))
+        unitary_tensors = self.get_unitary_tensors()
+        left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensors, first_half_inputs, second_half_inputs)
+        outputs = tf.einsum('znabef, nghef -> znabgh', left_contracted, tf.math.conj(unitary_tensors))
         return outputs
 
     def get_mid_ent_lay_out(self, input):
@@ -246,11 +256,11 @@ class Ent_Layer:
         :return: single tensor with canonical indices
         '''
         l = Ent_Layer._lowercases
-        unitary_tensor = self.get_unitary_tensor()
+        unitary_tensors = self.get_unitary_tensors()
         contract_str = 'ZY'+l[:6]+'XW'+l[6:12]+'V, AB'+l[:2]+', CD'+l[2:4]+', EF'+l[4:6]+', GH'+l[6:8]+', IJ'+l[8:10]+', KL'+l[10:12]+\
                        ' -> Z YABCDEFX WGHIJKLV'
-        output = tf.einsum(contract_str, input, unitary_tensor[0], unitary_tensor[1], unitary_tensor[2],
-                           tf.math.conj(unitary_tensor[0]), tf.math.conj(unitary_tensor[1]), tf.math.conj(unitary_tensor[2]))
+        output = tf.einsum(contract_str, input, unitary_tensors[0], unitary_tensors[1], unitary_tensors[2],
+                           tf.math.conj(unitary_tensors[0]), tf.math.conj(unitary_tensors[1]), tf.math.conj(unitary_tensors[2]))
         return output
 
 class Iso_Layer(Ent_Layer):
@@ -274,31 +284,40 @@ class Iso_Layer(Ent_Layer):
         :return: single tensor with canonical indices
         '''
         l = Iso_Layer._lowercases
-        unitary_tensor = self.get_unitary_tensor()
+        unitary_tensors = self.get_unitary_tensors()
 
         contracted = tf.einsum('abcd, zce, zdfgh, ibeg -> zaifh',
-                        unitary_tensor[0], left_over_data_inputs[:, 0], inputs[:, 0], tf.math.conj(unitary_tensor[0]))
+                        unitary_tensors[0], left_over_data_inputs[:, 0], inputs[:, 0], tf.math.conj(unitary_tensors[0]))
         # :contracted: single tensor with alternating indices
-        for i in range(1, len(unitary_tensor)-1):
-            contract_str= 'ABCD, Z'+l[:2*i]+'CE, ZDFGH, IBEG -> Z'+l[:2*i]+'AIFH'
-            contracted = tf.einsum(contract_str,
-                            unitary_tensor[i], contracted, inputs[:, i], tf.math.conj(unitary_tensor[i]))
+        for i in range(1, len(unitary_tensors)-1):
+            contract_str_with_tracing = 'ABCD, Z'+l[:2*i]+'CE, ZDFGH, IBEG -> Z'+l[:2*i]+'AIFH'
+            contracted = tf.einsum(contract_str_with_tracing,
+                            unitary_tensors[i], contracted, inputs[:, i], tf.math.conj(unitary_tensors[i]))
             # :contracted: single tensor with alternating indices
 
-        bond_inds, last = l[:2 * (len(unitary_tensor)-1)], len(unitary_tensor) - 1
-        contract_str = 'ABCD, Z'+bond_inds+'CE, ZDF, GBEF -> Z'+bond_inds+'AG'
-        output = tf.einsum(contract_str,
-                        unitary_tensor[last], contracted, left_over_data_inputs[:, -1], tf.math.conj(unitary_tensor[last]))
+        bond_inds, last = l[:2 * (len(unitary_tensors)-1)], len(unitary_tensors) - 1
+        contract_str_with_tracing = 'ABCD, Z'+bond_inds+'CE, ZDF, GBEF -> Z'+bond_inds+'AG'
+        output = tf.einsum(contract_str_with_tracing,
+                        unitary_tensors[last], contracted, left_over_data_inputs[:, -1], tf.math.conj(unitary_tensors[last]))
         # :output: single tensor with alternating indices
         output = tf.transpose(output, perm=[0, *np.arange(1, 16, 2), *np.arange(2, 17, 2)])
         # :output: single tensor with canonical indices
         return output
 
     def get_mid_iso_lay_out(self, input):
+        '''
+        :param input: single tensor with cononical indices
+        :return: single tensor with cononical indices
+        '''
         l = Iso_Layer._lowercases
-        unitary_tensor = self.get_unitary_tensor()
-        pass
+        unitary_tensors = self.get_unitary_tensors()
 
+        contract_str_with_tracing = 'ABab, CDcd, EFef, GHgh, Z'+l[:16]+', IBij, KDkl, MFmn, OHop -> ZACEGIKMO'
+        output = tf.einsum(contract_str_with_tracing, unitary_tensors[0], unitary_tensors[1],
+                           unitary_tensors[2], unitary_tensors[3], input,
+                           tf.math.conj(unitary_tensors[0]), tf.math.conj(unitary_tensors[1]),
+                           tf.math.conj(unitary_tensors[2]), tf.math.conj(unitary_tensors[3]))
+        return output
 
 
 
