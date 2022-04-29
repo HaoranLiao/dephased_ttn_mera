@@ -57,7 +57,7 @@ class Network:
 
         self.grads = None
 
-    # @tf.function
+    @tf.function
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
@@ -70,42 +70,35 @@ class Network:
         # :input_batch: tensors with canonical indices
 
         left_over = tf.gather(input_batch, [0, 15], axis=1)
-        layer_out = self.layers[0].get_fir_ent_lay_out(input_batch[:, 1:15])
+        # No need to dephase :left_over: since all data qubits are dephased
+        layer_out = self.layers[0].get_1st_ent_lay_out(input_batch[:, 1:15])
         if self.deph_net: layer_out = self.dephase(layer_out, num_bd=2)
 
-        layer_out = self.layers[1].get_fir_iso_lay_out(layer_out, left_over)
-        if self.deph_net: layer_out = self.dephase_mem_sav(layer_out)
+        layer_out = self.layers[1].get_1st_iso_lay_out(layer_out, left_over)
+        if self.deph_net: layer_out = self.dephase_1st_iso_lay_out(layer_out)
 
-        layer_out = self.layers[2].get_mid_ent_lay_out(layer_out)
-        if self.deph_net: layer_out = self.dephase_mid_lay_mem_sav(layer_out)
+        layer_out = self.layers[2].get_2nd_ent_lay_out(layer_out)
+        if self.deph_net: layer_out = self.dephase_2nd_ent_lay_out(layer_out)
 
-        layer_out = self.layers[3].get_mid_iso_lay_out(layer_out)
+        layer_out = self.layers[3].get_2nd_iso_lay_out(layer_out)
         if self.deph_net:
             layer_out = tf.expand_dims(layer_out, 1)
             layer_out = self.dephase(layer_out, num_bd=4)
             layer_out = layer_out[:, 0]
 
-        raise NotImplementedError
+        layer_out = self.layers[4].get_3rd_ent_lay_out(layer_out)
+        if self.deph_net: layer_out = self.dephase_3rd_ent_lay_out(layer_out)
 
+        layer_out = self.layers[5].get_3rd_iso_lay_out(layer_out)
+        if self.deph_net:
+            layer_out = tf.expand_dims(layer_out, 1)
+            layer_out = self.dephase(layer_out, num_bd=2)
+            layer_out = layer_out[:, 0]
 
+        final_layer_out = self.layers[5].get_4th_iso_lay_out(layer_out)
 
-        #
-        # layer_out = self.layers[4].get_ent_layer_output(layer_out)
-        # if self.deph_net: layer_out = self.dephase(layer_out, is_ent_lay_out=True)
-        # final_layer_out = tf.reshape(
-        #     self.layers[-1].get_iso_layer_output(layer_out)[:, 0],
-        #     [batch_size, *[2]*(2*self.num_out_qubits)])
-        #
-        # if self.num_anc < 4:
-        #     final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
-        # elif self.num_anc == 4:
-        #     final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
-        #     for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
-        # else:
-        #     raise NotImplemented
-
-        # output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
-        # return output_probs
+        output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
+        return output_probs
 
     def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):
         input_batch = tf.constant(input_batch, dtype=tf.complex64)
@@ -134,7 +127,7 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
-    # @tf.function
+    @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(label_batch, self.get_network_output(input_batch))
 
@@ -152,7 +145,7 @@ class Network:
         dephased = tf.einsum('kab, znbc, kdc -> znad', kraus_ops, matrices, kraus_ops)
         return tf.reshape(dephased, [batch_size, num_nodes, *[self.bond_dim]*num_bd*2])
 
-    def dephase_mem_sav(self, tensor):
+    def dephase_1st_iso_lay_out(self, tensor):
         '''
         :param tensor: single tensor with canonical indices
         :return: single tensor with canonical indices
@@ -163,7 +156,7 @@ class Network:
             tensor = tf.einsum(contract_str, self.kraus_ops_1_bd, tensor, self.kraus_ops_1_bd)
         return tensor
 
-    def dephase_mid_lay_mem_sav(self, tensor):
+    def dephase_2nd_ent_lay_out(self, tensor):
         '''
         There are left-over bonds already dephased in this input tensor;
         The left-over bonds are the left-most and the right-most ones.
@@ -175,6 +168,21 @@ class Network:
             # 'YXWV' are the left-over bonds that do not need to dephase again here
             contract_str = 'U'+u[i]+l[i]+', Z Y'+l[:6]+'XW'+l[6:12]+'V, U'+u[6+i]+l[6+i]+\
                            ' -> Z Y'+l[:i]+u[i]+l[i+1:6]+'XW'+l[6:6+i]+u[6+i]+l[7+i:12]+'V'
+            tensor = tf.einsum(contract_str, self.kraus_ops_1_bd, tensor, self.kraus_ops_1_bd)
+        return tensor
+
+    def dephase_3rd_ent_lay_out(self, tensor):
+        '''
+        There are left-over bonds already dephased in this input tensor;
+        The left-over bonds are the left-most and the right-most ones.
+        :param tensor: single tensor with canonical indices
+        :return: singel tensor with canonical indices
+        '''
+        l, u = Network._lowercases, Network._uppercases
+        for i in range(2):
+            # 'YXWV' are the left-over bonds that do not need to dephase again here
+            contract_str = 'U'+u[i]+l[i]+', Z YabXWcdV, U'+u[2+i]+l[2+i]+\
+                           ' -> Z Y'+l[:i]+u[i]+l[i+1:2]+'XW'+l[2:2+i]+u[2+i]+l[3+i:4]+'V'
             tensor = tf.einsum(contract_str, self.kraus_ops_1_bd, tensor, self.kraus_ops_1_bd)
         return tensor
 
@@ -239,7 +247,7 @@ class Ent_Layer:
         unitary_tensors = tf.reshape(unitary_matrices, [self.num_nodes, *[self.bond_dim]*4])
         return unitary_tensors
 
-    def get_fir_ent_lay_out(self, inputs):
+    def get_1st_ent_lay_out(self, inputs):
         '''
         :param inputs: matrics
         :return: tensors with canonical indices
@@ -250,17 +258,27 @@ class Ent_Layer:
         outputs = tf.einsum('znabef, nghef -> znabgh', left_contracted, tf.math.conj(unitary_tensors))
         return outputs
 
-    def get_mid_ent_lay_out(self, input):
+    def get_2nd_ent_lay_out(self, input):
         '''
         :param input: single tensor with canonical indices
         :return: single tensor with canonical indices
         '''
         l = Ent_Layer._lowercases
         unitary_tensors = self.get_unitary_tensors()
-        contract_str = 'ZY'+l[:6]+'XW'+l[6:12]+'V, AB'+l[:2]+', CD'+l[2:4]+', EF'+l[4:6]+', GH'+l[6:8]+', IJ'+l[8:10]+', KL'+l[10:12]+\
-                       ' -> Z YABCDEFX WGHIJKLV'
+        contract_str = 'ZY'+l[:6]+'XW'+l[6:12]+'V, ABab, CDcd, EFef, GHgh, IJij, KLkl -> Z YABCDEFX WGHIJKLV'
         output = tf.einsum(contract_str, input, unitary_tensors[0], unitary_tensors[1], unitary_tensors[2],
                            tf.math.conj(unitary_tensors[0]), tf.math.conj(unitary_tensors[1]), tf.math.conj(unitary_tensors[2]))
+        return output
+
+    def get_3rd_ent_lay_out(self, input):
+        '''
+        :param input: single tensor with canonical indices
+        :return: single tensor with canonical indices
+        '''
+        l = Ent_Layer._lowercases
+        unitary_tensor = self.get_unitary_tensors()[0]
+        contract_str = 'Z YabXWcdV, ABab, CDcd -> Z YABX WCDV'
+        output = tf.einsum(contract_str, input, unitary_tensor, tf.math.conj(unitary_tensor))
         return output
 
 class Iso_Layer(Ent_Layer):
@@ -275,7 +293,7 @@ class Iso_Layer(Ent_Layer):
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
             ), name='param_var_iso_lay_%s' % layer_idx, trainable=True)
 
-    def get_fir_iso_lay_out(self, inputs, left_over_data_inputs):
+    def get_1st_iso_lay_out(self, inputs, left_over_data_inputs):
         '''
         Bubbling contraction from left, starting with the first of the left_over_data_inputs,
         then the inputs, and ends with the second/last of the left_over_data_inputs
@@ -285,17 +303,18 @@ class Iso_Layer(Ent_Layer):
         '''
         l = Iso_Layer._lowercases
         unitary_tensors = self.get_unitary_tensors()
+        num_nodes = unitary_tensors.shape[0]
 
         contracted = tf.einsum('abcd, zce, zdfgh, ibeg -> zaifh',
                         unitary_tensors[0], left_over_data_inputs[:, 0], inputs[:, 0], tf.math.conj(unitary_tensors[0]))
         # :contracted: single tensor with alternating indices
-        for i in range(1, len(unitary_tensors)-1):
+        for i in range(1, num_nodes-1):
             contract_str_with_tracing = 'ABCD, Z'+l[:2*i]+'CE, ZDFGH, IBEG -> Z'+l[:2*i]+'AIFH'
             contracted = tf.einsum(contract_str_with_tracing,
                             unitary_tensors[i], contracted, inputs[:, i], tf.math.conj(unitary_tensors[i]))
             # :contracted: single tensor with alternating indices
 
-        bond_inds, last = l[:2 * (len(unitary_tensors)-1)], len(unitary_tensors) - 1
+        bond_inds, last = l[:2 * (num_nodes-1)], num_nodes - 1
         contract_str_with_tracing = 'ABCD, Z'+bond_inds+'CE, ZDF, GBEF -> Z'+bond_inds+'AG'
         output = tf.einsum(contract_str_with_tracing,
                         unitary_tensors[last], contracted, left_over_data_inputs[:, -1], tf.math.conj(unitary_tensors[last]))
@@ -304,14 +323,13 @@ class Iso_Layer(Ent_Layer):
         # :output: single tensor with canonical indices
         return output
 
-    def get_mid_iso_lay_out(self, input):
+    def get_2nd_iso_lay_out(self, input):
         '''
         :param input: single tensor with cononical indices
         :return: single tensor with cononical indices
         '''
         l = Iso_Layer._lowercases
         unitary_tensors = self.get_unitary_tensors()
-
         contract_str_with_tracing = 'ABab, CDcd, EFef, GHgh, Z'+l[:16]+', IBij, KDkl, MFmn, OHop -> ZACEGIKMO'
         output = tf.einsum(contract_str_with_tracing, unitary_tensors[0], unitary_tensors[1],
                            unitary_tensors[2], unitary_tensors[3], input,
@@ -319,5 +337,25 @@ class Iso_Layer(Ent_Layer):
                            tf.math.conj(unitary_tensors[2]), tf.math.conj(unitary_tensors[3]))
         return output
 
+    def get_3rd_iso_lay_out(self, input):
+        '''
+        :param input: single tensor with cononical indices
+        :return: single tensor with cononical indices
+        '''
+        l = Iso_Layer._lowercases
+        unitary_tensors = self.get_unitary_tensors()
+        contract_str_with_tracing = 'ABab, CDcd, Z'+l[:8]+', EBef, GDgh -> ZACEG'
+        output = tf.einsum(contract_str_with_tracing, unitary_tensors[0], unitary_tensors[1], input,
+                           tf.math.conj(unitary_tensors[0]), tf.math.conj(unitary_tensors[1]))
+        return output
+
+    def get_4th_iso_lay_out(self, input):
+        '''
+        :param input: single tensor with cononical indices
+        :return: single tensor with cononical indices
+        '''
+        unitary_tensor = self.get_unitary_tensors()[0]
+        output = tf.einsum('ABab, Zabcd, CBcd -> ZAC', unitary_tensor, input, tf.math.conj(unitary_tensor))
+        return output
 
 
