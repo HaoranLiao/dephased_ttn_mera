@@ -131,7 +131,7 @@ class Model:
         for epoch in range(epochs):
             train_accuracy = self.run_epoch(batch_size, epoch)
 
-            if not epoch % 2 and self.val_images:
+            if not epoch % 2 and self.val_images is not None:
                 val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
                 print('Epoch {0:3}  Train : {1:.4f}\tValid : {2:.4f}'
                       .format(epoch, train_accuracy, val_accuracy), flush=True)
