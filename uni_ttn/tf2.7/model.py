@@ -96,6 +96,7 @@ class Model:
             self.val_images, self.val_labels = val_data
             print('Validation Split: %.2f\t Size: %d' % (val_split, len(self.val_images)), flush=True)
         else:
+            self.val_images = None
             assert not config['data']['val_split']; print('No Validation', flush=True)
 
         self.test_images, self.test_labels = test_data
@@ -130,7 +131,7 @@ class Model:
         for epoch in range(epochs):
             train_accuracy = self.run_epoch(batch_size, epoch)
 
-            if not epoch % 2:
+            if not epoch % 2 and self.val_images:
                 val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
                 print('Epoch {0:3}  Train : {1:.4f}\tValid : {2:.4f}'
                       .format(epoch, train_accuracy, val_accuracy), flush=True)
