@@ -103,8 +103,8 @@ class Model:
         self.test_images, self.test_labels = test_data
         print('Test Sample Size: %s' % len(self.test_images), flush=True)
 
-        if data_im_size == [8, 8] and config['data']['use_8by8_pixel_dict']:
-            print('Using 8x8 Pixel Dict', flush=True)
+        if data_im_size == [4, 4] and config['data']['use_4by4_pixel_dict']:
+            print('Using 4x4 Pixel Dict', flush=True)
             self.create_pixel_dict()
             self.train_images = self.train_images[:, self.pixel_dict]
             self.test_images = self.test_images[:, self.pixel_dict]
@@ -117,15 +117,7 @@ class Model:
         self.b_factor = self.config['data']['eval_batch_size_factor']
 
     def create_pixel_dict(self):
-        self.pixel_dict = []
-        for index in range(64):
-            quad = index // 16
-            quad_quad = (index % 16) // 4
-            pos = index % 4
-            row = (pos // 2) + 2 * (quad_quad // 2) + 4 * (quad // 2)
-            col = (pos % 2) + 2 * (quad_quad % 2) + 4 * (quad % 2)
-            pixel = col + 8 * row
-            self.pixel_dict.append(pixel)
+        self.pixel_dict = [0, 1, 4, 5, 2, 3, 6, 7, 8, 9, 12, 13, 10, 11, 14, 15]
 
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc, self.history_val_acc = [], [-1]
