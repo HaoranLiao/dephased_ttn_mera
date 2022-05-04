@@ -10,10 +10,11 @@ import network
 sys.path.append('../../uni_ttn/tf2.7/')
 import data
 from ray import tune
-from ray.tune.suggest.ax import AxSearch
+try: from ray.tune.suggest.ax import AxSearch
+except ImportError: pass
 from filelock import FileLock
 
-#os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
@@ -255,7 +256,7 @@ if __name__ == "__main__":
         grace_period=30
     )
 
-    ax_search = AxSearch(metric="score")
+    #ax_search = AxSearch(metric="score")
 
     analysis = tune.run(
         MERA,

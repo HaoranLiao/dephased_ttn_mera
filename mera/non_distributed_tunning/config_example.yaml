@@ -8,7 +8,7 @@ data:
  execute_batch_size: 250
  eval_batch_size_factor: 20
  load_from_file: True
- data_im_size: [8,8]
+ data_im_size: [4,4]
  sample_size: 5000              # int or None
  feature_dim: 2
  use_8by8_pixel_dict: True
