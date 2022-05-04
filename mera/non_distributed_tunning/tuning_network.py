@@ -1,12 +1,11 @@
 import tensorflow as tf
 import numpy as np
-import string, sys
+import sys
 sys.path.append('../../uni_ttn/tf2.7/')
 import spsa
-sys.path.append('../')
-import network
+import mera.network
 
-class Network(network.Network):
+class Tuning_Network(mera.network.Network):
     def __init__(self, num_pixels, deph_p, num_anc, config, tune_config):
         super().__init__(num_pixels, deph_p, num_anc, -1, -1, config)
 
@@ -29,10 +28,10 @@ class Network(network.Network):
         self.opt.apply_gradients(zip(grads, self.var_list))
 
 
-class Ent_Layer(network.Ent_Layer):
+class Ent_Layer(mera.network.Ent_Layer):
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
 
-class Iso_Layer(network.Iso_Layer):
+class Iso_Layer(mera.network.Iso_Layer):
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)

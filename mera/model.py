@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
-import network
+import mera.network
 sys.path.append('../uni_ttn/tf2.7/')
 import data
 os.environ["CUDA_VISIBLE_DEVICES"] = '1'
@@ -112,7 +112,7 @@ class Model:
 
         num_pixels = self.train_images.shape[1]
         self.config, self.num_anc = config, num_anc
-        self.network = network.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
+        self.network = mera.network.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
 
         self.b_factor = self.config['data']['eval_batch_size_factor']
 

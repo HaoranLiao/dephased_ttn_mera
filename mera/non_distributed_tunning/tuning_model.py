@@ -1,7 +1,3 @@
-'''
-https://github.com/ray-project/ray/blob/master/python/ray/tune/examples/tf_mnist_example.py
-'''
-
 import tensorflow as tf
 import numpy as np
 import sys, os, time, yaml, json
@@ -9,8 +5,7 @@ from tqdm import tqdm
 import tuning_network
 sys.path.append('../../uni_ttn/tf2.7/')
 import data
-sys.path.append('../')
-import model
+import mera.model
 from model import variable_or_uniform
 from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
@@ -22,20 +17,13 @@ TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
 
-class Model(model.Model):
+class Tuning_Model(mera.model.Model):
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, config, tune_config):
-
-        if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
-        gpus = tf.config.list_physical_devices('GPU')
-        if gpus:
-            for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, config['meta']['set_memory_growth'])
-            logical_gpus = tf.config.list_logical_devices('GPU')
-            print('Physical GPUs:', len(gpus), 'Logical GPUs:', len(logical_gpus), flush=True)
+        super().__init__(data_path, digits, val_split, deph_p, num_anc, 1, 1, config)
 
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
-
         with FileLock(os.path.expanduser("~/.tune.lock")):
             if config['data']['load_from_file']:
                 assert data_im_size == [4, 4] and feature_dim == 2
@@ -67,9 +55,7 @@ class Model(model.Model):
 
         num_pixels = self.train_images.shape[1]
         self.config = config
-        self.network = tuning_network.Network(num_pixels, deph_p, num_anc, config, tune_config)
-
-        self.b_factor = self.config['data']['eval_batch_size_factor']
+        self.network = tuning_network.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc = []
@@ -124,7 +110,7 @@ class MERA(tune.Trainable):
         digits = variable_or_uniform(list_digits, 0)
         deph_p = variable_or_uniform(list_deph_p, 0)
         num_anc = variable_or_uniform(list_num_anc, 0)
-        self.model = Model(data_path, digits, val_split, deph_p, num_anc, config, tune_config)
+        self.model = Tuning_Model(data_path, digits, val_split, deph_p, num_anc, config, tune_config)
 
     def step(self):
         self.model.run_epoch(batch_size, self.iteration, grad_accumulation=config['data']['grad_accumulation'])
