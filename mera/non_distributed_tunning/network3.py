@@ -13,7 +13,7 @@ class Network:
         self.num_anc = num_anc
         self.num_pixels = num_pixels
         self.num_layers = int(np.log2(num_pixels)) * 2 - 1
-        self.init_std = init_std
+        self.init_std = tune_config['init_std']
         self.init_mean = config['tree']['param']['init_mean']
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']

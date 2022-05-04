@@ -1,3 +1,3 @@
 from .data import *
-from .network import *
+from .network3 import *
 from .model import *
