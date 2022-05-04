@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import sys, os, yaml, json
 from tqdm import tqdm
-import tuning_network
+import network_tuning
 sys.path.append('../../uni_ttn/tf2.7/')
 import data
 import mera.model
@@ -55,7 +55,7 @@ class Tuning_Model(mera.model.Model):
 
         num_pixels = self.train_images.shape[1]
         self.config = config
-        self.network = tuning_network.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config)
+        self.network = network_tuning.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc = []
