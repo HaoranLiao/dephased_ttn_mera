@@ -10,11 +10,11 @@ from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
 except ImportError: pass
 from filelock import FileLock
+import ray
 
 #os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
-import ray
 ray.init(log_to_driver=False)
 
 

@@ -7,16 +7,17 @@ import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
 import network
-sys.path.append('../')
-import data
+import uni_ttn.tf2.data as data
 from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
 except ImportError: pass
 from filelock import FileLock
+import ray
 
 #os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
+ray.init(log_to_driver=False)
 
 
 def print_results(start_time):

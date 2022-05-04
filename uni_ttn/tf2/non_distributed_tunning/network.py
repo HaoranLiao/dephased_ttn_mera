@@ -1,8 +1,7 @@
 import tensorflow as tf
 import numpy as np
-import string, sys
-sys.path.append('../')
-import spsa
+import string
+import uni_ttn.tf2.spsa as spsa
 
 
 class Network:
