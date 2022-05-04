@@ -1,10 +1,9 @@
 import tensorflow as tf
 import numpy as np
-import sys, os, yaml, json
+import os, yaml, json
 from tqdm import tqdm
 import network_tuning
-sys.path.append('../../uni_ttn/tf2/')
-import data
+import uni_ttn.tf2.data as data
 import mera.model
 from mera.model import variable_or_uniform
 from ray import tune
@@ -15,6 +14,8 @@ from filelock import FileLock
 #os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
+import ray
+ray.init(log_to_driver=False)
 
 
 class Tuning_Model(mera.model.Model):

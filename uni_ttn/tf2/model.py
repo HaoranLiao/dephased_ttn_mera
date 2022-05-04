@@ -4,7 +4,8 @@ import sys, os, time, yaml, json
 from tqdm import tqdm
 import network
 import data
-#os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 

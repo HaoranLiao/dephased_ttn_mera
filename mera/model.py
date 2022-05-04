@@ -3,8 +3,8 @@ import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
 import mera.network
-sys.path.append('../uni_ttn/tf2/')
-import data
+import uni_ttn.tf2.data as data
+
 os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
