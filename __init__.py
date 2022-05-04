@@ -1,3 +1,3 @@
-import mera
-import uni_ttn
-import resnet
+from .mera import *
+from .uni_ttn import *
+from .resnet import *

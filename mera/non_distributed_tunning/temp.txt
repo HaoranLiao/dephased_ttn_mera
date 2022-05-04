@@ -1,0 +1,164 @@
+{
+ "data": {
+  "path": "/home/qc_whaley/dephased_ttn_project/mnist4by4/mnist4by4",
+  "val_split": 0,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "grad_accumulation": true,
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 20,
+  "load_from_file": true,
+  "data_im_size": [
+   4,
+   4
+  ],
+  "sample_size": 5000,
+  "feature_dim": 2,
+  "use_4by4_pixel_dict": true
+ },
+ "meta": {
+  "set_memory_growth": false,
+  "random_seed": 42,
+  "list_num_anc": [
+   0
+  ],
+  "num_repeat": -1,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    1
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": -1
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": 0.0001
+   }
+  }
+ }
+}
+== Status ==
+Memory usage on this node: 9.1/669.3 GiB
+Using AsyncHyperBand: num_stopped=0
+Bracket: Iter 30.000: None
+Resources requested: 12.0/96 CPUs, 1.0/1 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Result logdir: /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1
+Number of trials: 12/12 (11 PENDING, 1 RUNNING)
++------------------+----------+-------+-----------------+-----------+
+| Trial name       | status   | loc   |   tune_init_std |   tune_lr |
+|------------------+----------+-------+-----------------+-----------|
+| MERA_75346_00000 | RUNNING  |       |           0.5   |     0.005 |
+| MERA_75346_00001 | PENDING  |       |           0.1   |     0.005 |
+| MERA_75346_00002 | PENDING  |       |           0.05  |     0.005 |
+| MERA_75346_00003 | PENDING  |       |           0.01  |     0.005 |
+| MERA_75346_00004 | PENDING  |       |           0.005 |     0.005 |
+| MERA_75346_00005 | PENDING  |       |           0.001 |     0.005 |
+| MERA_75346_00006 | PENDING  |       |           0.5   |     0.025 |
+| MERA_75346_00007 | PENDING  |       |           0.1   |     0.025 |
+| MERA_75346_00008 | PENDING  |       |           0.05  |     0.025 |
+| MERA_75346_00009 | PENDING  |       |           0.01  |     0.025 |
+| MERA_75346_00010 | PENDING  |       |           0.005 |     0.025 |
+| MERA_75346_00011 | PENDING  |       |           0.001 |     0.025 |
++------------------+----------+-------+-----------------+-----------+
+
+
+Result for MERA_75346_00000:
+  {}
+  
+Result for MERA_75346_00001:
+  {}
+  
+Result for MERA_75346_00002:
+  {}
+  
+Result for MERA_75346_00003:
+  {}
+  
+Result for MERA_75346_00004:
+  {}
+  
+Result for MERA_75346_00005:
+  {}
+  
+Result for MERA_75346_00006:
+  {}
+  
+Result for MERA_75346_00007:
+  {}
+  
+Result for MERA_75346_00008:
+  {}
+  
+Result for MERA_75346_00009:
+  {}
+  
+Result for MERA_75346_00010:
+  {}
+  
+Result for MERA_75346_00011:
+  {}
+  
+== Status ==
+Memory usage on this node: 8.8/669.3 GiB
+Using AsyncHyperBand: num_stopped=0
+Bracket: Iter 30.000: None
+Resources requested: 0/96 CPUs, 0/1 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Result logdir: /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1
+Number of trials: 12/12 (12 ERROR)
++------------------+----------+-------+-----------------+-----------+
+| Trial name       | status   | loc   |   tune_init_std |   tune_lr |
+|------------------+----------+-------+-----------------+-----------|
+| MERA_75346_00000 | ERROR    |       |           0.5   |     0.005 |
+| MERA_75346_00001 | ERROR    |       |           0.1   |     0.005 |
+| MERA_75346_00002 | ERROR    |       |           0.05  |     0.005 |
+| MERA_75346_00003 | ERROR    |       |           0.01  |     0.005 |
+| MERA_75346_00004 | ERROR    |       |           0.005 |     0.005 |
+| MERA_75346_00005 | ERROR    |       |           0.001 |     0.005 |
+| MERA_75346_00006 | ERROR    |       |           0.5   |     0.025 |
+| MERA_75346_00007 | ERROR    |       |           0.1   |     0.025 |
+| MERA_75346_00008 | ERROR    |       |           0.05  |     0.025 |
+| MERA_75346_00009 | ERROR    |       |           0.01  |     0.025 |
+| MERA_75346_00010 | ERROR    |       |           0.005 |     0.025 |
+| MERA_75346_00011 | ERROR    |       |           0.001 |     0.025 |
++------------------+----------+-------+-----------------+-----------+
+Number of errored trials: 12
++------------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Trial name       |   # failures | error file                                                                                                                                           |
+|------------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------|
+| MERA_75346_00000 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00000_0_tune_init_std=0.5,tune_lr=0.005_2022-05-04_22-20-52/error.txt    |
+| MERA_75346_00001 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00001_1_tune_init_std=0.1,tune_lr=0.005_2022-05-04_22-20-52/error.txt    |
+| MERA_75346_00002 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00002_2_tune_init_std=0.05,tune_lr=0.005_2022-05-04_22-20-52/error.txt   |
+| MERA_75346_00003 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00003_3_tune_init_std=0.01,tune_lr=0.005_2022-05-04_22-20-52/error.txt   |
+| MERA_75346_00004 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00004_4_tune_init_std=0.005,tune_lr=0.005_2022-05-04_22-20-53/error.txt  |
+| MERA_75346_00005 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00005_5_tune_init_std=0.001,tune_lr=0.005_2022-05-04_22-20-53/error.txt  |
+| MERA_75346_00006 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00006_6_tune_init_std=0.5,tune_lr=0.025_2022-05-04_22-20-53/error.txt    |
+| MERA_75346_00007 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00007_7_tune_init_std=0.1,tune_lr=0.025_2022-05-04_22-20-53/error.txt    |
+| MERA_75346_00008 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00008_8_tune_init_std=0.05,tune_lr=0.025_2022-05-04_22-20-54/error.txt   |
+| MERA_75346_00009 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00009_9_tune_init_std=0.01,tune_lr=0.025_2022-05-04_22-20-54/error.txt   |
+| MERA_75346_00010 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00010_10_tune_init_std=0.005,tune_lr=0.025_2022-05-04_22-20-54/error.txt |
+| MERA_75346_00011 |            1 | /home/qc_whaley/dephased_ttn_project/mera/ray_results/anc0_deph1/MERA_75346_00011_11_tune_init_std=0.001,tune_lr=0.025_2022-05-04_22-20-54/error.txt |
++------------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+

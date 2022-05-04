@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import sys
 sys.path.append('../../uni_ttn/tf2.7/')
-import spsa
+#import spsa
 import mera.network
 
 class Tuning_Network(mera.network.Network):
