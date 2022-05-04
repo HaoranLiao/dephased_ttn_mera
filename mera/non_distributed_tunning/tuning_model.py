@@ -1,12 +1,12 @@
 import tensorflow as tf
 import numpy as np
-import sys, os, time, yaml, json
+import sys, os, yaml, json
 from tqdm import tqdm
 import tuning_network
 sys.path.append('../../uni_ttn/tf2.7/')
 import data
 import mera.model
-from model import variable_or_uniform
+from mera.model import variable_or_uniform
 from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
 except ImportError: pass
@@ -19,7 +19,7 @@ TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
 class Tuning_Model(mera.model.Model):
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, config, tune_config):
-        super().__init__(data_path, digits, val_split, deph_p, num_anc, 1, 1, config)
+        super().__init__(data_path, digits, val_split, deph_p, num_anc, -1, -1, config)
 
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
@@ -177,15 +177,3 @@ if __name__ == "__main__":
     )
 
     print("Best hyperparameters found were: ", analysis.best_config)
-
-    # num_settings = max(len(list_digits), len(list_num_anc),
-    #                    len(list_batch_sizes), len(list_epochs), len(list_deph_p))
-    #
-    # avg_repeated_test_acc, avg_repeated_train_acc = [], []
-    # std_repeated_test_acc, std_repeated_train_acc = [], []
-    #
-    # start_time = time.time()
-    # try:
-    #     for i in tqdm(range(num_settings), total=num_settings, leave=True): run_all(i)
-    # finally:
-    #     print_results(start_time)
