@@ -10,7 +10,8 @@ import network
 sys.path.append('../')
 import data
 from ray import tune
-from ray.tune.suggest.ax import AxSearch
+try: from ray.tune.suggest.ax import AxSearch
+except ImportError: pass
 from filelock import FileLock
 
 #os.environ["CUDA_VISIBLE_DEVICES"] = '1'
