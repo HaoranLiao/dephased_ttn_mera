@@ -2,7 +2,7 @@
 *.pyc
 uni_ttn/tf1.14/.DS_Store
 uni_ttn/.DS_Store
-uni_ttn/tf2.7/.DS_Store
+uni_ttn/tf2/.DS_Store
 .DS_Store
 *.xml
 *.iml

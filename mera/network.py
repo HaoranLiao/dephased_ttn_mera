@@ -7,7 +7,7 @@ indices index one input dimension, one output dimension and so forth.
 import tensorflow as tf
 import numpy as np
 import string, sys
-sys.path.append('../uni_ttn/tf2.7/')
+sys.path.append('../uni_ttn/tf2/')
 import spsa
 
 

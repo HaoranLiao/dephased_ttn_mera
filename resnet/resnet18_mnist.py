@@ -15,7 +15,7 @@ import torch.optim as optim
 import numpy as np
 import torch.nn as nn
 import sys
-sys.path.append('../uni_ttn/tf2.7/')
+sys.path.append('../uni_ttn/tf2/')
 import data
 
 

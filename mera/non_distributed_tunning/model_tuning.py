@@ -3,7 +3,7 @@ import numpy as np
 import sys, os, yaml, json
 from tqdm import tqdm
 import network_tuning
-sys.path.append('../../uni_ttn/tf2.7/')
+sys.path.append('../../uni_ttn/tf2/')
 import data
 import mera.model
 from mera.model import variable_or_uniform

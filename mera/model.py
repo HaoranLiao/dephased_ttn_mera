@@ -3,7 +3,7 @@ import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
 import mera.network
-sys.path.append('../uni_ttn/tf2.7/')
+sys.path.append('../uni_ttn/tf2/')
 import data
 os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = False

@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import sys
-sys.path.append('../../uni_ttn/tf2.7/')
+sys.path.append('../../uni_ttn/tf2/')
 #import spsa
 import mera.network
 
