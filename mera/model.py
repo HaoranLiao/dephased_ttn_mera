@@ -3,6 +3,7 @@ import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
 import network
+sys.path.append('../uni_ttn/tf2.7/')
 import data
 os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = False
