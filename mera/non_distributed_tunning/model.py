@@ -7,6 +7,7 @@ import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
 import network
+sys.path.append('../../uni_ttn/tf2.7/')
 import data
 from ray import tune
 from ray.tune.suggest.ax import AxSearch
