@@ -12,7 +12,7 @@ except ImportError: pass
 from filelock import FileLock
 import ray
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '0,1,2,3,4,5,6,7'
+#os.environ["CUDA_VISIBLE_DEVICES"] = '7'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 ray.init(log_to_driver=False)
