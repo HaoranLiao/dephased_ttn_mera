@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 from uni_ttn.tf2 import spsa
-from mera import network
+from mera import network, network_ancilla
 
 class Tuning_Network(network.Network):
     def __init__(self, num_pixels, deph_p, num_anc, config, tune_config):
@@ -26,10 +26,10 @@ class Tuning_Network(network.Network):
         self.opt.apply_gradients(zip(grads, self.var_list))
 
 
-class Ent_Layer(network.Ent_Layer):
-    def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
-        super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
-
-class Iso_Layer(network.Iso_Layer):
-    def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
-        super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
+# class Ent_Layer(network.Ent_Layer):
+#     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
+#         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
+#
+# class Iso_Layer(network.Iso_Layer):
+#     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
+#         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
