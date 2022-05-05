@@ -277,7 +277,6 @@ class Ent_Layer:
         :param input: single tensor with canonical indices
         :return: single tensor with canonical indices
         '''
-        l = Ent_Layer._lowercases
         unitary_tensor = self.get_unitary_tensors()[0]
         contract_str = 'Z YabXWcdV, ABab, CDcd -> Z YABX WCDV'
         output = tf.einsum(contract_str, input, unitary_tensor, tf.math.conj(unitary_tensor))
