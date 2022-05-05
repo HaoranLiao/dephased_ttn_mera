@@ -20,7 +20,7 @@ class Network(network.Network):
         self.list_num_nodes = [7, 8, 3, 4, 1, 2, 1]
         self.layers.append(Ent_Layer(self.list_num_nodes[0], 1, self.num_anc, self.init_mean, self.init_std))
         self.layers.append(Iso_Layer(self.list_num_nodes[1], 2, self.num_anc, self.init_mean, self.init_std))
-        for i in range(1, self.num_layers-1, 2):
+        for i in range(2, self.num_layers-1, 2):
             self.layers.append(Ent_Layer(self.list_num_nodes[i], i+1, 0, self.init_mean, self.init_std))
             self.layers.append(Iso_Layer(self.list_num_nodes[i+1], i+2, 0, self.init_mean, self.init_std))
         self.layers.append(Iso_Layer(self.list_num_nodes[-1], self.num_layers, 0, self.init_mean, self.init_std))
