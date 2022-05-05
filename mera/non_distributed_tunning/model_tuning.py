@@ -14,7 +14,6 @@ import ray
 
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
-ray.init(log_to_driver=False)
 
 
 class Tuning_Model(model.Model):
