@@ -1,0 +1,231 @@
+{
+ "data": {
+  "path": "/home/qc_whaley/dephased_ttn_project/mnist4by4/mnist4by4",
+  "val_split": 0,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "grad_accumulation": true,
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 20,
+  "load_from_file": true,
+  "data_im_size": [
+   4,
+   4
+  ],
+  "sample_size": 5000,
+  "feature_dim": 2,
+  "use_4by4_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": false,
+  "visible_gpus": "1",
+  "set_memory_growth": false,
+  "random_seed": 42,
+  "list_num_anc": [
+   0
+  ],
+  "num_repeat": -1,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": -1
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": 0.0001
+   }
+  }
+ }
+}
+== Status ==
+Memory usage on this node: 9.5/669.3 GiB
+Using AsyncHyperBand: num_stopped=0
+Bracket: Iter 30.000: None
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.49 GiB heap, 0.0/186.26 GiB objects
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 12/12 (11 PENDING, 1 RUNNING)
++------------------+----------+-------+-----------------+-----------+
+| Trial name       | status   | loc   |   tune_init_std |   tune_lr |
+|------------------+----------+-------+-----------------+-----------|
+| MERA_c54db_00000 | RUNNING  |       |           0.5   |     0.005 |
+| MERA_c54db_00001 | PENDING  |       |           0.1   |     0.005 |
+| MERA_c54db_00002 | PENDING  |       |           0.05  |     0.005 |
+| MERA_c54db_00003 | PENDING  |       |           0.01  |     0.005 |
+| MERA_c54db_00004 | PENDING  |       |           0.005 |     0.005 |
+| MERA_c54db_00005 | PENDING  |       |           0.001 |     0.005 |
+| MERA_c54db_00006 | PENDING  |       |           0.5   |     0.025 |
+| MERA_c54db_00007 | PENDING  |       |           0.1   |     0.025 |
+| MERA_c54db_00008 | PENDING  |       |           0.05  |     0.025 |
+| MERA_c54db_00009 | PENDING  |       |           0.01  |     0.025 |
+| MERA_c54db_00010 | PENDING  |       |           0.005 |     0.025 |
+| MERA_c54db_00011 | PENDING  |       |           0.001 |     0.025 |
++------------------+----------+-------+-----------------+-----------+
+
+
+== Status ==
+Memory usage on this node: 13.9/669.3 GiB
+Using AsyncHyperBand: num_stopped=0
+Bracket: Iter 30.000: None
+Resources requested: 96.0/96 CPUs, 8.0/8 GPUs, 0.0/471.49 GiB heap, 0.0/186.26 GiB objects
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 12/12 (4 PENDING, 8 RUNNING)
++------------------+----------+-------+-----------------+-----------+
+| Trial name       | status   | loc   |   tune_init_std |   tune_lr |
+|------------------+----------+-------+-----------------+-----------|
+| MERA_c54db_00000 | RUNNING  |       |           0.5   |     0.005 |
+| MERA_c54db_00001 | RUNNING  |       |           0.1   |     0.005 |
+| MERA_c54db_00002 | RUNNING  |       |           0.05  |     0.005 |
+| MERA_c54db_00003 | RUNNING  |       |           0.01  |     0.005 |
+| MERA_c54db_00004 | RUNNING  |       |           0.005 |     0.005 |
+| MERA_c54db_00005 | RUNNING  |       |           0.001 |     0.005 |
+| MERA_c54db_00006 | RUNNING  |       |           0.5   |     0.025 |
+| MERA_c54db_00007 | RUNNING  |       |           0.1   |     0.025 |
+| MERA_c54db_00008 | PENDING  |       |           0.05  |     0.025 |
+| MERA_c54db_00009 | PENDING  |       |           0.01  |     0.025 |
+| MERA_c54db_00010 | PENDING  |       |           0.005 |     0.025 |
+| MERA_c54db_00011 | PENDING  |       |           0.001 |     0.025 |
++------------------+----------+-------+-----------------+-----------+
+
+
+Result for MERA_c54db_00002:
+  date: 2022-05-05_06-23-00
+  done: false
+  epoch: 0
+  experiment_id: df5a11924ece499ba8bb7c95d12ddc53
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 32934
+  test_accuracy: 65.0893796004206
+  time_since_restore: 9.931764841079712
+  time_this_iter_s: 9.931764841079712
+  time_total_s: 9.931764841079712
+  timestamp: 1651731780
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c54db_00002
+  
+== Status ==
+Memory usage on this node: 31.7/669.3 GiB
+Using AsyncHyperBand: num_stopped=0
+Bracket: Iter 30.000: None
+Resources requested: 96.0/96 CPUs, 8.0/8 GPUs, 0.0/471.49 GiB heap, 0.0/186.26 GiB objects
+Current best trial: c54db_00002 with test_accuracy=65.0893796004206 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 12/12 (4 PENDING, 8 RUNNING)
++------------------+----------+------------------+-----------------+-----------+--------+------------------+---------+-----------------+
+| Trial name       | status   | loc              |   tune_init_std |   tune_lr |   iter |   total time (s) |   epoch |   test_accuracy |
+|------------------+----------+------------------+-----------------+-----------+--------+------------------+---------+-----------------|
+| MERA_c54db_00000 | RUNNING  |                  |           0.5   |     0.005 |        |                  |         |                 |
+| MERA_c54db_00001 | RUNNING  |                  |           0.1   |     0.005 |        |                  |         |                 |
+| MERA_c54db_00002 | RUNNING  | 10.128.0.8:32934 |           0.05  |     0.005 |      1 |          9.93176 |       0 |         65.0894 |
+| MERA_c54db_00003 | RUNNING  |                  |           0.01  |     0.005 |        |                  |         |                 |
+| MERA_c54db_00004 | RUNNING  |                  |           0.005 |     0.005 |        |                  |         |                 |
+| MERA_c54db_00005 | RUNNING  |                  |           0.001 |     0.005 |        |                  |         |                 |
+| MERA_c54db_00006 | RUNNING  |                  |           0.5   |     0.025 |        |                  |         |                 |
+| MERA_c54db_00007 | RUNNING  |                  |           0.1   |     0.025 |        |                  |         |                 |
+| MERA_c54db_00008 | PENDING  |                  |           0.05  |     0.025 |        |                  |         |                 |
+| MERA_c54db_00009 | PENDING  |                  |           0.01  |     0.025 |        |                  |         |                 |
+| MERA_c54db_00010 | PENDING  |                  |           0.005 |     0.025 |        |                  |         |                 |
+| MERA_c54db_00011 | PENDING  |                  |           0.001 |     0.025 |        |                  |         |                 |
++------------------+----------+------------------+-----------------+-----------+--------+------------------+---------+-----------------+
+
+
+Result for MERA_c54db_00000:
+  date: 2022-05-05_06-23-00
+  done: false
+  epoch: 0
+  experiment_id: 518086244a2a46c5bdcdce87e9f0f6ca
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 32940
+  test_accuracy: 75.34174553101998
+  time_since_restore: 9.669420719146729
+  time_this_iter_s: 9.669420719146729
+  time_total_s: 9.669420719146729
+  timestamp: 1651731780
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c54db_00000
+  
+Result for MERA_c54db_00005:
+  date: 2022-05-05_06-23-00
+  done: false
+  epoch: 0
+  experiment_id: 2d19ca96e4bf49c0a741fe8ec9f60f79
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 32935
+  test_accuracy: 64.35331230283911
+  time_since_restore: 9.484355211257935
+  time_this_iter_s: 9.484355211257935
+  time_total_s: 9.484355211257935
+  timestamp: 1651731780
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c54db_00005
+  
+Result for MERA_c54db_00007:
+  date: 2022-05-05_06-23-00
+  done: false
+  epoch: 0
+  experiment_id: 38bc92f29287447a8c34d32bce75cb7d
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 32931
+  test_accuracy: 80.38906414300736
+  time_since_restore: 10.225953578948975
+  time_this_iter_s: 10.225953578948975
+  time_total_s: 10.225953578948975
+  timestamp: 1651731780
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c54db_00007
+  
+Result for MERA_c54db_00001:
+  date: 2022-05-05_06-23-00
+  done: false
+  epoch: 0
+  experiment_id: b1ef04b5c936476e9522ba4b2db12d9e
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 32933
+  test_accuracy: 84.70031545741324
+  time_since_restore: 9.800451040267944
+  time_this_iter_s: 9.800451040267944
+  time_total_s: 9.800451040267944
+  timestamp: 1651731780
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c54db_00001
+  
+Result for MERA_c54db_00006:
