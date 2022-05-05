@@ -12,7 +12,7 @@ except ImportError: pass
 from filelock import FileLock
 import ray
 
-#os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0,1,2,3,4,5,6,7'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 ray.init(log_to_driver=False)
@@ -145,7 +145,7 @@ if __name__ == "__main__":
 
     asha_scheduler = tune.schedulers.ASHAScheduler(
         time_attr='training_iteration',
-        max_t=80,
+        max_t=100,
         grace_period=30
     )
 
