@@ -7,7 +7,7 @@ indices index one input dimension, one output dimension and so forth.
 import tensorflow as tf
 import numpy as np
 import string
-import uni_ttn.tf2.spsa as spsa
+from uni_ttn.tf2 import spsa
 
 
 class Network:

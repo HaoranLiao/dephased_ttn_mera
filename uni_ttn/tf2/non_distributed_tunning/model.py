@@ -6,8 +6,8 @@ import tensorflow as tf
 import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
-import network
-import uni_ttn.tf2.data as data
+from uni_ttn.tf2.non_distributed_tunning import network
+from uni_ttn.tf2 import data
 from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
 except ImportError: pass

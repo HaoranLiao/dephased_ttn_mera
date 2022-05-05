@@ -3,8 +3,8 @@ import numpy as np
 import os, yaml, json
 from tqdm import tqdm
 import network_tuning
-import uni_ttn.tf2.data as data
-import mera.model
+from uni_ttn.tf2 import data
+from mera import model
 from mera.model import variable_or_uniform
 from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
@@ -18,7 +18,7 @@ TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 ray.init(log_to_driver=False)
 
 
-class Tuning_Model(mera.model.Model):
+class Tuning_Model(model.Model):
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, config, tune_config):
         super().__init__(data_path, digits, val_split, deph_p, num_anc, -1, -1, config)
 
