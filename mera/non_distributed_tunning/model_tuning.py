@@ -10,7 +10,6 @@ from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
 except ImportError: pass
 from filelock import FileLock
-import ray
 
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
@@ -54,7 +53,8 @@ class Tuning_Model(model.Model):
 
         num_pixels = self.train_images.shape[1]
         self.config = config
-        self.network = network_tuning.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config)
+        self.network = network_tuning.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config) if num_anc \
+                        else network_tuning.Tuning_Network_Ancilla(num_pixels, deph_p, num_anc, config, tune_config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc = []
