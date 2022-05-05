@@ -7,7 +7,7 @@ class Tuning_Network(network.Network):
     def __init__(self, num_pixels, deph_p, num_anc, config, tune_config):
         super().__init__(num_pixels, deph_p, num_anc, -1, -1, config)
 
-        self.init_std = tune_config['init_std']
+        self.init_std = tune_config['tune_init_std']
 
         if config['tree']['opt']['opt'] == 'adam':
             if not tune_config.get('tune_lr', False): self.opt = tf.keras.optimizers.Adam()
