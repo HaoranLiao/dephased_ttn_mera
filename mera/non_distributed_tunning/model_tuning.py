@@ -2,8 +2,8 @@ import tensorflow as tf
 import numpy as np
 import os, yaml, json
 from tqdm import tqdm
-import network_tuning
 from uni_ttn.tf2 import data
+from mera.non_distributed_tunning import network_tuning
 from mera import model
 from mera.model import variable_or_uniform
 from ray import tune
