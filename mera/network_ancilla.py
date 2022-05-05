@@ -18,10 +18,10 @@ class Network(network.Network):
 
         self.layers = []
         self.list_num_nodes = [7, 8, 3, 4, 1, 2, 1]
-        self.layers.append(Ent_Layer(self.list_num_nodes[0], 1, self.num_anc, self.init_mean, self.init_std))
+        self.layers.append(network.Ent_Layer(self.list_num_nodes[0], 1, self.num_anc, self.init_mean, self.init_std))
         self.layers.append(Iso_Layer(self.list_num_nodes[1], 2, self.num_anc, self.init_mean, self.init_std))
         for i in range(2, self.num_layers-1, 2):
-            self.layers.append(Ent_Layer(self.list_num_nodes[i], i+1, 0, self.init_mean, self.init_std))
+            self.layers.append(network.Ent_Layer(self.list_num_nodes[i], i+1, 0, self.init_mean, self.init_std))
             self.layers.append(Iso_Layer(self.list_num_nodes[i+1], i+2, 0, self.init_mean, self.init_std))
         self.layers.append(Iso_Layer(self.list_num_nodes[-1], self.num_layers, 0, self.init_mean, self.init_std))
         self.var_list = [layer.param_var_lay for layer in self.layers]
@@ -93,12 +93,6 @@ class Network(network.Network):
                            ' -> Z Y'+l[:i]+u[i]+l[i+1:2]+'XW'+l[2:2+i]+u[2+i]+l[3+i:4]+'V'
             tensor = tf.einsum(contract_str, self.kraus_ops_half_bd, tensor, self.kraus_ops_half_bd)
         return tensor
-
-
-class Ent_Layer(network.Ent_Layer):
-
-    def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
-        super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
 
 
 class Iso_Layer(network.Iso_Layer):
