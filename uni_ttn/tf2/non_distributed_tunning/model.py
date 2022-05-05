@@ -282,12 +282,12 @@ if __name__ == "__main__":
                 # 't': tune.uniform(0, 3),
                 # 'gamma': tune.uniform(0, 1)
                 },
-        local_dir='~/dephased_ttn_project/uni_ttn/ray_results/exp_adam/',
+        local_dir='~/ray_results/',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
         progress_reporter=tune.CLIReporter(max_progress_rows=100),
         #search_alg=ax_search,
-        log_to_file=True,
+        log_to_file=False,
         name='anc%.0f_deph%.0f' % (num_anc, deph_p)
     )
 
