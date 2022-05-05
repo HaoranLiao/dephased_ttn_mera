@@ -1,35 +1,0 @@
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:00<00:01,  1.67it/s] 67%|██████▋   | 2/3 [00:00<00:00,  3.27it/s]100%|██████████| 3/3 [00:00<00:00,  4.71it/s]4it [00:02,  1.18it/s]                                               0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:00<00:00,  9.91it/s]100%|██████████| 3/3 [00:00<00:00, 10.03it/s]                                               0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:01<00:02,  1.36s/it] 67%|██████▋   | 2/3 [00:01<00:00,  1.43it/s]4it [00:01,  3.15it/s]                                               0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:00<00:00,  9.97it/s]100%|██████████| 3/3 [00:00<00:00,  9.97it/s]                                             [ERROR 2022-05-05 05:44:40,436] worker.py: 428  SystemExit was raised from the worker
-Traceback (most recent call last):
-  File "python/ray/_raylet.pyx", line 640, in ray._raylet.task_execution_handler
-  File "python/ray/_raylet.pyx", line 488, in ray._raylet.execute_task
-  File "python/ray/_raylet.pyx", line 525, in ray._raylet.execute_task
-  File "python/ray/_raylet.pyx", line 532, in ray._raylet.execute_task
-  File "python/ray/_raylet.pyx", line 536, in ray._raylet.execute_task
-  File "python/ray/_raylet.pyx", line 486, in ray._raylet.execute_task.function_executor
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/ray/_private/function_manager.py", line 563, in actor_method_executor
-    return method(__ray_actor, *args, **kwargs)
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/ray/tune/trainable.py", line 178, in train_buffered
-    result = self.train()
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/ray/tune/trainable.py", line 237, in train
-    result = self.step()
-  File "/home/qc_whaley/dephased_ttn_project/mera/non_distributed_tunning/model_tuning.py", line 117, in step
-    self.model.run_epoch(batch_size, self.iteration, grad_accumulation=config['data']['grad_accumulation'])
-  File "/home/qc_whaley/dephased_ttn_project/mera/non_distributed_tunning/model_tuning.py", line 99, in run_epoch
-    self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=False)
-  File "/home/qc_whaley/dephased_ttn_project/mera/network.py", line 114, in update
-    grads = tape.gradient(loss, self.var_list)
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/tensorflow/python/eager/backprop.py", line 1084, in gradient
-    flat_grad = imperative_grad.imperative_grad(
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/tensorflow/python/eager/imperative_grad.py", line 71, in imperative_grad
-    return pywrap_tfe.TFE_Py_TapeGradient(
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/tensorflow/python/eager/function.py", line 1302, in _backward_function_wrapper
-    return backward._call_flat(  # pylint: disable=protected-access
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/tensorflow/python/eager/function.py", line 1963, in _call_flat
-    return self._build_call_outputs(self._inference_function.call(
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/tensorflow/python/eager/function.py", line 591, in call
-    outputs = execute.execute(
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
-    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
-  File "/home/qc_whaley/anaconda3/envs/tf2.6/lib/python3.9/site-packages/ray/worker.py", line 425, in sigterm_handler
-    sys.exit(1)
-SystemExit: 1

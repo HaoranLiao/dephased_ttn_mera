@@ -127,6 +127,9 @@ if __name__ == "__main__":
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1), flush=True)
 
+    if config['meta']['set_visible_gpus']:
+        os.environ["CUDA_VISIBLE_DEVICES"] = config['meta']['visible_gpus']
+
     np.random.seed(config['meta']['random_seed'])
     tf.random.set_seed(config['meta']['random_seed'])
 
@@ -168,12 +171,12 @@ if __name__ == "__main__":
                 # 't': tune.uniform(0, 3),
                 # 'gamma': tune.uniform(0, 1)
                 },
-        local_dir='~/dephased_ttn_project/mera/ray_results/',
+        local_dir='~/ray_results/',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
         progress_reporter=tune.CLIReporter(max_progress_rows=100),
         #search_alg=ax_search,
-        log_to_file=True,
+        log_to_file=False,
         name='anc%.0f_deph%.0f' % (num_anc, deph_p)
     )
 
