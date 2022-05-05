@@ -5,7 +5,6 @@ from tqdm import tqdm
 from mera import network
 from uni_ttn.tf2 import data
 
-#os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
@@ -204,6 +203,9 @@ if __name__ == "__main__":
     with open('config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1), flush=True)
+
+    if config['meta']['set_visible_gpus']:
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(config['meta']['visible_gpus'])
 
     np.random.seed(config['meta']['random_seed'])
     tf.random.set_seed(config['meta']['random_seed'])

@@ -223,6 +223,9 @@ if __name__ == "__main__":
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1)); sys.stdout.flush()
 
+    if config['meta']['set_visible_gpus']:
+        os.environ["CUDA_VISIBLE_DEVICES"] = config['meta']['visible_gpus']
+
     np.random.seed(config['meta']['random_seed'])
     tf.random.set_seed(config['meta']['random_seed'])
 

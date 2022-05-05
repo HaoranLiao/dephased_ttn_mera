@@ -12,6 +12,8 @@ data:
  feature_dim: 2
 
 meta:
+ set_visible_gpus: False
+ visible_gpus: '1'
  set_memory_growth: False
  random_seed: 42
  list_num_anc: [4]                # list or list of single

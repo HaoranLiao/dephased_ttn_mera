@@ -14,7 +14,6 @@ except ImportError: pass
 from filelock import FileLock
 import ray
 
-#os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 ray.init(log_to_driver=False)
@@ -234,6 +233,9 @@ if __name__ == "__main__":
     with open('config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1), flush=True)
+
+    if config['meta']['set_visible_gpus']:
+        os.environ["CUDA_VISIBLE_DEVICES"] = config['meta']['visible_gpus']
 
     np.random.seed(config['meta']['random_seed'])
     tf.random.set_seed(config['meta']['random_seed'])
