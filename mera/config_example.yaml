@@ -1,12 +1,13 @@
 data:
- path: '../mnist4by4/mnist4by4'
+ #path: '../mnist4by4/mnist4by4'
+ path: '../mnist8pca/mnist8pca'
  val_split: 0 #0.2857
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 125
  eval_batch_size_factor: 5
  load_from_file: True
- data_im_size: [4,4]
+ data_im_size: [4,2]
  sample_size: 5000                        # int or None
  feature_dim: 2
  use_4by4_pixel_dict: True
