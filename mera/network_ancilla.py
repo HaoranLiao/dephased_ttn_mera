@@ -52,7 +52,7 @@ class Network(network.Network):
         layer_out = self.layers[3].get_2nd_iso_lay_out(layer_out)
         if self.deph_net:
             layer_out = tf.expand_dims(layer_out, 1)
-            layer_out = self.dephase(layer_out, num_bd=2)
+            layer_out = self.dephase_after_bottleneck(layer_out, num_bd=4)
             layer_out = layer_out[:, 0]
 
         layer_out = self.layers[4].get_3rd_ent_lay_out(layer_out)
@@ -61,13 +61,23 @@ class Network(network.Network):
         layer_out = self.layers[5].get_3rd_iso_lay_out(layer_out)
         if self.deph_net:
             layer_out = tf.expand_dims(layer_out, 1)
-            layer_out = self.dephase(layer_out, num_bd=1)
+            layer_out = self.dephase_after_bottleneck(layer_out, num_bd=2)
             layer_out = layer_out[:, 0]
 
         final_layer_out = self.layers[6].get_4th_iso_lay_out(layer_out)
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
+
+    def dephase_after_bottleneck(self, tensors, num_bd=1):
+        batch_size, num_nodes = tensors.shape[:2]
+        matrices = tf.reshape(tensors, [batch_size, num_nodes, *[2**num_bd]*2])
+        if num_bd == 1:     kraus_ops = self.kraus_ops_half_bd
+        elif num_bd == 2:   kraus_ops = self.kraus_ops_1_bd
+        elif num_bd == 4:   kraus_ops = self.kraus_ops_2_bd
+        else: raise NotImplementedError
+        dephased = tf.einsum('kab, znbc, kdc -> znad', kraus_ops, matrices, kraus_ops)
+        return tf.reshape(dephased, [batch_size, num_nodes, *[2]*num_bd*2])
 
     def dephase_1st_iso_lay_out(self, tensor):
         l, u = Network._lowercases, Network._uppercases
