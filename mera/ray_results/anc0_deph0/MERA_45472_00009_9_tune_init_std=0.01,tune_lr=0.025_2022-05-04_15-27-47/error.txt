@@ -1,0 +1,19 @@
+Failure # 1 (occurred at 2022-05-04_15-27-47)
+Traceback (most recent call last):
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/trial_runner.py", line 718, in _process_trial
+    results = self.trial_executor.fetch_result(trial)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/ray_trial_executor.py", line 688, in fetch_result
+    result = ray.get(trial_future[0], timeout=DEFAULT_GET_TIMEOUT)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/_private/client_mode_hook.py", line 62, in wrapper
+    return func(*args, **kwargs)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/worker.py", line 1496, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::MERA.__init__()[39m (pid=218194, ip=128.32.17.9)
+  File "python/ray/_raylet.pyx", line 501, in ray._raylet.execute_task
+  File "python/ray/_raylet.pyx", line 451, in ray._raylet.execute_task.function_executor
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/_private/function_manager.py", line 563, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/_private/function_manager.py", line 468, in temporary_actor_method
+    raise RuntimeError(f"The actor with name {actor_class_name} "
+RuntimeError: The actor with name MERA failed to be imported, and so cannot execute this method.
+

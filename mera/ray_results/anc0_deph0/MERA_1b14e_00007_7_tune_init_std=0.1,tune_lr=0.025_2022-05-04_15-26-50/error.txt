@@ -1,0 +1,23 @@
+Failure # 1 (occurred at 2022-05-04_15-26-56)
+Traceback (most recent call last):
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/trial_runner.py", line 718, in _process_trial
+    results = self.trial_executor.fetch_result(trial)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/ray_trial_executor.py", line 688, in fetch_result
+    result = ray.get(trial_future[0], timeout=DEFAULT_GET_TIMEOUT)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/_private/client_mode_hook.py", line 62, in wrapper
+    return func(*args, **kwargs)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/worker.py", line 1496, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::MERA.__init__()[39m (pid=216589, ip=128.32.17.9)
+  File "python/ray/_raylet.pyx", line 501, in ray._raylet.execute_task
+  File "python/ray/_raylet.pyx", line 451, in ray._raylet.execute_task.function_executor
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/_private/function_manager.py", line 563, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "/home/haoranliao/anaconda3/envs/tf2.7/lib/python3.9/site-packages/ray/tune/trainable.py", line 98, in __init__
+    self.setup(copy.deepcopy(self.config))
+  File "/tmp/pycharm_project_948/mera/non_distributed_tunning/model.py", line 221, in setup
+    self.model = Model(data_path, digits, val_split, deph_p, num_anc, config, tune_config)
+  File "/tmp/pycharm_project_948/mera/non_distributed_tunning/model.py", line 93, in __init__
+    assert data_im_size == [4, 4] and feature_dim == 2
+AssertionError
+
