@@ -35,7 +35,10 @@ class DataGenerator:
         self.train_images = exp_featurize(self.train_images)
         self.test_images = exp_featurize(self.test_images)
 
-    def get_principle_components(self, k=8):
+    def get_principle_components(self, k=8, digits=(3,5)):
+        if digits:
+            self.train_images, self.train_labels = select_digits(self.train_images, self.train_labels, digits)
+            self.test_images, self.test_labels = select_digits(self.test_images, self.test_labels, digits)
         self.train_images = pca(self.train_images, k=k)
         self.test_images = pca(self.test_images, k=k)
 
@@ -53,7 +56,8 @@ def pca(images, k=8):
     cov_mat = np.matmul(images.T, images)
     eigenvectors = eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
     projected = np.matmul(images, eigenvectors)
-    return projected
+    normalized_projected = normalize(projected)
+    return normalized_projected
 
 
 def select_digits(images, labels, digits):
@@ -213,6 +217,12 @@ def process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
         return (train_images, train_labels), None, (test_images, test_labels)
 
 
+def normalize(images):
+    images += abs(np.min(images))
+    images /= np.max(images)
+    return images
+
+
 def save_data(images, labels, path):
     dest = open(path, 'wb')
     data = (images, labels)
@@ -241,6 +251,6 @@ if __name__ == '__main__':
     # data3.featurize_exp()
 
     data4 = DataGenerator()
-    data4.get_principle_components()
+    data4.get_principle_components(digits=None)
     data4.featurize_qubit()
     data4.export('/home/haoranliao/dephased_ttn_project/mnist8pca/mnist8pca')
