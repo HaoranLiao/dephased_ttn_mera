@@ -218,7 +218,7 @@ def process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
 
 
 def normalize(images):
-    images += abs(np.min(images))
+    images -= np.min(images)
     images /= np.max(images)
     return images
 
