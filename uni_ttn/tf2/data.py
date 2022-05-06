@@ -52,7 +52,7 @@ class DataGenerator:
 def pca(images, k=8):
     image_size = np.prod(images.shape[1:])
     images = flatten_images(img_as_float(images))
-    images = images - np.mean(images, axis=1, keepdims=True)
+    images = images - np.mean(images, axis=0, keepdims=True)
     cov_mat = np.matmul(images.T, images)
     eigenvectors = eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
     projected = np.matmul(images, eigenvectors)
