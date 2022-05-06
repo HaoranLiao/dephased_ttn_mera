@@ -295,7 +295,7 @@ class Iso_Layer(Ent_Layer):
 
     def get_1st_iso_lay_out(self, inputs, left_over_data_inputs):
         '''
-        Bubbling contraction from left, starting with the first of the left_over_data_inputs,
+        Bubbling from left, starting with the first of the left_over_data_inputs,
         then the inputs, and ends with the second/last of the left_over_data_inputs
         :param input: tensors with canonical indices
         :param left_over_data_input: matrices
