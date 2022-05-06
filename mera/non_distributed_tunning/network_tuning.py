@@ -47,12 +47,3 @@ class Tuning_Network_Ancilla(network_ancilla.Network):
             loss = self.loss(input_batch, label_batch)
         grads = tape.gradient(loss, self.var_list)
         self.opt.apply_gradients(zip(grads, self.var_list))
-
-
-# class Ent_Layer(network.Ent_Layer):
-#     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
-#         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
-#
-# class Iso_Layer(network.Iso_Layer):
-#     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
-#         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
