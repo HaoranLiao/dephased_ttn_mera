@@ -52,7 +52,7 @@ class DataGenerator:
 def pca(images, k=8):
     image_size = np.prod(images.shape[1:])
     images = flatten_images(img_as_float(images))
-    images = images - images.mean()
+    images = images - np.mean(images, axis=0, keepdims=True)
     cov_mat = np.matmul(images.T, images)
     eigenvectors = eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
     projected = np.matmul(images, eigenvectors)
@@ -218,7 +218,7 @@ def process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
 
 
 def normalize(images):
-    images += abs(np.min(images))
+    images -= np.min(images)
     images /= np.max(images)
     return images
 
@@ -251,6 +251,6 @@ if __name__ == '__main__':
     # data3.featurize_exp()
 
     data4 = DataGenerator()
-    data4.get_principle_components(digits=None)
+    data4.get_principle_components(digits=(2,7))
     data4.featurize_qubit()
-    data4.export('/home/haoranliao/dephased_ttn_project/mnist8pca/mnist8pca')
+    data4.export('/home/haoranliao/dephased_ttn_project/mnist8pca_dig27/mnist8pca_dig27')
