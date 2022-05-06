@@ -12,7 +12,7 @@ data:
  use_4by4_pixel_dict: True
 
 meta:
- set_visible_gpus: False
+ set_visible_gpus: True
  visible_gpus: 1
  set_memory_growth: False
  random_seed: 42
