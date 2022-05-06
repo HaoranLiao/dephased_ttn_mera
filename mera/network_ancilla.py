@@ -1,9 +1,3 @@
-'''
-All tensors are batched with the first dimension being the batch axis. Except single tensor, tensors should have a
-second axis for nodes. Canonical indices index all input dimensions before indexing all output dimension. Alternating
-indices index one input dimension, one output dimension and so forth.
-'''
-
 import tensorflow as tf
 import numpy as np
 from mera import network
