@@ -295,7 +295,7 @@ class Iso_Layer(Ent_Layer):
 
     def get_1st_iso_lay_out(self, inputs, left_over_data_inputs):
         '''
-        Bubbling contraction from left, starting with the first of the left_over_data_inputs,
+        Bubbling from left, starting with the first of the left_over_data_inputs,
         then the inputs, and ends with the second/last of the left_over_data_inputs
         :param input: tensors with canonical indices
         :param left_over_data_input: matrices
@@ -320,7 +320,7 @@ class Iso_Layer(Ent_Layer):
         output = tf.einsum(contract_str_with_tracing,
                     unitary_tensors[last], contracted, left_over_data_inputs[:, 1], tf.math.conj(unitary_tensors[last]))
         # :output: single tensor with alternating indices
-        output = tf.transpose(output, perm=[0, *np.arange(1, 16, 2), *np.arange(2, 17, 2)])
+        output = tf.transpose(output, perm=[0, *np.arange(1, num_nodes*2, 2), *np.arange(2, num_nodes*2+1, 2)])
         # :output: single tensor with canonical indices
         return output
 

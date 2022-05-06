@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
-from mera import network, network_ancilla
+from mera import network, network_ancilla, network_8inputs
 from uni_ttn.tf2 import data
 
 TQDM_DISABLED = False
@@ -82,7 +82,7 @@ class Model:
         data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
         if config['data']['load_from_file']:
-            assert data_im_size == [4, 4] and feature_dim == 2
+            assert (data_im_size == [4, 4] or [4, 2]) and feature_dim == 2
             train_data, val_data, test_data = data.get_data_file(
                 data_path, digits, val_split, sample_size=sample_size)
         else:
@@ -111,8 +111,11 @@ class Model:
 
         num_pixels = self.train_images.shape[1]
         self.config, self.num_anc = config, num_anc
-        self.network = network.Network(num_pixels, deph_p, num_anc, init_std, lr, config) if not num_anc \
+        if data_im_size == [4, 4]:
+            self.network = network.Network(num_pixels, deph_p, num_anc, init_std, lr, config) if not num_anc \
                         else network_ancilla.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
+        elif data_im_size == [4, 2]:
+            self.network = network_8inputs.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
 
         self.b_factor = self.config['data']['eval_batch_size_factor']
 

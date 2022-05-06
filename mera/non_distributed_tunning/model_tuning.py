@@ -53,7 +53,7 @@ class Tuning_Model(model.Model):
 
         num_pixels = self.train_images.shape[1]
         self.config = config
-        self.network = network_tuning.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config) if num_anc \
+        self.network = network_tuning.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config) if not num_anc \
                         else network_tuning.Tuning_Network_Ancilla(num_pixels, deph_p, num_anc, config, tune_config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
@@ -160,8 +160,8 @@ if __name__ == "__main__":
         num_samples=1,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.005, 0.025]), #0, # not used in spsa
-                'tune_init_std': tune.grid_search([0.5, 0.1, 0.05, 0.01, 0.005, 0.001]), #0.1,
+                'tune_lr': tune.grid_search([0.001]), #0, # not used in spsa
+                'tune_init_std': tune.grid_search([0.5, 0.3, 0.1, 0.07, 0.05, 0.03, 0.01, 0.005]), #0.1,
                 # 'a': tune.uniform(1, 50),
                 # 'b': tune.uniform(1, 50),
                 # 'A': tune.uniform(1, 10),

@@ -1,9 +1,14 @@
 import pickle as pk
 import numpy as np
 import tensorflow as tf
-try: import skimage.transform
-except ImportError: pass
 import math
+
+try:
+    import skimage.transform
+    from skimage.util import img_as_float
+    from scipy.linalg import eigh
+except ImportError:
+    pass
 
 
 class DataGenerator:
@@ -21,7 +26,7 @@ class DataGenerator:
     def featurize(self, dim):
         self.train_images = trig_featurize(self.train_images, dim)
         self.test_images = trig_featurize(self.test_images, dim)
-        
+
     def featurize_qubit(self):
         self.train_images = trig_featurize_qubit(self.train_images)
         self.test_images = trig_featurize_qubit(self.test_images)
@@ -30,11 +35,25 @@ class DataGenerator:
         self.train_images = exp_featurize(self.train_images)
         self.test_images = exp_featurize(self.test_images)
 
+    def get_principle_components(self, k=8):
+        self.train_images = pca(self.train_images, k=k)
+        self.test_images = pca(self.test_images, k=k)
+
     def export(self, path):
         train_dest = path + '_train'
         test_dest = path + '_test'
         save_data(self.train_images, self.train_labels, train_dest)
         save_data(self.test_images, self.test_labels, test_dest)
+
+
+def pca(images, k=8):
+    image_size = np.prod(images.shape[1:])
+    images = flatten_images(img_as_float(images))
+    images = images - images.mean()
+    cov_mat = np.matmul(images.T, images)
+    eigenvectors = eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
+    projected = np.matmul(images, eigenvectors)
+    return projected
 
 
 def select_digits(images, labels, digits):
@@ -65,10 +84,10 @@ def batch_generator_tf(images: tf.constant, labels: tf.constant, batch_size):
     shuffled_indices = tf.random.shuffle(indices)
     randomized_images = tf.gather(images, shuffled_indices)
     randomized_labels = tf.gather(labels, shuffled_indices)
-    
+
     for i in range(0, num_images, batch_size):
-        batch_images = randomized_images[i:i+batch_size]
-        batch_labels = randomized_labels[i:i+batch_size]
+        batch_images = randomized_images[i:i + batch_size]
+        batch_labels = randomized_labels[i:i + batch_size]
         yield batch_images, batch_labels
 
 
@@ -89,39 +108,42 @@ def flatten_images(images):
     flattened_image = np.reshape(images, [num_images, -1])
     return flattened_image
 
+
 def exp_featurize(images):
     flat_images = flatten_images(images)
     (num_images, num_pixels) = flat_images.shape
     prep_axes = np.reshape(flat_images, (num_images, num_pixels, 1))
     pix_copy = np.tile(prep_axes, [1, 1, 2])
-    pix_copy[:, :, 0] = 1 / np.sqrt(pix_copy[:, :, 0]**2 + 1)
-    pix_copy[:, :, 1] = pix_copy[:, :, 1] / np.sqrt(pix_copy[:, :, 1]**2 + 1)
+    pix_copy[:, :, 0] = 1 / np.sqrt(pix_copy[:, :, 0] ** 2 + 1)
+    pix_copy[:, :, 1] = pix_copy[:, :, 1] / np.sqrt(pix_copy[:, :, 1] ** 2 + 1)
     return pix_copy
+
 
 def trig_featurize_qubit(images):
     flat_images = flatten_images(images)
     (num_images, num_pixels) = flat_images.shape
     prep_axes = np.reshape(flat_images, (num_images, num_pixels, 1))
     pix_copy = np.tile(prep_axes, [1, 1, 2])
-    pix_copy[:, :, 0] = np.cos(pix_copy[:, :, 0] * np.pi/2)
-    pix_copy[:, :, 1] = np.sin(pix_copy[:, :, 1] * np.pi/2)
+    pix_copy[:, :, 0] = np.cos(pix_copy[:, :, 0] * np.pi / 2)
+    pix_copy[:, :, 1] = np.sin(pix_copy[:, :, 1] * np.pi / 2)
     return pix_copy
-    
+
+
 def trig_featurize(images, dim):
     flat_images = flatten_images(images)
     (num_images, num_pixels) = flat_images.shape
     prep_axes = np.reshape(flat_images, (num_images, num_pixels, 1))
     pix_copy = np.tile(prep_axes, [1, 1, dim])
-    
+
     d = dim
-    for s in range(1, dim+1):
-        pix_copy[:, :, s-1] = np.sqrt(
-                float(math.factorial(d-1)) / \
-                float(math.factorial(s-1) * math.factorial(d-s))
-                ) \
-                * np.cos(pix_copy[:, :, s-1] * np.pi/2) ** (d-s) \
-                * np.sin(pix_copy[:, :, s-1] * np.pi/2) ** (s-1)
-        
+    for s in range(1, dim + 1):
+        pix_copy[:, :, s - 1] = np.sqrt(
+            float(math.factorial(d - 1)) / \
+            float(math.factorial(s - 1) * math.factorial(d - s))
+        ) \
+                                * np.cos(pix_copy[:, :, s - 1] * np.pi / 2) ** (d - s) \
+                                * np.sin(pix_copy[:, :, s - 1] * np.pi / 2) ** (s - 1)
+
     return pix_copy
 
 
@@ -157,8 +179,8 @@ def get_data_file(data_path, digits, val_split, sample_size=None):
     (test_raw_im, test_raw_lab) = load_data(data_path + '_test')
     return process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
                    digits, val_split, sample_size=sample_size)
-    
-    
+
+
 def get_data_web(digits, val_split, size, dim, sample_size=None):
     print('Fetch Data From Web')
     data = DataGenerator()
@@ -209,11 +231,16 @@ if __name__ == '__main__':
     # dim = 2
     # data1.featurize(dim)
 
-    data2 = DataGenerator()
-    data2.shrink_images([4, 4])
-    data2.featurize_qubit()
-    data2.export('/home/haoranliao/dephased_ttn_project/mnist4by4/mnist4by4')
+    # data2 = DataGenerator()
+    # data2.shrink_images([4, 4])
+    # data2.featurize_qubit()
+    # data2.export('/home/haoranliao/dephased_ttn_project/mnist4by4/mnist4by4')
 
     # data3 = DataGenerator()
     # data3.shrink_images([8, 8])
     # data3.featurize_exp()
+
+    data4 = DataGenerator()
+    data4.get_principle_components()
+    data4.featurize_qubit()
+    data4.export('/home/haoranliao/dephased_ttn_project/mnist8pca/mnist8pca')
