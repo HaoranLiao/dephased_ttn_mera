@@ -47,7 +47,7 @@ class Network(network.Network):
             layer_out = self.dephase(layer_out, num_bd=2)
             layer_out = layer_out[:, 0]
 
-        final_layer_out = self.layers[4].get_4th_iso_lay_out(layer_out)
+        final_layer_out = self.layers[4].get_3rd_iso_lay_out(layer_out)
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
@@ -70,7 +70,6 @@ class Network(network.Network):
 
 
 class Ent_Layer(network.Ent_Layer):
-
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
 
@@ -84,41 +83,10 @@ class Ent_Layer(network.Ent_Layer):
         output = tf.einsum(contract_str, input, unitary_tensor, tf.math.conj(unitary_tensor))
         return output
 
-class Iso_Layer(network.Iso_Layer):
 
+class Iso_Layer(network.Iso_Layer):
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
-
-    def get_1st_iso_lay_out(self, inputs, left_over_data_inputs):
-        '''
-        Bubbling from left, starting with the first of the left_over_data_inputs,
-        then the inputs, and ends with the second/last of the left_over_data_inputs
-        :param input: tensors with canonical indices
-        :param left_over_data_input: matrices
-        :return: single tensor with canonical indices
-        '''
-        assert left_over_data_inputs.shape[1] == 2
-        l = Iso_Layer._lowercases
-        unitary_tensors = self.get_unitary_tensors()
-        num_nodes = unitary_tensors.shape[0]
-
-        contracted = tf.einsum('abcd, zce, zdfgh, ibeg -> zaifh',
-                        unitary_tensors[0], left_over_data_inputs[:, 0], inputs[:, 0], tf.math.conj(unitary_tensors[0]))
-        # :contracted: single tensor with alternating indices
-        for i in range(1, num_nodes-1):
-            contract_str_with_tracing = 'ABCD, Z'+l[:2*i]+'CE, ZDFGH, IBEG -> Z'+l[:2*i]+'AIFH'
-            contracted = tf.einsum(contract_str_with_tracing,
-                            unitary_tensors[i], contracted, inputs[:, i], tf.math.conj(unitary_tensors[i]))
-            # :contracted: single tensor with alternating indices
-
-        bond_inds, last = l[:2 * (num_nodes-1)], num_nodes - 1
-        contract_str_with_tracing = 'ABCD, Z'+bond_inds+'CE, ZDF, GBEF -> Z'+bond_inds+'AG'
-        output = tf.einsum(contract_str_with_tracing,
-                    unitary_tensors[last], contracted, left_over_data_inputs[:, 1], tf.math.conj(unitary_tensors[last]))
-        # :output: single tensor with alternating indices
-        output = tf.transpose(output, perm=[0, *np.arange(1, 8, 2), *np.arange(2, 9, 2)])
-        # :output: single tensor with canonical indices
-        return output
 
     def get_2nd_iso_lay_out(self, input):
         '''
@@ -140,5 +108,3 @@ class Iso_Layer(network.Iso_Layer):
         unitary_tensor = self.get_unitary_tensors()[0]
         output = tf.einsum('ABab, Zabcd, CBcd -> ZAC', unitary_tensor, input, tf.math.conj(unitary_tensor))
         return output
-
-
