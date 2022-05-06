@@ -1,9 +1,13 @@
 import pickle as pk
 import numpy as np
 import tensorflow as tf
-try: import skimage.transform
-except ImportError: pass
 import math
+try:
+    import skimage.transform
+    from skimage.util import img_as_float
+    from scipy.linalg import eigh
+except ImportError:
+    pass
 
 
 class DataGenerator:
@@ -30,12 +34,24 @@ class DataGenerator:
         self.train_images = exp_featurize(self.train_images)
         self.test_images = exp_featurize(self.test_images)
 
+    def get_principle_components(self, k=8):
+        self.train_images = pca(self.train_images, k=k)
+        self.test_images = pca(self.test_images, k=k)
+
     def export(self, path):
         train_dest = path + '_train'
         test_dest = path + '_test'
         save_data(self.train_images, self.train_labels, train_dest)
         save_data(self.test_images, self.test_labels, test_dest)
 
+def pca(images, k=8):
+    image_size = np.prod(images.shape[1:])
+    images = flatten_images(img_as_float(images))
+    images = images - images.mean()
+    cov_mat = np.matmul(images.T, images)
+    eigenvectors = eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
+    projected = np.matmul(images, eigenvectors)
+    return projected
 
 def select_digits(images, labels, digits):
     cumulative_test = (labels == digits[0])
@@ -209,11 +225,15 @@ if __name__ == '__main__':
     # dim = 2
     # data1.featurize(dim)
 
-    data2 = DataGenerator()
-    data2.shrink_images([4, 4])
-    data2.featurize_qubit()
-    data2.export('/home/haoranliao/dephased_ttn_project/mnist4by4/mnist4by4')
+    # data2 = DataGenerator()
+    # data2.shrink_images([4, 4])
+    # data2.featurize_qubit()
+    # data2.export('/home/haoranliao/dephased_ttn_project/mnist4by4/mnist4by4')
 
     # data3 = DataGenerator()
     # data3.shrink_images([8, 8])
     # data3.featurize_exp()
+
+    data4 = DataGenerator()
+    data4.get_principle_components()
+    data4.export('/home/haoranliao/dephased_ttn_project/mnist8pca/mnist8pca')
