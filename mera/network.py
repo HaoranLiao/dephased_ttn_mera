@@ -56,7 +56,7 @@ class Network:
 
         self.grads = None
 
-    # @tf.function
+    @tf.function
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
@@ -128,7 +128,7 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
-    # @tf.function
+    @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(label_batch, self.get_network_output(input_batch))
 

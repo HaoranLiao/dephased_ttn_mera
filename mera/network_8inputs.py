@@ -17,7 +17,7 @@ class Network(network.Network):
         self.layers.append(Iso_Layer(self.list_num_nodes[-1], self.num_layers, self.num_anc, self.init_mean, self.init_std))
         self.var_list = [layer.param_var_lay for layer in self.layers]
 
-    # @tf.function
+    @tf.function
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
@@ -60,10 +60,10 @@ class Network(network.Network):
 
     def dephase_2nd_ent_lay_out(self, tensor):
         l, u = Network._lowercases, Network._uppercases
-        for i in range(1):
+        for i in range(2):
             # 'YXWV' are the left-over bonds that do not need to dephase again here
-            contract_str = 'U'+u[i]+l[i]+', Z Y'+l[:3]+'XW'+l[3:6]+'V, U'+u[3+i]+l[3+i]+\
-                           ' -> Z Y'+l[:i]+u[i]+l[i+1:3]+'XW'+l[3:3+i]+u[3+i]+l[4+i:6]+'V'
+            contract_str = 'U'+u[i]+l[i]+', Z Y'+l[:2]+'XW'+l[2:4]+'V, U'+u[2+i]+l[2+i]+\
+                           ' -> Z Y'+l[:i]+u[i]+l[i+1:2]+'XW'+l[2:2+i]+u[2+i]+l[3+i:4]+'V'
             tensor = tf.einsum(contract_str, self.kraus_ops_1_bd, tensor, self.kraus_ops_1_bd)
         return tensor
 
