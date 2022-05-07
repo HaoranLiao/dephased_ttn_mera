@@ -1,6 +1,6 @@
 data:
  #path: '../../datasets/mnist8by8/mnist8by8'
- path: '../../datasets/mnist8pca/mnist8pca'
+ path: '../../datasets/mnist8pca_dig27/mnist8pca_dig27'
  val_split: 0.16 #0.2857
  list_digits: [[2,7]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
@@ -25,7 +25,7 @@ meta:
   num_match: 10
   trigger: 60
 
- list_epochs: [100]                        # list or list of single
+ list_epochs: [50]                        # list or list of single
  list_devices: True
 
  deph:
@@ -42,7 +42,7 @@ tree:
   opt: 'adam'
   adam:
    user_lr: True
-   lr: [0.005]
+   lr: [0.001]
 
   spsa:
    a: 28
