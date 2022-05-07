@@ -1,12 +1,11 @@
 import pickle as pk
 import numpy as np
 import tensorflow as tf
-import math
+import math, scipy
 
 try:
     import skimage.transform
     from skimage.util import img_as_float
-    from scipy.linalg import eigh
 except ImportError:
     pass
 
@@ -54,7 +53,7 @@ def pca(images, k=8):
     images = flatten_images(img_as_float(images))
     images = images - np.mean(images, axis=0, keepdims=True)
     cov_mat = np.matmul(images.T, images)
-    eigenvectors = eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
+    eigenvectors = scipy.linalg.eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
     projected = np.matmul(images, eigenvectors)
     normalized_projected = normalize(projected)
     return normalized_projected
