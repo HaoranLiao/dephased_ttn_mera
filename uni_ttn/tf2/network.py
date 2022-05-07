@@ -181,3 +181,17 @@ class Layer:
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
         output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
         return output
+
+
+if __name__ == '__main__':
+    '''
+    Test the contractions of the network by inputting 1/2 I. The output should be 1/2 I. 
+    '''
+    import yaml
+    with open('config_example.yaml', 'r') as f:
+        config = yaml.load(f, yaml.FullLoader)
+    network = Network(64, 0, 0, 0.01, 0.005, config)
+    identity_input = tf.tile(1/2*tf.eye(2, dtype=tf.complex64)[None, None, :], [1, 64, 1, 1])
+    try: out = network.get_network_output(identity_input)
+    except: raise Exception('Need to comment out the line to form density matrices from kets')
+    print(out)

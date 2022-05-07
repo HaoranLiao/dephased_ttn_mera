@@ -359,4 +359,15 @@ class Iso_Layer(Ent_Layer):
         output = tf.einsum('ABab, Zabcd, CBcd -> ZAC', unitary_tensor, input, tf.math.conj(unitary_tensor))
         return output
 
-
+if __name__ == '__main__':
+    '''
+    Test the contractions of the network by inputting 1/2 I. The output should be 1/2 I. 
+    '''
+    import yaml
+    with open('config_example.yaml', 'r') as f:
+        config = yaml.load(f, yaml.FullLoader)
+    network = Network(16, 0, 0, 0.01, 0.005, config)
+    identity_input = tf.tile(1/2*tf.eye(2, dtype=tf.complex64)[None, None, :], [1, 16, 1, 1])
+    try: out = network.get_network_output(identity_input)
+    except: raise Exception('Need to comment out the line to form density matrices from kets')
+    print(out)
