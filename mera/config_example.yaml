@@ -1,11 +1,11 @@
 data:
  #path: '../mnist4by4/mnist4by4'
- path: '../mnist8pca_dig35/mnist8pca_dig35'
+ path: '../mnist8pca_dig27/mnist8pca_dig27'
  val_split: 0.165 #0.2857
- list_digits: [[3,5]]                     # list of pairs or one pair
- list_batch_sizes: [250]                  # list or list of single
- execute_batch_size: 250
- eval_batch_size_factor: 200
+ list_digits: [[2,7]]                     # list of pairs or one pair
+ list_batch_sizes: [25]                  # list or list of single
+ execute_batch_size: 25
+ eval_batch_size_factor: 20000
  load_from_file: True
  data_im_size: [8,1]
  sample_size: 700000                        # int or None
