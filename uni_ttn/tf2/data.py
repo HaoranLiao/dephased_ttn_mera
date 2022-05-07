@@ -38,8 +38,8 @@ class DataGenerator:
         if digits:
             self.train_images, self.train_labels = select_digits(self.train_images, self.train_labels, digits)
             self.test_images, self.test_labels = select_digits(self.test_images, self.test_labels, digits)
-        self.train_images = pca(self.train_images, k=k)
-        self.test_images = pca(self.test_images, k=k)
+        self.train_images, eigenvectors = pca_train(self.train_images, k=k)
+        self.test_images = pca_test(self.test_images, eigenvectors)
 
     def export(self, path):
         train_dest = path + '_train'
@@ -48,12 +48,20 @@ class DataGenerator:
         save_data(self.test_images, self.test_labels, test_dest)
 
 
-def pca(images, k=8):
+def pca_train(images, k=8):
     image_size = np.prod(images.shape[1:])
     images = flatten_images(img_as_float(images))
     images = images - np.mean(images, axis=0, keepdims=True)
     cov_mat = np.matmul(images.T, images)
     eigenvectors = scipy.linalg.eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
+    projected = np.matmul(images, eigenvectors)
+    normalized_projected = normalize(projected)
+    return normalized_projected, eigenvectors
+
+
+def pca_test(images, eigenvectors):
+    images = flatten_images(img_as_float(images))
+    images = images - np.mean(images, axis=0, keepdims=True)
     projected = np.matmul(images, eigenvectors)
     normalized_projected = normalize(projected)
     return normalized_projected
@@ -250,6 +258,6 @@ if __name__ == '__main__':
     # data3.featurize_exp()
 
     data4 = DataGenerator()
-    data4.get_principle_components(digits=(2,7))
+    data4.get_principle_components(digits=(3,5))
     data4.featurize_qubit()
-    data4.export('/home/haoranliao/dephased_ttn_project/mnist8pca_dig27/mnist8pca_dig27')
+    data4.export('/home/haoranliao/dephased_ttn_project/datasets/mnist8pca_dig35/mnist8pca_dig35')
