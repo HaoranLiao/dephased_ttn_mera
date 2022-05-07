@@ -38,6 +38,7 @@ class DataGenerator:
         if digits:
             self.train_images, self.train_labels = select_digits(self.train_images, self.train_labels, digits)
             self.test_images, self.test_labels = select_digits(self.test_images, self.test_labels, digits)
+        self.train_images, self.test_images = pca_preprocess(self.train_images, self.test_images)
         self.train_images, eigenvectors = pca_train(self.train_images, k=k)
         self.test_images = pca_test(self.test_images, eigenvectors)
 
@@ -48,21 +49,24 @@ class DataGenerator:
         save_data(self.test_images, self.test_labels, test_dest)
 
 
-def pca_train(images, k=8):
-    image_size = np.prod(images.shape[1:])
+def pca_preprocess(train_images, test_images):
+    images = np.concatenate([train_images, test_images], axis=0)
     images = flatten_images(img_as_float(images))
     images = images - np.mean(images, axis=0, keepdims=True)
-    cov_mat = np.matmul(images.T, images)
+    return images[:len(train_images)], images[len(train_images):]
+
+
+def pca_train(train_images, k=8):
+    image_size = train_images.shape[1]
+    cov_mat = np.matmul(train_images.T, train_images)
     eigenvectors = scipy.linalg.eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
-    projected = np.matmul(images, eigenvectors)
+    projected = np.matmul(train_images, eigenvectors)
     normalized_projected = normalize(projected)
     return normalized_projected, eigenvectors
 
 
-def pca_test(images, eigenvectors):
-    images = flatten_images(img_as_float(images))
-    images = images - np.mean(images, axis=0, keepdims=True)
-    projected = np.matmul(images, eigenvectors)
+def pca_test(test_images, eigenvectors):
+    projected = np.matmul(test_images, eigenvectors)
     normalized_projected = normalize(projected)
     return normalized_projected
 
