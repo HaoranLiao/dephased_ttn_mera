@@ -1,6 +1,6 @@
 data:
- #path: '../mnist4by4/mnist4by4'
- path: '../mnist8pca_dig27/mnist8pca_dig27'
+ #path: '../datasets/mnist4by4/mnist4by4'
+ path: '../datasets/mnist8pca_dig27/mnist8pca_dig27'
  val_split: 0.165 #0.2857
  list_digits: [[2,7]]                     # list of pairs or one pair
  list_batch_sizes: [25]                  # list or list of single
