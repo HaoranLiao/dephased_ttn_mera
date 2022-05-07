@@ -38,9 +38,7 @@ class DataGenerator:
         if digits:
             self.train_images, self.train_labels = select_digits(self.train_images, self.train_labels, digits)
             self.test_images, self.test_labels = select_digits(self.test_images, self.test_labels, digits)
-        self.train_images, self.test_images = pca_preprocess(self.train_images, self.test_images)
-        self.train_images, eigenvectors = pca_train(self.train_images, k=k)
-        self.test_images = pca_test(self.test_images, eigenvectors)
+        self.train_images, self.test_images = pca(self.train_images, self.test_images, k=k)
 
     def export(self, path):
         train_dest = path + '_train'
@@ -49,26 +47,18 @@ class DataGenerator:
         save_data(self.test_images, self.test_labels, test_dest)
 
 
-def pca_preprocess(train_images, test_images):
+def pca(train_images, test_images, k=8):
     images = np.concatenate([train_images, test_images], axis=0)
     images = flatten_images(img_as_float(images))
     images = images - np.mean(images, axis=0, keepdims=True)
-    return images[:len(train_images)], images[len(train_images):]
 
-
-def pca_train(train_images, k=8):
-    image_size = train_images.shape[1]
-    cov_mat = np.matmul(train_images.T, train_images)
+    image_size = images.shape[1]
+    cov_mat = np.matmul(images.T, images)
     eigenvectors = scipy.linalg.eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
-    projected = np.matmul(train_images, eigenvectors)
-    normalized_projected = normalize(projected)
-    return normalized_projected, eigenvectors
 
-
-def pca_test(test_images, eigenvectors):
-    projected = np.matmul(test_images, eigenvectors)
-    normalized_projected = normalize(projected)
-    return normalized_projected
+    projected = np.matmul(images, eigenvectors)
+    normal_projected = normalize(projected)
+    return normal_projected[:len(train_images)], normal_projected[len(train_images):]
 
 
 def select_digits(images, labels, digits):
@@ -262,6 +252,6 @@ if __name__ == '__main__':
     # data3.featurize_exp()
 
     data4 = DataGenerator()
-    data4.get_principle_components(digits=(3,5))
+    data4.get_principle_components(digits=(2,7))
     data4.featurize_qubit()
-    data4.export('/home/haoranliao/dephased_ttn_project/datasets/mnist8pca_dig35/mnist8pca_dig35')
+    data4.export('/home/haoranliao/dephased_ttn_project/datasets/mnist8pca_dig27/mnist8pca_dig27')
