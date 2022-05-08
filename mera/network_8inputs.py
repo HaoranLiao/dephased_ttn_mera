@@ -21,7 +21,7 @@ class Network(network.Network):
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
-        input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
+        # input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
@@ -107,3 +107,19 @@ class Iso_Layer(network.Iso_Layer):
         unitary_tensor = self.get_unitary_tensors()[0]
         output = tf.einsum('ABab, Zabcd, CBcd -> ZAC', unitary_tensor, input, tf.math.conj(unitary_tensor))
         return output
+
+    #TODO:Trace out one of the output qubits
+
+
+if __name__ == '__main__':
+    '''
+    Test the contractions of the network by inputting 1/2 I. The output should be 1/2 I. 
+    '''
+    import yaml
+    with open('config_example.yaml', 'r') as f:
+        config = yaml.load(f, yaml.FullLoader)
+    network = Network(8, 1, 0, 10, 0.005, config)
+    identity_input = tf.tile(1/2*tf.eye(2, dtype=tf.complex64)[None, None, :], [1, 8, 1, 1])
+    try: out = network.get_network_output(identity_input)
+    except: raise Exception('Need to comment out the line to form density matrices from kets')
+    print(out)
