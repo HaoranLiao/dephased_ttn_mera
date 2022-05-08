@@ -24,7 +24,7 @@ class Network(network.Network):
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
-        # input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
+        input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
