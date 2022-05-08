@@ -1,12 +1,11 @@
 import pickle as pk
 import numpy as np
 import tensorflow as tf
-import math
+import math, scipy
 
 try:
     import skimage.transform
     from skimage.util import img_as_float
-    from scipy.linalg import eigh
 except ImportError:
     pass
 
@@ -35,9 +34,11 @@ class DataGenerator:
         self.train_images = exp_featurize(self.train_images)
         self.test_images = exp_featurize(self.test_images)
 
-    def get_principle_components(self, k=8):
-        self.train_images = pca(self.train_images, k=k)
-        self.test_images = pca(self.test_images, k=k)
+    def get_principle_components(self, k=8, digits=(3,5)):
+        if digits:
+            self.train_images, self.train_labels = select_digits(self.train_images, self.train_labels, digits)
+            self.test_images, self.test_labels = select_digits(self.test_images, self.test_labels, digits)
+        self.train_images, self.test_images = pca(self.train_images, self.test_images, k=k)
 
     def export(self, path):
         train_dest = path + '_train'
@@ -46,14 +47,18 @@ class DataGenerator:
         save_data(self.test_images, self.test_labels, test_dest)
 
 
-def pca(images, k=8):
-    image_size = np.prod(images.shape[1:])
+def pca(train_images, test_images, k=8):
+    images = np.concatenate([train_images, test_images], axis=0)
     images = flatten_images(img_as_float(images))
-    images = images - images.mean()
+    images = images - np.mean(images, axis=0, keepdims=True)
+
+    image_size = images.shape[1]
     cov_mat = np.matmul(images.T, images)
-    eigenvectors = eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
+    eigenvectors = scipy.linalg.eigh(cov_mat, eigvals=(image_size-k, image_size-1))[1]
+
     projected = np.matmul(images, eigenvectors)
-    return projected
+    normal_projected = normalize(projected)
+    return normal_projected[:len(train_images)], normal_projected[len(train_images):]
 
 
 def select_digits(images, labels, digits):
@@ -213,6 +218,12 @@ def process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
         return (train_images, train_labels), None, (test_images, test_labels)
 
 
+def normalize(images):
+    images -= np.min(images)
+    images /= np.max(images)
+    return images
+
+
 def save_data(images, labels, path):
     dest = open(path, 'wb')
     data = (images, labels)
@@ -241,6 +252,6 @@ if __name__ == '__main__':
     # data3.featurize_exp()
 
     data4 = DataGenerator()
-    data4.get_principle_components()
+    data4.get_principle_components(digits=(2,7))
     data4.featurize_qubit()
-    data4.export('/home/haoranliao/dephased_ttn_project/mnist8pca/mnist8pca')
+    data4.export('/home/haoranliao/dephased_ttn_project/datasets/mnist8pca_dig27/mnist8pca_dig27')
