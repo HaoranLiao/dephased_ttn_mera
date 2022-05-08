@@ -24,7 +24,7 @@ class Tuning_Model(model.Model):
         feature_dim = config['data']['feature_dim']
         with FileLock(os.path.expanduser("~/.tune.lock")):
             if config['data']['load_from_file']:
-                assert data_im_size == [4, 4] and feature_dim == 2
+                assert feature_dim == 2
                 train_data, val_data, test_data = data.get_data_file(
                     data_path, digits, val_split, sample_size=sample_size)
             else:
