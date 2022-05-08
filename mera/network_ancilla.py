@@ -20,11 +20,11 @@ class Network(network.Network):
         self.layers.append(Iso_Layer(self.list_num_nodes[-1], self.num_layers, 0, self.init_mean, self.init_std))
         self.var_list = [layer.param_var_lay for layer in self.layers]
 
-    # @tf.function
+    @tf.function
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
-        input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
+        # input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
@@ -142,3 +142,17 @@ class Iso_Layer(network.Iso_Layer):
         output = tf.transpose(output, perm=[0, *np.arange(1, 16, 2), *np.arange(2, 17, 2)])
         # :output: single tensor with canonical indices
         return output
+
+
+if __name__ == '__main__':
+    '''
+    Test the contractions of the network by inputting 1/2 I. The output should be 1/2 I. 
+    '''
+    import yaml
+    with open('config_example.yaml', 'r') as f:
+        config = yaml.load(f, yaml.FullLoader)
+    network = Network(16, 0.6, 1, 10, 0.005, config)
+    identity_input = tf.tile(1/2*tf.eye(2, dtype=tf.complex64)[None, None, :], [1, 16, 1, 1])
+    try: out = network.get_network_output(identity_input)
+    except: raise Exception('Need to comment out the line to form density matrices from kets')
+    print(out)
