@@ -1,8 +1,8 @@
 data:
  #path: '../../datasets/mnist8by8/mnist8by8'
- path: '../../datasets/mnist8pca_dig27/mnist8pca_dig27'
+ path: '../../datasets/mnist8pca_dig35/mnist8pca_dig35'
  val_split: 0.16 #0.2857
- list_digits: [[2,7]]                     # list of pairs or one pair
+ list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
  eval_batch_size_factor: 200
@@ -15,10 +15,10 @@ data:
 meta:
  set_visible_gpus: True
  visible_gpus: '1'
- set_memory_growth: True
+ set_memory_growth: False
  random_seed: 42
  list_num_anc: [0]                # list or list of single
- num_repeat: 1
+ num_repeat: 5
  auto_epochs:
   enabled: False
   criterion: 0.005
@@ -36,13 +36,13 @@ meta:
 tree:
  param:
   init_mean: 0
-  init_std: [0.01]
+  init_std: [0.1]
 
  opt:
   opt: 'adam'
   adam:
    user_lr: True
-   lr: [0.001]
+   lr: [0.005]
 
   spsa:
    a: 28
