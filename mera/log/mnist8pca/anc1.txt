@@ -1,0 +1,160 @@
+{
+ "data": {
+  "path": "../datasets/mnist8pca_dig35/mnist8pca_dig35",
+  "val_split": 0.165,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 500,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   1
+  ],
+  "sample_size": 70000000,
+  "feature_dim": 2,
+  "use_4by4_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": false,
+  "visible_gpus": "1",
+  "set_memory_growth": true,
+  "random_seed": 42,
+  "list_num_anc": [
+   1
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   150
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.3,
+    0.3,
+    0.3,
+    0.5,
+    0.5,
+    0.5
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": [
+     0.025
+    ]
+   },
+   "spsa": {
+    "a": 28,
+    "b": 33,
+    "A": 7.41,
+    "s": 1.13,
+    "t": 0.658,
+    "gamma": 0.882
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 [3, 5]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.3
+Adam Learning Rate: 0.025
+Physical GPUs: 1 Logical GPUs: 1
+Load Data From File
+Train Sample Size: 9645
+Validation Split: 0.17	 Size: 1907
+Test Sample Size: 1902
+Epoch   0  Train : 0.8978	Valid : 0.9156
+Checkpoint saved...
+Epoch   1  Train : 0.9143
+Epoch   2  Train : 0.9020	Valid : 0.9109
+Epoch   3  Train : 0.8823
+Epoch   4  Train : 0.9211	Valid : 0.9292
+Checkpoint saved...
+Epoch   5  Train : 0.8921
+Epoch   6  Train : 0.9369	Valid : 0.9460
+Checkpoint saved...
+Epoch   7  Train : 0.8773
+Epoch   8  Train : 0.9223	Valid : 0.9318
+Epoch   9  Train : 0.8987
+Epoch  10  Train : 0.9071	Valid : 0.9166
+Epoch  11  Train : 0.9099
+Epoch  12  Train : 0.8004	Valid : 0.7934
+Epoch  13  Train : 0.8999
+Epoch  14  Train : 0.9175	Valid : 0.9287
+Epoch  15  Train : 0.8948
+Epoch  16  Train : 0.9011	Valid : 0.9124
+Epoch  17  Train : 0.8593
+Epoch  18  Train : 0.9213	Valid : 0.9292
+Epoch  19  Train : 0.9274
+Epoch  20  Train : 0.9372	Valid : 0.9392
+Epoch  21  Train : 0.8765
+Epoch  22  Train : 0.9270	Valid : 0.9376
+Epoch  23  Train : 0.9210
+Epoch  24  Train : 0.9102	Valid : 0.9109
+Epoch  25  Train : 0.9257
+Epoch  26  Train : 0.8755	Valid : 0.8810
+Epoch  27  Train : 0.9330
+Epoch  28  Train : 0.9125	Valid : 0.9208
+Epoch  29  Train : 0.9209
+Epoch  30  Train : 0.8823	Valid : 0.8778
+Epoch  31  Train : 0.9121
+Epoch  32  Train : 0.9350	Valid : 0.9449
+Epoch  33  Train : 0.8879
+Epoch  34  Train : 0.8587	Valid : 0.8537
+Epoch  35  Train : 0.8996
+Epoch  36  Train : 0.9358	Valid : 0.9345
+Epoch  37  Train : 0.9105
+Epoch  38  Train : 0.9275	Valid : 0.9355
+Epoch  39  Train : 0.8879
+Epoch  40  Train : 0.8939	Valid : 0.9051
+Epoch  41  Train : 0.9228
+Epoch  42  Train : 0.9409	Valid : 0.9392
+Epoch  43  Train : 0.9198
+Epoch  44  Train : 0.9349	Valid : 0.9397
+Epoch  45  Train : 0.9400
+Epoch  46  Train : 0.9108	Valid : 0.9240
+Epoch  47  Train : 0.9345
+Epoch  48  Train : 0.8821	Valid : 0.8956
+Epoch  49  Train : 0.9277
+Epoch  50  Train : 0.9194	Valid : 0.9271
+Epoch  51  Train : 0.9124
