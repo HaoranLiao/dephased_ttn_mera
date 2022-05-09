@@ -584,3 +584,7 @@ Epoch 115  Train : 0.8849
 Epoch 116  Train : 0.9241	Valid : 0.9345
 Epoch 117  Train : 0.8959
 Epoch 118  Train : 0.9243	Valid : 0.9365
+Epoch 119  Train : 0.8916
+Epoch 120  Train : 0.9190	Valid : 0.9250
+Epoch 121  Train : 0.9171
+Epoch 122  Train : 0.9247	Valid : 0.9313
