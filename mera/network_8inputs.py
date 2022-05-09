@@ -50,6 +50,8 @@ class Network(network.Network):
 
         if self.num_anc == 1:
             final_layer_out = tf.einsum('zabac -> zbc', tf.reshape(final_layer_out, [batch_size, *[2]*4]))
+        elif self.num_anc == 2:
+            final_layer_out = tf.einsum('zabcabd -> zcd', tf.reshape(final_layer_out, [batch_size, *[2]*6]))
 
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
