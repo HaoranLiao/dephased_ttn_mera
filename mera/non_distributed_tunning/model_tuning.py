@@ -52,9 +52,11 @@ class Tuning_Model(model.Model):
             if val_data: self.val_images = self.val_images[:, self.pixel_dict]
 
         num_pixels = self.train_images.shape[1]
-        self.config = config
-        self.network = network_tuning.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config) if not num_anc \
+        if data_im_size == [4, 4]:
+            self.network = network_tuning.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config) if not num_anc \
                         else network_tuning.Tuning_Network_Ancilla(num_pixels, deph_p, num_anc, config, tune_config)
+        elif data_im_size == [8, 1]:
+            self.network = network_tuning.Tuning_Network_8inputs(num_pixels, deph_p, num_anc, config, tune_config)
 
     def train_network(self, epochs, batch_size, auto_epochs):
         self.epoch_acc = []
