@@ -5,7 +5,7 @@ from tqdm import tqdm
 from mera import network, network_ancilla, network_8inputs
 from uni_ttn.tf2 import data
 
-TQDM_DISABLED = False
+TQDM_DISABLED = False if __name__ == '__main__' else True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
 
