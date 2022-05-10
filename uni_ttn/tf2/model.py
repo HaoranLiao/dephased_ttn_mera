@@ -3,8 +3,9 @@ import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
 from uni_ttn.tf2 import network, data
+from filelock import FileLock
 
-TQDM_DISABLED = False
+TQDM_DISABLED = False if __name__ == '__main__' else True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
 
@@ -80,13 +81,15 @@ class Model:
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
-        if config['data']['load_from_file']:
-            assert feature_dim == 2
-            train_data, val_data, test_data = data.get_data_file(
-                data_path, digits, val_split, sample_size=sample_size)
-        else:
-            train_data, val_data, test_data = data.get_data_web(
-                digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
+
+        with FileLock(os.path.expanduser("~/.tune.lock")):
+            if config['data']['load_from_file']:
+                assert feature_dim == 2
+                train_data, val_data, test_data = data.get_data_file(
+                    data_path, digits, val_split, sample_size=sample_size)
+            else:
+                train_data, val_data, test_data = data.get_data_web(
+                    digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
 
         self.train_images, self.train_labels = train_data
         print('Train Sample Size: %s' % len(self.train_images), flush=True)
@@ -95,7 +98,7 @@ class Model:
             self.val_images, self.val_labels = val_data
             print('Validation Split: %.2f\t Size: %d' % (val_split, len(self.val_images)), flush=True)
         else:
-            self.val_images = None
+            self.val_images = self.labels = None
             assert not config['data']['val_split']; print('No Validation', flush=True)
 
         self.test_images, self.test_labels = test_data
