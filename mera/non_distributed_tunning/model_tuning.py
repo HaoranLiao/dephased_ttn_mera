@@ -18,6 +18,7 @@ class Tuning_Model(model.Model):
         super().__init__(data_path, digits, val_split, deph_p, num_anc, tune_config['tune_init_std'], tune_config['tune_lr'], config)
 
         assert self.network.init_std == tune_config['tune_init_std']
+        print('Tune Init Std: ', tune_config['tune_init_std'])
 
         if config['tree']['opt']['opt'] == 'adam':
             if not tune_config.get('tune_lr', False): self.network.opt = tf.keras.optimizers.Adam()
@@ -103,7 +104,7 @@ if __name__ == "__main__":
         num_samples=1,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.001, 0.005, 0.025]), #0, # not used in spsa
+                'tune_lr': tune.grid_search([0.005, 0.025]), #0, # not used in spsa
                 'tune_init_std': tune.grid_search([0.5, 0.3, 0.1, 0.07, 0.05, 0.03, 0.01, 0.005]), #0.1,
                 # 'a': tune.uniform(1, 50),
                 # 'b': tune.uniform(1, 50),
