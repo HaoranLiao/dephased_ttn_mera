@@ -24,30 +24,6 @@ class Model(model.Model):
         num_pixels = self.train_images.shape[1]
         self.network = network_tuning.Network(num_pixels, deph_p, num_anc, config, tune_config)
 
-    # def train_network(self, epochs, batch_size, auto_epochs):
-    #     self.epoch_acc = []
-    #     for epoch in range(epochs):
-    #         accuracy = self.run_epoch(batch_size)
-    #         print('Epoch %d: %.5f accuracy' % (epoch, accuracy), flush=True)
-    #
-    #         if not epoch % 2:
-    #             test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-    #             print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
-    #
-    #         self.epoch_acc.append(accuracy)
-    #         if auto_epochs:
-    #             trigger = self.config['meta']['auto_epochs']['trigger']
-    #             assert trigger < epochs
-    #             if epoch >= trigger and self.check_acc_satified(accuracy): break
-    #
-    #     train_or_val_accuracy = accuracy
-    #     if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy, flush=True)
-    #     else: print('Validation Accuracy: %.3f' % train_or_val_accuracy, flush=True)
-    #
-    #     test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-    #     print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
-    #     return test_accuracy, train_or_val_accuracy
-
     def run_epoch(self, batch_size, epoch, grad_accumulation=True):
         if not grad_accumulation:
             batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
