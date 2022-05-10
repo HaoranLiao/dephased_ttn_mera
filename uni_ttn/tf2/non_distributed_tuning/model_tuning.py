@@ -23,10 +23,10 @@ class Tuning_Model(model.Model):
         assert self.network.init_std == tune_config['tune_init_std']
 
         if config['tree']['opt']['opt'] == 'adam':
-            if not tune_config.get('tune_lr', False): self.opt = tf.keras.optimizers.Adam()
-            else: self.opt = tf.keras.optimizers.Adam(tune_config['tune_lr'])
+            if not tune_config.get('tune_lr', False): self.network.opt = tf.keras.optimizers.Adam()
+            else: self.network.opt = tf.keras.optimizers.Adam(tune_config['tune_lr'])
         elif config['tree']['opt']['opt'] == 'spsa':
-            self.opt = spsa.Spsa(self, tune_config)
+            self.network.opt = spsa.Spsa(self.network, tune_config)
         else:
             raise NotImplementedError
 
