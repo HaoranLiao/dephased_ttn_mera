@@ -11,12 +11,19 @@ except ImportError:
 
 
 class DataGenerator:
-    def __init__(self):
-        mnist_data = tf.keras.datasets.mnist.load_data()
-        self.train_images = mnist_data[0][0]
-        self.train_labels = mnist_data[0][1]
-        self.test_images = mnist_data[1][0]
-        self.test_labels = mnist_data[1][1]
+    def __init__(self, dataset='MNIST'):
+        if dataset == 'MNIST':
+            mnist_data = tf.keras.datasets.mnist.load_data()
+            self.train_images = mnist_data[0][0]
+            self.train_labels = mnist_data[0][1]
+            self.test_images = mnist_data[1][0]
+            self.test_labels = mnist_data[1][1]
+        elif dataset == 'Fashion_MNIST':
+            fashion_data = tf.keras.datasets.fashion_mnist.load_data()
+            self.train_images = fashion_data[0][0]
+            self.train_labels = fashion_data[0][1]
+            self.test_images = fashion_data[1][0]
+            self.test_labels = fashion_data[1][1]
 
     def shrink_images(self, new_shape):
         self.train_images = resize_images(self.train_images, new_shape)
@@ -237,21 +244,23 @@ def load_data(path):
 
 
 if __name__ == '__main__':
+    from matplotlib import pyplot as plt
+
     # data1 = DataGenerator()
     # data1.shrink_images([8, 8])
     # dim = 2
     # data1.featurize(dim)
 
-    # data2 = DataGenerator()
-    # data2.shrink_images([4, 4])
-    # data2.featurize_qubit()
-    # data2.export('/home/haoranliao/dephased_ttn_project/mnist4by4/mnist4by4')
+    data2 = DataGenerator(dataset='Fashion_MNIST')
+    data2.shrink_images([8, 8])
+    data2.featurize_qubit()
+    data2.export('/home/haoranliao/dephased_ttn_project/datasets/fashion8by8/fashion8by8')
 
     # data3 = DataGenerator()
     # data3.shrink_images([8, 8])
     # data3.featurize_exp()
 
-    data4 = DataGenerator()
-    data4.get_principle_components(digits=(2,7))
-    data4.featurize_qubit()
-    data4.export('/home/haoranliao/dephased_ttn_project/datasets/mnist8pca_dig27/mnist8pca_dig27')
+    # data4 = DataGenerator()
+    # data4.get_principle_components(digits=(2,7))
+    # data4.featurize_qubit()
+    # data4.export('/home/haoranliao/dephased_ttn_project/datasets/mnist8pca_dig27/mnist8pca_dig27')
