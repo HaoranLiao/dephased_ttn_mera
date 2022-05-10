@@ -6,8 +6,7 @@ import tensorflow as tf
 import numpy as np
 import os, yaml, json
 from tqdm import tqdm
-from uni_ttn.tf2.non_distributed_tuning import network_tuning
-from uni_ttn.tf2 import data, model
+from uni_ttn.tf2 import data, model, spsa
 from uni_ttn.tf2.model import variable_or_uniform
 from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
@@ -21,8 +20,15 @@ class Model(model.Model):
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, config, tune_config):
         super().__init__(data_path, digits, val_split, deph_p, num_anc, tune_config['tune_init_std'], tune_config['tune_lr'], config)
 
-        num_pixels = self.train_images.shape[1]
-        self.network = network_tuning.Network(num_pixels, deph_p, num_anc, config, tune_config)
+        assert self.network.init_std == tune_config['tune_init_std']
+
+        if config['tree']['opt']['opt'] == 'adam':
+            if not tune_config.get('tune_lr', False): self.opt = tf.keras.optimizers.Adam()
+            else: self.opt = tf.keras.optimizers.Adam(tune_config['tune_lr'])
+        elif config['tree']['opt']['opt'] == 'spsa':
+            self.opt = spsa.Spsa(self, tune_config)
+        else:
+            raise NotImplementedError
 
     def run_epoch(self, batch_size, epoch, grad_accumulation=True):
         if not grad_accumulation:
