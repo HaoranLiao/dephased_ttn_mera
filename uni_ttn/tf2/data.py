@@ -193,9 +193,9 @@ def get_data_file(data_path, digits, val_split, sample_size=None):
                    digits, val_split, sample_size=sample_size)
 
 
-def get_data_web(digits, val_split, size, dim, sample_size=None):
+def get_data_web(digits, val_split, size, dim, sample_size=None, dataset='Fashion_MNIST'):
     print('Fetch Data From Web')
-    data = DataGenerator()
+    data = DataGenerator(dataset=dataset)
     data.shrink_images(size)
     # data.featurize(dim)
     data.featurize_qubit()
@@ -252,9 +252,9 @@ if __name__ == '__main__':
     # data1.featurize(dim)
 
     data2 = DataGenerator(dataset='Fashion_MNIST')
-    data2.shrink_images([8, 8])
+    data2.shrink_images([16, 16])
     data2.featurize_qubit()
-    data2.export('/home/haoranliao/dephased_ttn_project/datasets/fashion8by8/fashion8by8')
+    data2.export('/home/haoranliao/dephased_ttn_project/datasets/fashion16by16/fashion16by16')
 
     # data3 = DataGenerator()
     # data3.shrink_images([8, 8])
