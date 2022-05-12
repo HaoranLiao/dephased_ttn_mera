@@ -1,23 +1,23 @@
 data:
  #path: '../../datasets/mnist8by8/mnist8by8'
  path: '../../datasets/mnist8pca_dig35/mnist8pca_dig35'
- val_split: 0.16 #0.2857
- list_digits: [[3,5]]                     # list of pairs or one pair
+ val_split: 0.2 #0.2857 #0.16
+ list_digits: [[5,9]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
- execute_batch_size: 250
- eval_batch_size_factor: 200
- load_from_file: True
- data_im_size: [8,1]
- sample_size: 700000              # int or None
+ execute_batch_size: 125
+ eval_batch_size_factor: 10
+ load_from_file: False
+ data_im_size: [16,16]
+ sample_size: 10000              # int or None
  feature_dim: 2
  use_8by8_pixel_dict: True
 
 meta:
  set_visible_gpus: True
- visible_gpus: '1'
- set_memory_growth: False
+ visible_gpus: '0'
+ set_memory_growth: True
  random_seed: 42
- list_num_anc: [0]                # list or list of single
+ list_num_anc: [2]                # list or list of single
  num_repeat: 5
  auto_epochs:
   enabled: False
@@ -25,18 +25,18 @@ meta:
   num_match: 10
   trigger: 60
 
- list_epochs: [50]                        # list or list of single
+ list_epochs: [120]                        # list or list of single
  list_devices: True
 
  deph:
   data: True
   network: True
-  p: [0]
+  p: [1]
 
 tree:
  param:
   init_mean: 0
-  init_std: [0.1]
+  init_std: [0.05]
 
  opt:
   opt: 'adam'

@@ -81,6 +81,7 @@ class Model:
         sample_size = config['data']['sample_size']
         data_im_size = config['data']['data_im_size']
         feature_dim = config['data']['feature_dim']
+        print(f'Image Size: {data_im_size}\nFeature Dim: {feature_dim}')
 
         with FileLock(os.path.expanduser("~/.tune.lock")):
             if config['data']['load_from_file']:
