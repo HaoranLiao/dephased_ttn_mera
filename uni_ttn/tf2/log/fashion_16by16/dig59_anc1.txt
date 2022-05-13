@@ -9180,3 +9180,79 @@ Epoch  87  Train : 0.9765
 Epoch  88  Train : 0.9762	Valid : 0.9705
 Epoch  89  Train : 0.9766
 Epoch  90  Train : 0.9762	Valid : 0.9705
+Epoch  91  Train : 0.9764
+Epoch  92  Train : 0.9762	Valid : 0.9705
+Epoch  93  Train : 0.9764
+Epoch  94  Train : 0.9764	Valid : 0.9710
+Epoch  95  Train : 0.9768
+Epoch  96  Train : 0.9765	Valid : 0.9705
+Epoch  97  Train : 0.9764
+Epoch  98  Train : 0.9762	Valid : 0.9710
+Epoch  99  Train : 0.9764
+Epoch 100  Train : 0.9764	Valid : 0.9710
+Epoch 101  Train : 0.9766
+Epoch 102  Train : 0.9764	Valid : 0.9705
+Epoch 103  Train : 0.9764
+Epoch 104  Train : 0.9762	Valid : 0.9705
+Epoch 105  Train : 0.9765
+Epoch 106  Train : 0.9762	Valid : 0.9705
+Epoch 107  Train : 0.9761
+Epoch 108  Train : 0.9764	Valid : 0.9710
+Epoch 109  Train : 0.9764
+Epoch 110  Train : 0.9764	Valid : 0.9705
+Epoch 111  Train : 0.9766
+Epoch 112  Train : 0.9764	Valid : 0.9710
+Epoch 113  Train : 0.9764
+Epoch 114  Train : 0.9764	Valid : 0.9705
+Epoch 115  Train : 0.9764
+Epoch 116  Train : 0.9762	Valid : 0.9700
+Epoch 117  Train : 0.9764
+Epoch 118  Train : 0.9766	Valid : 0.9705
+Epoch 119  Train : 0.9765
+Training Done
+Restored from Epoch 46...
+Test Accuracy : 0.967	Train Accuracy : 0.976
+Time (hr): 0.1371
+
+Repeat: 8/10
+Digits:	 [5, 9]
+Dephasing data True
+Dephasing network True
+Dephasing rate 1.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.1
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [16, 16]
+Feature Dim: 2
+Fetch Data From Web - Fashion_MNIST
+Train Sample Size: 8000
+Validation Split: 0.20	 Size: 2000
+Test Sample Size: 2000
+Epoch   0  Train : 0.9309	Valid : 0.9225
+Checkpoint saved...
+Epoch   1  Train : 0.9459
+Epoch   2  Train : 0.9551	Valid : 0.9560
+Checkpoint saved...
+Epoch   3  Train : 0.9606
+Epoch   4  Train : 0.9631	Valid : 0.9625
+Checkpoint saved...
+Epoch   5  Train : 0.9649
+Epoch   6  Train : 0.9663	Valid : 0.9640
+Checkpoint saved...
+Epoch   7  Train : 0.9676
+Epoch   8  Train : 0.9686	Valid : 0.9630
+Epoch   9  Train : 0.9694
+Epoch  10  Train : 0.9696	Valid : 0.9645
+Checkpoint saved...
+Epoch  11  Train : 0.9701
+Epoch  12  Train : 0.9705	Valid : 0.9645
+Checkpoint saved...
+Epoch  13  Train : 0.9702
+Epoch  14  Train : 0.9709	Valid : 0.9665
+Checkpoint saved...
+Epoch  15  Train : 0.9715
