@@ -2133,3 +2133,94 @@ Epoch  94  Train : 0.9820	Valid : 0.9770
 Epoch  95  Train : 0.9836
 Epoch  96  Train : 0.9839	Valid : 0.9800
 Epoch  97  Train : 0.9835
+Epoch  98  Train : 0.9841	Valid : 0.9800
+Epoch  99  Train : 0.9838
+Epoch 100  Train : 0.9835	Valid : 0.9785
+Epoch 101  Train : 0.9831
+Epoch 102  Train : 0.9834	Valid : 0.9780
+Epoch 103  Train : 0.9836
+Epoch 104  Train : 0.9830	Valid : 0.9785
+Epoch 105  Train : 0.9844
+Epoch 106  Train : 0.9841	Valid : 0.9805
+Epoch 107  Train : 0.9832
+Epoch 108  Train : 0.9848	Valid : 0.9800
+Epoch 109  Train : 0.9838
+Epoch 110  Train : 0.9832	Valid : 0.9785
+Epoch 111  Train : 0.9848
+Epoch 112  Train : 0.9836	Valid : 0.9790
+Epoch 113  Train : 0.9834
+Epoch 114  Train : 0.9842	Valid : 0.9805
+Epoch 115  Train : 0.9835
+Epoch 116  Train : 0.9834	Valid : 0.9770
+Epoch 117  Train : 0.9829
+Epoch 118  Train : 0.9838	Valid : 0.9780
+Epoch 119  Train : 0.9842
+Training Done
+Restored from Epoch 82...
+Test Accuracy : 0.980	Train Accuracy : 0.984
+Time (hr): 0.9022
+
+Repeat: 4/10
+Digits:	 [5, 9]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.20
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [16, 16]
+Feature Dim: 2
+Fetch Data From Web - Fashion_MNIST
+Train Sample Size: 8000
+Validation Split: 0.20	 Size: 2000
+Test Sample Size: 2000
+Epoch   0  Train : 0.9485	Valid : 0.9430
+Checkpoint saved...
+Epoch   1  Train : 0.9659
+Epoch   2  Train : 0.9705	Valid : 0.9690
+Checkpoint saved...
+Epoch   3  Train : 0.9734
+Epoch   4  Train : 0.9744	Valid : 0.9705
+Checkpoint saved...
+Epoch   5  Train : 0.9754
+Epoch   6  Train : 0.9764	Valid : 0.9730
+Checkpoint saved...
+Epoch   7  Train : 0.9775
+Epoch   8  Train : 0.9768	Valid : 0.9755
+Checkpoint saved...
+Epoch   9  Train : 0.9776
+Epoch  10  Train : 0.9775	Valid : 0.9745
+Epoch  11  Train : 0.9781
+Epoch  12  Train : 0.9792	Valid : 0.9770
+Checkpoint saved...
+Epoch  13  Train : 0.9799
+Epoch  14  Train : 0.9798	Valid : 0.9775
+Checkpoint saved...
+Epoch  15  Train : 0.9795
+Epoch  16  Train : 0.9798	Valid : 0.9785
+Checkpoint saved...
+Epoch  17  Train : 0.9796
+Epoch  18  Train : 0.9802	Valid : 0.9795
+Checkpoint saved...
+Epoch  19  Train : 0.9808
+Epoch  20  Train : 0.9804	Valid : 0.9775
+Epoch  21  Train : 0.9794
+Epoch  22  Train : 0.9795	Valid : 0.9795
+Checkpoint saved...
+Epoch  23  Train : 0.9808
+Epoch  24  Train : 0.9818	Valid : 0.9780
+Epoch  25  Train : 0.9808
+Epoch  26  Train : 0.9811	Valid : 0.9775
+Epoch  27  Train : 0.9816
+Epoch  28  Train : 0.9804	Valid : 0.9815
+Checkpoint saved...
+Epoch  29  Train : 0.9810
+Epoch  30  Train : 0.9815	Valid : 0.9805
+Epoch  31  Train : 0.9821
+Epoch  32  Train : 0.9818	Valid : 0.9805
+Epoch  33  Train : 0.9806
