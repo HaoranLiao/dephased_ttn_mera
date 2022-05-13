@@ -1,22 +1,22 @@
 data:
- path: '/home/haoranliao/dephased_ttn_project/mnist4by4/mnist4by4'
- #path: '/home/qc_whaley/dephased_ttn_project/mnist4by4/mnist4by4'
+ #path: '/home/haoranliao/dephased_ttn_project/datasets/mnist8pca_dig35/mnist8pca_dig35'
+ path: '/home/qc_whaley/dephased_ttn_project/datasets/mnist8pca_dig35/mnist8pca_dig35'
  val_split: 0
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                 # list or list of single
- grad_accumulation: True
- execute_batch_size: 125
- eval_batch_size_factor: 5
+ grad_accumulation: False
+ execute_batch_size: 250
+ eval_batch_size_factor: 500
  load_from_file: True
- data_im_size: [4,4]
- sample_size: 5000              # int or None
+ data_im_size: [8,1]
+ sample_size: 500000              # int or None
  feature_dim: 2
  use_4by4_pixel_dict: True
 
 meta:
- set_visible_gpus: True
+ set_visible_gpus: False
  visible_gpus: '1'
- set_memory_growth: False
+ set_memory_growth: True
  random_seed: 42
  list_num_anc: [1]                # list or list of single
  num_repeat: -1

@@ -2,14 +2,12 @@ import tensorflow as tf
 import numpy as np
 import os, yaml, json
 from tqdm import tqdm
-from uni_ttn.tf2 import data
-from mera.non_distributed_tunning import network_tuning
+from uni_ttn.tf2 import data, spsa
 from mera import model
 from mera.model import variable_or_uniform
 from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
 except ImportError: pass
-from filelock import FileLock
 
 TQDM_DISABLED = True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
@@ -17,69 +15,18 @@ TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
 
 class Tuning_Model(model.Model):
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, config, tune_config):
-        super().__init__(data_path, digits, val_split, deph_p, num_anc, -1, -1, config)
+        super().__init__(data_path, digits, val_split, deph_p, num_anc, tune_config['tune_init_std'], tune_config['tune_lr'], config)
 
-        sample_size = config['data']['sample_size']
-        data_im_size = config['data']['data_im_size']
-        feature_dim = config['data']['feature_dim']
-        with FileLock(os.path.expanduser("~/.tune.lock")):
-            if config['data']['load_from_file']:
-                assert feature_dim == 2
-                train_data, val_data, test_data = data.get_data_file(
-                    data_path, digits, val_split, sample_size=sample_size)
-            else:
-                train_data, val_data, test_data = data.get_data_web(
-                    digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
+        assert self.network.init_std == tune_config['tune_init_std']
+        print('Tune Init Std: ', tune_config['tune_init_std'])
 
-        self.train_images, self.train_labels = train_data
-        print('Train Sample Size: %s' % len(self.train_images), flush=True)
-
-        if val_data is not None:
-            self.val_images, self.val_labels = val_data
-            print('Validation Split: %.2f\t Size: %d' % (val_split, len(self.val_images)), flush=True)
+        if config['tree']['opt']['opt'] == 'adam':
+            if not tune_config.get('tune_lr', False): self.network.opt = tf.keras.optimizers.Adam()
+            else: self.network.opt = tf.keras.optimizers.Adam(tune_config['tune_lr'])
+        elif config['tree']['opt']['opt'] == 'spsa':
+            self.network.opt = spsa.Spsa(self.network, tune_config)
         else:
-            self.val_images = None
-            assert not config['data']['val_split']; print('No Validation', flush=True)
-
-        self.test_images, self.test_labels = test_data
-        print('Test Sample Size: %s' % len(self.test_images), flush=True)
-
-        if data_im_size == [4, 4] and config['data']['use_4by4_pixel_dict']:
-            print('Using 4x4 Pixel Dict', flush=True)
-            self.create_pixel_dict()
-            self.train_images = self.train_images[:, self.pixel_dict]
-            self.test_images = self.test_images[:, self.pixel_dict]
-            if val_data: self.val_images = self.val_images[:, self.pixel_dict]
-
-        num_pixels = self.train_images.shape[1]
-        self.config = config
-        self.network = network_tuning.Tuning_Network(num_pixels, deph_p, num_anc, config, tune_config) if not num_anc \
-                        else network_tuning.Tuning_Network_Ancilla(num_pixels, deph_p, num_anc, config, tune_config)
-
-    def train_network(self, epochs, batch_size, auto_epochs):
-        self.epoch_acc = []
-        for epoch in range(epochs):
-            accuracy = self.run_epoch(batch_size)
-            print('Epoch %d: %.5f accuracy' % (epoch, accuracy), flush=True)
-
-            if not epoch % 2:
-                test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-                print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
-
-            self.epoch_acc.append(accuracy)
-            if auto_epochs:
-                trigger = self.config['meta']['auto_epochs']['trigger']
-                assert trigger < epochs
-                if epoch >= trigger and self.check_acc_satified(accuracy): break
-
-        train_or_val_accuracy = accuracy
-        if not val_split: print('Train Accuracy: %.3f' % train_or_val_accuracy, flush=True)
-        else: print('Validation Accuracy: %.3f' % train_or_val_accuracy, flush=True)
-
-        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-        print(f'Test Accuracy : {test_accuracy:.3f}', flush=True)
-        return test_accuracy, train_or_val_accuracy
-
+            raise NotImplementedError
 
     def run_epoch(self, batch_size, epoch, grad_accumulation=True):
         if not grad_accumulation:
@@ -114,10 +61,7 @@ class MERA(tune.Trainable):
     def step(self):
         self.model.run_epoch(batch_size, self.iteration, grad_accumulation=config['data']['grad_accumulation'])
         test_accuracy = self.model.run_network(self.model.test_images, self.model.test_labels, batch_size*self.model.b_factor)
-        return {
-            "epoch": self.iteration,
-            "test_accuracy": test_accuracy * 100
-        }
+        return {"test_accuracy": test_accuracy * 100}
 
 
 if __name__ == "__main__":
@@ -160,7 +104,7 @@ if __name__ == "__main__":
         num_samples=1,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.001]), #0, # not used in spsa
+                'tune_lr': tune.grid_search([0.005, 0.025]), #0, # not used in spsa
                 'tune_init_std': tune.grid_search([0.5, 0.3, 0.1, 0.07, 0.05, 0.03, 0.01, 0.005]), #0.1,
                 # 'a': tune.uniform(1, 50),
                 # 'b': tune.uniform(1, 50),

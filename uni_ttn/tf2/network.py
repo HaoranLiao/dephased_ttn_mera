@@ -81,9 +81,13 @@ class Network:
         return output_probs
 
     def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):
+        assert self.opt._name != 'Spsa'
         input_batch = tf.constant(input_batch, dtype=tf.complex64)
         label_batch = tf.constant(label_batch, dtype=tf.float32)
-        self.opt.minimize(self.loss(input_batch, label_batch), var_list=self.var_list)
+        with tf.GradientTape() as tape:
+            loss = self.loss(input_batch, label_batch)
+        grads = tape.gradient(loss, self.var_list)
+        self.opt.apply_gradients(zip(grads, self.var_list))
 
     def update(self, input_batch: np.ndarray, label_batch: np.ndarray, epoch, apply_grads=True, counter=1):
         input_batch = tf.constant(input_batch, dtype=tf.complex64)

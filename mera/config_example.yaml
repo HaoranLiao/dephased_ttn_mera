@@ -1,48 +1,48 @@
 data:
- path: '../datasets/mnist4by4/mnist4by4'
- #path: '../datasets/mnist8pca_dig27/mnist8pca_dig27'
- val_split: 0.2857 #0.165
+ #path: '../datasets/mnist4by4/mnist4by4'
+ path: '../datasets/mnist8pca_dig35/mnist8pca_dig35'
+ val_split: 0.165 #0.2857
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
- eval_batch_size_factor: 5
+ eval_batch_size_factor: 500
  load_from_file: True
- data_im_size: [4,4]
- sample_size: 7000                        # int or None
+ data_im_size: [8,1]
+ sample_size: 70000000                        # int or None
  feature_dim: 2
  use_4by4_pixel_dict: True
 
 meta:
- set_visible_gpus: False
+ set_visible_gpus: True
  visible_gpus: '1'
- set_memory_growth: False
+ set_memory_growth: True
  random_seed: 42
  list_num_anc: [1]                # list or list of single
- num_repeat: 3
+ num_repeat: 5
  auto_epochs:
   enabled: False
   criterion: 0.005
   num_match: 10
   trigger: 60
 
- list_epochs: [100]                        # list or list of single
+ list_epochs: [150]                        # list or list of single
  list_devices: True
 
  deph:
   data: True
   network: True
-  p: [0]
+  p: [1.0]
 
 tree:
  param:
   init_mean: 0
-  init_std: [0.01, 0.1, 1]
+  init_std: [0.3]
 
  opt:
   opt: 'adam'
   adam:
    user_lr: True
-   lr: [0.005]
+   lr: [0.025]
 
   spsa:
    a: 28
