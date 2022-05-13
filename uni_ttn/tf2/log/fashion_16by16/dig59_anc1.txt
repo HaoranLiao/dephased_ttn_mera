@@ -9175,3 +9175,8 @@ Epoch  82  Train : 0.9765	Valid : 0.9705
 Epoch  83  Train : 0.9764
 Epoch  84  Train : 0.9768	Valid : 0.9715
 Epoch  85  Train : 0.9765
+Epoch  86  Train : 0.9761	Valid : 0.9705
+Epoch  87  Train : 0.9765
+Epoch  88  Train : 0.9762	Valid : 0.9705
+Epoch  89  Train : 0.9766
+Epoch  90  Train : 0.9762	Valid : 0.9705
