@@ -5,8 +5,13 @@ data:
  val_split: 0.2 #0.2857 #0.16
  list_digits: [[5,9]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
+<<<<<<< HEAD
  execute_batch_size: 125
  eval_batch_size_factor: 5
+=======
+ execute_batch_size: 250
+ eval_batch_size_factor: 5000
+>>>>>>> a367144ce63f29a1e34c40b5e183a868a0f5b7a9
  load_from_file: False
  data_im_size: [16,16]
  sample_size: 10000              # int or None
@@ -18,7 +23,11 @@ meta:
  visible_gpus: '3'
  set_memory_growth: False
  random_seed: 42
+<<<<<<< HEAD
  list_num_anc: [2]                # list or list of single
+=======
+ list_num_anc: [1]                # list or list of single
+>>>>>>> a367144ce63f29a1e34c40b5e183a868a0f5b7a9
  num_repeat: 10
  auto_epochs:
   enabled: False
@@ -37,7 +46,11 @@ meta:
 tree:
  param:
   init_mean: 0
+<<<<<<< HEAD
   init_std: [0.01, 0.01, 0.01, 0.02, 0.02, 0.03]
+=======
+  init_std: [0.03, 0.05, 0.06, 0.06, 0.08, 0.1]
+>>>>>>> a367144ce63f29a1e34c40b5e183a868a0f5b7a9
 
  opt:
   opt: 'adam'

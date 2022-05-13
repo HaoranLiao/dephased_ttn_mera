@@ -2224,3 +2224,4 @@ Epoch  30  Train : 0.9815	Valid : 0.9805
 Epoch  31  Train : 0.9821
 Epoch  32  Train : 0.9818	Valid : 0.9805
 Epoch  33  Train : 0.9806
+Epoch  34  Train : 0.9801	Valid : 0.9805
