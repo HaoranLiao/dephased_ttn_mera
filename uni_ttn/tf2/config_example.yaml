@@ -16,7 +16,7 @@ data:
 meta:
  set_visible_gpus: False
  visible_gpus: '3'
- set_memory_growth: True
+ set_memory_growth: False
  random_seed: 42
  list_num_anc: [1]                # list or list of single
  num_repeat: 10
