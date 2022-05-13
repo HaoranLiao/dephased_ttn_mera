@@ -9672,3 +9672,69 @@ Epoch  72  Train : 0.9759	Valid : 0.9705
 Epoch  73  Train : 0.9758
 Epoch  74  Train : 0.9760	Valid : 0.9710
 Epoch  75  Train : 0.9759
+Epoch  76  Train : 0.9761	Valid : 0.9710
+Epoch  77  Train : 0.9759
+Epoch  78  Train : 0.9760	Valid : 0.9710
+Epoch  79  Train : 0.9762
+Epoch  80  Train : 0.9761	Valid : 0.9720
+Epoch  81  Train : 0.9762
+Epoch  82  Train : 0.9764	Valid : 0.9720
+Epoch  83  Train : 0.9762
+Epoch  84  Train : 0.9764	Valid : 0.9715
+Epoch  85  Train : 0.9761
+Epoch  86  Train : 0.9761	Valid : 0.9715
+Epoch  87  Train : 0.9761
+Epoch  88  Train : 0.9759	Valid : 0.9715
+Epoch  89  Train : 0.9758
+Epoch  90  Train : 0.9762	Valid : 0.9715
+Epoch  91  Train : 0.9764
+Epoch  92  Train : 0.9759	Valid : 0.9710
+Epoch  93  Train : 0.9759
+Epoch  94  Train : 0.9762	Valid : 0.9720
+Epoch  95  Train : 0.9762
+Epoch  96  Train : 0.9761	Valid : 0.9720
+Epoch  97  Train : 0.9765
+Epoch  98  Train : 0.9765	Valid : 0.9715
+Epoch  99  Train : 0.9764
+Epoch 100  Train : 0.9760	Valid : 0.9715
+Epoch 101  Train : 0.9764
+Epoch 102  Train : 0.9764	Valid : 0.9710
+Epoch 103  Train : 0.9765
+Epoch 104  Train : 0.9764	Valid : 0.9715
+Epoch 105  Train : 0.9762
+Epoch 106  Train : 0.9765	Valid : 0.9725
+Epoch 107  Train : 0.9764
+Epoch 108  Train : 0.9766	Valid : 0.9720
+Epoch 109  Train : 0.9764
+Epoch 110  Train : 0.9764	Valid : 0.9730
+Epoch 111  Train : 0.9764
+Epoch 112  Train : 0.9762	Valid : 0.9730
+Epoch 113  Train : 0.9764
+Epoch 114  Train : 0.9764	Valid : 0.9735
+Checkpoint saved...
+Epoch 115  Train : 0.9764
+Epoch 116  Train : 0.9764	Valid : 0.9730
+Epoch 117  Train : 0.9762
+Epoch 118  Train : 0.9762	Valid : 0.9735
+Checkpoint saved...
+Epoch 119  Train : 0.9765
+Training Done
+Restored from Epoch 118...
+Test Accuracy : 0.967	Train Accuracy : 0.976
+Time (hr): 0.1401
+
+Setting 5 Train Accs: [0.9729, 0.9724, 0.9752, 0.9746, 0.9746, 0.9741, 0.9755, 0.9751, 0.9751, 0.9762]	
+Setting 5 Avg Train Acc: 0.975
+Setting 5 Std Train Acc: 0.001
+Setting 5 Test Accs: [0.964, 0.9675, 0.9675, 0.965, 0.967, 0.968, 0.9665, 0.9635, 0.9665, 0.9665]	
+Setting 5 Avg Test Acc: 0.966
+Setting 5 Std Test Acc: 0.001
+All Settings Avg Test Accs:
+ [0.983, 0.971, 0.969, 0.966, 0.966, 0.966]
+All Settings Avg Train/Val Accs:
+ [0.991, 0.979, 0.977, 0.975, 0.975, 0.975]
+All Settings Std Test Accs:
+ [0.001, 0.003, 0.003, 0.002, 0.002, 0.001]
+All Settings Std Train/Val Accs:
+ [0.0, 0.001, 0.001, 0.002, 0.002, 0.001]
+Time (hr): 13.1231
