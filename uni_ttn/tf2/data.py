@@ -27,9 +27,9 @@ class DataGenerator:
         elif dataset == 'CIFAR':
             cifar_data = tf.keras.datasets.cifar10.load_data()
             self.train_images = cifar_data[0][0]
-            self.train_labels = cifar_data[0][1]
+            self.train_labels = cifar_data[0][1].squeeze()
             self.test_images = cifar_data[1][0]
-            self.test_labels = cifar_data[1][1]
+            self.test_labels = cifar_data[1][1].squeeze()
 
     def convert_to_grayscale(self):
         self.train_images = convert_to_grayscale(self.train_images)
@@ -212,7 +212,7 @@ def get_data_file(data_path, digits, val_split, sample_size=None):
                    digits, val_split, sample_size=sample_size)
 
 
-def get_data_web(digits, val_split, size, dim, sample_size=None, dataset='Fashion_MNIST'):
+def get_data_web(digits, val_split, size, dim, sample_size=None, dataset='CIFAR'):
     print(f'Fetch Data From Web - {dataset}')
     data = DataGenerator(dataset=dataset)
     data.shrink_images(size)
