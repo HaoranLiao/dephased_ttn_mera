@@ -11,7 +11,7 @@ except ImportError:
 
 
 class DataGenerator:
-    def __init__(self, dataset='MNIST'):
+    def __init__(self, dataset='CIFAR'):
         if dataset == 'MNIST':
             mnist_data = tf.keras.datasets.mnist.load_data()
             self.train_images = mnist_data[0][0]
@@ -24,6 +24,16 @@ class DataGenerator:
             self.train_labels = fashion_data[0][1]
             self.test_images = fashion_data[1][0]
             self.test_labels = fashion_data[1][1]
+        elif dataset == 'CIFAR':
+            cifar_data = tf.keras.datasets.cifar10.load_data()
+            self.train_images = cifar_data[0][0]
+            self.train_labels = cifar_data[0][1]
+            self.test_images = cifar_data[1][0]
+            self.test_labels = cifar_data[1][1]
+
+    def convert_to_grayscale(self):
+        self.train_images = convert_to_grayscale(self.train_images)
+        self.test_images = convert_to_grayscale(self.test_images)
 
     def shrink_images(self, new_shape):
         self.train_images = resize_images(self.train_images, new_shape)
@@ -53,6 +63,10 @@ class DataGenerator:
         save_data(self.train_images, self.train_labels, train_dest)
         save_data(self.test_images, self.test_labels, test_dest)
 
+def convert_to_grayscale(images):
+    # red*0.3+green*0.59+blue*0.11
+    images = images[:, :, :, 0]*0.3 + images[:, :, :, 0]*0.59 + images[:, :, :, 0]*0.11
+    return images
 
 def pca(train_images, test_images, k=8):
     images = np.concatenate([train_images, test_images], axis=0)
@@ -69,14 +83,19 @@ def pca(train_images, test_images, k=8):
 
 
 def select_digits(images, labels, digits):
-    cumulative_test = (labels == digits[0])
-    for digit in digits[1:]:
-        digit_test = (labels == digit)
-        cumulative_test = np.logical_or(digit_test, cumulative_test)
+    if isinstance(digits[0], int):
+        cumulative_test = (labels == digits[0])
+        for digit in digits[1:]:
+            digit_test = (labels == digit)
+            cumulative_test = np.logical_or(digit_test, cumulative_test)
 
-    valid_images = images[cumulative_test]
-    valid_labels = labels[cumulative_test]
-    return valid_images, valid_labels
+        valid_images = images[cumulative_test]
+        valid_labels = labels[cumulative_test]
+        return valid_images, valid_labels
+    else:
+        assert digits[0] == 'even' or 'odd'
+        binary_labels = labels % 2
+        return images, binary_labels
 
 
 def resize_images(images, shape):
@@ -251,10 +270,12 @@ if __name__ == '__main__':
     # dim = 2
     # data1.featurize(dim)
 
-    data2 = DataGenerator(dataset='Fashion_MNIST')
-    data2.shrink_images([16, 16])
+    data2 = DataGenerator(dataset='CIFAR')
+    data2.convert_to_grayscale()
+    data2.shrink_images([8, 8])
     data2.featurize_qubit()
-    data2.export('/home/haoranliao/dephased_ttn_project/datasets/fashion16by16/fashion16by16')
+    data2.export('/home/haoranliao/dephased_ttn_project/datasets/cifar8by8/cifar8by8')
+    # data2.export('/content/sample_data/cifar8by8')
 
     # data3 = DataGenerator()
     # data3.shrink_images([8, 8])
