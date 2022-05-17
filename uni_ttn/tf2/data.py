@@ -30,6 +30,8 @@ class DataGenerator:
             self.train_labels = cifar_data[0][1].squeeze()
             self.test_images = cifar_data[1][0]
             self.test_labels = cifar_data[1][1].squeeze()
+        else:
+            raise NotImplementedError
 
     def convert_to_grayscale(self):
         self.train_images = convert_to_grayscale(self.train_images)
@@ -92,10 +94,37 @@ def select_digits(images, labels, digits):
         valid_images = images[cumulative_test]
         valid_labels = labels[cumulative_test]
         return valid_images, valid_labels
-    else:
-        assert digits[0] == 'even' or 'odd'
+    elif digits[0] == ('even' or 'odd'):
         binary_labels = labels % 2
         return images, binary_labels
+    elif isinstance(digits[0], list):
+        cumulative_test = (labels == digits[0][0])
+        for digit in digits[0][1:]:
+            digit_test = (labels == digit)
+            cumulative_test = np.logical_or(digit_test, cumulative_test)
+
+        class_0_images = images[cumulative_test]
+        class_0_labels = np.zeros(len(class_0_images), dtype=np.int32)
+
+        cumulative_test = (labels == digits[1][0])
+        for digit in digits[1][1:]:
+            digit_test = (labels == digit)
+            cumulative_test = np.logical_or(digit_test, cumulative_test)
+
+        class_1_images = images[cumulative_test]
+        class_1_labels = np.ones(len(class_1_images), dtype=np.int32)
+
+        images = np.concatenate([class_0_images, class_1_images], axis=0)
+        labels = np.concatenate([class_0_labels, class_1_labels], axis=0)
+        return shuffle(images, labels)
+
+
+def shuffle(images, labels):
+    num_images = len(images)
+    random_perm = np.random.permutation(num_images)
+    randomized_images = images[random_perm]
+    randomized_labels = labels[random_perm]
+    return randomized_images, randomized_labels
 
 
 def resize_images(images, shape):
@@ -270,16 +299,12 @@ if __name__ == '__main__':
     # dim = 2
     # data1.featurize(dim)
 
-    data2 = DataGenerator(dataset='CIFAR')
-    data2.convert_to_grayscale()
+    data2 = DataGenerator(dataset='MNIST')
+    # data2.convert_to_grayscale()
     data2.shrink_images([8, 8])
     data2.featurize_qubit()
-    data2.export('/home/haoranliao/dephased_ttn_project/datasets/cifar8by8/cifar8by8')
+    # data2.export('/home/haoranliao/dephased_ttn_project/datasets/cifar8by8/cifar8by8')
     # data2.export('/content/sample_data/cifar8by8')
-
-    # data3 = DataGenerator()
-    # data3.shrink_images([8, 8])
-    # data3.featurize_exp()
 
     # data4 = DataGenerator()
     # data4.get_principle_components(digits=(2,7))
