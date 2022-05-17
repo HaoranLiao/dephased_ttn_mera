@@ -9,6 +9,9 @@ try:
 except ImportError:
     pass
 
+try: import torch
+except ImportError: pass
+
 
 class DataGenerator:
     def __init__(self, dataset='CIFAR'):
@@ -30,6 +33,7 @@ class DataGenerator:
             self.train_labels = cifar_data[0][1].squeeze()
             self.test_images = cifar_data[1][0]
             self.test_labels = cifar_data[1][1].squeeze()
+            self.convert_to_grayscale()
         else:
             raise NotImplementedError
 
@@ -150,9 +154,11 @@ def batch_generator_tf(images: tf.constant, labels: tf.constant, batch_size):
         yield batch_images, batch_labels
 
 
-def batch_generator_np(images: np.ndarray, labels: np.ndarray, batch_size):
+def batch_generator_np(images: np.ndarray or torch.tensor, labels: np.ndarray or torch.tensor, batch_size):
     num_images = len(images)
-    random_perm = np.random.permutation(num_images)
+    if isinstance(images, np.ndarray): random_perm = np.random.permutation(num_images)
+    elif isinstance(images, torch.Tensor): random_perm = torch.randperm(num_images)
+    else: raise NotImplementedError
     randomized_images = images[random_perm]
     randomized_labels = labels[random_perm]
 
@@ -200,8 +206,8 @@ def trig_featurize(images, dim):
             float(math.factorial(d - 1)) / \
             float(math.factorial(s - 1) * math.factorial(d - s))
         ) \
-                                * np.cos(pix_copy[:, :, s - 1] * np.pi / 2) ** (d - s) \
-                                * np.sin(pix_copy[:, :, s - 1] * np.pi / 2) ** (s - 1)
+        * np.cos(pix_copy[:, :, s - 1] * np.pi / 2) ** (d - s) \
+        * np.sin(pix_copy[:, :, s - 1] * np.pi / 2) ** (s - 1)
 
     return pix_copy
 
