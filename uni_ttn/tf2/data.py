@@ -85,12 +85,12 @@ def pca(train_images, test_images, k=8):
 
 
 def select_digits(images, labels, digits):
+    assert len(digits) == 2
     if isinstance(digits[0], int):
         cumulative_test = (labels == digits[0])
         for digit in digits[1:]:
             digit_test = (labels == digit)
             cumulative_test = np.logical_or(digit_test, cumulative_test)
-
         valid_images = images[cumulative_test]
         valid_labels = labels[cumulative_test]
         return valid_images, valid_labels
@@ -98,11 +98,11 @@ def select_digits(images, labels, digits):
         binary_labels = labels % 2
         return images, binary_labels
     elif isinstance(digits[0], list):
+        assert not any(np.isin(digits[0], digits[1]))
         cumulative_test = (labels == digits[0][0])
         for digit in digits[0][1:]:
             digit_test = (labels == digit)
             cumulative_test = np.logical_or(digit_test, cumulative_test)
-
         class_0_images = images[cumulative_test]
         class_0_labels = np.zeros(len(class_0_images), dtype=np.int32)
 
@@ -110,7 +110,6 @@ def select_digits(images, labels, digits):
         for digit in digits[1][1:]:
             digit_test = (labels == digit)
             cumulative_test = np.logical_or(digit_test, cumulative_test)
-
         class_1_images = images[cumulative_test]
         class_1_labels = np.ones(len(class_1_images), dtype=np.int32)
 
