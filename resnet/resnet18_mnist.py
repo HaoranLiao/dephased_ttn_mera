@@ -14,17 +14,15 @@ import torchvision.models as models
 import torch.optim as optim
 import numpy as np
 import torch.nn as nn
-import sys
-sys.path.append('../uni_ttn/tf2/')
-import data
-
+from uni_ttn.tf2 import data
+import torch.nn.functional as F
 from copy import deepcopy
 
 
 def load_data(digits, sample_size):
 	'''load not-quantum-featurized data'''
 	# data_gen = DataGenerator(dataset='Fashion_MNIST')
-	data_gen = DataGenerator(dataset='CIFAR')
+	data_gen = data.DataGenerator(dataset='CIFAR')
 	shrunk_img_size = 8
 	data_gen.shrink_images([shrunk_img_size] * 2)
 	(train_images, train_labels), (valid_images, valid_labels), (test_images, test_labels) = process(
@@ -64,7 +62,7 @@ class Resnet18_Mod(models.resnet.ResNet):
 		self.to(device=torch.device("cuda"))
 
 	def train_network(self, train_images, train_labels, batch_size):
-		batch_iter = batch_generator_np(train_images, train_labels, batch_size)
+		batch_iter = data.batch_generator_np(train_images, train_labels, batch_size)
 		for images, labels in batch_iter:
 			self.optimizer.zero_grad()
 			pred_labels = self(images)
@@ -77,7 +75,7 @@ class Resnet18_Mod(models.resnet.ResNet):
 	def run_network(self, images, labels, batch_size=50000):
 		num_correct = 0
 		with torch.no_grad():
-			batch_iter = batch_generator_np(images, labels, batch_size)
+			batch_iter = data.batch_generator_np(images, labels, batch_size)
 			for image_batch, label_batch in batch_iter:
 				pred_labels = self(image_batch)
 				num_correct += get_accuracy_torch(pred_labels, label_batch)
@@ -208,7 +206,6 @@ if __name__ == "__main__":
 	torch.manual_seed(42)
 
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-	print('Is cuda available:', torch.cuda.is_available())
-	sys.stdout.flush()
+	print('Is cuda available:', torch.cuda.is_available(), flush=True)
 
 	main()
