@@ -1,7 +1,7 @@
 data:
  #path: '../../datasets/mnist8by8/mnist8by8'
  #path: '../../datasets/mnist8pca_dig35/mnist8pca_dig35'
- path: '../../datasets/fashion8by8/fashion8by8'
+ path: '../../datasets/cifar8by8/cifar8by8'
  val_split: 0.2 #0.2857 #0.16
  list_digits: [[even,odd]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
@@ -14,8 +14,8 @@ data:
  use_8by8_pixel_dict: True
 
 meta:
- set_visible_gpus: False
- visible_gpus: '3'
+ set_visible_gpus: True
+ visible_gpus: '1'
  set_memory_growth: False
  random_seed: 42
  list_num_anc: [2]                # list or list of single
