@@ -25,7 +25,7 @@ def load_data(digits, sample_size):
 	data_gen = data.DataGenerator(dataset='CIFAR')
 	shrunk_img_size = 8
 	data_gen.shrink_images([shrunk_img_size] * 2)
-	(train_images, train_labels), (valid_images, valid_labels), (test_images, test_labels) = process(
+	(train_images, train_labels), (valid_images, valid_labels), (test_images, test_labels) = data.process(
 		data_gen.train_images, data_gen.train_labels,
 		data_gen.test_images, data_gen.test_labels,
 		digits, 0.2, sample_size=sample_size
