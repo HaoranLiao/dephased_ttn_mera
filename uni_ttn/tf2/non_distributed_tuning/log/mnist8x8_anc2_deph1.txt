@@ -1,0 +1,64 @@
+{
+ "data": {
+  "path": "/home/qc_whaley/dephased_ttn_project/datasets/mnist8x8/mnist8x8",
+  "val_split": 0,
+  "list_digits": [
+   [
+    "even",
+    "odd"
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "grad_accumulation": false,
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 20,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 1000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": false,
+  "visible_gpus": "1",
+  "set_memory_growth": true,
+  "random_seed": 42,
+  "list_num_anc": [
+   2
+  ],
+  "num_repeat": -1,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    1
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": -1
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": 0.0001
+   }
+  }
+ }
+}
