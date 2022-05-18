@@ -15786,3 +15786,266 @@ Result for UniTTN_62936_00013:
   trial_id: '62936_00013'
   
 Result for UniTTN_62936_00010:
+  date: 2022-05-18_01-04-20
+  done: false
+  experiment_id: 357b3856db9a44618494f594cd526464
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 25
+  node_ip: 10.128.0.8
+  pid: 13004
+  test_accuracy: 87.78
+  time_since_restore: 243.36583805084229
+  time_this_iter_s: 9.67128849029541
+  time_total_s: 243.36583805084229
+  timestamp: 1652835860
+  timesteps_since_restore: 0
+  training_iteration: 25
+  trial_id: '62936_00010'
+  
+Result for UniTTN_62936_00014:
+  date: 2022-05-18_01-04-20
+  done: false
+  experiment_id: 7d0cbac480fe4b9f912d7707aed42281
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 7
+  node_ip: 10.128.0.8
+  pid: 12978
+  test_accuracy: 86.57000000000001
+  time_since_restore: 59.0732262134552
+  time_this_iter_s: 5.473336458206177
+  time_total_s: 59.0732262134552
+  timestamp: 1652835860
+  timesteps_since_restore: 0
+  training_iteration: 7
+  trial_id: '62936_00014'
+  
+Result for UniTTN_62936_00011:
+  date: 2022-05-18_01-04-20
+  done: false
+  experiment_id: 853b158a2ecf434fa64ead9ce44429ea
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 25
+  node_ip: 10.128.0.8
+  pid: 13014
+  test_accuracy: 85.28999999999999
+  time_since_restore: 235.0195803642273
+  time_this_iter_s: 7.697569370269775
+  time_total_s: 235.0195803642273
+  timestamp: 1652835860
+  timesteps_since_restore: 0
+  training_iteration: 25
+  trial_id: '62936_00011'
+  
+Result for UniTTN_62936_00015:
+  date: 2022-05-18_01-04-24
+  done: false
+  experiment_id: aa0d85bb336f48ebbec81e0acfd9ccf5
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 8
+  node_ip: 10.128.0.8
+  pid: 13000
+  test_accuracy: 86.33999999999999
+  time_since_restore: 60.09448218345642
+  time_this_iter_s: 5.006521940231323
+  time_total_s: 60.09448218345642
+  timestamp: 1652835864
+  timesteps_since_restore: 0
+  training_iteration: 8
+  trial_id: '62936_00015'
+  
+== Status ==
+Memory usage on this node: 33.1/669.3 GiB
+Using AsyncHyperBand: num_stopped=10
+Bracket: Iter 30.000: 87.3375
+Resources requested: 72.0/96 CPUs, 6.0/8 GPUs, 0.0/471.4 GiB heap, 0.0/186.26 GiB objects
+Current best trial: 62936_00010 with test_accuracy=87.78 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.1}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (6 RUNNING, 10 TERMINATED)
++--------------------+------------+------------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc              |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+------------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_62936_00010 | RUNNING    | 10.128.0.8:13004 |           0.1   |     0.015 |     25 |         243.366  |           87.78 |
+| UniTTN_62936_00011 | RUNNING    | 10.128.0.8:13014 |           0.07  |     0.015 |     25 |         235.02   |           85.29 |
+| UniTTN_62936_00012 | RUNNING    | 10.128.0.8:13021 |           0.05  |     0.015 |      6 |          63.5952 |           86.55 |
+| UniTTN_62936_00013 | RUNNING    | 10.128.0.8:13150 |           0.03  |     0.015 |      6 |          62.012  |           86.64 |
+| UniTTN_62936_00014 | RUNNING    | 10.128.0.8:12978 |           0.01  |     0.015 |      7 |          59.0732 |           86.57 |
+| UniTTN_62936_00015 | RUNNING    | 10.128.0.8:13000 |           0.005 |     0.015 |      8 |          60.0945 |           86.34 |
+| UniTTN_62936_00000 | TERMINATED |                  |           0.5   |     0.005 |     80 |         846.744  |           86.99 |
+| UniTTN_62936_00001 | TERMINATED |                  |           0.3   |     0.005 |     80 |         815.351  |           87.28 |
+| UniTTN_62936_00002 | TERMINATED |                  |           0.1   |     0.005 |     80 |         811.92   |           87.47 |
+| UniTTN_62936_00003 | TERMINATED |                  |           0.07  |     0.005 |     30 |         330.249  |           86.22 |
+| UniTTN_62936_00004 | TERMINATED |                  |           0.05  |     0.005 |     80 |         834.531  |           87.58 |
+| UniTTN_62936_00005 | TERMINATED |                  |           0.03  |     0.005 |     80 |         813.572  |           86.64 |
+| UniTTN_62936_00006 | TERMINATED |                  |           0.01  |     0.005 |     30 |         338.707  |           86.19 |
+| UniTTN_62936_00007 | TERMINATED |                  |           0.005 |     0.005 |     80 |         806.19   |           86.55 |
+| UniTTN_62936_00008 | TERMINATED |                  |           0.5   |     0.015 |     30 |         303.138  |           87.14 |
+| UniTTN_62936_00009 | TERMINATED |                  |           0.3   |     0.015 |     30 |         286.185  |           87.27 |
++--------------------+------------+------------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_62936_00012:
+  date: 2022-05-18_01-04-25
+  done: false
+  experiment_id: fb0963b0a03c426e8fc4c80f85459c24
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 7
+  node_ip: 10.128.0.8
+  pid: 13021
+  test_accuracy: 86.61
+  time_since_restore: 73.1479663848877
+  time_this_iter_s: 9.552753210067749
+  time_total_s: 73.1479663848877
+  timestamp: 1652835865
+  timesteps_since_restore: 0
+  training_iteration: 7
+  trial_id: '62936_00012'
+  
+Result for UniTTN_62936_00014:
+  date: 2022-05-18_01-04-26
+  done: false
+  experiment_id: 7d0cbac480fe4b9f912d7707aed42281
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 8
+  node_ip: 10.128.0.8
+  pid: 12978
+  test_accuracy: 86.02
+  time_since_restore: 64.54664516448975
+  time_this_iter_s: 5.473418951034546
+  time_total_s: 64.54664516448975
+  timestamp: 1652835866
+  timesteps_since_restore: 0
+  training_iteration: 8
+  trial_id: '62936_00014'
+  
+Result for UniTTN_62936_00015:
+  date: 2022-05-18_01-04-29
+  done: false
+  experiment_id: aa0d85bb336f48ebbec81e0acfd9ccf5
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 9
+  node_ip: 10.128.0.8
+  pid: 13000
+  test_accuracy: 86.67
+  time_since_restore: 65.14082336425781
+  time_this_iter_s: 5.046341180801392
+  time_total_s: 65.14082336425781
+  timestamp: 1652835869
+  timesteps_since_restore: 0
+  training_iteration: 9
+  trial_id: '62936_00015'
+  
+== Status ==
+Memory usage on this node: 33.0/669.3 GiB
+Using AsyncHyperBand: num_stopped=10
+Bracket: Iter 30.000: 87.3375
+Resources requested: 72.0/96 CPUs, 6.0/8 GPUs, 0.0/471.4 GiB heap, 0.0/186.26 GiB objects
+Current best trial: 62936_00010 with test_accuracy=87.78 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.1}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (6 RUNNING, 10 TERMINATED)
++--------------------+------------+------------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc              |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+------------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_62936_00010 | RUNNING    | 10.128.0.8:13004 |           0.1   |     0.015 |     25 |         243.366  |           87.78 |
+| UniTTN_62936_00011 | RUNNING    | 10.128.0.8:13014 |           0.07  |     0.015 |     25 |         235.02   |           85.29 |
+| UniTTN_62936_00012 | RUNNING    | 10.128.0.8:13021 |           0.05  |     0.015 |      7 |          73.148  |           86.61 |
+| UniTTN_62936_00013 | RUNNING    | 10.128.0.8:13150 |           0.03  |     0.015 |      6 |          62.012  |           86.64 |
+| UniTTN_62936_00014 | RUNNING    | 10.128.0.8:12978 |           0.01  |     0.015 |      8 |          64.5466 |           86.02 |
+| UniTTN_62936_00015 | RUNNING    | 10.128.0.8:13000 |           0.005 |     0.015 |      9 |          65.1408 |           86.67 |
+| UniTTN_62936_00000 | TERMINATED |                  |           0.5   |     0.005 |     80 |         846.744  |           86.99 |
+| UniTTN_62936_00001 | TERMINATED |                  |           0.3   |     0.005 |     80 |         815.351  |           87.28 |
+| UniTTN_62936_00002 | TERMINATED |                  |           0.1   |     0.005 |     80 |         811.92   |           87.47 |
+| UniTTN_62936_00003 | TERMINATED |                  |           0.07  |     0.005 |     30 |         330.249  |           86.22 |
+| UniTTN_62936_00004 | TERMINATED |                  |           0.05  |     0.005 |     80 |         834.531  |           87.58 |
+| UniTTN_62936_00005 | TERMINATED |                  |           0.03  |     0.005 |     80 |         813.572  |           86.64 |
+| UniTTN_62936_00006 | TERMINATED |                  |           0.01  |     0.005 |     30 |         338.707  |           86.19 |
+| UniTTN_62936_00007 | TERMINATED |                  |           0.005 |     0.005 |     80 |         806.19   |           86.55 |
+| UniTTN_62936_00008 | TERMINATED |                  |           0.5   |     0.015 |     30 |         303.138  |           87.14 |
+| UniTTN_62936_00009 | TERMINATED |                  |           0.3   |     0.015 |     30 |         286.185  |           87.27 |
++--------------------+------------+------------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_62936_00013:
+  date: 2022-05-18_01-04-29
+  done: false
+  experiment_id: a39480c7908a4b529a5c00f108358e2e
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 7
+  node_ip: 10.128.0.8
+  pid: 13150
+  test_accuracy: 86.66
+  time_since_restore: 71.4191083908081
+  time_this_iter_s: 9.407072305679321
+  time_total_s: 71.4191083908081
+  timestamp: 1652835869
+  timesteps_since_restore: 0
+  training_iteration: 7
+  trial_id: '62936_00013'
+  
+Result for UniTTN_62936_00011:
+  date: 2022-05-18_01-04-29
+  done: false
+  experiment_id: 853b158a2ecf434fa64ead9ce44429ea
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 26
+  node_ip: 10.128.0.8
+  pid: 13014
+  test_accuracy: 83.26
+  time_since_restore: 244.02463245391846
+  time_this_iter_s: 9.005052089691162
+  time_total_s: 244.02463245391846
+  timestamp: 1652835869
+  timesteps_since_restore: 0
+  training_iteration: 26
+  trial_id: '62936_00011'
+  
+Result for UniTTN_62936_00010:
+  date: 2022-05-18_01-04-30
+  done: false
+  experiment_id: 357b3856db9a44618494f594cd526464
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 26
+  node_ip: 10.128.0.8
+  pid: 13004
+  test_accuracy: 86.8
+  time_since_restore: 253.12468218803406
+  time_this_iter_s: 9.758844137191772
+  time_total_s: 253.12468218803406
+  timestamp: 1652835870
+  timesteps_since_restore: 0
+  training_iteration: 26
+  trial_id: '62936_00010'
+  
+Result for UniTTN_62936_00014:
+  date: 2022-05-18_01-04-31
+  done: false
+  experiment_id: 7d0cbac480fe4b9f912d7707aed42281
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 9
+  node_ip: 10.128.0.8
+  pid: 12978
+  test_accuracy: 86.27
+  time_since_restore: 69.99433851242065
+  time_this_iter_s: 5.447693347930908
+  time_total_s: 69.99433851242065
+  timestamp: 1652835871
+  timesteps_since_restore: 0
+  training_iteration: 9
+  trial_id: '62936_00014'
+  
+Result for UniTTN_62936_00015:
+  date: 2022-05-18_01-04-34
+  done: false
+  experiment_id: aa0d85bb336f48ebbec81e0acfd9ccf5
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 10
+  node_ip: 10.128.0.8
+  pid: 13000
+  test_accuracy: 86.46000000000001
+  time_since_restore: 70.18204236030579
+  time_this_iter_s: 5.041218996047974
+  time_total_s: 70.18204236030579
+  timestamp: 1652835874
+  timesteps_since_restore: 0
+  training_iteration: 10
+  trial_id: '62936_00015'
+  
