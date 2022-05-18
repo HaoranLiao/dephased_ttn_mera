@@ -3,7 +3,7 @@ data:
  #path: '../../datasets/mnist8pca_dig35/mnist8pca_dig35'
  path: '../../datasets/mnist8by8/mnist8by8'
  val_split: 0.2 #0.2857 #0.16
- list_digits: [[[0,1,2],[3]]]                     # list of pairs or one pair
+ list_digits: [['even','odd']]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
  eval_batch_size_factor: 5000
