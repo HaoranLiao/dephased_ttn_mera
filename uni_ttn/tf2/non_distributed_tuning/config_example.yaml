@@ -2,17 +2,17 @@ data:
  #path: '/home/haoranliao/dephased_ttn_project/datasets/mnist8pca_dig35/mnist8pca_dig35'
  #path: '/home/qc_whaley/dephased_ttn_project/datasets/mnist8pca_dig35/mnist8pca_dig35'
  #path: '/home/qc_whaley/dephased_ttn_project/datasets/mnist8by8/mnist8by8'
- #path: '/home/qc_whaley/dephased_ttn_project/datasets/fashion8by8/fashion8by8'
- path: '/home/qc_whaley/dephased_ttn_project/datasets/cifar8by8/cifar8by8' 
+ path: '/home/qc_whaley/dephased_ttn_project/datasets/fashion8by8/fashion8by8'
+ #path: '/home/qc_whaley/dephased_ttn_project/datasets/cifar8by8/cifar8by8' 
  val_split: 0
- #list_digits: [['even','odd']]                     # list of pairs or one pair
- list_digits: [[3, 2]]
+ list_digits: [['even','odd']]                     # list of pairs or one pair
+ #list_digits: [[3, 2]]
  list_batch_sizes: [250]                 # list or list of single
  grad_accumulation: False
  execute_batch_size: 250
  eval_batch_size_factor: 2000
- load_from_file: False
- data_im_size: [16,16]
+ load_from_file: True
+ data_im_size: [8,8]
  sample_size: 1000000              # int or None
  feature_dim: 2
  use_8by8_pixel_dict: True
@@ -22,7 +22,7 @@ meta:
  visible_gpus: '1'
  set_memory_growth: True
  random_seed: 42
- list_num_anc: [0]                # list or list of single
+ list_num_anc: [1]                # list or list of single
  num_repeat: -1
  auto_epochs:
   enabled: False
@@ -36,7 +36,7 @@ meta:
  deph:
   data: True
   network: True
-  p: [0]
+  p: [1]
 
 tree:
  param:
