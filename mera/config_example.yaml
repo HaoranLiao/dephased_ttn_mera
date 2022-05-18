@@ -1,5 +1,5 @@
 data:
- #path: '../datasets/mnist4by4/mnist4by4'
+ #path: '../datasets/mnist4x4/mnist4x4'
  path: '../datasets/mnist8pca_dig35/mnist8pca_dig35'
  val_split: 0.165 #0.2857
  list_digits: [[3,5]]                     # list of pairs or one pair
@@ -10,7 +10,7 @@ data:
  data_im_size: [8,1]
  sample_size: 70000000                        # int or None
  feature_dim: 2
- use_4by4_pixel_dict: True
+ use_4x4_pixel_dict: True
 
 meta:
  set_visible_gpus: True

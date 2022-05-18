@@ -101,7 +101,7 @@ class Model:
         self.test_images, self.test_labels = test_data
         print('Test Sample Size: %s' % len(self.test_images), flush=True)
 
-        if data_im_size == [8, 8] and config['data']['use_8by8_pixel_dict']:
+        if data_im_size == [8, 8] and config['data']['use_8x8_pixel_dict']:
             print('Using 8x8 Pixel Dict', flush=True)
             self.create_pixel_dict()
             self.train_images = self.train_images[:, self.pixel_dict]

@@ -105,7 +105,7 @@ class Model:
         self.test_images, self.test_labels = test_data
         print('Test Sample Size: %s' % len(self.test_images), flush=True)
 
-        if data_im_size == [4, 4] and config['data']['use_4by4_pixel_dict']:
+        if data_im_size == [4, 4] and config['data']['use_4x4_pixel_dict']:
             print('Using 4x4 Pixel Dict', flush=True)
             self.create_pixel_dict()
             self.train_images = self.train_images[:, self.pixel_dict]
