@@ -4195,3 +4195,5 @@ Epoch  88  Train : 0.8392	Valid : 0.8411
 Epoch  89  Train : 0.8387
 Epoch  90  Train : 0.8385	Valid : 0.8408
 Epoch  91  Train : 0.8378
+Epoch  92  Train : 0.8381	Valid : 0.8396
+Epoch  93  Train : 0.8378

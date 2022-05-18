@@ -3437,3 +3437,5 @@ Epoch  11  Train : 0.8448
 Epoch  12  Train : 0.8605	Valid : 0.8629
 Checkpoint saved...
 Epoch  13  Train : 0.8587
+Epoch  14  Train : 0.8566	Valid : 0.8586
+Epoch  15  Train : 0.8450

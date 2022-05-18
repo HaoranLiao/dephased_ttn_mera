@@ -4406,3 +4406,5 @@ Epoch  54  Train : 0.8771	Valid : 0.8871
 Epoch  55  Train : 0.8769
 Epoch  56  Train : 0.8770	Valid : 0.8865
 Epoch  57  Train : 0.8774
+Epoch  58  Train : 0.8769	Valid : 0.8872
+Epoch  59  Train : 0.8770
