@@ -93,7 +93,7 @@ if __name__ == "__main__":
     asha_scheduler = tune.schedulers.ASHAScheduler(
         time_attr='training_iteration',
         max_t=80,
-        grace_period=30
+        grace_period=40
     )
 
     # ax_search = AxSearch(metric="score")
