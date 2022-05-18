@@ -122,7 +122,7 @@ if __name__ == "__main__":
         local_dir='~/ray_results/',
         resources_per_trial={'cpu': 12, 'gpu': 1},
         scheduler=asha_scheduler,
-        progress_reporter=tune.CLIReporter(max_progress_rows=100),
+        progress_reporter=tune.CLIReporter(max_progress_rows=100, max_report_frequency=15),
         #search_alg=ax_search,
         log_to_file=False,
         name='anc%.0f_deph%.0f' % (num_anc, deph_p)
