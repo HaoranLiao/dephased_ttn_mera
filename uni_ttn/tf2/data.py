@@ -2,6 +2,7 @@ import pickle as pk
 import numpy as np
 import tensorflow as tf
 import math, scipy
+import tensorflow_datasets as tfds
 
 try:
     import skimage.transform
@@ -14,7 +15,7 @@ except ImportError: pass
 
 
 class DataGenerator:
-    def __init__(self, dataset='CIFAR'):
+    def __init__(self, dataset='MNIST'):
         if dataset == 'MNIST':
             mnist_data = tf.keras.datasets.mnist.load_data()
             self.train_images = mnist_data[0][0]
@@ -34,6 +35,15 @@ class DataGenerator:
             self.test_images = cifar_data[1][0]
             self.test_labels = cifar_data[1][1].squeeze()
             self.convert_to_grayscale()
+        elif dataset == 'KMNIST':
+            dataset = tfds.load('kmnist', shuffle_files=True, try_gcs=False)
+            train, test = dataset['train'], dataset['test']
+            train_numpy = np.vstack(tfds.as_numpy(train))
+            test_numpy = np.vstack(tfds.as_numpy(test))
+            self.train_images = np.array(list(map(lambda x: x[0]['image'], train_numpy))).squeeze()
+            self.train_labels = np.array(list(map(lambda x: x[0]['label'], train_numpy)))
+            self.test_images = np.array(list(map(lambda x: x[0]['image'], test_numpy))).squeeze()
+            self.test_labels = np.array(list(map(lambda x: x[0]['label'], test_numpy)))
         else:
             raise NotImplementedError
 
@@ -70,9 +80,8 @@ class DataGenerator:
         save_data(self.test_images, self.test_labels, test_dest)
 
 def convert_to_grayscale(images):
-    # red*0.3+green*0.59+blue*0.11
-    images = images[:, :, :, 0]*0.3 + images[:, :, :, 0]*0.59 + images[:, :, :, 0]*0.11
-    return images
+    '''Red * 0.3 + Green * 0.59 + Blue * 0.11'''
+    return images[:, :, :, 0]*0.3 + images[:, :, :, 0]*0.59 + images[:, :, :, 0]*0.11
 
 def pca(train_images, test_images, k=8):
     images = np.concatenate([train_images, test_images], axis=0)
@@ -304,12 +313,10 @@ if __name__ == '__main__':
     # dim = 2
     # data1.featurize(dim)
 
-    data2 = DataGenerator(dataset='MNIST')
-    # data2.convert_to_grayscale()
+    data2 = DataGenerator(dataset='KMNIST')
     data2.shrink_images([8, 8])
     data2.featurize_qubit()
-    # data2.export('/home/haoranliao/dephased_ttn_project/datasets/cifar8by8/cifar8by8')
-    # data2.export('/content/sample_data/cifar8by8')
+    data2.export('/home/haoranliao/dephased_ttn_project/datasets/kmnist8by8/kmnist8by8')
 
     # data4 = DataGenerator()
     # data4.get_principle_components(digits=(2,7))
