@@ -50,7 +50,6 @@ class Resnet18_Mod(models.resnet.ResNet):
 	Modifying resnet18 for 1-channel grayscale images
 	https://discuss.pytorch.org/t/modify-resnet-or-vgg-for-single-channel-grayscale/22762
 	'''
-
 	def __init__(self, block, layers, num_classes=2):
 		super().__init__(block, layers, num_classes)
 		self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
@@ -84,6 +83,7 @@ class Resnet18_Mod(models.resnet.ResNet):
 
 
 class CNN(nn.Module):
+	'''Home-built CNN'''
 	def __init__(self):
 		super().__init__()
 		self.conv1 = nn.Conv2d(1, 20, kernel_size=2)
@@ -158,8 +158,8 @@ def get_accuracy_torch(output, target_index):
 
 
 def main():
-	digits = [[2, 3, 4, 5, 6, 7], [0, 1, 8, 9]]
-	# digits = ['even', 'odd']
+	# digits = [[2, 3, 4, 5, 6, 7], [0, 1, 8, 9]]
+	digits = ['even', 'odd']
 	# digits = [6, 4]
 	sample_size = 8000000
 	num_epochs = 120
@@ -170,12 +170,13 @@ def main():
 	print('Valid image sample size:', len(valid_images))
 	print('Test image sample size:', len(test_images))
 
-	train_images = torch.tensor(train_images, device=torch.device("cuda"))
-	train_labels = torch.tensor(train_labels, device=torch.device("cuda"))
-	valid_images = torch.tensor(valid_images, device=torch.device("cuda"))
-	valid_labels = torch.tensor(valid_labels, device=torch.device("cuda"))
-	test_images = torch.tensor(test_images, device=torch.device("cuda"))
-	test_labels = torch.tensor(test_labels, device=torch.device("cuda"))
+	device = torch.device("cuda")
+	train_images = torch.tensor(train_images, device=device)
+	train_labels = torch.tensor(train_labels, device=device)
+	valid_images = torch.tensor(valid_images, device=device)
+	valid_labels = torch.tensor(valid_labels, device=device)
+	test_images = torch.tensor(test_images, device=device)
+	test_labels = torch.tensor(test_labels, device=device)
 
 	network = Resnet18_Mod(block=models.resnet.Bottleneck, layers=[2, 2, 2, 2])
 	# network = CNN()
