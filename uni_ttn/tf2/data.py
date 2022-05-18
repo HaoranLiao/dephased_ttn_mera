@@ -316,7 +316,7 @@ if __name__ == '__main__':
     data2 = DataGenerator(dataset='KMNIST')
     data2.shrink_images([8, 8])
     data2.featurize_qubit()
-    data2.export('/home/haoranliao/dephased_ttn_project/datasets/kmnist8by8/kmnist8by8')
+    data2.export('/home/haoranliao/dephased_ttn_project/datasets/kmnist8x8/kmnist8x8')
 
     # data4 = DataGenerator()
     # data4.get_principle_components(digits=(2,7))
