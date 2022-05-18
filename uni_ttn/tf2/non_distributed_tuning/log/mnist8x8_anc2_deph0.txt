@@ -1,0 +1,348 @@
+{
+ "data": {
+  "path": "/home/qc_whaley/dephased_ttn_project/datasets/mnist8x8/mnist8x8",
+  "val_split": 0,
+  "list_digits": [
+   [
+    "even",
+    "odd"
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "grad_accumulation": false,
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 20,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 1000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": false,
+  "visible_gpus": "1",
+  "set_memory_growth": true,
+  "random_seed": 42,
+  "list_num_anc": [
+   2
+  ],
+  "num_repeat": -1,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": -1
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": 0.0001
+   }
+  }
+ }
+}
+== Status ==
+Memory usage on this node: 9.8/669.3 GiB
+Using AsyncHyperBand: num_stopped=0
+Bracket: Iter 30.000: None
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.24 GiB heap, 0.0/186.26 GiB objects
+Result logdir: /home/qc_whaley/ray_results/anc2_deph0
+Number of trials: 16/16 (15 PENDING, 1 RUNNING)
++--------------------+----------+-------+-----------------+-----------+
+| Trial name         | status   | loc   |   tune_init_std |   tune_lr |
+|--------------------+----------+-------+-----------------+-----------|
+| UniTTN_c0a07_00000 | RUNNING  |       |           0.5   |     0.005 |
+| UniTTN_c0a07_00001 | PENDING  |       |           0.3   |     0.005 |
+| UniTTN_c0a07_00002 | PENDING  |       |           0.1   |     0.005 |
+| UniTTN_c0a07_00003 | PENDING  |       |           0.07  |     0.005 |
+| UniTTN_c0a07_00004 | PENDING  |       |           0.05  |     0.005 |
+| UniTTN_c0a07_00005 | PENDING  |       |           0.03  |     0.005 |
+| UniTTN_c0a07_00006 | PENDING  |       |           0.01  |     0.005 |
+| UniTTN_c0a07_00007 | PENDING  |       |           0.005 |     0.005 |
+| UniTTN_c0a07_00008 | PENDING  |       |           0.5   |     0.015 |
+| UniTTN_c0a07_00009 | PENDING  |       |           0.3   |     0.015 |
+| UniTTN_c0a07_00010 | PENDING  |       |           0.1   |     0.015 |
+| UniTTN_c0a07_00011 | PENDING  |       |           0.07  |     0.015 |
+| UniTTN_c0a07_00012 | PENDING  |       |           0.05  |     0.015 |
+| UniTTN_c0a07_00013 | PENDING  |       |           0.03  |     0.015 |
+| UniTTN_c0a07_00014 | PENDING  |       |           0.01  |     0.015 |
+| UniTTN_c0a07_00015 | PENDING  |       |           0.005 |     0.015 |
++--------------------+----------+-------+-----------------+-----------+
+
+
+[2m[36m(pid=72489)[0m /home/qc_whaley/ray_results/anc2_deph0/UniTTN_c0a07_00001_1_tune_init_std=0.3,tune_lr=0.005_2022-05-18_05-17-03
+[2m[36m(pid=72490)[0m /home/qc_whaley/ray_results/anc2_deph0/UniTTN_c0a07_00004_4_tune_init_std=0.05,tune_lr=0.005_2022-05-18_05-17-03
+[2m[36m(pid=72378)[0m /home/qc_whaley/ray_results/anc2_deph0/UniTTN_c0a07_00000_0_tune_init_std=0.5,tune_lr=0.005_2022-05-18_05-17-03
+[2m[36m(pid=72487)[0m /home/qc_whaley/ray_results/anc2_deph0/UniTTN_c0a07_00003_3_tune_init_std=0.07,tune_lr=0.005_2022-05-18_05-17-03
+[2m[36m(pid=72488)[0m /home/qc_whaley/ray_results/anc2_deph0/UniTTN_c0a07_00006_6_tune_init_std=0.01,tune_lr=0.005_2022-05-18_05-17-03
+[2m[36m(pid=72484)[0m /home/qc_whaley/ray_results/anc2_deph0/UniTTN_c0a07_00002_2_tune_init_std=0.1,tune_lr=0.005_2022-05-18_05-17-03
+[2m[36m(pid=72491)[0m /home/qc_whaley/ray_results/anc2_deph0/UniTTN_c0a07_00007_7_tune_init_std=0.005,tune_lr=0.005_2022-05-18_05-17-03
+[2m[36m(pid=72485)[0m /home/qc_whaley/ray_results/anc2_deph0/UniTTN_c0a07_00005_5_tune_init_std=0.03,tune_lr=0.005_2022-05-18_05-17-03
+[2m[36m(pid=72489)[0m Physical GPUs: 1 Logical GPUs: 1
+[2m[36m(pid=72489)[0m Image Size: [8, 8]
+[2m[36m(pid=72489)[0m Feature Dim: 2
+[2m[36m(pid=72489)[0m Load Data From File
+[2m[36m(pid=72489)[0m Train Sample Size: 60000
+[2m[36m(pid=72489)[0m No Validation
+[2m[36m(pid=72489)[0m Test Sample Size: 10000
+[2m[36m(pid=72489)[0m Using 8x8 Pixel Dict
+[2m[36m(pid=72490)[0m Physical GPUs: 1 Logical GPUs: 1
+[2m[36m(pid=72490)[0m Image Size: [8, 8]
+[2m[36m(pid=72490)[0m Feature Dim: 2
+[2m[36m(pid=72378)[0m Physical GPUs: 1 Logical GPUs: 1
+[2m[36m(pid=72378)[0m Image Size: [8, 8]
+[2m[36m(pid=72378)[0m Feature Dim: 2
+[2m[36m(pid=72488)[0m Physical GPUs: 1 Logical GPUs: 1
+[2m[36m(pid=72488)[0m Image Size: [8, 8]
+[2m[36m(pid=72488)[0m Feature Dim: 2
+[2m[36m(pid=72488)[0m Load Data From File
+[2m[36m(pid=72491)[0m Physical GPUs: 1 Logical GPUs: 1
+[2m[36m(pid=72491)[0m Image Size: [8, 8]
+[2m[36m(pid=72491)[0m Feature Dim: 2
+[2m[36m(pid=72487)[0m Physical GPUs: 1 Logical GPUs: 1
+[2m[36m(pid=72487)[0m Image Size: [8, 8]
+[2m[36m(pid=72487)[0m Feature Dim: 2
+[2m[36m(pid=72484)[0m Physical GPUs: 1 Logical GPUs: 1
+[2m[36m(pid=72484)[0m Image Size: [8, 8]
+[2m[36m(pid=72484)[0m Feature Dim: 2
+[2m[36m(pid=72485)[0m Physical GPUs: 1 Logical GPUs: 1
+[2m[36m(pid=72485)[0m Image Size: [8, 8]
+[2m[36m(pid=72485)[0m Feature Dim: 2
+[2m[36m(pid=72488)[0m Train Sample Size: 60000
+[2m[36m(pid=72488)[0m No Validation
+[2m[36m(pid=72488)[0m Test Sample Size: 10000
+[2m[36m(pid=72488)[0m Using 8x8 Pixel Dict
+[2m[36m(pid=72485)[0m Load Data From File
+[2m[36m(pid=72378)[0m Load Data From File
+[2m[36m(pid=72485)[0m Train Sample Size: 60000
+[2m[36m(pid=72485)[0m No Validation
+[2m[36m(pid=72485)[0m Test Sample Size: 10000
+[2m[36m(pid=72485)[0m Using 8x8 Pixel Dict
+[2m[36m(pid=72378)[0m Train Sample Size: 60000
+[2m[36m(pid=72378)[0m No Validation
+[2m[36m(pid=72378)[0m Test Sample Size: 10000
+[2m[36m(pid=72378)[0m Using 8x8 Pixel Dict
+[2m[36m(pid=72491)[0m Load Data From File
+[2m[36m(pid=72484)[0m Load Data From File
+[2m[36m(pid=72491)[0m Train Sample Size: 60000
+[2m[36m(pid=72491)[0m No Validation
+[2m[36m(pid=72491)[0m Test Sample Size: 10000
+[2m[36m(pid=72491)[0m Using 8x8 Pixel Dict
+[2m[36m(pid=72487)[0m Load Data From File
+[2m[36m(pid=72484)[0m Train Sample Size: 60000
+[2m[36m(pid=72484)[0m No Validation
+[2m[36m(pid=72484)[0m Test Sample Size: 10000
+[2m[36m(pid=72484)[0m Using 8x8 Pixel Dict
+[2m[36m(pid=72490)[0m Load Data From File
+[2m[36m(pid=72487)[0m Train Sample Size: 60000
+[2m[36m(pid=72487)[0m No Validation
+[2m[36m(pid=72487)[0m Test Sample Size: 10000
+[2m[36m(pid=72487)[0m Using 8x8 Pixel Dict
+[2m[36m(pid=72490)[0m Train Sample Size: 60000
+[2m[36m(pid=72490)[0m No Validation
+[2m[36m(pid=72490)[0m Test Sample Size: 10000
+[2m[36m(pid=72490)[0m Using 8x8 Pixel Dict
+Result for UniTTN_c0a07_00001:
+  date: 2022-05-18_05-17-36
+  done: false
+  experiment_id: c695291a4f28429e962852d2b86a8b1c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 72489
+  test_accuracy: 87.75
+  time_since_restore: 27.54791760444641
+  time_this_iter_s: 27.54791760444641
+  time_total_s: 27.54791760444641
+  timestamp: 1652851056
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c0a07_00001
+  
+== Status ==
+Memory usage on this node: 26.2/669.3 GiB
+Using AsyncHyperBand: num_stopped=0
+Bracket: Iter 30.000: None
+Resources requested: 96.0/96 CPUs, 8.0/8 GPUs, 0.0/471.24 GiB heap, 0.0/186.26 GiB objects
+Current best trial: c0a07_00001 with test_accuracy=87.75 and parameters={'num_anc': 2, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.3}
+Result logdir: /home/qc_whaley/ray_results/anc2_deph0
+Number of trials: 16/16 (8 PENDING, 8 RUNNING)
++--------------------+----------+------------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status   | loc              |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+----------+------------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_c0a07_00000 | RUNNING  |                  |           0.5   |     0.005 |        |                  |                 |
+| UniTTN_c0a07_00001 | RUNNING  | 10.128.0.8:72489 |           0.3   |     0.005 |      1 |          27.5479 |           87.75 |
+| UniTTN_c0a07_00002 | RUNNING  |                  |           0.1   |     0.005 |        |                  |                 |
+| UniTTN_c0a07_00003 | RUNNING  |                  |           0.07  |     0.005 |        |                  |                 |
+| UniTTN_c0a07_00004 | RUNNING  |                  |           0.05  |     0.005 |        |                  |                 |
+| UniTTN_c0a07_00005 | RUNNING  |                  |           0.03  |     0.005 |        |                  |                 |
+| UniTTN_c0a07_00006 | RUNNING  |                  |           0.01  |     0.005 |        |                  |                 |
+| UniTTN_c0a07_00007 | RUNNING  |                  |           0.005 |     0.005 |        |                  |                 |
+| UniTTN_c0a07_00008 | PENDING  |                  |           0.5   |     0.015 |        |                  |                 |
+| UniTTN_c0a07_00009 | PENDING  |                  |           0.3   |     0.015 |        |                  |                 |
+| UniTTN_c0a07_00010 | PENDING  |                  |           0.1   |     0.015 |        |                  |                 |
+| UniTTN_c0a07_00011 | PENDING  |                  |           0.07  |     0.015 |        |                  |                 |
+| UniTTN_c0a07_00012 | PENDING  |                  |           0.05  |     0.015 |        |                  |                 |
+| UniTTN_c0a07_00013 | PENDING  |                  |           0.03  |     0.015 |        |                  |                 |
+| UniTTN_c0a07_00014 | PENDING  |                  |           0.01  |     0.015 |        |                  |                 |
+| UniTTN_c0a07_00015 | PENDING  |                  |           0.005 |     0.015 |        |                  |                 |
++--------------------+----------+------------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_c0a07_00006:
+  date: 2022-05-18_05-17-37
+  done: false
+  experiment_id: 493daa9face64ae2abcc3d286e959680
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 72488
+  test_accuracy: 91.66
+  time_since_restore: 27.983147859573364
+  time_this_iter_s: 27.983147859573364
+  time_total_s: 27.983147859573364
+  timestamp: 1652851057
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c0a07_00006
+  
+Result for UniTTN_c0a07_00005:
+  date: 2022-05-18_05-17-37
+  done: false
+  experiment_id: fa9145c434d54290a67a393dfcb00fe0
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 72485
+  test_accuracy: 90.89
+  time_since_restore: 28.28754687309265
+  time_this_iter_s: 28.28754687309265
+  time_total_s: 28.28754687309265
+  timestamp: 1652851057
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c0a07_00005
+  
+Result for UniTTN_c0a07_00000:
+  date: 2022-05-18_05-17-38
+  done: false
+  experiment_id: 6127d0180f024b80a50b20b973da9763
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 72378
+  test_accuracy: 88.01
+  time_since_restore: 28.604416847229004
+  time_this_iter_s: 28.604416847229004
+  time_total_s: 28.604416847229004
+  timestamp: 1652851058
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c0a07_00000
+  
+Result for UniTTN_c0a07_00002:
+  date: 2022-05-18_05-17-39
+  done: false
+  experiment_id: 7c4d5790bfb140f3b7bf4b7872830713
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 72484
+  test_accuracy: 88.94
+  time_since_restore: 28.159454584121704
+  time_this_iter_s: 28.159454584121704
+  time_total_s: 28.159454584121704
+  timestamp: 1652851059
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c0a07_00002
+  
+Result for UniTTN_c0a07_00007:
+  date: 2022-05-18_05-17-39
+  done: false
+  experiment_id: 7eb52f0edf0c48528a3dde7bb6cbee5d
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 72491
+  test_accuracy: 91.33
+  time_since_restore: 28.90959668159485
+  time_this_iter_s: 28.90959668159485
+  time_total_s: 28.90959668159485
+  timestamp: 1652851059
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c0a07_00007
+  
+Result for UniTTN_c0a07_00004:
+  date: 2022-05-18_05-17-39
+  done: false
+  experiment_id: 8cf33b017ecb4818834ffeded3daaee9
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 72490
+  test_accuracy: 90.82000000000001
+  time_since_restore: 27.839618682861328
+  time_this_iter_s: 27.839618682861328
+  time_total_s: 27.839618682861328
+  timestamp: 1652851059
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c0a07_00004
+  
+Result for UniTTN_c0a07_00003:
+  date: 2022-05-18_05-17-39
+  done: false
+  experiment_id: 05e9c11fe23243c4b8a61feb7b3665c2
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.8
+  pid: 72487
+  test_accuracy: 90.78
+  time_since_restore: 28.421666145324707
+  time_this_iter_s: 28.421666145324707
+  time_total_s: 28.421666145324707
+  timestamp: 1652851059
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: c0a07_00003
+  
+Result for UniTTN_c0a07_00001:
+  date: 2022-05-18_05-17-59
+  done: false
+  experiment_id: c695291a4f28429e962852d2b86a8b1c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 2
+  node_ip: 10.128.0.8
+  pid: 72489
+  test_accuracy: 88.64
+  time_since_restore: 50.59722948074341
+  time_this_iter_s: 23.049311876296997
+  time_total_s: 50.59722948074341
+  timestamp: 1652851079
+  timesteps_since_restore: 0
+  training_iteration: 2
+  trial_id: c0a07_00001
+  

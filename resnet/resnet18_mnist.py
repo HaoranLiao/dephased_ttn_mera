@@ -3,7 +3,6 @@ Using ResNet18 to give a baseline.
 accuracy: 0.990 ([3,5] for 11000(full) training samples)
 accuracy: 0.987 ([3,5] for 5000 training samples)
 Reference materials:
-sTTN_Deph_MNIST.conv_net_mnist.conv_net_mnist.py
 pytroch.vision.references.classification.train.py
 https://discuss.pytorch.org/t/modify-resnet-or-vgg-for-single-channel-grayscale/22762
 https://nextjournal.com/gkoehler/pytorch-mnist
@@ -48,7 +47,7 @@ def load_data(digits, sample_size):
 
 class Resnet18_Mod(models.resnet.ResNet):
 	'''
-	Modifying resnet18 for 1-channel grayscale MNIST
+	Modifying resnet18 for 1-channel grayscale images
 	https://discuss.pytorch.org/t/modify-resnet-or-vgg-for-single-channel-grayscale/22762
 	'''
 

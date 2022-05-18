@@ -1,9 +1,9 @@
 data:
- #path: '../../datasets/mnist8by8/mnist8by8'
+ #path: '../../datasets/mnist8x8/mnist8x8'
  #path: '../../datasets/mnist8pca_dig35/mnist8pca_dig35'
- path: '../../datasets/mnist8by8/mnist8by8'
+ path: '../../datasets/mnist8x8/mnist8x8'
  val_split: 0.2 #0.2857 #0.16
- list_digits: [[[0,1,2],[3]]]                     # list of pairs or one pair
+ list_digits: [['even','odd']]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
  eval_batch_size_factor: 5000
@@ -11,7 +11,7 @@ data:
  data_im_size: [8,8]
  sample_size: 10000              # int or None
  feature_dim: 2
- use_8by8_pixel_dict: True
+ use_8x8_pixel_dict: True
 
 meta:
  set_visible_gpus: True
