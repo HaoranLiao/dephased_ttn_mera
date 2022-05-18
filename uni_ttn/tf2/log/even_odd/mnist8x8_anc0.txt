@@ -1,0 +1,148 @@
+{
+ "data": {
+  "path": "../../datasets/mnist8x8/mnist8x8",
+  "val_split": 0.166,
+  "list_digits": [
+   [
+    "even",
+    "odd"
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 5000,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 1000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": true,
+  "visible_gpus": "1",
+  "set_memory_growth": false,
+  "random_seed": 42,
+  "list_num_anc": [
+   0
+  ],
+  "num_repeat": 10,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   120
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.05,
+    0.08,
+    0.1,
+    0.2,
+    0.3,
+    0.5
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": [
+     0.005
+    ]
+   },
+   "spsa": {
+    "a": 28,
+    "b": 33,
+    "A": 7.41,
+    "s": 1.13,
+    "t": 0.658,
+    "gamma": 0.882
+   }
+  }
+ }
+}
+
+Repeat: 1/10
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 0
+Random Seed: 42
+Init Std: 0.05
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Epoch   0  Train : 0.8487	Valid : 0.8587
+Checkpoint saved...
+Epoch   1  Train : 0.8492
+Epoch   2  Train : 0.8624	Valid : 0.8734
+Checkpoint saved...
+Epoch   3  Train : 0.8605
+Epoch   4  Train : 0.8571	Valid : 0.8672
+Epoch   5  Train : 0.8608
+Epoch   6  Train : 0.8638	Valid : 0.8724
+Epoch   7  Train : 0.8595
+Epoch   8  Train : 0.8572	Valid : 0.8667
+Epoch   9  Train : 0.8524
+Epoch  10  Train : 0.8643	Valid : 0.8725
+Epoch  11  Train : 0.8606
+Epoch  12  Train : 0.8613	Valid : 0.8699
+Epoch  13  Train : 0.8677
+Epoch  14  Train : 0.8670	Valid : 0.8780
+Checkpoint saved...
+Epoch  15  Train : 0.8663
+Epoch  16  Train : 0.8654	Valid : 0.8745
+Epoch  17  Train : 0.8701
+Epoch  18  Train : 0.8635	Valid : 0.8718
+Epoch  19  Train : 0.8701
+Epoch  20  Train : 0.8636	Valid : 0.8736
+Epoch  21  Train : 0.8725
+Epoch  22  Train : 0.8706	Valid : 0.8791
+Checkpoint saved...
+Epoch  23  Train : 0.8741
+Epoch  24  Train : 0.8650	Valid : 0.8768
+Epoch  25  Train : 0.8714
+Epoch  26  Train : 0.8694	Valid : 0.8804
+Checkpoint saved...
+Epoch  27  Train : 0.8659
+Epoch  28  Train : 0.8694	Valid : 0.8809
+Checkpoint saved...
+Epoch  29  Train : 0.8707
+Epoch  30  Train : 0.8643	Valid : 0.8740
+Epoch  31  Train : 0.8727
+Epoch  32  Train : 0.8696	Valid : 0.8802
+Epoch  33  Train : 0.8762
