@@ -8042,3 +8042,132 @@ Result for UniTTN_29e7f_00006:
   training_iteration: 1
   trial_id: 29e7f_00006
   
+== Status ==
+Memory usage on this node: 40.3/334.4 GiB
+Using AsyncHyperBand: num_stopped=5
+Bracket: Iter 30.000: 95.5
+Resources requested: 48.0/48 CPUs, 4.0/4 GPUs, 0.0/211.23 GiB heap, 0.0/94.52 GiB objects
+Current best trial: 29e7f_00001 with test_accuracy=95.46 and parameters={'num_anc': 1, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.3}
+Result logdir: /home/qc_whaley/ray_results/anc1_deph0
+Number of trials: 16/16 (7 PENDING, 4 RUNNING, 5 TERMINATED)
++--------------------+------------+-------------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc               |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-------------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_29e7f_00005 | RUNNING    | 10.128.0.10:30659 |           0.03  |     0.005 |     19 |         427.824  |           95.22 |
+| UniTTN_29e7f_00006 | RUNNING    | 10.128.0.10:30656 |           0.01  |     0.005 |      1 |          28.2145 |           94.52 |
+| UniTTN_29e7f_00007 | RUNNING    |                   |           0.005 |     0.005 |        |                  |                 |
+| UniTTN_29e7f_00008 | RUNNING    |                   |           0.5   |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00009 | PENDING    |                   |           0.3   |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00010 | PENDING    |                   |           0.1   |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00011 | PENDING    |                   |           0.07  |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00012 | PENDING    |                   |           0.05  |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00013 | PENDING    |                   |           0.03  |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00014 | PENDING    |                   |           0.01  |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00015 | PENDING    |                   |           0.005 |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00000 | TERMINATED |                   |           0.5   |     0.005 |     80 |        1742.58   |           95.3  |
+| UniTTN_29e7f_00001 | TERMINATED |                   |           0.3   |     0.005 |     80 |        1727.69   |           95.46 |
+| UniTTN_29e7f_00002 | TERMINATED |                   |           0.1   |     0.005 |     80 |        1747.78   |           95.35 |
+| UniTTN_29e7f_00003 | TERMINATED |                   |           0.07  |     0.005 |     30 |         648.175  |           95.32 |
+| UniTTN_29e7f_00004 | TERMINATED |                   |           0.05  |     0.005 |     30 |         669.628  |           95.43 |
++--------------------+------------+-------------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_29e7f_00007:
+  date: 2022-05-18_03-05-01
+  done: false
+  experiment_id: 0e73067949184faea4a075c92513929d
+  hostname: nvidia-gpu-cloud-tensorflow-image-2-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.10
+  pid: 30653
+  test_accuracy: 94.53
+  time_since_restore: 28.845171451568604
+  time_this_iter_s: 28.845171451568604
+  time_total_s: 28.845171451568604
+  timestamp: 1652843101
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: 29e7f_00007
+  
+Result for UniTTN_29e7f_00005:
+  date: 2022-05-18_03-05-02
+  done: false
+  experiment_id: 7c610e014c954b1b85208fc95e7b0ebb
+  hostname: nvidia-gpu-cloud-tensorflow-image-2-vm
+  iterations_since_restore: 20
+  node_ip: 10.128.0.10
+  pid: 30659
+  test_accuracy: 95.5
+  time_since_restore: 450.12989020347595
+  time_this_iter_s: 22.30618715286255
+  time_total_s: 450.12989020347595
+  timestamp: 1652843102
+  timesteps_since_restore: 0
+  training_iteration: 20
+  trial_id: 29e7f_00005
+  
+== Status ==
+Memory usage on this node: 40.5/334.4 GiB
+Using AsyncHyperBand: num_stopped=5
+Bracket: Iter 30.000: 95.5
+Resources requested: 48.0/48 CPUs, 4.0/4 GPUs, 0.0/211.23 GiB heap, 0.0/94.52 GiB objects
+Current best trial: 29e7f_00005 with test_accuracy=95.5 and parameters={'num_anc': 1, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.03}
+Result logdir: /home/qc_whaley/ray_results/anc1_deph0
+Number of trials: 16/16 (7 PENDING, 4 RUNNING, 5 TERMINATED)
++--------------------+------------+-------------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc               |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-------------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_29e7f_00005 | RUNNING    | 10.128.0.10:30659 |           0.03  |     0.005 |     20 |         450.13   |           95.5  |
+| UniTTN_29e7f_00006 | RUNNING    | 10.128.0.10:30656 |           0.01  |     0.005 |      1 |          28.2145 |           94.52 |
+| UniTTN_29e7f_00007 | RUNNING    | 10.128.0.10:30653 |           0.005 |     0.005 |      1 |          28.8452 |           94.53 |
+| UniTTN_29e7f_00008 | RUNNING    |                   |           0.5   |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00009 | PENDING    |                   |           0.3   |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00010 | PENDING    |                   |           0.1   |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00011 | PENDING    |                   |           0.07  |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00012 | PENDING    |                   |           0.05  |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00013 | PENDING    |                   |           0.03  |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00014 | PENDING    |                   |           0.01  |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00015 | PENDING    |                   |           0.005 |     0.015 |        |                  |                 |
+| UniTTN_29e7f_00000 | TERMINATED |                   |           0.5   |     0.005 |     80 |        1742.58   |           95.3  |
+| UniTTN_29e7f_00001 | TERMINATED |                   |           0.3   |     0.005 |     80 |        1727.69   |           95.46 |
+| UniTTN_29e7f_00002 | TERMINATED |                   |           0.1   |     0.005 |     80 |        1747.78   |           95.35 |
+| UniTTN_29e7f_00003 | TERMINATED |                   |           0.07  |     0.005 |     30 |         648.175  |           95.32 |
+| UniTTN_29e7f_00004 | TERMINATED |                   |           0.05  |     0.005 |     30 |         669.628  |           95.43 |
++--------------------+------------+-------------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_29e7f_00008:
+  date: 2022-05-18_03-05-07
+  done: false
+  experiment_id: 13fc60c19a5746faa822cbeb1cf94761
+  hostname: nvidia-gpu-cloud-tensorflow-image-2-vm
+  iterations_since_restore: 1
+  node_ip: 10.128.0.10
+  pid: 30652
+  test_accuracy: 94.5
+  time_since_restore: 28.176600456237793
+  time_this_iter_s: 28.176600456237793
+  time_total_s: 28.176600456237793
+  timestamp: 1652843107
+  timesteps_since_restore: 0
+  training_iteration: 1
+  trial_id: 29e7f_00008
+  
+Result for UniTTN_29e7f_00006:
+  date: 2022-05-18_03-05-09
+  done: false
+  experiment_id: 29588d96f32f4594ad703f85deba0cbf
+  hostname: nvidia-gpu-cloud-tensorflow-image-2-vm
+  iterations_since_restore: 2
+  node_ip: 10.128.0.10
+  pid: 30656
+  test_accuracy: 94.74000000000001
+  time_since_restore: 50.16743183135986
+  time_this_iter_s: 21.952969074249268
+  time_total_s: 50.16743183135986
+  timestamp: 1652843109
+  timesteps_since_restore: 0
+  training_iteration: 2
+  trial_id: 29e7f_00006
+  
+Result for UniTTN_29e7f_00007:

@@ -7639,3 +7639,132 @@ Result for UniTTN_4a546_00000:
   training_iteration: 77
   trial_id: 4a546_00000
   
+== Status ==
+Memory usage on this node: 40.4/334.4 GiB
+Using AsyncHyperBand: num_stopped=0
+Bracket: Iter 80.000: None
+Resources requested: 48.0/48 CPUs, 4.0/4 GPUs, 0.0/204.47 GiB heap, 0.0/91.62 GiB objects
+Current best trial: 4a546_00002 with test_accuracy=94.39 and parameters={'num_anc': 1, 'deph_p': 1, 'tune_lr': 0.005, 'tune_init_std': 0.1}
+Result logdir: /home/qc_whaley/ray_results/anc1_deph1
+Number of trials: 16/16 (12 PENDING, 4 RUNNING)
++--------------------+----------+-------------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status   | loc               |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+----------+-------------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_4a546_00000 | RUNNING  | 10.128.0.10:32343 |           0.5   |     0.005 |     77 |          1723.78 |           94.18 |
+| UniTTN_4a546_00001 | RUNNING  | 10.128.0.10:32337 |           0.3   |     0.005 |     76 |          1707.48 |           93.96 |
+| UniTTN_4a546_00002 | RUNNING  | 10.128.0.10:32331 |           0.1   |     0.005 |     76 |          1700.69 |           94.39 |
+| UniTTN_4a546_00003 | RUNNING  | 10.128.0.10:32327 |           0.07  |     0.005 |     77 |          1707.89 |           94.13 |
+| UniTTN_4a546_00004 | PENDING  |                   |           0.05  |     0.005 |        |                  |                 |
+| UniTTN_4a546_00005 | PENDING  |                   |           0.03  |     0.005 |        |                  |                 |
+| UniTTN_4a546_00006 | PENDING  |                   |           0.01  |     0.005 |        |                  |                 |
+| UniTTN_4a546_00007 | PENDING  |                   |           0.005 |     0.005 |        |                  |                 |
+| UniTTN_4a546_00008 | PENDING  |                   |           0.5   |     0.015 |        |                  |                 |
+| UniTTN_4a546_00009 | PENDING  |                   |           0.3   |     0.015 |        |                  |                 |
+| UniTTN_4a546_00010 | PENDING  |                   |           0.1   |     0.015 |        |                  |                 |
+| UniTTN_4a546_00011 | PENDING  |                   |           0.07  |     0.015 |        |                  |                 |
+| UniTTN_4a546_00012 | PENDING  |                   |           0.05  |     0.015 |        |                  |                 |
+| UniTTN_4a546_00013 | PENDING  |                   |           0.03  |     0.015 |        |                  |                 |
+| UniTTN_4a546_00014 | PENDING  |                   |           0.01  |     0.015 |        |                  |                 |
+| UniTTN_4a546_00015 | PENDING  |                   |           0.005 |     0.015 |        |                  |                 |
++--------------------+----------+-------------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_4a546_00002:
+  date: 2022-05-18_03-05-04
+  done: false
+  experiment_id: dd15342287444430ba1527575bc51ed2
+  hostname: nvidia-gpu-cloud-tensorflow-image-2-vm
+  iterations_since_restore: 77
+  node_ip: 10.128.0.10
+  pid: 32331
+  test_accuracy: 94.36
+  time_since_restore: 1722.6387748718262
+  time_this_iter_s: 21.95134425163269
+  time_total_s: 1722.6387748718262
+  timestamp: 1652843104
+  timesteps_since_restore: 0
+  training_iteration: 77
+  trial_id: 4a546_00002
+  
+Result for UniTTN_4a546_00001:
+  date: 2022-05-18_03-05-10
+  done: false
+  experiment_id: 5b2f8267c6a94331b9f8d7f73b1f1b10
+  hostname: nvidia-gpu-cloud-tensorflow-image-2-vm
+  iterations_since_restore: 77
+  node_ip: 10.128.0.10
+  pid: 32337
+  test_accuracy: 93.93
+  time_since_restore: 1729.981466293335
+  time_this_iter_s: 22.497259378433228
+  time_total_s: 1729.981466293335
+  timestamp: 1652843110
+  timesteps_since_restore: 0
+  training_iteration: 77
+  trial_id: 4a546_00001
+  
+Result for UniTTN_4a546_00003:
+  date: 2022-05-18_03-05-11
+  done: false
+  experiment_id: f4e8a6d42e474f469e1234488850652e
+  hostname: nvidia-gpu-cloud-tensorflow-image-2-vm
+  iterations_since_restore: 78
+  node_ip: 10.128.0.10
+  pid: 32327
+  test_accuracy: 94.13
+  time_since_restore: 1730.3137583732605
+  time_this_iter_s: 22.42379403114319
+  time_total_s: 1730.3137583732605
+  timestamp: 1652843111
+  timesteps_since_restore: 0
+  training_iteration: 78
+  trial_id: 4a546_00003
+  
+Result for UniTTN_4a546_00000:
+  date: 2022-05-18_03-05-26
+  done: false
+  experiment_id: 51eb74c64544439f806719e1a1694a75
+  hostname: nvidia-gpu-cloud-tensorflow-image-2-vm
+  iterations_since_restore: 78
+  node_ip: 10.128.0.10
+  pid: 32343
+  test_accuracy: 94.17999999999999
+  time_since_restore: 1745.8766469955444
+  time_this_iter_s: 22.097984552383423
+  time_total_s: 1745.8766469955444
+  timestamp: 1652843126
+  timesteps_since_restore: 0
+  training_iteration: 78
+  trial_id: 4a546_00000
+  
+== Status ==
+Memory usage on this node: 40.7/334.4 GiB
+Using AsyncHyperBand: num_stopped=0
+Bracket: Iter 80.000: None
+Resources requested: 48.0/48 CPUs, 4.0/4 GPUs, 0.0/204.47 GiB heap, 0.0/91.62 GiB objects
+Current best trial: 4a546_00002 with test_accuracy=94.36 and parameters={'num_anc': 1, 'deph_p': 1, 'tune_lr': 0.005, 'tune_init_std': 0.1}
+Result logdir: /home/qc_whaley/ray_results/anc1_deph1
+Number of trials: 16/16 (12 PENDING, 4 RUNNING)
++--------------------+----------+-------------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status   | loc               |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+----------+-------------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_4a546_00000 | RUNNING  | 10.128.0.10:32343 |           0.5   |     0.005 |     78 |          1745.88 |           94.18 |
+| UniTTN_4a546_00001 | RUNNING  | 10.128.0.10:32337 |           0.3   |     0.005 |     77 |          1729.98 |           93.93 |
+| UniTTN_4a546_00002 | RUNNING  | 10.128.0.10:32331 |           0.1   |     0.005 |     77 |          1722.64 |           94.36 |
+| UniTTN_4a546_00003 | RUNNING  | 10.128.0.10:32327 |           0.07  |     0.005 |     78 |          1730.31 |           94.13 |
+| UniTTN_4a546_00004 | PENDING  |                   |           0.05  |     0.005 |        |                  |                 |
+| UniTTN_4a546_00005 | PENDING  |                   |           0.03  |     0.005 |        |                  |                 |
+| UniTTN_4a546_00006 | PENDING  |                   |           0.01  |     0.005 |        |                  |                 |
+| UniTTN_4a546_00007 | PENDING  |                   |           0.005 |     0.005 |        |                  |                 |
+| UniTTN_4a546_00008 | PENDING  |                   |           0.5   |     0.015 |        |                  |                 |
+| UniTTN_4a546_00009 | PENDING  |                   |           0.3   |     0.015 |        |                  |                 |
+| UniTTN_4a546_00010 | PENDING  |                   |           0.1   |     0.015 |        |                  |                 |
+| UniTTN_4a546_00011 | PENDING  |                   |           0.07  |     0.015 |        |                  |                 |
+| UniTTN_4a546_00012 | PENDING  |                   |           0.05  |     0.015 |        |                  |                 |
+| UniTTN_4a546_00013 | PENDING  |                   |           0.03  |     0.015 |        |                  |                 |
+| UniTTN_4a546_00014 | PENDING  |                   |           0.01  |     0.015 |        |                  |                 |
+| UniTTN_4a546_00015 | PENDING  |                   |           0.005 |     0.015 |        |                  |                 |
++--------------------+----------+-------------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_4a546_00002:
