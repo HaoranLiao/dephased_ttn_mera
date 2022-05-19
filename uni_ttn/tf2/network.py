@@ -151,7 +151,7 @@ class Layer:
                 shape=[self.num_op_params, num_nodes], dtype=tf.float32,
             ), name='param_var_lay_%s' % layer_idx, trainable=True)
 
-    def get_unitary_tensor(self):
+    def get_unitary_tensors(self):
         num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
         real_off_params = self.param_var_lay[:num_off_diags]
         imag_off_params = self.param_var_lay[num_off_diags:2 * num_off_diags]
@@ -175,13 +175,13 @@ class Layer:
         (eigenvalues, eigenvectors) = tf.linalg.eigh(herm_matrix)
         eig_exp = tf.exp(1.0j * eigenvalues)
         diag_exp_mat = tf.linalg.diag(eig_exp)
-        unitary_matrix = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        unitary_tensor = tf.reshape(unitary_matrix, [self.num_nodes, *[self.bond_dim]*4])
-        return unitary_tensor
+        unitary_matrices = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
+        unitary_tensors = tf.reshape(unitary_matrices, [self.num_nodes, *[self.bond_dim]*4])
+        return unitary_tensors
 
     def get_layer_output(self, input):
         left_input, right_input = input[:, ::2], input[:, 1::2]
-        unitary_tensor = self.get_unitary_tensor()
+        unitary_tensor = self.get_unitary_tensors()
         left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
         output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
         return output

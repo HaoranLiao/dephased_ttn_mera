@@ -7,7 +7,7 @@ import numpy as np
 import os, yaml, json
 from tqdm import tqdm
 from uni_ttn.tf2 import data, model, spsa
-from uni_ttn.tf2.model import variable_or_uniform
+from uni_ttn.tf2.model import var_or_const
 from ray import tune
 try: from ray.tune.suggest.ax import AxSearch
 except ImportError: pass
@@ -55,9 +55,9 @@ class UniTTN(tune.Trainable):
         print(os.getcwd())  # the cwd may not be the current file path
 
         self.tune_config = tune_config
-        digits = variable_or_uniform(list_digits, 0)
-        deph_p = variable_or_uniform(list_deph_p, 0)
-        num_anc = variable_or_uniform(list_num_anc, 0)
+        digits = var_or_const(list_digits, 0)
+        deph_p = var_or_const(list_deph_p, 0)
+        num_anc = var_or_const(list_num_anc, 0)
         self.model = Tuning_Model(data_path, digits, val_split, deph_p, num_anc, config, tune_config)
 
     def step(self):
@@ -86,9 +86,9 @@ if __name__ == "__main__":
     list_deph_p = config['meta']['deph']['p']
     list_num_anc = config['meta']['list_num_anc']
 
-    deph_p = variable_or_uniform(list_deph_p, 0)
-    num_anc = variable_or_uniform(list_num_anc, 0)
-    batch_size = variable_or_uniform(list_batch_sizes, 0)
+    deph_p = var_or_const(list_deph_p, 0)
+    num_anc = var_or_const(list_num_anc, 0)
+    batch_size = var_or_const(list_batch_sizes, 0)
 
     asha_scheduler = tune.schedulers.ASHAScheduler(
         time_attr='training_iteration',
