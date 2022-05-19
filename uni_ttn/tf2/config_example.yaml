@@ -1,8 +1,13 @@
 data:
  #path: '../../datasets/mnist8x8/mnist8x8'
  #path: '../../datasets/mnist8pca_dig35/mnist8pca_dig35'
+<<<<<<< HEAD
  #path: '../../datasets/mnist8x8/mnist8x8'
  path: '../../datasets/fashion8x8/fashion8x8'
+=======
+ path: '../../datasets/kmnist8x8/kmnist8x8'
+ #path: '../../datasets/fashion8x8/fashion8x8'
+>>>>>>> e86515f0a57aefbb59744be8c3ba34ea2bc7493b
  val_split: 0.166 #0.2857
  list_digits: [['even','odd']]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
@@ -15,9 +20,15 @@ data:
  use_8x8_pixel_dict: True
 
 meta:
+<<<<<<< HEAD
+ set_visible_gpus: True
+ visible_gpus: '3'
+ set_memory_growth: True
+=======
  set_visible_gpus: False
  visible_gpus: '1'
  set_memory_growth: False
+>>>>>>> 000ca1fe10a97f25ea88fc84c9a7d4f56765862a
  random_seed: 42
  list_num_anc: [2]                # list or list of single
  num_repeat: 5
@@ -38,7 +49,15 @@ meta:
 tree:
  param:
   init_mean: 0
+<<<<<<< HEAD
   init_std: [0.03, 0.05, 0.1, 0.2, 0.3, 0.5]
+=======
+<<<<<<< HEAD
+  init_std: [0.03, 0.02, 0.01, 0.01, 0.007, 0.005]
+=======
+  init_std: [0.05, 0.04, 0.03, 0.03, 0.02, 0.01]
+>>>>>>> 000ca1fe10a97f25ea88fc84c9a7d4f56765862a
+>>>>>>> e86515f0a57aefbb59744be8c3ba34ea2bc7493b
 
  opt:
   opt: 'adam'
