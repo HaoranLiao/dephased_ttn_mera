@@ -128,7 +128,7 @@ class Model:
 
     def monitor_network(self):
         with tf.GradientTape(persistent=True) as tape:
-            self.network.layers[-1].get_unitary_tensor()
+            self.network.layers[-1].get_unitary_tensors()
             eigenvalues, eigenvectors = tf.linalg.eigh(self.network.layers[-1].unitary_matrix)
         a = tape.gradient(eigenvalues, self.network.var_list[-1])
         print(tf.reduce_mean(a))
