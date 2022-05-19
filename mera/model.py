@@ -48,22 +48,22 @@ def run_all(i):
         print(f'Initialized {model.model_type}')
         test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
 
-        test_accs.append(round(test_acc, 4))
-        train_accs.append(round(train_acc, 4))
+        test_accs.append(round(test_acc, 5))
+        train_accs.append(round(train_acc, 5))
         print('Time (hr): %.4f' % ((time.time()-start_time)/3600), flush=True)
 
     print(f'\nSetting {i} Train Accs: {train_accs}\t')
-    print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
-    print('Setting %d Std Train Acc: %.3f' % (i, np.std(train_accs)))
+    print('Setting %d Avg Train Acc: %.4f' % (i, float(np.mean(train_accs))))
+    print('Setting %d Std Train Acc: %.4f' % (i, float(np.std(train_accs))))
     print(f'Setting {i} Test Accs: {test_accs}\t')
-    print('Setting %d Avg Test Acc: %.3f' % (i, np.mean(test_accs)))
-    print('Setting %d Std Test Acc: %.3f' % (i, np.std(test_accs)))
+    print('Setting %d Avg Test Acc: %.4f' % (i, float(np.mean(test_accs))))
+    print('Setting %d Std Test Acc: %.4f' % (i, float(np.std(test_accs))))
     sys.stdout.flush()
 
-    avg_repeated_test_acc.append(round(float(np.mean(test_accs)), 3))
-    avg_repeated_train_acc.append(round(float(np.mean(train_accs)), 3))
-    std_repeated_test_acc.append(round(float(np.std(test_accs)), 3))
-    std_repeated_train_acc.append(round(float(np.std(train_accs)), 3))
+    avg_repeated_test_acc.append(round(float(np.mean(test_accs)), 4))
+    avg_repeated_train_acc.append(round(float(np.mean(train_accs)), 4))
+    std_repeated_test_acc.append(round(float(np.std(test_accs)), 4))
+    std_repeated_train_acc.append(round(float(np.std(train_accs)), 4))
 
 class Model(uni_ttn.tf2.model.Model):
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, init_std, lr, config):
