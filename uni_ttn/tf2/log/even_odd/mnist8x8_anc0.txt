@@ -8239,3 +8239,4 @@ Epoch  24  Train : 0.7864	Valid : 0.8018
 Epoch  25  Train : 0.7727
 Epoch  26  Train : 0.7717	Valid : 0.7822
 Epoch  27  Train : 0.7848
+Epoch  28  Train : 0.7855	Valid : 0.7996
