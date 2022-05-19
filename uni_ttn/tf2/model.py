@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import sys, os, time, yaml, json
+import sys, os, time, yaml, json, gc
 from tqdm import tqdm
 from uni_ttn.tf2 import network, data
 from filelock import FileLock
@@ -54,6 +54,7 @@ def run_all(i):
         test_accs.append(round(test_acc, 5))
         train_accs.append(round(train_acc, 5))
         print('Time (hr): %.4f' % ((time.time()-start_time)/3600), flush=True)
+        gc.collect()
 
     print(f'\nSetting {i} Train Accs: {train_accs}\t')
     print('Setting %d Avg Train Acc: %.4f' % (i, float(np.mean(train_accs))))
