@@ -2,13 +2,12 @@ import tensorflow as tf
 import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
-from mera import network, network_ancilla, network_8inputs
-from uni_ttn.tf2 import data
-from filelock import FileLock
+import mera.network, mera.network_ancilla, mera.network_8inputs
+import uni_ttn.tf2.model
+from uni_ttn.tf2.model import var_or_const
 
 TQDM_DISABLED = False if __name__ == '__main__' else True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
-
 
 def print_results(start_time):
     print('All Settings Avg Test Accs:\n', avg_repeated_test_acc)
@@ -18,17 +17,14 @@ def print_results(start_time):
     print('Time (hr): %.4f' % ((time.time()-start_time)/3600))
     sys.stdout.flush()
 
-def variable_or_uniform(input, i):
-    return input[i] if len(input) > 1 else input[0]
-
 def run_all(i):
-    digits = variable_or_uniform(list_digits, i)
-    epochs = variable_or_uniform(list_epochs, i)
-    batch_size = variable_or_uniform(list_batch_sizes, i)
-    deph_p = variable_or_uniform(list_deph_p, i)
-    num_anc = variable_or_uniform(list_num_anc, i)
-    init_std = variable_or_uniform(list_init_std, i)
-    lr = variable_or_uniform(list_lr, i)
+    digits = var_or_const(list_digits, i)
+    epochs = var_or_const(list_epochs, i)
+    batch_size = var_or_const(list_batch_sizes, i)
+    deph_p = var_or_const(list_deph_p, i)
+    num_anc = var_or_const(list_num_anc, i)
+    init_std = var_or_const(list_init_std, i)
+    lr = var_or_const(list_lr, i)
 
     auto_epochs = config['meta']['auto_epochs']['enabled']
     test_accs, train_accs = [], []
@@ -49,6 +45,7 @@ def run_all(i):
         sys.stdout.flush()
 
         model = Model(data_path, digits, val_split, deph_p, num_anc, init_std, lr, config)
+        print(f'Initialized {model.model_type}')
         test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
 
         test_accs.append(round(test_acc, 4))
@@ -68,142 +65,30 @@ def run_all(i):
     std_repeated_test_acc.append(round(float(np.std(test_accs)), 3))
     std_repeated_train_acc.append(round(float(np.std(train_accs)), 3))
 
-
-class Model:
+class Model(uni_ttn.tf2.model.Model):
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, init_std, lr, config):
+        super().__init__(data_path, digits, val_split, deph_p, num_anc, init_std, lr, config)
 
-        if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
-        gpus = tf.config.list_physical_devices('GPU')
-        if gpus:
-            for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, config['meta']['set_memory_growth'])
-            logical_gpus = tf.config.list_logical_devices('GPU')
-            print('Physical GPUs:', len(gpus), 'Logical GPUs:', len(logical_gpus), flush=True)
-
-        sample_size = config['data']['sample_size']
+        self.model_type = 'MERA'
         data_im_size = config['data']['data_im_size']
-        feature_dim = config['data']['feature_dim']
-
-        with FileLock(os.path.expanduser("~/.tune.lock")):
-            if config['data']['load_from_file']:
-                assert feature_dim == 2
-                train_data, val_data, test_data = data.get_data_file(
-                    data_path, digits, val_split, sample_size=sample_size)
-            else:
-                train_data, val_data, test_data = data.get_data_web(
-                    digits, val_split, data_im_size, feature_dim, sample_size=sample_size)
-
-        self.train_images, self.train_labels = train_data
-        print('Train Sample Size: %s' % len(self.train_images), flush=True)
-
-        if val_data is not None:
-            self.val_images, self.val_labels = val_data
-            print('Validation Split: %.2f\t Size: %d' % (val_split, len(self.val_images)), flush=True)
-        else:
-            self.val_images = self.val_labels = None
-            assert not config['data']['val_split']; print('No Validation', flush=True)
-
-        self.test_images, self.test_labels = test_data
-        print('Test Sample Size: %s' % len(self.test_images), flush=True)
 
         if data_im_size == [4, 4] and config['data']['use_4x4_pixel_dict']:
             print('Using 4x4 Pixel Dict', flush=True)
             self.create_pixel_dict()
             self.train_images = self.train_images[:, self.pixel_dict]
             self.test_images = self.test_images[:, self.pixel_dict]
-            if val_data: self.val_images = self.val_images[:, self.pixel_dict]
+            if self.val_images: self.val_images = self.val_images[:, self.pixel_dict]
 
         num_pixels = self.train_images.shape[1]
         self.config, self.num_anc = config, num_anc
         if data_im_size == [4, 4]:
-            self.network = network.Network(num_pixels, deph_p, num_anc, init_std, lr, config) if not num_anc \
-                        else network_ancilla.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
+            self.network = mera.network.Network(num_pixels, deph_p, num_anc, init_std, lr, config) if not num_anc \
+                        else mera.network_ancilla.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
         elif data_im_size == [8, 1]:
-            self.network = network_8inputs.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
-
-        self.b_factor = self.config['data']['eval_batch_size_factor']
+            self.network = mera.network_8inputs.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
 
     def create_pixel_dict(self):
         self.pixel_dict = [0, 1, 4, 5, 2, 3, 6, 7, 8, 9, 12, 13, 10, 11, 14, 15]
-
-    def train_network(self, epochs, batch_size, auto_epochs):
-        self.epoch_acc, self.history_val_acc = [], [-1]
-        for epoch in range(epochs):
-            train_accuracy = self.run_epoch(batch_size, epoch)
-
-            if not epoch % 2 and self.val_images is not None:
-                val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
-                print('Epoch {0:3}  Train : {1:.4f}\tValid : {2:.4f}'
-                      .format(epoch, train_accuracy, val_accuracy), flush=True)
-                if val_accuracy >= max(self.history_val_acc):
-                    checkpoint = {f'param_var_lay_{i}':
-                                      tf.identity(layer.param_var_lay) for i, layer in enumerate(self.network.layers)}
-                    checkpoint['epoch'] = epoch
-                    print('Checkpoint saved...', flush=True)
-                self.history_val_acc.append(val_accuracy)
-            else:
-                print('Epoch {0:3}  Train : {1:.4f}'.format(epoch, train_accuracy), flush=True)
-
-            self.epoch_acc.append(train_accuracy)
-            if auto_epochs:
-                trigger = self.config['meta']['auto_epochs']['trigger']
-                assert trigger < epochs
-                if epoch >= trigger and self.check_acc_satified(train_accuracy): break
-
-        for i in range(len(self.network.layers)):
-            self.network.layers[i].param_var_lay = checkpoint[f'param_var_lay_{i}']
-        print('Training Done\nRestored from Epoch %d...' % (checkpoint['epoch']), flush=True)
-
-        tf.config.run_functions_eagerly(True)
-        train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
-        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
-        print(f'Test Accuracy : {test_accuracy:.3f}\tTrain Accuracy : {train_accuracy:.3f}', flush=True)
-        return test_accuracy, train_accuracy
-
-    def run_network(self, images, labels, batch_size):
-        num_correct = 0
-        batch_iter = data.batch_generator_np(images, labels, batch_size)
-        for (image_batch, label_batch) in tqdm(batch_iter, total=len(images)//batch_size, **TQDM_DICT):
-            image_batch = tf.constant(image_batch, dtype=tf.float32)
-            pred_probs = self.network.get_network_output(image_batch)
-            num_correct += get_num_correct(pred_probs, label_batch)
-        accuracy = num_correct / len(images)
-        return accuracy
-
-    def check_acc_satified(self, accuracy):
-        criterion = self.config['meta']['auto_epochs']['criterion']
-        for i in range(self.config['meta']['auto_epochs']['num_match']):
-            if abs(accuracy - self.epoch_acc[-(i + 2)]) <= criterion: continue
-            else: return False
-        return True
-
-    def run_epoch(self, batch_size, epoch, grad_accumulation=True):
-        if not grad_accumulation:
-            batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
-            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
-                self.network.update_no_processing(train_image_batch, train_label_batch)
-        else:
-            exec_batch_size = self.config['data']['execute_batch_size']
-            counter = batch_size // exec_batch_size
-            assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
-            batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
-            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
-                if counter > 1:
-                    counter -= 1
-                    self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=False)
-                else:
-                    counter = batch_size // exec_batch_size
-                    self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=True, counter=counter)
-
-        train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
-        return train_accuracy
-
-
-def get_num_correct(guesses, labels):
-    guess_index = np.argmax(guesses, axis=1)
-    label_index = np.argmax(labels, axis=1)
-    compare = guess_index - label_index
-    num_correct = float(np.sum(compare == 0))
-    return num_correct
 
 
 if __name__ == "__main__":
@@ -212,7 +97,7 @@ if __name__ == "__main__":
         print(json.dumps(config, indent=1), flush=True)
 
     if config['meta']['set_visible_gpus']:
-        os.environ["CUDA_VISIBLE_DEVICES"] = str(config['meta']['visible_gpus'])
+        os.environ["CUDA_VISIBLE_DEVICES"] = config['meta']['visible_gpus']
 
     np.random.seed(config['meta']['random_seed'])
     tf.random.set_seed(config['meta']['random_seed'])
