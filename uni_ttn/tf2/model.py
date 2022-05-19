@@ -114,7 +114,7 @@ class Model:
             self.create_pixel_dict()
             self.train_images = self.train_images[:, self.pixel_dict]
             self.test_images = self.test_images[:, self.pixel_dict]
-            if self.val_images: self.val_images = self.val_images[:, self.pixel_dict]
+            if self.val_images is not None: self.val_images = self.val_images[:, self.pixel_dict]
 
         num_pixels = self.train_images.shape[1]
         self.config, self.num_anc = config, num_anc
