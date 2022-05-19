@@ -15,19 +15,25 @@ data:
  use_8x8_pixel_dict: True
 
 meta:
+<<<<<<< HEAD
  set_visible_gpus: True
  visible_gpus: '3'
  set_memory_growth: True
+=======
+ set_visible_gpus: False
+ visible_gpus: '1'
+ set_memory_growth: False
+>>>>>>> 000ca1fe10a97f25ea88fc84c9a7d4f56765862a
  random_seed: 42
- list_num_anc: [0]                # list or list of single
- num_repeat: 10
+ list_num_anc: [2]                # list or list of single
+ num_repeat: 5
  auto_epochs:
   enabled: False
   criterion: 0.005
   num_match: 10
   trigger: 60
 
- list_epochs: [120]                        # list or list of single
+ list_epochs: [100]                        # list or list of single
  list_devices: True
 
  deph:
@@ -38,7 +44,11 @@ meta:
 tree:
  param:
   init_mean: 0
+<<<<<<< HEAD
   init_std: [0.03, 0.02, 0.01, 0.01, 0.007, 0.005]
+=======
+  init_std: [0.05, 0.04, 0.03, 0.03, 0.02, 0.01]
+>>>>>>> 000ca1fe10a97f25ea88fc84c9a7d4f56765862a
 
  opt:
   opt: 'adam'
