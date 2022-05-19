@@ -1,8 +1,8 @@
 import tensorflow as tf
-from mera import network
+import mera.network
 
 
-class Network(network.Network):
+class Network(mera.network.Network):
 
     def __init__(self, num_pixels, deph_p, num_anc, init_std, lr, config):
         super().__init__(num_pixels, deph_p, num_anc, init_std, lr, config)
@@ -71,7 +71,7 @@ class Network(network.Network):
         return tensor
 
 
-class Ent_Layer(network.Ent_Layer):
+class Ent_Layer(mera.network.Ent_Layer):
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
 
@@ -86,7 +86,7 @@ class Ent_Layer(network.Ent_Layer):
         return output
 
 
-class Iso_Layer(network.Iso_Layer):
+class Iso_Layer(mera.network.Iso_Layer):
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
 

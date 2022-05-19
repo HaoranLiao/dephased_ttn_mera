@@ -8,9 +8,10 @@ import tensorflow as tf
 import numpy as np
 import string
 from uni_ttn.tf2 import spsa
+import uni_ttn.tf2.network
 
 
-class Network:
+class Network(uni_ttn.tf2.network.Network):
     _lowercases, _uppercases = string.ascii_lowercase, string.ascii_uppercase
 
     def __init__(self, num_pixels, deph_p, num_anc, init_std, lr, config):
@@ -99,42 +100,6 @@ class Network:
         output_probs = tf.math.abs(tf.linalg.diag_part(final_layer_out))
         return output_probs
 
-    def update_no_processing(self, input_batch: np.ndarray, label_batch: np.ndarray):
-        input_batch = tf.constant(input_batch, dtype=tf.complex64)
-        label_batch = tf.constant(label_batch, dtype=tf.float32)
-        with tf.GradientTape() as tape:
-            loss = self.loss(input_batch, label_batch)
-        grads = tape.gradient(loss, self.var_list)
-        self.opt.apply_gradients(zip(grads, self.var_list))
-
-    def update(self, input_batch: np.ndarray, label_batch: np.ndarray, epoch, apply_grads=True, counter=1):
-        input_batch = tf.constant(input_batch, dtype=tf.complex64)
-        label_batch = tf.constant(label_batch, dtype=tf.float32)
-
-        if self.opt._name == 'Adam':
-            with tf.GradientTape() as tape:
-                loss = self.loss(input_batch, label_batch)
-            grads = tape.gradient(loss, self.var_list)
-        elif self.opt._name == 'Spsa':
-            grads = self.opt.get_update(epoch, input_batch, label_batch)
-        else:
-            raise NotImplementedError
-
-        if not self.grads:
-            self.grads = grads
-        else:
-            for i in range(len(grads)): self.grads[i] += grads[i]
-
-        if apply_grads:
-            if counter > 1:
-                for i in range(len(self.grads)): self.grads[i] /= counter
-            self.opt.apply_gradients(zip(self.grads, self.var_list))
-            self.grads = None
-
-    @tf.function
-    def loss(self, input_batch, label_batch):
-        return self.cce(label_batch, self.get_network_output(input_batch))
-
     def dephase(self, tensors, num_bd=1):
         '''
         :param tensor: tensors with canonical indices
@@ -206,51 +171,12 @@ class Network:
         return tf.stack(kraus_ops)
 
 
-class Ent_Layer:
-    _name = 'entangler_layer'
+class Ent_Layer(uni_ttn.tf2.network.Layer):
+    name = 'entangler_layer'
     _lowercases, _uppercases = string.ascii_lowercase, string.ascii_uppercase
 
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
-        self.num_anc = num_anc
-        self.layer_idx = layer_idx
-        self.bond_dim = 2 ** (num_anc + 1)
-        self.num_diags = 2 ** (2 * (num_anc + 1))
-        self.num_op_params = self.num_diags ** 2
-        self.num_nodes = num_nodes
-        self.init_mean, self.std = init_mean, init_std
-
-        self.param_var_lay = tf.Variable(
-            tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
-                shape=[self.num_op_params, num_nodes], dtype=tf.float32,
-            ), name='param_var_ent_lay_%s' % layer_idx, trainable=True)
-
-    def get_unitary_tensors(self):
-        num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
-        real_off_params = self.param_var_lay[:num_off_diags]
-        imag_off_params = self.param_var_lay[num_off_diags:2 * num_off_diags]
-        diag_params = self.param_var_lay[2 * num_off_diags:]
-
-        herm_shape = (self.num_diags, self.num_diags, self.num_nodes)
-        diag_part = tf.transpose(tf.linalg.diag(tf.transpose(diag_params)), perm=[1, 2, 0])
-        off_diag_indices = [[i, j] for i in range(self.num_diags) for j in range(i + 1, self.num_diags)]
-        real_off_diag_part = tf.scatter_nd(
-            indices=off_diag_indices,
-            updates=real_off_params,
-            shape=herm_shape)
-        imag_off_diag_part = tf.scatter_nd(
-            indices=off_diag_indices,
-            updates=imag_off_params,
-            shape=herm_shape)
-        imag_whole = imag_off_diag_part - tf.transpose(imag_off_diag_part, perm=[1, 0, 2])
-        real_whole = diag_part + real_off_diag_part + tf.transpose(real_off_diag_part, perm=[1, 0, 2])
-        herm_matrix = tf.transpose(tf.complex(real_whole, imag_whole), perm=[2, 0, 1])
-
-        (eigenvalues, eigenvectors) = tf.linalg.eigh(herm_matrix)
-        eig_exp = tf.exp(1.0j * eigenvalues)
-        diag_exp_mat = tf.linalg.diag(eig_exp)
-        unitary_matrices = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        unitary_tensors = tf.reshape(unitary_matrices, [self.num_nodes, *[self.bond_dim]*4])
-        return unitary_tensors
+        super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
 
     def get_1st_ent_lay_out(self, inputs):
         '''
@@ -286,15 +212,10 @@ class Ent_Layer:
         return output
 
 class Iso_Layer(Ent_Layer):
-    _name = 'isometry_layer'
+    name = 'isometry_layer'
 
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
         super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
-
-        self.param_var_lay = tf.Variable(
-            tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
-                shape=[self.num_op_params, num_nodes], dtype=tf.float32,
-            ), name='param_var_iso_lay_%s' % layer_idx, trainable=True)
 
     def get_1st_iso_lay_out(self, inputs, left_over_data_inputs):
         '''

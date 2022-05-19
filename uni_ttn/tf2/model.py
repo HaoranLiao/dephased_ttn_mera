@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import sys, os, time, yaml, json
+import sys, os, time, yaml, json, gc
 from tqdm import tqdm
 from uni_ttn.tf2 import network, data
 from filelock import FileLock
@@ -17,17 +17,17 @@ def print_results(start_time):
     print('Time (hr): %.4f' % ((time.time()-start_time)/3600))
     sys.stdout.flush()
 
-def variable_or_uniform(input, i):
+def var_or_const(input, i):
     return input[i] if len(input) > 1 else input[0]
 
 def run_all(i):
-    digits = variable_or_uniform(list_digits, i)
-    epochs = variable_or_uniform(list_epochs, i)
-    batch_size = variable_or_uniform(list_batch_sizes, i)
-    deph_p = variable_or_uniform(list_deph_p, i)
-    num_anc = variable_or_uniform(list_num_anc, i)
-    init_std = variable_or_uniform(list_init_std, i)
-    lr = variable_or_uniform(list_lr, i)
+    digits = var_or_const(list_digits, i)
+    epochs = var_or_const(list_epochs, i)
+    batch_size = var_or_const(list_batch_sizes, i)
+    deph_p = var_or_const(list_deph_p, i)
+    num_anc = var_or_const(list_num_anc, i)
+    init_std = var_or_const(list_init_std, i)
+    lr = var_or_const(list_lr, i)
 
     auto_epochs = config['meta']['auto_epochs']['enabled']
     test_accs, train_accs = [], []
@@ -48,28 +48,32 @@ def run_all(i):
         sys.stdout.flush()
 
         model = Model(data_path, digits, val_split, deph_p, num_anc, init_std, lr, config)
+        print(f'Initialized {model.model_type}')
         test_acc, train_acc = model.train_network(epochs, batch_size, auto_epochs)
 
-        test_accs.append(round(test_acc, 4))
-        train_accs.append(round(train_acc, 4))
+        test_accs.append(round(test_acc, 5))
+        train_accs.append(round(train_acc, 5))
         print('Time (hr): %.4f' % ((time.time()-start_time)/3600), flush=True)
+        gc.collect()
 
     print(f'\nSetting {i} Train Accs: {train_accs}\t')
-    print('Setting %d Avg Train Acc: %.3f' % (i, np.mean(train_accs)))
-    print('Setting %d Std Train Acc: %.3f' % (i, np.std(train_accs)))
+    print('Setting %d Avg Train Acc: %.4f' % (i, float(np.mean(train_accs))))
+    print('Setting %d Std Train Acc: %.4f' % (i, float(np.std(train_accs))))
     print(f'Setting {i} Test Accs: {test_accs}\t')
-    print('Setting %d Avg Test Acc: %.3f' % (i, np.mean(test_accs)))
-    print('Setting %d Std Test Acc: %.3f' % (i, np.std(test_accs)))
+    print('Setting %d Avg Test Acc: %.4f' % (i, float(np.mean(test_accs))))
+    print('Setting %d Std Test Acc: %.4f' % (i, float(np.std(test_accs))))
     sys.stdout.flush()
 
-    avg_repeated_test_acc.append(round(float(np.mean(test_accs)), 3))
-    avg_repeated_train_acc.append(round(float(np.mean(train_accs)), 3))
-    std_repeated_test_acc.append(round(float(np.std(test_accs)), 3))
-    std_repeated_train_acc.append(round(float(np.std(train_accs)), 3))
+    avg_repeated_test_acc.append(round(float(np.mean(test_accs)), 4))
+    avg_repeated_train_acc.append(round(float(np.mean(train_accs)), 4))
+    std_repeated_test_acc.append(round(float(np.std(test_accs)), 4))
+    std_repeated_train_acc.append(round(float(np.std(train_accs)), 4))
 
 
 class Model:
     def __init__(self, data_path, digits, val_split, deph_p, num_anc, init_std, lr, config):
+
+        self.model_type = 'Uni_TTN'
 
         if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
         gpus = tf.config.list_physical_devices('GPU')
@@ -110,7 +114,7 @@ class Model:
             self.create_pixel_dict()
             self.train_images = self.train_images[:, self.pixel_dict]
             self.test_images = self.test_images[:, self.pixel_dict]
-            if val_data: self.val_images = self.val_images[:, self.pixel_dict]
+            if self.val_images: self.val_images = self.val_images[:, self.pixel_dict]
 
         num_pixels = self.train_images.shape[1]
         self.config, self.num_anc = config, num_anc
