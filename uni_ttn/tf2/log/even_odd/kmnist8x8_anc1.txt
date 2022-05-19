@@ -6687,3 +6687,60 @@ Epoch  90  Train : 0.8308	Valid : 0.8265
 Epoch  91  Train : 0.8293
 Epoch  92  Train : 0.8302	Valid : 0.8283
 Checkpoint saved...
+Epoch  93  Train : 0.8301
+Epoch  94  Train : 0.8309	Valid : 0.8273
+Epoch  95  Train : 0.8306
+Epoch  96  Train : 0.8311	Valid : 0.8271
+Epoch  97  Train : 0.8296
+Epoch  98  Train : 0.8303	Valid : 0.8252
+Epoch  99  Train : 0.8311
+Epoch 100  Train : 0.8299	Valid : 0.8265
+Epoch 101  Train : 0.8304
+Epoch 102  Train : 0.8310	Valid : 0.8259
+Epoch 103  Train : 0.8299
+Epoch 104  Train : 0.8305	Valid : 0.8257
+Epoch 105  Train : 0.8306
+Epoch 106  Train : 0.8310	Valid : 0.8270
+Epoch 107  Train : 0.8309
+Epoch 108  Train : 0.8298	Valid : 0.8257
+Epoch 109  Train : 0.8312
+Epoch 110  Train : 0.8304	Valid : 0.8268
+Epoch 111  Train : 0.8311
+Epoch 112  Train : 0.8305	Valid : 0.8259
+Epoch 113  Train : 0.8307
+Epoch 114  Train : 0.8308	Valid : 0.8259
+Epoch 115  Train : 0.8305
+Epoch 116  Train : 0.8296	Valid : 0.8256
+Epoch 117  Train : 0.8307
+Epoch 118  Train : 0.8301	Valid : 0.8264
+Epoch 119  Train : 0.8307
+Training Done
+Restored from Epoch 92...
+Test Accuracy : 0.701	Train Accuracy : 0.830
+Time (hr): 0.5151
+
+Repeat: 3/10
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.80
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.1
+Adam Learning Rate: 0.015
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Epoch   0  Train : 0.7983	Valid : 0.8001
+Checkpoint saved...
+Epoch   1  Train : 0.8218
+Epoch   2  Train : 0.8261	Valid : 0.8280
+Checkpoint saved...

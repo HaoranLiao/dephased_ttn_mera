@@ -5672,3 +5672,33 @@ Using 8x8 Pixel Dict
 Epoch   0  Train : 0.6979	Valid : 0.6994
 Checkpoint saved...
 Epoch   1  Train : 0.7190
+Epoch   2  Train : 0.7100	Valid : 0.7107
+Checkpoint saved...
+Epoch   3  Train : 0.7160
+Epoch   4  Train : 0.7057	Valid : 0.7055
+Epoch   5  Train : 0.7229
+Epoch   6  Train : 0.7183	Valid : 0.7169
+Checkpoint saved...
+Epoch   7  Train : 0.7230
+Epoch   8  Train : 0.7165	Valid : 0.7139
+Epoch   9  Train : 0.7196
+Epoch  10  Train : 0.7220	Valid : 0.7229
+Checkpoint saved...
+Epoch  11  Train : 0.7097
+Epoch  12  Train : 0.7202	Valid : 0.7201
+Epoch  13  Train : 0.7104
+Epoch  14  Train : 0.7128	Valid : 0.7145
+Epoch  15  Train : 0.7210
+Epoch  16  Train : 0.7251	Valid : 0.7290
+Checkpoint saved...
+Epoch  17  Train : 0.7095
+Epoch  18  Train : 0.7202	Valid : 0.7184
+Epoch  19  Train : 0.7093
+Epoch  20  Train : 0.7178	Valid : 0.7150
+Epoch  21  Train : 0.7120
+Epoch  22  Train : 0.7194	Valid : 0.7185
+Epoch  23  Train : 0.7179
+Epoch  24  Train : 0.7053	Valid : 0.7037
+Epoch  25  Train : 0.7142
+Epoch  26  Train : 0.7097	Valid : 0.7115
+Epoch  27  Train : 0.7086

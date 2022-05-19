@@ -7100,3 +7100,62 @@ Epoch  88  Train : 0.8823	Valid : 0.8932
 Epoch  89  Train : 0.8824
 Epoch  90  Train : 0.8823	Valid : 0.8928
 Epoch  91  Train : 0.8824
+Epoch  92  Train : 0.8824	Valid : 0.8932
+Epoch  93  Train : 0.8825
+Epoch  94  Train : 0.8822	Valid : 0.8930
+Epoch  95  Train : 0.8821
+Epoch  96  Train : 0.8818	Valid : 0.8937
+Epoch  97  Train : 0.8822
+Epoch  98  Train : 0.8823	Valid : 0.8928
+Epoch  99  Train : 0.8824
+Epoch 100  Train : 0.8820	Valid : 0.8933
+Epoch 101  Train : 0.8821
+Epoch 102  Train : 0.8823	Valid : 0.8927
+Epoch 103  Train : 0.8823
+Epoch 104  Train : 0.8823	Valid : 0.8927
+Epoch 105  Train : 0.8820
+Epoch 106  Train : 0.8817	Valid : 0.8928
+Epoch 107  Train : 0.8822
+Epoch 108  Train : 0.8825	Valid : 0.8928
+Epoch 109  Train : 0.8825
+Epoch 110  Train : 0.8824	Valid : 0.8936
+Epoch 111  Train : 0.8822
+Epoch 112  Train : 0.8820	Valid : 0.8932
+Epoch 113  Train : 0.8824
+Epoch 114  Train : 0.8822	Valid : 0.8934
+Epoch 115  Train : 0.8822
+Epoch 116  Train : 0.8824	Valid : 0.8927
+Epoch 117  Train : 0.8822
+Epoch 118  Train : 0.8822	Valid : 0.8932
+Epoch 119  Train : 0.8823
+Training Done
+Restored from Epoch 52...
+Test Accuracy : 0.885	Train Accuracy : 0.883
+Time (hr): 0.4772
+
+Repeat: 6/10
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.80
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.1
+Adam Learning Rate: 0.015
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Epoch   0  Train : 0.8756	Valid : 0.8884
+Checkpoint saved...
+Epoch   1  Train : 0.8779
+Epoch   2  Train : 0.8784	Valid : 0.8909
+Checkpoint saved...
+Epoch   3  Train : 0.8776
