@@ -1,7 +1,8 @@
 data:
  #path: '../../datasets/mnist8x8/mnist8x8'
  #path: '../../datasets/mnist8pca_dig35/mnist8pca_dig35'
- path: '../../datasets/mnist8x8/mnist8x8'
+ #path: '../../datasets/mnist8x8/mnist8x8'
+ path: '../../datasets/fashion8x8/fashion8x8'
  val_split: 0.166 #0.2857
  list_digits: [['even','odd']]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
@@ -37,13 +38,13 @@ meta:
 tree:
  param:
   init_mean: 0
-  init_std: [0.05, 0.04, 0.03, 0.03, 0.02, 0.01]
+  init_std: [0.03, 0.05, 0.1, 0.2, 0.3, 0.5]
 
  opt:
   opt: 'adam'
   adam:
    user_lr: True
-   lr: [0.005] #[0.005, 0.005, 0.005, 0.015, 0.015, 0.015]
+   lr: [0.005, 0.005, 0.005, 0.015, 0.015, 0.015]
 
   spsa:
    a: 28
