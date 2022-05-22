@@ -203,6 +203,11 @@ def trig_featurize_qubit(images):
     return pix_copy
 
 
+def reverse_trig_featurize_qubit(featurized_images):
+    raw_pixels = np.reshape(np.arccos(featurized_images[:, :, 0]), [-1, 8, 8])
+    return raw_pixels
+
+
 def trig_featurize(images, dim):
     flat_images = flatten_images(images)
     (num_images, num_pixels) = flat_images.shape
@@ -255,7 +260,7 @@ def get_data_file(data_path, digits, val_split, sample_size=None):
                    digits, val_split, sample_size=sample_size)
 
 
-def get_data_web(digits, val_split, size, dim, sample_size=None, dataset='CIFAR'):
+def get_data_web(digits, val_split, size, dim, sample_size=None, dataset='Fashion_MNIST'):
     print(f'Fetch Data From Web - {dataset}')
     data = DataGenerator(dataset=dataset)
     data.shrink_images(size)

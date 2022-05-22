@@ -1,37 +1,26 @@
 data:
  #path: '../../datasets/mnist8x8/mnist8x8'
  #path: '../../datasets/mnist8pca_dig35/mnist8pca_dig35'
-<<<<<<< HEAD
  #path: '../../datasets/mnist8x8/mnist8x8'
  path: '../../datasets/fashion8x8/fashion8x8'
-=======
- path: '../../datasets/kmnist8x8/kmnist8x8'
- #path: '../../datasets/fashion8x8/fashion8x8'
->>>>>>> e86515f0a57aefbb59744be8c3ba34ea2bc7493b
  val_split: 0.166 #0.2857
- list_digits: [['even','odd']]                     # list of pairs or one pair
+ list_digits: [[[1, 4, 5, 7, 8], [0, 2, 3, 6, 9]]]#[['even','odd']]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
- eval_batch_size_factor: 20
- load_from_file: True
+ eval_batch_size_factor: 20000
+ load_from_file: False
  data_im_size: [8,8]
  sample_size: 1000000              # int or None
  feature_dim: 2
  use_8x8_pixel_dict: True
 
 meta:
-<<<<<<< HEAD
  set_visible_gpus: True
- visible_gpus: '3'
- set_memory_growth: True
-=======
- set_visible_gpus: False
  visible_gpus: '1'
  set_memory_growth: False
->>>>>>> 000ca1fe10a97f25ea88fc84c9a7d4f56765862a
  random_seed: 42
- list_num_anc: [2]                # list or list of single
- num_repeat: 5
+ list_num_anc: [0]                # list or list of single
+ num_repeat: 1
  auto_epochs:
   enabled: False
   criterion: 0.005
@@ -44,26 +33,18 @@ meta:
  deph:
   data: True
   network: True
-  p: [0, 0.2, 0.4, 0.6, 0.8, 1]
+  p: [0]
 
 tree:
  param:
   init_mean: 0
-<<<<<<< HEAD
-  init_std: [0.03, 0.05, 0.1, 0.2, 0.3, 0.5]
-=======
-<<<<<<< HEAD
-  init_std: [0.03, 0.02, 0.01, 0.01, 0.007, 0.005]
-=======
-  init_std: [0.05, 0.04, 0.03, 0.03, 0.02, 0.01]
->>>>>>> 000ca1fe10a97f25ea88fc84c9a7d4f56765862a
->>>>>>> e86515f0a57aefbb59744be8c3ba34ea2bc7493b
+  init_std: [0.01]
 
  opt:
   opt: 'adam'
   adam:
    user_lr: True
-   lr: [0.005, 0.005, 0.005, 0.015, 0.015, 0.015]
+   lr: [0.005]
 
   spsa:
    a: 28
