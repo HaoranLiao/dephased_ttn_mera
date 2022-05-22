@@ -45,6 +45,7 @@ class DataGenerator:
             train_labels = np.array(list(map(lambda x: x[0]['label'], train_numpy)))
             test_images = np.array(list(map(lambda x: x[0]['image'], test_numpy))).squeeze()
             test_labels = np.array(list(map(lambda x: x[0]['label'], test_numpy)))
+            # There appears to be a distribution shift in the test set; shuffle and regroup training and testing sets
             images = np.concatenate([train_images, test_images], axis=0)
             labels = np.concatenate([train_labels, test_labels], axis=0)
             images, labels = shuffle(images, labels)
