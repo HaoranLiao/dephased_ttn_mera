@@ -4,7 +4,6 @@ import sys, os, time, yaml, json, gc
 from tqdm import tqdm
 from uni_ttn.tf2 import network, data
 from filelock import FileLock
-from matplotlib import pyplot as plt
 
 TQDM_DISABLED = False if __name__ == '__main__' else True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}

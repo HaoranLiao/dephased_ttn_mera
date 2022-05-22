@@ -16,6 +16,7 @@ except ImportError: pass
 
 class DataGenerator:
     def __init__(self, dataset='MNIST'):
+        print(f'Loading {dataset}...')
         if dataset == 'MNIST':
             mnist_data = tf.keras.datasets.mnist.load_data()
             self.train_images = mnist_data[0][0]
@@ -253,7 +254,7 @@ def one_hot(bin_labels):
 
 
 def get_data_file(data_path, digits, val_split, sample_size=None):
-    print('Load Data From File')
+    print(f'Load Data From File: {data_path}')
     (train_raw_im, train_raw_lab) = load_data(data_path + '_train')
     (test_raw_im, test_raw_lab) = load_data(data_path + '_test')
     return process(train_raw_im, train_raw_lab, test_raw_im, test_raw_lab,
