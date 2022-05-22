@@ -4247,3 +4247,59 @@ Epoch  61  Train : 0.8865
 Epoch  62  Train : 0.8866	Valid : 0.8955
 Epoch  63  Train : 0.8864
 Epoch  64  Train : 0.8867	Valid : 0.8960
+Epoch  65  Train : 0.8875
+Epoch  66  Train : 0.8858	Valid : 0.8948
+Epoch  67  Train : 0.8866
+Epoch  68  Train : 0.8868	Valid : 0.8964
+Epoch  69  Train : 0.8868
+Epoch  70  Train : 0.8868	Valid : 0.8956
+Epoch  71  Train : 0.8865
+Epoch  72  Train : 0.8864	Valid : 0.8956
+Epoch  73  Train : 0.8868
+Epoch  74  Train : 0.8867	Valid : 0.8966
+Epoch  75  Train : 0.8863
+Epoch  76  Train : 0.8873	Valid : 0.8968
+Epoch  77  Train : 0.8874
+Epoch  78  Train : 0.8866	Valid : 0.8967
+Epoch  79  Train : 0.8870
+Epoch  80  Train : 0.8866	Valid : 0.8966
+Epoch  81  Train : 0.8869
+Epoch  82  Train : 0.8863	Valid : 0.8959
+Epoch  83  Train : 0.8863
+Epoch  84  Train : 0.8863	Valid : 0.8964
+Epoch  85  Train : 0.8868
+Epoch  86  Train : 0.8869	Valid : 0.8968
+Epoch  87  Train : 0.8865
+Epoch  88  Train : 0.8873	Valid : 0.8987
+Checkpoint saved...
+Epoch  89  Train : 0.8867
+Epoch  90  Train : 0.8867	Valid : 0.8963
+Epoch  91  Train : 0.8868
+Epoch  92  Train : 0.8869	Valid : 0.8964
+Epoch  93  Train : 0.8870
+Epoch  94  Train : 0.8865	Valid : 0.8961
+Epoch  95  Train : 0.8867
+Epoch  96  Train : 0.8867	Valid : 0.8964
+Epoch  97  Train : 0.8863
+Epoch  98  Train : 0.8866	Valid : 0.8962
+Epoch  99  Train : 0.8871
+Training Done
+Restored from Epoch 88...
+Test Accuracy : 0.890	Train Accuracy : 0.887
+Time (hr): 0.9015
+
+Setting 5 Train Accs: [0.88853, 0.88315, 0.88857, 0.88963, 0.88725]	
+Setting 5 Avg Train Acc: 0.8874
+Setting 5 Std Train Acc: 0.0023
+Setting 5 Test Accs: [0.8874, 0.8849, 0.8908, 0.888, 0.8899]	
+Setting 5 Avg Test Acc: 0.8882
+Setting 5 Std Test Acc: 0.0021
+All Settings Avg Test Accs:
+ [0.9553, 0.9051, 0.8969, 0.8938, 0.8901, 0.8882]
+All Settings Avg Train/Val Accs:
+ [0.9522, 0.9038, 0.8973, 0.8937, 0.8914, 0.8874]
+All Settings Std Test Accs:
+ [0.001, 0.0044, 0.0022, 0.005, 0.0009, 0.0021]
+All Settings Std Train/Val Accs:
+ [0.0009, 0.0034, 0.0014, 0.0036, 0.0009, 0.0023]
+Time (hr): 27.2469
