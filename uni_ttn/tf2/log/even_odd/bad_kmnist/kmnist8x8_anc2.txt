@@ -1,0 +1,291 @@
+{
+ "data": {
+  "path": "../../datasets/kmnist8x8_2/kmnist8x8_2",
+  "val_split": 0.166,
+  "list_digits": [
+   [
+    "even",
+    "odd"
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 20,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 1000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": false,
+  "visible_gpus": "1",
+  "set_memory_growth": false,
+  "random_seed": 42,
+  "list_num_anc": [
+   2
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   6
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.01,
+    0.03,
+    0.05,
+    0.07,
+    0.09,
+    0.1
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": [
+     0.005
+    ]
+   },
+   "spsa": {
+    "a": 28,
+    "b": 33,
+    "A": 7.41,
+    "s": 1.13,
+    "t": 0.658,
+    "gamma": 0.882
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8_2/kmnist8x8_2
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8861	Valid : 0.8792
+Checkpoint saved...
+Epoch   1  Train : 0.9029
+Epoch   2  Train : 0.9101	Valid : 0.9056
+Checkpoint saved...
+Epoch   3  Train : 0.9176
+Epoch   4  Train : 0.9162	Valid : 0.9133
+Checkpoint saved...
+Epoch   5  Train : 0.9117
+Training Done
+Restored from Epoch 4...
+Test Accuracy : 0.915	Train Accuracy : 0.916
+Time (hr): 0.0376
+
+Repeat: 2/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8_2/kmnist8x8_2
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8789	Valid : 0.8695
+Checkpoint saved...
+Epoch   1  Train : 0.8930
+Epoch   2  Train : 0.9110	Valid : 0.9048
+Checkpoint saved...
+Epoch   3  Train : 0.9084
+Epoch   4  Train : 0.9171	Valid : 0.9109
+Checkpoint saved...
+Epoch   5  Train : 0.9148
+Training Done
+Restored from Epoch 4...
+Test Accuracy : 0.917	Train Accuracy : 0.917
+Time (hr): 0.0512
+
+Repeat: 3/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8_2/kmnist8x8_2
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8725	Valid : 0.8688
+Checkpoint saved...
+Epoch   1  Train : 0.8968
+Epoch   2  Train : 0.9008	Valid : 0.8938
+Checkpoint saved...
+Epoch   3  Train : 0.9146
+Epoch   4  Train : 0.9107	Valid : 0.9056
+Checkpoint saved...
+Epoch   5  Train : 0.9212
+Training Done
+Restored from Epoch 4...
+Test Accuracy : 0.912	Train Accuracy : 0.911
+Time (hr): 0.0511
+
+Repeat: 4/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8_2/kmnist8x8_2
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8763	Valid : 0.8728
+Checkpoint saved...
+Epoch   1  Train : 0.8810
+Epoch   2  Train : 0.8932	Valid : 0.8900
+Checkpoint saved...
+Epoch   3  Train : 0.9063
+Epoch   4  Train : 0.9162	Valid : 0.9105
+Checkpoint saved...
+Epoch   5  Train : 0.9050
+Training Done
+Restored from Epoch 4...
+Test Accuracy : 0.916	Train Accuracy : 0.916
+Time (hr): 0.0512
+
+Repeat: 5/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8_2/kmnist8x8_2
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8789	Valid : 0.8751
+Checkpoint saved...
+Epoch   1  Train : 0.9031
+Epoch   2  Train : 0.9071	Valid : 0.9019
+Checkpoint saved...
+Epoch   3  Train : 0.9119
+Epoch   4  Train : 0.9178	Valid : 0.9138
+Checkpoint saved...
+Epoch   5  Train : 0.9157
+Training Done
+Restored from Epoch 4...
+Test Accuracy : 0.918	Train Accuracy : 0.918
+Time (hr): 0.0510
+
+Setting 0 Train Accs: [0.91617, 0.91715, 0.91071, 0.91621, 0.91783]	
+Setting 0 Avg Train Acc: 0.9156
+Setting 0 Std Train Acc: 0.0025
+Setting 0 Test Accs: [0.9151, 0.9171, 0.9118, 0.9162, 0.9178]	
+Setting 0 Avg Test Acc: 0.9156
+Setting 0 Std Test Acc: 0.0021
+
+Repeat: 1/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.20
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.03
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8_2/kmnist8x8_2
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
