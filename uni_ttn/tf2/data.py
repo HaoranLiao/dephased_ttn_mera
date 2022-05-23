@@ -37,14 +37,20 @@ class DataGenerator:
             self.test_labels = cifar_data[1][1].squeeze()
             self.convert_to_grayscale()
         elif dataset == 'KMNIST':
-            dataset = tfds.load('kmnist', shuffle_files=True, try_gcs=False)
+            dataset = tfds.load('kmnist', shuffle_files=False, try_gcs=False)
             train, test = dataset['train'], dataset['test']
             train_numpy = np.vstack(tfds.as_numpy(train))
             test_numpy = np.vstack(tfds.as_numpy(test))
-            self.train_images = np.array(list(map(lambda x: x[0]['image'], train_numpy))).squeeze()
-            self.train_labels = np.array(list(map(lambda x: x[0]['label'], train_numpy)))
-            self.test_images = np.array(list(map(lambda x: x[0]['image'], test_numpy))).squeeze()
-            self.test_labels = np.array(list(map(lambda x: x[0]['label'], test_numpy)))
+            train_images = np.array(list(map(lambda x: x[0]['image'], train_numpy))).squeeze()
+            train_labels = np.array(list(map(lambda x: x[0]['label'], train_numpy)))
+            test_images = np.array(list(map(lambda x: x[0]['image'], test_numpy))).squeeze()
+            test_labels = np.array(list(map(lambda x: x[0]['label'], test_numpy)))
+            # There appears to be a distribution shift in the test set; shuffle and regroup training and testing sets
+            images = np.concatenate([train_images, test_images], axis=0)
+            labels = np.concatenate([train_labels, test_labels], axis=0)
+            images, labels = shuffle(images, labels)
+            self.train_images, self.test_images = images[:60000], images[60000:]
+            self.train_labels, self.test_labels = labels[:60000], labels[60000:]
         else:
             raise NotImplementedError
 
@@ -322,7 +328,7 @@ if __name__ == '__main__':
     data2 = DataGenerator(dataset='KMNIST')
     data2.shrink_images([8, 8])
     data2.featurize_qubit()
-    data2.export('/home/haoranliao/dephased_ttn_project/datasets/kmnist8x8/kmnist8x8')
+    data2.export('/home/haoranliao/dephased_ttn_project/datasets/kmnist8x8_2/kmnist8x8_2')
 
     # data4 = DataGenerator()
     # data4.get_principle_components(digits=(2,7))
