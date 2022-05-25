@@ -22,18 +22,13 @@ class Bayes_Network(uni_ttn.tf2.network.Network):
             for _ in range(self.num_anc-1):
                 self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
-
-
     @tf.function
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
-        input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
+        self.ancillas = self.ancillas[None, None, :]
         if self.num_anc:
-            input_batch = tf.reshape(
-                tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
-                [batch_size, 2*self.list_num_nodes[0], self.bond_dim, self.bond_dim])
-        if self.deph_data: input_batch = self.dephase(input_batch)
+            input_batch = tf.experimental.numpy.kron(input_batch, self.ancillas)
 
         layer_out = self.layers[0].get_layer_output(input_batch)
         if self.deph_net: layer_out = self.dephase(layer_out)
