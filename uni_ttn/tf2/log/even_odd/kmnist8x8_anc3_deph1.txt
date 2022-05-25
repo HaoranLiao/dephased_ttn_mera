@@ -1,0 +1,90 @@
+{
+ "data": {
+  "path": "../../datasets/kmnist8x8/kmnist8x8",
+  "val_split": 0.166,
+  "list_digits": [
+   [
+    "even",
+    "odd"
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 125,
+  "eval_batch_size_factor": 1,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 1000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": false,
+  "visible_gpus": "1",
+  "set_memory_growth": false,
+  "random_seed": 42,
+  "list_num_anc": [
+   3
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   60
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    1
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.01
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": [
+     0.015
+    ]
+   },
+   "spsa": {
+    "a": 28,
+    "b": 33,
+    "A": 7.41,
+    "s": 1.13,
+    "t": 0.658,
+    "gamma": 0.882
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 1.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 125
+Number of Ancillas: 3
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.015
