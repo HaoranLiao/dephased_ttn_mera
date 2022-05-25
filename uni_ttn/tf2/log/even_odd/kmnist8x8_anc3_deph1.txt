@@ -88,3 +88,12 @@ Number of Ancillas: 3
 Random Seed: 42
 Init Std: 0.01
 Adam Learning Rate: 0.015
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
