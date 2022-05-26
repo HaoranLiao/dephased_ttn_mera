@@ -1,7 +1,7 @@
 data:
  #path: '../../datasets/mnist8x8/mnist8x8'
  #path: '../../datasets/mnist8pca_dig35/mnist8pca_dig35'
- path: '../../datasets/kmnist8x8/kmnist8x8'
+ path: '../../datasets/mnist8x8/mnist8x8'
  #path: '../../datasets/fashion8x8/fashion8x8'
  val_split: 0.166 #0.2857
  list_digits: [['even', 'odd']] #[[[1, 4, 5, 7, 8], [0, 2, 3, 6, 9]]]                     # list of pairs or one pair
