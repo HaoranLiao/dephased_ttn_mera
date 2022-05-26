@@ -7674,3 +7674,2697 @@ Result for UniTTN_e03ed_00015:
   training_iteration: 10
   trial_id: e03ed_00015
   
+== Status ==
+Memory usage on this node: 74.4/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.46000000000001 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     50 |          864.732 |           86.46 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     51 |          859.302 |           86.31 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     10 |          245.986 |           85.25 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     10 |          245.117 |           85.62 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00005:
+  date: 2022-05-26_02-24-27
+  done: false
+  experiment_id: 6b5660e191c34410a1ead3c813244ffb
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 52
+  node_ip: 10.128.0.8
+  pid: 4627
+  test_accuracy: 85.45
+  time_since_restore: 884.0435156822205
+  time_this_iter_s: 24.741395473480225
+  time_total_s: 884.0435156822205
+  timestamp: 1653531867
+  timesteps_since_restore: 0
+  training_iteration: 52
+  trial_id: e03ed_00005
+  
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-24-30
+  done: false
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 51
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 86.11999999999999
+  time_since_restore: 887.2919459342957
+  time_this_iter_s: 22.56017279624939
+  time_total_s: 887.2919459342957
+  timestamp: 1653531870
+  timesteps_since_restore: 0
+  training_iteration: 51
+  trial_id: e03ed_00004
+  
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-24-35
+  done: false
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 11
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 84.04
+  time_since_restore: 270.28903794288635
+  time_this_iter_s: 24.3028621673584
+  time_total_s: 270.28903794288635
+  timestamp: 1653531875
+  timesteps_since_restore: 0
+  training_iteration: 11
+  trial_id: e03ed_00014
+  
+== Status ==
+Memory usage on this node: 74.4/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.11999999999999 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     51 |          887.292 |           86.12 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     52 |          884.044 |           85.45 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     11 |          270.289 |           84.04 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     10 |          245.117 |           85.62 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-24-43
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 11
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.32
+  time_since_restore: 269.7108561992645
+  time_this_iter_s: 24.59341549873352
+  time_total_s: 269.7108561992645
+  timestamp: 1653531883
+  timesteps_since_restore: 0
+  training_iteration: 11
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00005:
+  date: 2022-05-26_02-24-51
+  done: false
+  experiment_id: 6b5660e191c34410a1ead3c813244ffb
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 53
+  node_ip: 10.128.0.8
+  pid: 4627
+  test_accuracy: 86.0
+  time_since_restore: 908.7570288181305
+  time_this_iter_s: 24.713513135910034
+  time_total_s: 908.7570288181305
+  timestamp: 1653531891
+  timesteps_since_restore: 0
+  training_iteration: 53
+  trial_id: e03ed_00005
+  
+== Status ==
+Memory usage on this node: 74.4/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.11999999999999 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     51 |          887.292 |           86.12 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     53 |          908.757 |           86    |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     11 |          270.289 |           84.04 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     11 |          269.711 |           85.32 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-24-55
+  done: false
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 52
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 85.53
+  time_since_restore: 912.0968642234802
+  time_this_iter_s: 24.80491828918457
+  time_total_s: 912.0968642234802
+  timestamp: 1653531895
+  timesteps_since_restore: 0
+  training_iteration: 52
+  trial_id: e03ed_00004
+  
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-24-59
+  done: false
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 12
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 85.31
+  time_since_restore: 294.99052929878235
+  time_this_iter_s: 24.701491355895996
+  time_total_s: 294.99052929878235
+  timestamp: 1653531899
+  timesteps_since_restore: 0
+  training_iteration: 12
+  trial_id: e03ed_00014
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-25-07
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 12
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.26
+  time_since_restore: 294.21953201293945
+  time_this_iter_s: 24.508675813674927
+  time_total_s: 294.21953201293945
+  timestamp: 1653531907
+  timesteps_since_restore: 0
+  training_iteration: 12
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 74.5/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00002 with test_accuracy=86.03 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.1}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     52 |          912.097 |           85.53 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     53 |          908.757 |           86    |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     12 |          294.991 |           85.31 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     12 |          294.22  |           85.26 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00005:
+  date: 2022-05-26_02-25-16
+  done: false
+  experiment_id: 6b5660e191c34410a1ead3c813244ffb
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 54
+  node_ip: 10.128.0.8
+  pid: 4627
+  test_accuracy: 85.87
+  time_since_restore: 933.5539524555206
+  time_this_iter_s: 24.796923637390137
+  time_total_s: 933.5539524555206
+  timestamp: 1653531916
+  timesteps_since_restore: 0
+  training_iteration: 54
+  trial_id: e03ed_00005
+  
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-25-20
+  done: false
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 53
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 86.45
+  time_since_restore: 936.7494320869446
+  time_this_iter_s: 24.652567863464355
+  time_total_s: 936.7494320869446
+  timestamp: 1653531920
+  timesteps_since_restore: 0
+  training_iteration: 53
+  trial_id: e03ed_00004
+  
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-25-24
+  done: false
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 13
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 84.65
+  time_since_restore: 319.8527226448059
+  time_this_iter_s: 24.86219334602356
+  time_total_s: 319.8527226448059
+  timestamp: 1653531924
+  timesteps_since_restore: 0
+  training_iteration: 13
+  trial_id: e03ed_00014
+  
+== Status ==
+Memory usage on this node: 74.5/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.45 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     53 |          936.749 |           86.45 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     54 |          933.554 |           85.87 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     13 |          319.853 |           84.65 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     12 |          294.22  |           85.26 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-25-32
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 13
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 84.57000000000001
+  time_since_restore: 318.6955952644348
+  time_this_iter_s: 24.47606325149536
+  time_total_s: 318.6955952644348
+  timestamp: 1653531932
+  timesteps_since_restore: 0
+  training_iteration: 13
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00005:
+  date: 2022-05-26_02-25-41
+  done: false
+  experiment_id: 6b5660e191c34410a1ead3c813244ffb
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 55
+  node_ip: 10.128.0.8
+  pid: 4627
+  test_accuracy: 86.13
+  time_since_restore: 958.2997097969055
+  time_this_iter_s: 24.745757341384888
+  time_total_s: 958.2997097969055
+  timestamp: 1653531941
+  timesteps_since_restore: 0
+  training_iteration: 55
+  trial_id: e03ed_00005
+  
+== Status ==
+Memory usage on this node: 74.4/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.45 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     53 |          936.749 |           86.45 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     55 |          958.3   |           86.13 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     13 |          319.853 |           84.65 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     13 |          318.696 |           84.57 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-25-45
+  done: false
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 54
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 85.92999999999999
+  time_since_restore: 961.4949560165405
+  time_this_iter_s: 24.745523929595947
+  time_total_s: 961.4949560165405
+  timestamp: 1653531945
+  timesteps_since_restore: 0
+  training_iteration: 54
+  trial_id: e03ed_00004
+  
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-25-49
+  done: false
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 14
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 85.7
+  time_since_restore: 344.44588327407837
+  time_this_iter_s: 24.59316062927246
+  time_total_s: 344.44588327407837
+  timestamp: 1653531949
+  timesteps_since_restore: 0
+  training_iteration: 14
+  trial_id: e03ed_00014
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-25-56
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 14
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.77
+  time_since_restore: 343.36654329299927
+  time_this_iter_s: 24.670948028564453
+  time_total_s: 343.36654329299927
+  timestamp: 1653531956
+  timesteps_since_restore: 0
+  training_iteration: 14
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 74.5/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00005 with test_accuracy=86.13 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.03}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     54 |          961.495 |           85.93 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     55 |          958.3   |           86.13 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     14 |          344.446 |           85.7  |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     14 |          343.367 |           85.77 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00005:
+  date: 2022-05-26_02-26-06
+  done: false
+  experiment_id: 6b5660e191c34410a1ead3c813244ffb
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 56
+  node_ip: 10.128.0.8
+  pid: 4627
+  test_accuracy: 86.29
+  time_since_restore: 983.0353155136108
+  time_this_iter_s: 24.735605716705322
+  time_total_s: 983.0353155136108
+  timestamp: 1653531966
+  timesteps_since_restore: 0
+  training_iteration: 56
+  trial_id: e03ed_00005
+  
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-26-09
+  done: false
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 55
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 85.86
+  time_since_restore: 986.1540820598602
+  time_this_iter_s: 24.659126043319702
+  time_total_s: 986.1540820598602
+  timestamp: 1653531969
+  timesteps_since_restore: 0
+  training_iteration: 55
+  trial_id: e03ed_00004
+  
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-26-13
+  done: false
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 15
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 85.16
+  time_since_restore: 369.0355679988861
+  time_this_iter_s: 24.58968472480774
+  time_total_s: 369.0355679988861
+  timestamp: 1653531973
+  timesteps_since_restore: 0
+  training_iteration: 15
+  trial_id: e03ed_00014
+  
+== Status ==
+Memory usage on this node: 74.5/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00005 with test_accuracy=86.29 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.03}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     55 |          986.154 |           85.86 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     56 |          983.035 |           86.29 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     15 |          369.036 |           85.16 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     14 |          343.367 |           85.77 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-26-21
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 15
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.47
+  time_since_restore: 367.92888021469116
+  time_this_iter_s: 24.562336921691895
+  time_total_s: 367.92888021469116
+  timestamp: 1653531981
+  timesteps_since_restore: 0
+  training_iteration: 15
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00005:
+  date: 2022-05-26_02-26-30
+  done: false
+  experiment_id: 6b5660e191c34410a1ead3c813244ffb
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 57
+  node_ip: 10.128.0.8
+  pid: 4627
+  test_accuracy: 86.14
+  time_since_restore: 1007.6237237453461
+  time_this_iter_s: 24.58840823173523
+  time_total_s: 1007.6237237453461
+  timestamp: 1653531990
+  timesteps_since_restore: 0
+  training_iteration: 57
+  trial_id: e03ed_00005
+  
+== Status ==
+Memory usage on this node: 74.1/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00005 with test_accuracy=86.14 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.03}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     55 |          986.154 |           85.86 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     57 |         1007.62  |           86.14 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     15 |          369.036 |           85.16 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     15 |          367.929 |           85.47 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-26-34
+  done: false
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 56
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 86.18
+  time_since_restore: 1010.8005287647247
+  time_this_iter_s: 24.646446704864502
+  time_total_s: 1010.8005287647247
+  timestamp: 1653531994
+  timesteps_since_restore: 0
+  training_iteration: 56
+  trial_id: e03ed_00004
+  
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-26-38
+  done: false
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 16
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 84.92
+  time_since_restore: 393.821417093277
+  time_this_iter_s: 24.78584909439087
+  time_total_s: 393.821417093277
+  timestamp: 1653531998
+  timesteps_since_restore: 0
+  training_iteration: 16
+  trial_id: e03ed_00014
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-26-46
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 16
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.41
+  time_since_restore: 392.5663514137268
+  time_this_iter_s: 24.637471199035645
+  time_total_s: 392.5663514137268
+  timestamp: 1653532006
+  timesteps_since_restore: 0
+  training_iteration: 16
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 74.2/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00015 with test_accuracy=86.41 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.005}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     56 |         1010.8   |           86.18 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     57 |         1007.62  |           86.14 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     16 |          393.821 |           84.92 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     16 |          392.566 |           86.41 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00005:
+  date: 2022-05-26_02-26-55
+  done: false
+  experiment_id: 6b5660e191c34410a1ead3c813244ffb
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 58
+  node_ip: 10.128.0.8
+  pid: 4627
+  test_accuracy: 86.05000000000001
+  time_since_restore: 1032.3547780513763
+  time_this_iter_s: 24.731054306030273
+  time_total_s: 1032.3547780513763
+  timestamp: 1653532015
+  timesteps_since_restore: 0
+  training_iteration: 58
+  trial_id: e03ed_00005
+  
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-26-59
+  done: false
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 57
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 85.78
+  time_since_restore: 1035.5074758529663
+  time_this_iter_s: 24.706947088241577
+  time_total_s: 1035.5074758529663
+  timestamp: 1653532019
+  timesteps_since_restore: 0
+  training_iteration: 57
+  trial_id: e03ed_00004
+  
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-27-03
+  done: false
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 17
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 85.75
+  time_since_restore: 418.44704151153564
+  time_this_iter_s: 24.625624418258667
+  time_total_s: 418.44704151153564
+  timestamp: 1653532023
+  timesteps_since_restore: 0
+  training_iteration: 17
+  trial_id: e03ed_00014
+  
+== Status ==
+Memory usage on this node: 74.5/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00015 with test_accuracy=86.41 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.005}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     57 |         1035.51  |           85.78 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     58 |         1032.35  |           86.05 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     17 |          418.447 |           85.75 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     16 |          392.566 |           86.41 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-27-10
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 17
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.57000000000001
+  time_since_restore: 417.1630747318268
+  time_this_iter_s: 24.596723318099976
+  time_total_s: 417.1630747318268
+  timestamp: 1653532030
+  timesteps_since_restore: 0
+  training_iteration: 17
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00005:
+  date: 2022-05-26_02-27-20
+  done: false
+  experiment_id: 6b5660e191c34410a1ead3c813244ffb
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 59
+  node_ip: 10.128.0.8
+  pid: 4627
+  test_accuracy: 85.44
+  time_since_restore: 1056.9773399829865
+  time_this_iter_s: 24.622561931610107
+  time_total_s: 1056.9773399829865
+  timestamp: 1653532040
+  timesteps_since_restore: 0
+  training_iteration: 59
+  trial_id: e03ed_00005
+  
+== Status ==
+Memory usage on this node: 74.3/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00015 with test_accuracy=86.57000000000001 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.005}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     57 |         1035.51  |           85.78 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     59 |         1056.98  |           85.44 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     17 |          418.447 |           85.75 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     17 |          417.163 |           86.57 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-27-23
+  done: false
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 58
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 86.48
+  time_since_restore: 1060.3313829898834
+  time_this_iter_s: 24.823907136917114
+  time_total_s: 1060.3313829898834
+  timestamp: 1653532043
+  timesteps_since_restore: 0
+  training_iteration: 58
+  trial_id: e03ed_00004
+  
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-27-27
+  done: false
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 18
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 86.46000000000001
+  time_since_restore: 443.04176235198975
+  time_this_iter_s: 24.5947208404541
+  time_total_s: 443.04176235198975
+  timestamp: 1653532047
+  timesteps_since_restore: 0
+  training_iteration: 18
+  trial_id: e03ed_00014
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-27-35
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 18
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.96000000000001
+  time_since_restore: 441.7621033191681
+  time_this_iter_s: 24.59902858734131
+  time_total_s: 441.7621033191681
+  timestamp: 1653532055
+  timesteps_since_restore: 0
+  training_iteration: 18
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 72.5/669.3 GiB
+Using AsyncHyperBand: num_stopped=12
+Bracket: Iter 20.000: 85.815
+Resources requested: 48.0/96 CPUs, 4.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.48 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (4 RUNNING, 12 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     58 |         1060.33  |           86.48 |
+| UniTTN_e03ed_00005 | RUNNING    | 10.128.0.8:4627 |           0.03  |     0.005 |     59 |         1056.98  |           85.44 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     18 |          443.042 |           86.46 |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     18 |          441.762 |           85.96 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00005:
+  date: 2022-05-26_02-27-44
+  done: true
+  experiment_id: 6b5660e191c34410a1ead3c813244ffb
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 60
+  node_ip: 10.128.0.8
+  pid: 4627
+  test_accuracy: 85.34
+  time_since_restore: 1081.5623924732208
+  time_this_iter_s: 24.585052490234375
+  time_total_s: 1081.5623924732208
+  timestamp: 1653532064
+  timesteps_since_restore: 0
+  training_iteration: 60
+  trial_id: e03ed_00005
+  
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-27-44
+  done: false
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 59
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 87.02
+  time_since_restore: 1081.3005230426788
+  time_this_iter_s: 20.96914005279541
+  time_total_s: 1081.3005230426788
+  timestamp: 1653532064
+  timesteps_since_restore: 0
+  training_iteration: 59
+  trial_id: e03ed_00004
+  
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-27-52
+  done: false
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 19
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 86.4
+  time_since_restore: 467.73188400268555
+  time_this_iter_s: 24.6901216506958
+  time_total_s: 467.73188400268555
+  timestamp: 1653532072
+  timesteps_since_restore: 0
+  training_iteration: 19
+  trial_id: e03ed_00014
+  
+== Status ==
+Memory usage on this node: 72.4/669.3 GiB
+Using AsyncHyperBand: num_stopped=13
+Bracket: Iter 20.000: 85.815
+Resources requested: 36.0/96 CPUs, 3.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=87.02 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (3 RUNNING, 13 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00004 | RUNNING    | 10.128.0.8:4630 |           0.05  |     0.005 |     59 |         1081.3   |           87.02 |
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     19 |          467.732 |           86.4  |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     18 |          441.762 |           85.96 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-27-59
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 19
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.48
+  time_since_restore: 466.14984607696533
+  time_this_iter_s: 24.38774275779724
+  time_total_s: 466.14984607696533
+  timestamp: 1653532079
+  timesteps_since_restore: 0
+  training_iteration: 19
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00004:
+  date: 2022-05-26_02-28-08
+  done: true
+  experiment_id: 6e64c27b3cb74345a8308d0e7f830708
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 60
+  node_ip: 10.128.0.8
+  pid: 4630
+  test_accuracy: 86.71
+  time_since_restore: 1105.404803276062
+  time_this_iter_s: 24.10428023338318
+  time_total_s: 1105.404803276062
+  timestamp: 1653532088
+  timesteps_since_restore: 0
+  training_iteration: 60
+  trial_id: e03ed_00004
+  
+== Status ==
+Memory usage on this node: 72.6/669.3 GiB
+Using AsyncHyperBand: num_stopped=14
+Bracket: Iter 20.000: 85.815
+Resources requested: 24.0/96 CPUs, 2.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (2 RUNNING, 14 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00014 | RUNNING    | 10.128.0.8:4593 |           0.01  |     0.015 |     19 |          467.732 |           86.4  |
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     19 |          466.15  |           85.48 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00014:
+  date: 2022-05-26_02-28-17
+  done: true
+  experiment_id: e9e83dec5eb0421fa8f12be1e309db3c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 20
+  node_ip: 10.128.0.8
+  pid: 4593
+  test_accuracy: 83.99
+  time_since_restore: 492.5021448135376
+  time_this_iter_s: 24.77026081085205
+  time_total_s: 492.5021448135376
+  timestamp: 1653532097
+  timesteps_since_restore: 0
+  training_iteration: 20
+  trial_id: e03ed_00014
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-28-24
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 20
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.78
+  time_since_restore: 490.618937253952
+  time_this_iter_s: 24.469091176986694
+  time_total_s: 490.618937253952
+  timestamp: 1653532104
+  timesteps_since_restore: 0
+  training_iteration: 20
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 68.8/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     20 |          490.619 |           85.78 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-28-47
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 21
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.11
+  time_since_restore: 514.2626283168793
+  time_this_iter_s: 23.643691062927246
+  time_total_s: 514.2626283168793
+  timestamp: 1653532127
+  timesteps_since_restore: 0
+  training_iteration: 21
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 65.3/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     21 |          514.263 |           85.11 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-29-09
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 22
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.61999999999999
+  time_since_restore: 536.2379221916199
+  time_this_iter_s: 21.9752938747406
+  time_total_s: 536.2379221916199
+  timestamp: 1653532149
+  timesteps_since_restore: 0
+  training_iteration: 22
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 68.5/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     22 |          536.238 |           86.62 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-29-34
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 23
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.53
+  time_since_restore: 560.6616184711456
+  time_this_iter_s: 24.423696279525757
+  time_total_s: 560.6616184711456
+  timestamp: 1653532174
+  timesteps_since_restore: 0
+  training_iteration: 23
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 68.8/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     23 |          560.662 |           86.53 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-29-58
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 24
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.19
+  time_since_restore: 585.1940429210663
+  time_this_iter_s: 24.532424449920654
+  time_total_s: 585.1940429210663
+  timestamp: 1653532198
+  timesteps_since_restore: 0
+  training_iteration: 24
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 65.1/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     24 |          585.194 |           86.19 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-30-23
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 25
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.61
+  time_since_restore: 609.5983550548553
+  time_this_iter_s: 24.404312133789062
+  time_total_s: 609.5983550548553
+  timestamp: 1653532223
+  timesteps_since_restore: 0
+  training_iteration: 25
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 65.0/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     25 |          609.598 |           85.61 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-30-47
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 26
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 84.08
+  time_since_restore: 633.9803676605225
+  time_this_iter_s: 24.382012605667114
+  time_total_s: 633.9803676605225
+  timestamp: 1653532247
+  timesteps_since_restore: 0
+  training_iteration: 26
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 65.1/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     26 |          633.98  |           84.08 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-31-12
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 27
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.2
+  time_since_restore: 658.452556848526
+  time_this_iter_s: 24.47218918800354
+  time_total_s: 658.452556848526
+  timestamp: 1653532272
+  timesteps_since_restore: 0
+  training_iteration: 27
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 65.1/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     27 |          658.453 |           86.2  |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-31-36
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 28
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.11
+  time_since_restore: 682.8034250736237
+  time_this_iter_s: 24.350868225097656
+  time_total_s: 682.8034250736237
+  timestamp: 1653532296
+  timesteps_since_restore: 0
+  training_iteration: 28
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 64.8/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     28 |          682.803 |           86.11 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-31-57
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 29
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.2
+  time_since_restore: 704.0577566623688
+  time_this_iter_s: 21.254331588745117
+  time_total_s: 704.0577566623688
+  timestamp: 1653532317
+  timesteps_since_restore: 0
+  training_iteration: 29
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 61.1/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     29 |          704.058 |           86.2  |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-32-17
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 30
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.13
+  time_since_restore: 723.5030527114868
+  time_this_iter_s: 19.445296049118042
+  time_total_s: 723.5030527114868
+  timestamp: 1653532337
+  timesteps_since_restore: 0
+  training_iteration: 30
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 58.7/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     30 |          723.503 |           85.13 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-32-36
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 31
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 84.71
+  time_since_restore: 742.9188606739044
+  time_this_iter_s: 19.415807962417603
+  time_total_s: 742.9188606739044
+  timestamp: 1653532356
+  timesteps_since_restore: 0
+  training_iteration: 31
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 57.0/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     31 |          742.919 |           84.71 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-32-55
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 32
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.49
+  time_since_restore: 762.2457530498505
+  time_this_iter_s: 19.326892375946045
+  time_total_s: 762.2457530498505
+  timestamp: 1653532375
+  timesteps_since_restore: 0
+  training_iteration: 32
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 57.0/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     32 |          762.246 |           86.49 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-33-15
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 33
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.95
+  time_since_restore: 781.6856849193573
+  time_this_iter_s: 19.439931869506836
+  time_total_s: 781.6856849193573
+  timestamp: 1653532395
+  timesteps_since_restore: 0
+  training_iteration: 33
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 58.8/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00015 with test_accuracy=86.95 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.005}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     33 |          781.686 |           86.95 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-33-34
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 34
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.55000000000001
+  time_since_restore: 801.0312812328339
+  time_this_iter_s: 19.345596313476562
+  time_total_s: 801.0312812328339
+  timestamp: 1653532414
+  timesteps_since_restore: 0
+  training_iteration: 34
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 54.9/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     34 |          801.031 |           86.55 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-33-54
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 35
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.79
+  time_since_restore: 820.4526598453522
+  time_this_iter_s: 19.42137861251831
+  time_total_s: 820.4526598453522
+  timestamp: 1653532434
+  timesteps_since_restore: 0
+  training_iteration: 35
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 52.9/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     35 |          820.453 |           85.79 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-34-13
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 36
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.85000000000001
+  time_since_restore: 839.8085443973541
+  time_this_iter_s: 19.355884552001953
+  time_total_s: 839.8085443973541
+  timestamp: 1653532453
+  timesteps_since_restore: 0
+  training_iteration: 36
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 48.9/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00015 with test_accuracy=86.85000000000001 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.005}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     36 |          839.809 |           86.85 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-34-32
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 37
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 87.02
+  time_since_restore: 859.2660036087036
+  time_this_iter_s: 19.457459211349487
+  time_total_s: 859.2660036087036
+  timestamp: 1653532472
+  timesteps_since_restore: 0
+  training_iteration: 37
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 44.9/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00015 with test_accuracy=87.02 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.005}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     37 |          859.266 |           87.02 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-34-52
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 38
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.78
+  time_since_restore: 878.4904632568359
+  time_this_iter_s: 19.224459648132324
+  time_total_s: 878.4904632568359
+  timestamp: 1653532492
+  timesteps_since_restore: 0
+  training_iteration: 38
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 45.0/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     38 |          878.49  |           85.78 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-35-11
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 39
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.02
+  time_since_restore: 897.9807047843933
+  time_this_iter_s: 19.490241527557373
+  time_total_s: 897.9807047843933
+  timestamp: 1653532511
+  timesteps_since_restore: 0
+  training_iteration: 39
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 45.0/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     39 |          897.981 |           85.02 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-35-26
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 40
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 82.05
+  time_since_restore: 912.3294079303741
+  time_this_iter_s: 14.348703145980835
+  time_total_s: 912.3294079303741
+  timestamp: 1653532526
+  timesteps_since_restore: 0
+  training_iteration: 40
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-35-37
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 41
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.72
+  time_since_restore: 924.2863259315491
+  time_this_iter_s: 11.956918001174927
+  time_total_s: 924.2863259315491
+  timestamp: 1653532537
+  timesteps_since_restore: 0
+  training_iteration: 41
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 41.2/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     41 |          924.286 |           85.72 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-35-50
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 42
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.52
+  time_since_restore: 936.3372118473053
+  time_this_iter_s: 12.050885915756226
+  time_total_s: 936.3372118473053
+  timestamp: 1653532550
+  timesteps_since_restore: 0
+  training_iteration: 42
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-36-02
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 43
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.50999999999999
+  time_since_restore: 948.3984551429749
+  time_this_iter_s: 12.061243295669556
+  time_total_s: 948.3984551429749
+  timestamp: 1653532562
+  timesteps_since_restore: 0
+  training_iteration: 43
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 41.1/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     43 |          948.398 |           85.51 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-36-14
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 44
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 84.96000000000001
+  time_since_restore: 960.5729398727417
+  time_this_iter_s: 12.174484729766846
+  time_total_s: 960.5729398727417
+  timestamp: 1653532574
+  timesteps_since_restore: 0
+  training_iteration: 44
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-36-26
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 45
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.83999999999999
+  time_since_restore: 972.4862864017487
+  time_this_iter_s: 11.913346529006958
+  time_total_s: 972.4862864017487
+  timestamp: 1653532586
+  timesteps_since_restore: 0
+  training_iteration: 45
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 39.3/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00015 with test_accuracy=86.83999999999999 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.005}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     45 |          972.486 |           86.84 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-36-38
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 46
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.67
+  time_since_restore: 984.4906508922577
+  time_this_iter_s: 12.004364490509033
+  time_total_s: 984.4906508922577
+  timestamp: 1653532598
+  timesteps_since_restore: 0
+  training_iteration: 46
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-36-50
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 47
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.94
+  time_since_restore: 996.5629823207855
+  time_this_iter_s: 12.072331428527832
+  time_total_s: 996.5629823207855
+  timestamp: 1653532610
+  timesteps_since_restore: 0
+  training_iteration: 47
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 35.3/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00015 with test_accuracy=86.94 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.005}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     47 |          996.563 |           86.94 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-37-02
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 48
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.69
+  time_since_restore: 1008.6633882522583
+  time_this_iter_s: 12.100405931472778
+  time_total_s: 1008.6633882522583
+  timestamp: 1653532622
+  timesteps_since_restore: 0
+  training_iteration: 48
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-37-14
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 49
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.31
+  time_since_restore: 1020.7371475696564
+  time_this_iter_s: 12.073759317398071
+  time_total_s: 1020.7371475696564
+  timestamp: 1653532634
+  timesteps_since_restore: 0
+  training_iteration: 49
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 31.6/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     49 |         1020.74  |           85.31 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-37-26
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 50
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.31
+  time_since_restore: 1032.8734471797943
+  time_this_iter_s: 12.13629961013794
+  time_total_s: 1032.8734471797943
+  timestamp: 1653532646
+  timesteps_since_restore: 0
+  training_iteration: 50
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-37-38
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 51
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 83.62
+  time_since_restore: 1044.8660340309143
+  time_this_iter_s: 11.992586851119995
+  time_total_s: 1044.8660340309143
+  timestamp: 1653532658
+  timesteps_since_restore: 0
+  training_iteration: 51
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 31.5/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     51 |         1044.87  |           83.62 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-37-50
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 52
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 85.91
+  time_since_restore: 1057.0252335071564
+  time_this_iter_s: 12.159199476242065
+  time_total_s: 1057.0252335071564
+  timestamp: 1653532670
+  timesteps_since_restore: 0
+  training_iteration: 52
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-38-02
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 53
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.42
+  time_since_restore: 1069.1465065479279
+  time_this_iter_s: 12.121273040771484
+  time_total_s: 1069.1465065479279
+  timestamp: 1653532682
+  timesteps_since_restore: 0
+  training_iteration: 53
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 26.2/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     53 |         1069.15  |           86.42 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-38-14
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 54
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.16
+  time_since_restore: 1081.020322561264
+  time_this_iter_s: 11.873816013336182
+  time_total_s: 1081.020322561264
+  timestamp: 1653532694
+  timesteps_since_restore: 0
+  training_iteration: 54
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-38-25
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 55
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.79
+  time_since_restore: 1092.1668682098389
+  time_this_iter_s: 11.146545648574829
+  time_total_s: 1092.1668682098389
+  timestamp: 1653532705
+  timesteps_since_restore: 0
+  training_iteration: 55
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 18.8/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00015 with test_accuracy=86.79 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.015, 'tune_init_std': 0.005}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     55 |         1092.17  |           86.79 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-38-31
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 56
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.61
+  time_since_restore: 1097.327609539032
+  time_this_iter_s: 5.160741329193115
+  time_total_s: 1097.327609539032
+  timestamp: 1653532711
+  timesteps_since_restore: 0
+  training_iteration: 56
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-38-36
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 57
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.56
+  time_since_restore: 1102.484706878662
+  time_this_iter_s: 5.157097339630127
+  time_total_s: 1102.484706878662
+  timestamp: 1653532716
+  timesteps_since_restore: 0
+  training_iteration: 57
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-38-41
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 58
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.50999999999999
+  time_since_restore: 1107.5126340389252
+  time_this_iter_s: 5.0279271602630615
+  time_total_s: 1107.5126340389252
+  timestamp: 1653532721
+  timesteps_since_restore: 0
+  training_iteration: 58
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 18.6/669.3 GiB
+Using AsyncHyperBand: num_stopped=15
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 12.0/96 CPUs, 1.0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (1 RUNNING, 15 TERMINATED)
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc             |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00015 | RUNNING    | 10.128.0.8:4570 |           0.005 |     0.015 |     58 |         1107.51  |           86.51 |
+| UniTTN_e03ed_00000 | TERMINATED |                 |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |                 |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |                 |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |                 |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |                 |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |                 |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |                 |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |                 |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |                 |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |                 |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |                 |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |                 |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |                 |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |                 |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |                 |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
++--------------------+------------+-----------------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-38-46
+  done: false
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 59
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 83.61
+  time_since_restore: 1112.5905525684357
+  time_this_iter_s: 5.077918529510498
+  time_total_s: 1112.5905525684357
+  timestamp: 1653532726
+  timesteps_since_restore: 0
+  training_iteration: 59
+  trial_id: e03ed_00015
+  
+Result for UniTTN_e03ed_00015:
+  date: 2022-05-26_02-38-51
+  done: true
+  experiment_id: 253b7cc9bb1f483b8805c39dc0e7ce2c
+  hostname: nvidia-gpu-cloud-tensorflow-image-8gpus-vm
+  iterations_since_restore: 60
+  node_ip: 10.128.0.8
+  pid: 4570
+  test_accuracy: 86.19
+  time_since_restore: 1117.5305528640747
+  time_this_iter_s: 4.940000295639038
+  time_total_s: 1117.5305528640747
+  timestamp: 1653532731
+  timesteps_since_restore: 0
+  training_iteration: 60
+  trial_id: e03ed_00015
+  
+== Status ==
+Memory usage on this node: 18.6/669.3 GiB
+Using AsyncHyperBand: num_stopped=16
+Bracket: Iter 20.000: 85.80250000000001
+Resources requested: 0/96 CPUs, 0/8 GPUs, 0.0/471.95 GiB heap, 0.0/186.26 GiB objects
+Current best trial: e03ed_00004 with test_accuracy=86.71 and parameters={'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
+Result logdir: /home/qc_whaley/ray_results/anc0_deph0
+Number of trials: 16/16 (16 TERMINATED)
++--------------------+------------+-------+-----------------+-----------+--------+------------------+-----------------+
+| Trial name         | status     | loc   |   tune_init_std |   tune_lr |   iter |   total time (s) |   test_accuracy |
+|--------------------+------------+-------+-----------------+-----------+--------+------------------+-----------------|
+| UniTTN_e03ed_00000 | TERMINATED |       |           0.5   |     0.005 |     20 |          174.191 |           85.61 |
+| UniTTN_e03ed_00001 | TERMINATED |       |           0.3   |     0.005 |     20 |          181.379 |           85.65 |
+| UniTTN_e03ed_00002 | TERMINATED |       |           0.1   |     0.005 |     20 |          182.111 |           86.03 |
+| UniTTN_e03ed_00003 | TERMINATED |       |           0.07  |     0.005 |     20 |          182.84  |           85.37 |
+| UniTTN_e03ed_00004 | TERMINATED |       |           0.05  |     0.005 |     60 |         1105.4   |           86.71 |
+| UniTTN_e03ed_00005 | TERMINATED |       |           0.03  |     0.005 |     60 |         1081.56  |           85.34 |
+| UniTTN_e03ed_00006 | TERMINATED |       |           0.01  |     0.005 |     20 |          179.748 |           85.87 |
+| UniTTN_e03ed_00007 | TERMINATED |       |           0.005 |     0.005 |     20 |          174.21  |           85.6  |
+| UniTTN_e03ed_00008 | TERMINATED |       |           0.5   |     0.015 |     20 |          437.073 |           85.4  |
+| UniTTN_e03ed_00009 | TERMINATED |       |           0.3   |     0.015 |     20 |          444.815 |           84.05 |
+| UniTTN_e03ed_00010 | TERMINATED |       |           0.1   |     0.015 |     20 |          456.088 |           85.08 |
+| UniTTN_e03ed_00011 | TERMINATED |       |           0.07  |     0.015 |     20 |          451.261 |           83.28 |
+| UniTTN_e03ed_00012 | TERMINATED |       |           0.05  |     0.015 |     20 |          453.667 |           85.05 |
+| UniTTN_e03ed_00013 | TERMINATED |       |           0.03  |     0.015 |     20 |          456.191 |           85.61 |
+| UniTTN_e03ed_00014 | TERMINATED |       |           0.01  |     0.015 |     20 |          492.502 |           83.99 |
+| UniTTN_e03ed_00015 | TERMINATED |       |           0.005 |     0.015 |     60 |         1117.53  |           86.19 |
++--------------------+------------+-------+-----------------+-----------+--------+------------------+-----------------+
+
+
+Best hyperparameters found were:  {'num_anc': 0, 'deph_p': 0, 'tune_lr': 0.005, 'tune_init_std': 0.05}
