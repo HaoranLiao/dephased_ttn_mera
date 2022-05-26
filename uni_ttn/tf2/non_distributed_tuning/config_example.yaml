@@ -1,15 +1,15 @@
 data:
  #path: '/home/haoranliao/dephased_ttn_project/datasets/mnist8pca_dig35/mnist8pca_dig35'
  #path: '/home/qc_whaley/dephased_ttn_project/datasets/mnist8pca_dig35/mnist8pca_dig35'
- path: '/home/qc_whaley/dephased_ttn_project/datasets/kmnist8x8/kmnist8x8'
- #path: '/home/qc_whaley/dephased_ttn_project/datasets/fashion8x8/fashion8x8'
+ #path: '/home/qc_whaley/dephased_ttn_project/datasets/kmnist8x8/kmnist8x8'
+ path: '/home/qc_whaley/dephased_ttn_project/datasets/fashion8x8/fashion8x8'
  #path: '/home/qc_whaley/dephased_ttn_project/datasets/cifar8x8/cifar8x8'
  val_split: 0
- list_digits: [['even','odd']]                     # list of pairs or one pair
+ list_digits: [[[1,4,5,7,8], [0,2,3,6,9]]] #[['even','odd']]                     # list of pairs or one pair
  list_batch_sizes: [250]                 # list or list of single
  grad_accumulation: False
- execute_batch_size: 125
- eval_batch_size_factor: 1
+ execute_batch_size: 250
+ eval_batch_size_factor: 1000
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 1000000              # int or None
@@ -21,7 +21,7 @@ meta:
  visible_gpus: '1'
  set_memory_growth: True
  random_seed: 42
- list_num_anc: [3]                # list or list of single
+ list_num_anc: [1]                # list or list of single
  num_repeat: -1
  auto_epochs:
   enabled: False
