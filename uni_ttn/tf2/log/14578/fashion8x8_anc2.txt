@@ -2672,3 +2672,40 @@ Epoch  88  Train : 0.8707	Valid : 0.8651
 Epoch  89  Train : 0.8700
 Epoch  90  Train : 0.8708	Valid : 0.8636
 Epoch  91  Train : 0.8713
+Epoch  92  Train : 0.8710	Valid : 0.8658
+Epoch  93  Train : 0.8713
+Epoch  94  Train : 0.8721	Valid : 0.8672
+Checkpoint saved...
+Epoch  95  Train : 0.8700
+Epoch  96  Train : 0.8710	Valid : 0.8651
+Epoch  97  Train : 0.8710
+Epoch  98  Train : 0.8712	Valid : 0.8661
+Epoch  99  Train : 0.8709
+Training Done
+Restored from Epoch 94...
+Test Accuracy : 0.867	Train Accuracy : 0.872
+Time (hr): 0.8527
+
+Repeat: 5/5
+Digits:	 [[1, 4, 5, 7, 8], [0, 2, 3, 6, 9]]
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.60
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.005
+Adam Learning Rate: 0.015
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/fashion8x8/fashion8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8421	Valid : 0.8385
+Checkpoint saved...

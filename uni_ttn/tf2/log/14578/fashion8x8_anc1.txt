@@ -4689,3 +4689,27 @@ Checkpoint saved...
 Epoch   3  Train : 0.8426
 Epoch   4  Train : 0.8448	Valid : 0.8390
 Checkpoint saved...
+Epoch   5  Train : 0.8425
+Epoch   6  Train : 0.8463	Valid : 0.8422
+Checkpoint saved...
+Epoch   7  Train : 0.8455
+Epoch   8  Train : 0.8464	Valid : 0.8427
+Checkpoint saved...
+Epoch   9  Train : 0.8485
+Epoch  10  Train : 0.8459	Valid : 0.8411
+Epoch  11  Train : 0.8472
+Epoch  12  Train : 0.8463	Valid : 0.8426
+Epoch  13  Train : 0.8464
+Epoch  14  Train : 0.8461	Valid : 0.8411
+Epoch  15  Train : 0.8490
+Epoch  16  Train : 0.8501	Valid : 0.8462
+Checkpoint saved...
+Epoch  17  Train : 0.8487
+Epoch  18  Train : 0.8489	Valid : 0.8424
+Epoch  19  Train : 0.8496
+Epoch  20  Train : 0.8517	Valid : 0.8438
+Epoch  21  Train : 0.8529
+Epoch  22  Train : 0.8534	Valid : 0.8459
+Epoch  23  Train : 0.8544
+Epoch  24  Train : 0.8522	Valid : 0.8447
+Epoch  25  Train : 0.8547
