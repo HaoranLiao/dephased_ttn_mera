@@ -4713,3 +4713,124 @@ Epoch  22  Train : 0.8534	Valid : 0.8459
 Epoch  23  Train : 0.8544
 Epoch  24  Train : 0.8522	Valid : 0.8447
 Epoch  25  Train : 0.8547
+Epoch  26  Train : 0.8522	Valid : 0.8460
+Epoch  27  Train : 0.8537
+Epoch  28  Train : 0.8540	Valid : 0.8472
+Checkpoint saved...
+Epoch  29  Train : 0.8532
+Epoch  30  Train : 0.8560	Valid : 0.8492
+Checkpoint saved...
+Epoch  31  Train : 0.8554
+Epoch  32  Train : 0.8565	Valid : 0.8489
+Epoch  33  Train : 0.8552
+Epoch  34  Train : 0.8561	Valid : 0.8478
+Epoch  35  Train : 0.8568
+Epoch  36  Train : 0.8563	Valid : 0.8480
+Epoch  37  Train : 0.8552
+Epoch  38  Train : 0.8552	Valid : 0.8468
+Epoch  39  Train : 0.8553
+Epoch  40  Train : 0.8565	Valid : 0.8488
+Epoch  41  Train : 0.8569
+Epoch  42  Train : 0.8562	Valid : 0.8479
+Epoch  43  Train : 0.8535
+Epoch  44  Train : 0.8581	Valid : 0.8503
+Checkpoint saved...
+Epoch  45  Train : 0.8566
+Epoch  46  Train : 0.8566	Valid : 0.8487
+Epoch  47  Train : 0.8576
+Epoch  48  Train : 0.8570	Valid : 0.8495
+Epoch  49  Train : 0.8566
+Epoch  50  Train : 0.8571	Valid : 0.8489
+Epoch  51  Train : 0.8572
+Epoch  52  Train : 0.8567	Valid : 0.8485
+Epoch  53  Train : 0.8574
+Epoch  54  Train : 0.8577	Valid : 0.8491
+Epoch  55  Train : 0.8552
+Epoch  56  Train : 0.8574	Valid : 0.8497
+Epoch  57  Train : 0.8572
+Epoch  58  Train : 0.8575	Valid : 0.8501
+Epoch  59  Train : 0.8569
+Epoch  60  Train : 0.8534	Valid : 0.8473
+Epoch  61  Train : 0.8571
+Epoch  62  Train : 0.8584	Valid : 0.8515
+Checkpoint saved...
+Epoch  63  Train : 0.8575
+Epoch  64  Train : 0.8578	Valid : 0.8508
+Epoch  65  Train : 0.8577
+Epoch  66  Train : 0.8587	Valid : 0.8519
+Checkpoint saved...
+Epoch  67  Train : 0.8593
+Epoch  68  Train : 0.8585	Valid : 0.8514
+Epoch  69  Train : 0.8582
+Epoch  70  Train : 0.8587	Valid : 0.8520
+Checkpoint saved...
+Epoch  71  Train : 0.8582
+Epoch  72  Train : 0.8581	Valid : 0.8509
+Epoch  73  Train : 0.8586
+Epoch  74  Train : 0.8576	Valid : 0.8507
+Epoch  75  Train : 0.8586
+Epoch  76  Train : 0.8582	Valid : 0.8510
+Epoch  77  Train : 0.8586
+Epoch  78  Train : 0.8586	Valid : 0.8514
+Epoch  79  Train : 0.8582
+Epoch  80  Train : 0.8590	Valid : 0.8505
+Epoch  81  Train : 0.8582
+Epoch  82  Train : 0.8583	Valid : 0.8502
+Epoch  83  Train : 0.8590
+Epoch  84  Train : 0.8578	Valid : 0.8500
+Epoch  85  Train : 0.8581
+Epoch  86  Train : 0.8581	Valid : 0.8509
+Epoch  87  Train : 0.8580
+Epoch  88  Train : 0.8583	Valid : 0.8513
+Epoch  89  Train : 0.8583
+Epoch  90  Train : 0.8581	Valid : 0.8516
+Epoch  91  Train : 0.8581
+Epoch  92  Train : 0.8593	Valid : 0.8521
+Checkpoint saved...
+Epoch  93  Train : 0.8588
+Epoch  94  Train : 0.8588	Valid : 0.8509
+Epoch  95  Train : 0.8577
+Epoch  96  Train : 0.8586	Valid : 0.8510
+Epoch  97  Train : 0.8584
+Epoch  98  Train : 0.8582	Valid : 0.8507
+Epoch  99  Train : 0.8586
+Epoch 100  Train : 0.8591	Valid : 0.8518
+Epoch 101  Train : 0.8581
+Epoch 102  Train : 0.8583	Valid : 0.8508
+Epoch 103  Train : 0.8586
+Epoch 104  Train : 0.8587	Valid : 0.8516
+Epoch 105  Train : 0.8584
+Epoch 106  Train : 0.8579	Valid : 0.8510
+Epoch 107  Train : 0.8579
+Epoch 108  Train : 0.8579	Valid : 0.8509
+Epoch 109  Train : 0.8586
+Epoch 110  Train : 0.8579	Valid : 0.8506
+Epoch 111  Train : 0.8583
+Epoch 112  Train : 0.8583	Valid : 0.8509
+Epoch 113  Train : 0.8585
+Epoch 114  Train : 0.8575	Valid : 0.8501
+Epoch 115  Train : 0.8580
+Epoch 116  Train : 0.8588	Valid : 0.8510
+Epoch 117  Train : 0.8585
+Epoch 118  Train : 0.8577	Valid : 0.8509
+Epoch 119  Train : 0.8581
+Training Done
+Restored from Epoch 92...
+Test Accuracy : 0.854	Train Accuracy : 0.859
+Time (hr): 0.4647
+
+Setting 5 Train Accs: [0.85098, 0.85074, 0.85204, 0.85488, 0.85929]	
+Setting 5 Avg Train Acc: 0.8536
+Setting 5 Std Train Acc: 0.0032
+Setting 5 Test Accs: [0.8484, 0.8473, 0.8434, 0.8445, 0.8535]	
+Setting 5 Avg Test Acc: 0.8474
+Setting 5 Std Test Acc: 0.0035
+All Settings Avg Test Accs:
+ [0.8903, 0.8601, 0.8569, 0.8506, 0.8489, 0.8474]
+All Settings Avg Train/Val Accs:
+ [0.8956, 0.8656, 0.8623, 0.8551, 0.8544, 0.8536]
+All Settings Std Test Accs:
+ [0.0018, 0.0025, 0.0014, 0.0043, 0.0036, 0.0035]
+All Settings Std Train/Val Accs:
+ [0.0018, 0.002, 0.0021, 0.0029, 0.0033, 0.0032]
+Time (hr): 18.0330
