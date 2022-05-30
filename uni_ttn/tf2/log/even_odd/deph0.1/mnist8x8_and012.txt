@@ -1,0 +1,142 @@
+{
+ "data": {
+  "path": "../../datasets/mnist8x8/mnist8x8",
+  "val_split": 0.166,
+  "list_digits": [
+   [
+    "even",
+    "odd"
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 5,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 1000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": true,
+  "visible_gpus": "0",
+  "set_memory_growth": true,
+  "random_seed": 42,
+  "list_num_anc": [
+   0,
+   1,
+   2
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   100
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0.1
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.05,
+    0.07,
+    0.05
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": [
+     0.005
+    ]
+   },
+   "spsa": {
+    "a": 28,
+    "b": 33,
+    "A": 7.41,
+    "s": 1.13,
+    "t": 0.658,
+    "gamma": 0.882
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 0
+Random Seed: 42
+Init Std: 0.05
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/mnist8x8/mnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8048	Valid : 0.8183
+Checkpoint saved...
+Epoch   1  Train : 0.8255
+Epoch   2  Train : 0.8316	Valid : 0.8471
+Checkpoint saved...
+Epoch   3  Train : 0.8235
+Epoch   4  Train : 0.8344	Valid : 0.8495
+Checkpoint saved...
+Epoch   5  Train : 0.8356
+Epoch   6  Train : 0.8419	Valid : 0.8550
+Checkpoint saved...
+Epoch   7  Train : 0.8322
+Epoch   8  Train : 0.8349	Valid : 0.8484
+Epoch   9  Train : 0.8383
+Epoch  10  Train : 0.8384	Valid : 0.8512
+Epoch  11  Train : 0.8376
+Epoch  12  Train : 0.8364	Valid : 0.8502
+Epoch  13  Train : 0.8425
+Epoch  14  Train : 0.8409	Valid : 0.8536
+Epoch  15  Train : 0.8416
+Epoch  16  Train : 0.8381	Valid : 0.8515
+Epoch  17  Train : 0.8434
+Epoch  18  Train : 0.8353	Valid : 0.8483
+Epoch  19  Train : 0.8454
+Epoch  20  Train : 0.8358	Valid : 0.8485
+Epoch  21  Train : 0.8414
+Epoch  22  Train : 0.8355	Valid : 0.8477
+Epoch  23  Train : 0.8434
+Epoch  24  Train : 0.8319	Valid : 0.8446
+Epoch  25  Train : 0.8438
+Epoch  26  Train : 0.8411	Valid : 0.8519
+Epoch  27  Train : 0.8333
+Epoch  28  Train : 0.8393	Valid : 0.8513
+Epoch  29  Train : 0.8410
+Epoch  30  Train : 0.8369	Valid : 0.8495
+Epoch  31  Train : 0.8411
+Epoch  32  Train : 0.8398	Valid : 0.8535
+Epoch  33  Train : 0.8457
+Epoch  34  Train : 0.8406	Valid : 0.8535
