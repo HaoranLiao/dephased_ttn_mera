@@ -16,5 +16,7 @@ and ```source ~/.bashrc```
 
 To run, for example, the MERA,
 ```cd dephased_ttn_project/mera```
+
+
 Configure ```config_example.yaml```, and run
 ```python model.py```
