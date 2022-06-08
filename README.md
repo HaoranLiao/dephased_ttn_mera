@@ -10,4 +10,4 @@ conda activate tf2
 
 Add this to ```~/.bashrc```:
 
-```export PYTHONPATH="${PYTHONPATH}:ROOT_DIR/dephased_ttn_project/"```
+```export PYTHONPATH="${PYTHONPATH}:ROOT_DIR/dephased_ttn_project/"``` and source it 
