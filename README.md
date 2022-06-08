@@ -4,7 +4,7 @@
 To setup, 
 ```
 cd dephased_ttn_project/uni_ttn/tf2/dependency
-conda env create -f environment_tf2.yaml
+conda env create -f environment_tf2.7.yaml
 conda activate tf2
 ```
 
