@@ -1,7 +1,7 @@
 # dephased_ttn_project
 
 
-To setup, 
+To setup 
 ```
 cd dephased_ttn_project/uni_ttn/tf2/dependency
 conda env create -f environment_tf2.7.yaml
@@ -12,4 +12,9 @@ Add this to ```~/.bashrc```:
 
 ```export PYTHONPATH="${PYTHONPATH}:ROOT_DIR/dephased_ttn_project/"```
 
-and source it 
+and ```source ~/.bashrc```
+
+To run, for example, the MERA,
+```cd dephased_ttn_project/mera```
+Configure ```config_example.yaml```, and run
+```python model.py```
