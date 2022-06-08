@@ -8,5 +8,6 @@ conda env create -f environment_tf2.yaml
 conda activate tf2
 ```
 
-Add this to ```~/.bashrc```
+Add this to ```~/.bashrc```:
+
 ```export PYTHONPATH="${PYTHONPATH}:ROOT_DIR/dephased_ttn_project/"```
