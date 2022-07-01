@@ -5,7 +5,7 @@ data:
  #path: '../../datasets/fashion8x8/fashion8x8'
  path: '../../datasets/kmnist8x8/kmnist8x8'
  val_split: 0.166 #0.2857
- list_digits: [['even', 'odd']]#[[[1, 4, 5, 7, 8], [0, 2, 3, 6, 9]]]                     # list of pairs or one pair
+ list_digits: [['even', 'odd']] #[[[1, 4, 5, 7, 8], [0, 2, 3, 6, 9]]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
  eval_batch_size_factor: 20000
@@ -34,7 +34,7 @@ meta:
  deph:
   data: True
   network: False
-  p: [0, 0.6, 1.0]
+  p: [1.0]
 
 tree:
  param:
