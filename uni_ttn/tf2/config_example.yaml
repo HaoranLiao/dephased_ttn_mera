@@ -6,8 +6,8 @@ data:
  val_split: 0.166 #0.2857
  list_digits: [['even', 'odd']] #[[[1, 4, 5, 7, 8], [0, 2, 3, 6, 9]]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
- execute_batch_size: 125
- eval_batch_size_factor: 1
+ execute_batch_size: 250
+ eval_batch_size_factor: 5
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 1000000              # int or None
@@ -15,11 +15,11 @@ data:
  use_8x8_pixel_dict: True
 
 meta:
- set_visible_gpus: False
+ set_visible_gpus: True
  visible_gpus: '1'
- set_memory_growth: False
- random_seed: 42
- list_num_anc: [3]                # list or list of single
+ set_memory_growth: True
+ random_seed: 43
+ list_num_anc: [2]                # list or list of single
  num_repeat: 5
  auto_epochs:
   enabled: False
@@ -27,7 +27,7 @@ meta:
   num_match: 10
   trigger: 60
 
- list_epochs: [60]                        # list or list of single
+ list_epochs: [100]                        # list or list of single
  list_devices: True
 
  deph:
@@ -38,13 +38,13 @@ meta:
 tree:
  param:
   init_mean: 0
-  init_std: [0.01]
+  init_std: [0.07]
 
  opt:
   opt: 'adam'
   adam:
    user_lr: True
-   lr: [0.015]
+   lr: [0.005]
 
   spsa:
    a: 28
