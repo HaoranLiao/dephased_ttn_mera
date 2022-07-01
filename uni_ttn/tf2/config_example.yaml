@@ -8,11 +8,7 @@ data:
  list_digits: [['even', 'odd']] #[[[1, 4, 5, 7, 8], [0, 2, 3, 6, 9]]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
  execute_batch_size: 250
-<<<<<<< HEAD
  eval_batch_size_factor: 5
-=======
- eval_batch_size_factor: 20000
->>>>>>> c4dfd54dec1ce23c53ac741dc37cdce09b2051bc
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 5000000             # int or None
@@ -23,15 +19,9 @@ meta:
  set_visible_gpus: True
  visible_gpus: '1'
  set_memory_growth: True
-<<<<<<< HEAD
- random_seed: 43
- list_num_anc: [2]                # list or list of single
- num_repeat: 5
-=======
  random_seed: 42
  list_num_anc: [0]                # list or list of single
  num_repeat: 1
->>>>>>> c4dfd54dec1ce23c53ac741dc37cdce09b2051bc
  auto_epochs:
   enabled: False
   criterion: 0.005
@@ -49,11 +39,7 @@ meta:
 tree:
  param:
   init_mean: 0
-<<<<<<< HEAD
-  init_std: [0.07]
-=======
   init_std: [0.1] #[0.5, 0.3, 0.1, 0.05, 0.01, 0.005]
->>>>>>> c4dfd54dec1ce23c53ac741dc37cdce09b2051bc
 
  opt:
   opt: 'adam'
