@@ -1,0 +1,2151 @@
+{
+ "data": {
+  "path": "../../datasets/kmnist8x8/kmnist8x8",
+  "val_split": 0.166,
+  "list_digits": [
+   [
+    "even",
+    "odd"
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 5,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 1000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": true,
+  "visible_gpus": "1",
+  "set_memory_growth": true,
+  "random_seed": 42,
+  "list_num_anc": [
+   0,
+   1,
+   2
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   100
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": true,
+   "network": true,
+   "p": [
+    0.1
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.3,
+    0.03,
+    0.05
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": [
+     0.005
+    ]
+   },
+   "spsa": {
+    "a": 28,
+    "b": 33,
+    "A": 7.41,
+    "s": 1.13,
+    "t": 0.658,
+    "gamma": 0.882
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 0
+Random Seed: 42
+Init Std: 0.3
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.7331	Valid : 0.7202
+Checkpoint saved...
+Epoch   1  Train : 0.7663
+Epoch   2  Train : 0.7673	Valid : 0.7614
+Checkpoint saved...
+Epoch   3  Train : 0.7688
+Epoch   4  Train : 0.7728	Valid : 0.7693
+Checkpoint saved...
+Epoch   5  Train : 0.7796
+Epoch   6  Train : 0.7780	Valid : 0.7718
+Checkpoint saved...
+Epoch   7  Train : 0.7722
+Epoch   8  Train : 0.7701	Valid : 0.7653
+Epoch   9  Train : 0.7706
+Epoch  10  Train : 0.7626	Valid : 0.7571
+Epoch  11  Train : 0.7625
+Epoch  12  Train : 0.7722	Valid : 0.7681
+Epoch  13  Train : 0.7757
+Epoch  14  Train : 0.7796	Valid : 0.7722
+Checkpoint saved...
+Epoch  15  Train : 0.7762
+Epoch  16  Train : 0.7790	Valid : 0.7749
+Checkpoint saved...
+Epoch  17  Train : 0.7726
+Epoch  18  Train : 0.7696	Valid : 0.7622
+Epoch  19  Train : 0.7750
+Epoch  20  Train : 0.7800	Valid : 0.7759
+Checkpoint saved...
+Epoch  21  Train : 0.7759
+Epoch  22  Train : 0.7710	Valid : 0.7649
+Epoch  23  Train : 0.7788
+Epoch  24  Train : 0.7592	Valid : 0.7572
+Epoch  25  Train : 0.7750
+Epoch  26  Train : 0.7693	Valid : 0.7673
+Epoch  27  Train : 0.7686
+Epoch  28  Train : 0.7772	Valid : 0.7689
+Epoch  29  Train : 0.7769
+Epoch  30  Train : 0.7804	Valid : 0.7747
+Epoch  31  Train : 0.7745
+Epoch  32  Train : 0.7656	Valid : 0.7623
+Epoch  33  Train : 0.7807
+Epoch  34  Train : 0.7778	Valid : 0.7670
+Epoch  35  Train : 0.7649
+Epoch  36  Train : 0.7785	Valid : 0.7723
+Epoch  37  Train : 0.7797
+Epoch  38  Train : 0.7804	Valid : 0.7719
+Epoch  39  Train : 0.7765
+Epoch  40  Train : 0.7810	Valid : 0.7730
+Epoch  41  Train : 0.7794
+Epoch  42  Train : 0.7766	Valid : 0.7693
+Epoch  43  Train : 0.7825
+Epoch  44  Train : 0.7739	Valid : 0.7692
+Epoch  45  Train : 0.7809
+Epoch  46  Train : 0.7743	Valid : 0.7671
+Epoch  47  Train : 0.7806
+Epoch  48  Train : 0.7854	Valid : 0.7763
+Checkpoint saved...
+Epoch  49  Train : 0.7802
+Epoch  50  Train : 0.7812	Valid : 0.7725
+Epoch  51  Train : 0.7755
+Epoch  52  Train : 0.7781	Valid : 0.7705
+Epoch  53  Train : 0.7764
+Epoch  54  Train : 0.7811	Valid : 0.7742
+Epoch  55  Train : 0.7852
+Epoch  56  Train : 0.7719	Valid : 0.7688
+Epoch  57  Train : 0.7731
+Epoch  58  Train : 0.7829	Valid : 0.7741
+Epoch  59  Train : 0.7738
+Epoch  60  Train : 0.7852	Valid : 0.7768
+Checkpoint saved...
+Epoch  61  Train : 0.7724
+Epoch  62  Train : 0.7698	Valid : 0.7651
+Epoch  63  Train : 0.7708
+Epoch  64  Train : 0.7792	Valid : 0.7723
+Epoch  65  Train : 0.7771
+Epoch  66  Train : 0.7731	Valid : 0.7681
+Epoch  67  Train : 0.7801
+Epoch  68  Train : 0.7756	Valid : 0.7689
+Epoch  69  Train : 0.7772
+Epoch  70  Train : 0.7732	Valid : 0.7672
+Epoch  71  Train : 0.7745
+Epoch  72  Train : 0.7779	Valid : 0.7707
+Epoch  73  Train : 0.7793
+Epoch  74  Train : 0.7808	Valid : 0.7737
+Epoch  75  Train : 0.7791
+Epoch  76  Train : 0.7715	Valid : 0.7680
+Epoch  77  Train : 0.7777
+Epoch  78  Train : 0.7750	Valid : 0.7681
+Epoch  79  Train : 0.7805
+Epoch  80  Train : 0.7798	Valid : 0.7741
+Epoch  81  Train : 0.7734
+Epoch  82  Train : 0.7746	Valid : 0.7687
+Epoch  83  Train : 0.7795
+Epoch  84  Train : 0.7773	Valid : 0.7691
+Epoch  85  Train : 0.7801
+Epoch  86  Train : 0.7788	Valid : 0.7695
+Epoch  87  Train : 0.7842
+Epoch  88  Train : 0.7748	Valid : 0.7697
+Epoch  89  Train : 0.7808
+Epoch  90  Train : 0.7805	Valid : 0.7706
+Epoch  91  Train : 0.7806
+Epoch  92  Train : 0.7781	Valid : 0.7709
+Epoch  93  Train : 0.7762
+Epoch  94  Train : 0.7768	Valid : 0.7698
+Epoch  95  Train : 0.7767
+Epoch  96  Train : 0.7784	Valid : 0.7716
+Epoch  97  Train : 0.7724
+Epoch  98  Train : 0.7764	Valid : 0.7706
+Epoch  99  Train : 0.7712
+Training Done
+Restored from Epoch 60...
+Test Accuracy : 0.789	Train Accuracy : 0.785
+Time (hr): 0.1339
+
+Repeat: 2/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 0
+Random Seed: 42
+Init Std: 0.3
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.7230	Valid : 0.7157
+Checkpoint saved...
+Epoch   1  Train : 0.7563
+Epoch   2  Train : 0.7735	Valid : 0.7643
+Checkpoint saved...
+Epoch   3  Train : 0.7715
+Epoch   4  Train : 0.7722	Valid : 0.7624
+Epoch   5  Train : 0.7704
+Epoch   6  Train : 0.7707	Valid : 0.7638
+Epoch   7  Train : 0.7768
+Epoch   8  Train : 0.7726	Valid : 0.7679
+Checkpoint saved...
+Epoch   9  Train : 0.7663
+Epoch  10  Train : 0.7816	Valid : 0.7723
+Checkpoint saved...
+Epoch  11  Train : 0.7732
+Epoch  12  Train : 0.7721	Valid : 0.7664
+Epoch  13  Train : 0.7668
+Epoch  14  Train : 0.7773	Valid : 0.7698
+Epoch  15  Train : 0.7720
+Epoch  16  Train : 0.7576	Valid : 0.7545
+Epoch  17  Train : 0.7723
+Epoch  18  Train : 0.7681	Valid : 0.7636
+Epoch  19  Train : 0.7773
+Epoch  20  Train : 0.7854	Valid : 0.7757
+Checkpoint saved...
+Epoch  21  Train : 0.7716
+Epoch  22  Train : 0.7769	Valid : 0.7676
+Epoch  23  Train : 0.7703
+Epoch  24  Train : 0.7789	Valid : 0.7711
+Epoch  25  Train : 0.7752
+Epoch  26  Train : 0.7690	Valid : 0.7664
+Epoch  27  Train : 0.7747
+Epoch  28  Train : 0.7680	Valid : 0.7624
+Epoch  29  Train : 0.7680
+Epoch  30  Train : 0.7777	Valid : 0.7708
+Epoch  31  Train : 0.7828
+Epoch  32  Train : 0.7715	Valid : 0.7622
+Epoch  33  Train : 0.7799
+Epoch  34  Train : 0.7809	Valid : 0.7739
+Epoch  35  Train : 0.7694
+Epoch  36  Train : 0.7738	Valid : 0.7708
+Epoch  37  Train : 0.7618
+Epoch  38  Train : 0.7849	Valid : 0.7799
+Checkpoint saved...
+Epoch  39  Train : 0.7843
+Epoch  40  Train : 0.7755	Valid : 0.7684
+Epoch  41  Train : 0.7758
+Epoch  42  Train : 0.7662	Valid : 0.7641
+Epoch  43  Train : 0.7750
+Epoch  44  Train : 0.7751	Valid : 0.7681
+Epoch  45  Train : 0.7689
+Epoch  46  Train : 0.7741	Valid : 0.7697
+Epoch  47  Train : 0.7733
+Epoch  48  Train : 0.7750	Valid : 0.7664
+Epoch  49  Train : 0.7729
+Epoch  50  Train : 0.7797	Valid : 0.7745
+Epoch  51  Train : 0.7748
+Epoch  52  Train : 0.7720	Valid : 0.7697
+Epoch  53  Train : 0.7840
+Epoch  54  Train : 0.7787	Valid : 0.7708
+Epoch  55  Train : 0.7706
+Epoch  56  Train : 0.7731	Valid : 0.7669
+Epoch  57  Train : 0.7842
+Epoch  58  Train : 0.7743	Valid : 0.7668
+Epoch  59  Train : 0.7724
+Epoch  60  Train : 0.7686	Valid : 0.7632
+Epoch  61  Train : 0.7781
+Epoch  62  Train : 0.7707	Valid : 0.7689
+Epoch  63  Train : 0.7787
+Epoch  64  Train : 0.7749	Valid : 0.7723
+Epoch  65  Train : 0.7807
+Epoch  66  Train : 0.7745	Valid : 0.7714
+Epoch  67  Train : 0.7784
+Epoch  68  Train : 0.7851	Valid : 0.7746
+Epoch  69  Train : 0.7836
+Epoch  70  Train : 0.7817	Valid : 0.7725
+Epoch  71  Train : 0.7768
+Epoch  72  Train : 0.7768	Valid : 0.7722
+Epoch  73  Train : 0.7809
+Epoch  74  Train : 0.7678	Valid : 0.7637
+Epoch  75  Train : 0.7830
+Epoch  76  Train : 0.7800	Valid : 0.7713
+Epoch  77  Train : 0.7712
+Epoch  78  Train : 0.7774	Valid : 0.7692
+Epoch  79  Train : 0.7773
+Epoch  80  Train : 0.7703	Valid : 0.7676
+Epoch  81  Train : 0.7777
+Epoch  82  Train : 0.7761	Valid : 0.7713
+Epoch  83  Train : 0.7810
+Epoch  84  Train : 0.7784	Valid : 0.7702
+Epoch  85  Train : 0.7792
+Epoch  86  Train : 0.7811	Valid : 0.7712
+Epoch  87  Train : 0.7832
+Epoch  88  Train : 0.7778	Valid : 0.7704
+Epoch  89  Train : 0.7727
+Epoch  90  Train : 0.7860	Valid : 0.7747
+Epoch  91  Train : 0.7687
+Epoch  92  Train : 0.7728	Valid : 0.7665
+Epoch  93  Train : 0.7808
+Epoch  94  Train : 0.7702	Valid : 0.7665
+Epoch  95  Train : 0.7788
+Epoch  96  Train : 0.7810	Valid : 0.7697
+Epoch  97  Train : 0.7759
+Epoch  98  Train : 0.7796	Valid : 0.7699
+Epoch  99  Train : 0.7733
+Training Done
+Restored from Epoch 38...
+Test Accuracy : 0.793	Train Accuracy : 0.785
+Time (hr): 0.3968
+
+Repeat: 3/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 0
+Random Seed: 42
+Init Std: 0.3
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.7341	Valid : 0.7330
+Checkpoint saved...
+Epoch   1  Train : 0.7413
+Epoch   2  Train : 0.7695	Valid : 0.7656
+Checkpoint saved...
+Epoch   3  Train : 0.7721
+Epoch   4  Train : 0.7633	Valid : 0.7579
+Epoch   5  Train : 0.7621
+Epoch   6  Train : 0.7740	Valid : 0.7690
+Checkpoint saved...
+Epoch   7  Train : 0.7579
+Epoch   8  Train : 0.7649	Valid : 0.7630
+Epoch   9  Train : 0.7740
+Epoch  10  Train : 0.7704	Valid : 0.7697
+Checkpoint saved...
+Epoch  11  Train : 0.7723
+Epoch  12  Train : 0.7807	Valid : 0.7792
+Checkpoint saved...
+Epoch  13  Train : 0.7569
+Epoch  14  Train : 0.7765	Valid : 0.7724
+Epoch  15  Train : 0.7720
+Epoch  16  Train : 0.7789	Valid : 0.7762
+Epoch  17  Train : 0.7711
+Epoch  18  Train : 0.7741	Valid : 0.7711
+Epoch  19  Train : 0.7797
+Epoch  20  Train : 0.7719	Valid : 0.7676
+Epoch  21  Train : 0.7749
+Epoch  22  Train : 0.7602	Valid : 0.7571
+Epoch  23  Train : 0.7807
+Epoch  24  Train : 0.7674	Valid : 0.7638
+Epoch  25  Train : 0.7608
+Epoch  26  Train : 0.7762	Valid : 0.7736
+Epoch  27  Train : 0.7766
+Epoch  28  Train : 0.7786	Valid : 0.7732
+Epoch  29  Train : 0.7790
+Epoch  30  Train : 0.7653	Valid : 0.7607
+Epoch  31  Train : 0.7777
+Epoch  32  Train : 0.7773	Valid : 0.7717
+Epoch  33  Train : 0.7797
+Epoch  34  Train : 0.7727	Valid : 0.7691
+Epoch  35  Train : 0.7723
+Epoch  36  Train : 0.7743	Valid : 0.7701
+Epoch  37  Train : 0.7705
+Epoch  38  Train : 0.7732	Valid : 0.7655
+Epoch  39  Train : 0.7705
+Epoch  40  Train : 0.7776	Valid : 0.7699
+Epoch  41  Train : 0.7762
+Epoch  42  Train : 0.7761	Valid : 0.7714
+Epoch  43  Train : 0.7775
+Epoch  44  Train : 0.7685	Valid : 0.7676
+Epoch  45  Train : 0.7769
+Epoch  46  Train : 0.7691	Valid : 0.7651
+Epoch  47  Train : 0.7690
+Epoch  48  Train : 0.7765	Valid : 0.7718
+Epoch  49  Train : 0.7741
+Epoch  50  Train : 0.7687	Valid : 0.7650
+Epoch  51  Train : 0.7738
+Epoch  52  Train : 0.7761	Valid : 0.7719
+Epoch  53  Train : 0.7761
+Epoch  54  Train : 0.7715	Valid : 0.7647
+Epoch  55  Train : 0.7725
+Epoch  56  Train : 0.7766	Valid : 0.7700
+Epoch  57  Train : 0.7733
+Epoch  58  Train : 0.7730	Valid : 0.7674
+Epoch  59  Train : 0.7718
+Epoch  60  Train : 0.7697	Valid : 0.7678
+Epoch  61  Train : 0.7736
+Epoch  62  Train : 0.7752	Valid : 0.7710
+Epoch  63  Train : 0.7729
+Epoch  64  Train : 0.7736	Valid : 0.7695
+Epoch  65  Train : 0.7752
+Epoch  66  Train : 0.7718	Valid : 0.7678
+Epoch  67  Train : 0.7780
+Epoch  68  Train : 0.7749	Valid : 0.7711
+Epoch  69  Train : 0.7759
+Epoch  70  Train : 0.7743	Valid : 0.7683
+Epoch  71  Train : 0.7719
+Epoch  72  Train : 0.7709	Valid : 0.7659
+Epoch  73  Train : 0.7739
+Epoch  74  Train : 0.7739	Valid : 0.7679
+Epoch  75  Train : 0.7738
+Epoch  76  Train : 0.7760	Valid : 0.7700
+Epoch  77  Train : 0.7779
+Epoch  78  Train : 0.7727	Valid : 0.7668
+Epoch  79  Train : 0.7755
+Epoch  80  Train : 0.7745	Valid : 0.7683
+Epoch  81  Train : 0.7729
+Epoch  82  Train : 0.7745	Valid : 0.7686
+Epoch  83  Train : 0.7790
+Epoch  84  Train : 0.7715	Valid : 0.7672
+Epoch  85  Train : 0.7682
+Epoch  86  Train : 0.7730	Valid : 0.7691
+Epoch  87  Train : 0.7724
+Epoch  88  Train : 0.7638	Valid : 0.7624
+Epoch  89  Train : 0.7775
+Epoch  90  Train : 0.7714	Valid : 0.7652
+Epoch  91  Train : 0.7761
+Epoch  92  Train : 0.7745	Valid : 0.7693
+Epoch  93  Train : 0.7729
+Epoch  94  Train : 0.7730	Valid : 0.7700
+Epoch  95  Train : 0.7763
+Epoch  96  Train : 0.7728	Valid : 0.7683
+Epoch  97  Train : 0.7754
+Epoch  98  Train : 0.7737	Valid : 0.7671
+Epoch  99  Train : 0.7759
+Training Done
+Restored from Epoch 12...
+Test Accuracy : 0.780	Train Accuracy : 0.781
+Time (hr): 0.3967
+
+Repeat: 4/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 0
+Random Seed: 42
+Init Std: 0.3
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.7439	Valid : 0.7350
+Checkpoint saved...
+Epoch   1  Train : 0.7402
+Epoch   2  Train : 0.7697	Valid : 0.7644
+Checkpoint saved...
+Epoch   3  Train : 0.7667
+Epoch   4  Train : 0.7507	Valid : 0.7517
+Epoch   5  Train : 0.7739
+Epoch   6  Train : 0.7673	Valid : 0.7643
+Epoch   7  Train : 0.7672
+Epoch   8  Train : 0.7850	Valid : 0.7768
+Checkpoint saved...
+Epoch   9  Train : 0.7728
+Epoch  10  Train : 0.7818	Valid : 0.7753
+Epoch  11  Train : 0.7819
+Epoch  12  Train : 0.7802	Valid : 0.7733
+Epoch  13  Train : 0.7759
+Epoch  14  Train : 0.7704	Valid : 0.7652
+Epoch  15  Train : 0.7755
+Epoch  16  Train : 0.7756	Valid : 0.7703
+Epoch  17  Train : 0.7730
+Epoch  18  Train : 0.7811	Valid : 0.7726
+Epoch  19  Train : 0.7572
+Epoch  20  Train : 0.7760	Valid : 0.7658
+Epoch  21  Train : 0.7712
+Epoch  22  Train : 0.7659	Valid : 0.7610
+Epoch  23  Train : 0.7741
+Epoch  24  Train : 0.7798	Valid : 0.7738
+Epoch  25  Train : 0.7743
+Epoch  26  Train : 0.7578	Valid : 0.7551
+Epoch  27  Train : 0.7725
+Epoch  28  Train : 0.7671	Valid : 0.7616
+Epoch  29  Train : 0.7772
+Epoch  30  Train : 0.7693	Valid : 0.7624
+Epoch  31  Train : 0.7786
+Epoch  32  Train : 0.7714	Valid : 0.7661
+Epoch  33  Train : 0.7747
+Epoch  34  Train : 0.7733	Valid : 0.7681
+Epoch  35  Train : 0.7671
+Epoch  36  Train : 0.7755	Valid : 0.7669
+Epoch  37  Train : 0.7813
+Epoch  38  Train : 0.7688	Valid : 0.7632
+Epoch  39  Train : 0.7740
+Epoch  40  Train : 0.7724	Valid : 0.7656
+Epoch  41  Train : 0.7746
+Epoch  42  Train : 0.7698	Valid : 0.7645
+Epoch  43  Train : 0.7802
+Epoch  44  Train : 0.7750	Valid : 0.7675
+Epoch  45  Train : 0.7711
+Epoch  46  Train : 0.7790	Valid : 0.7724
+Epoch  47  Train : 0.7716
+Epoch  48  Train : 0.7675	Valid : 0.7636
+Epoch  49  Train : 0.7762
+Epoch  50  Train : 0.7706	Valid : 0.7655
+Epoch  51  Train : 0.7694
+Epoch  52  Train : 0.7787	Valid : 0.7712
+Epoch  53  Train : 0.7784
+Epoch  54  Train : 0.7651	Valid : 0.7623
+Epoch  55  Train : 0.7789
+Epoch  56  Train : 0.7735	Valid : 0.7669
+Epoch  57  Train : 0.7702
+Epoch  58  Train : 0.7618	Valid : 0.7581
+Epoch  59  Train : 0.7716
+Epoch  60  Train : 0.7737	Valid : 0.7646
+Epoch  61  Train : 0.7737
+Epoch  62  Train : 0.7704	Valid : 0.7630
+Epoch  63  Train : 0.7719
+Epoch  64  Train : 0.7753	Valid : 0.7670
+Epoch  65  Train : 0.7719
+Epoch  66  Train : 0.7706	Valid : 0.7629
+Epoch  67  Train : 0.7774
+Epoch  68  Train : 0.7683	Valid : 0.7649
+Epoch  69  Train : 0.7626
+Epoch  70  Train : 0.7771	Valid : 0.7676
+Epoch  71  Train : 0.7730
+Epoch  72  Train : 0.7779	Valid : 0.7723
+Epoch  73  Train : 0.7743
+Epoch  74  Train : 0.7715	Valid : 0.7645
+Epoch  75  Train : 0.7710
+Epoch  76  Train : 0.7669	Valid : 0.7626
+Epoch  77  Train : 0.7762
+Epoch  78  Train : 0.7700	Valid : 0.7650
+Epoch  79  Train : 0.7717
+Epoch  80  Train : 0.7776	Valid : 0.7690
+Epoch  81  Train : 0.7738
+Epoch  82  Train : 0.7745	Valid : 0.7694
+Epoch  83  Train : 0.7780
+Epoch  84  Train : 0.7682	Valid : 0.7632
+Epoch  85  Train : 0.7727
+Epoch  86  Train : 0.7644	Valid : 0.7607
+Epoch  87  Train : 0.7781
+Epoch  88  Train : 0.7696	Valid : 0.7666
+Epoch  89  Train : 0.7739
+Epoch  90  Train : 0.7733	Valid : 0.7688
+Epoch  91  Train : 0.7618
+Epoch  92  Train : 0.7829	Valid : 0.7758
+Epoch  93  Train : 0.7779
+Epoch  94  Train : 0.7755	Valid : 0.7675
+Epoch  95  Train : 0.7697
+Epoch  96  Train : 0.7763	Valid : 0.7684
+Epoch  97  Train : 0.7796
+Epoch  98  Train : 0.7718	Valid : 0.7649
+Epoch  99  Train : 0.7786
+Training Done
+Restored from Epoch 8...
+Test Accuracy : 0.787	Train Accuracy : 0.785
+Time (hr): 0.3949
+
+Repeat: 5/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 0
+Random Seed: 42
+Init Std: 0.3
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.7424	Valid : 0.7408
+Checkpoint saved...
+Epoch   1  Train : 0.7411
+Epoch   2  Train : 0.7564	Valid : 0.7557
+Checkpoint saved...
+Epoch   3  Train : 0.7698
+Epoch   4  Train : 0.7652	Valid : 0.7600
+Checkpoint saved...
+Epoch   5  Train : 0.7632
+Epoch   6  Train : 0.7643	Valid : 0.7607
+Checkpoint saved...
+Epoch   7  Train : 0.7694
+Epoch   8  Train : 0.7778	Valid : 0.7738
+Checkpoint saved...
+Epoch   9  Train : 0.7651
+Epoch  10  Train : 0.7741	Valid : 0.7694
+Epoch  11  Train : 0.7500
+Epoch  12  Train : 0.7819	Valid : 0.7791
+Checkpoint saved...
+Epoch  13  Train : 0.7761
+Epoch  14  Train : 0.7618	Valid : 0.7576
+Epoch  15  Train : 0.7763
+Epoch  16  Train : 0.7828	Valid : 0.7753
+Epoch  17  Train : 0.7759
+Epoch  18  Train : 0.7817	Valid : 0.7732
+Epoch  19  Train : 0.7705
+Epoch  20  Train : 0.7807	Valid : 0.7744
+Epoch  21  Train : 0.7703
+Epoch  22  Train : 0.7814	Valid : 0.7753
+Epoch  23  Train : 0.7800
+Epoch  24  Train : 0.7772	Valid : 0.7712
+Epoch  25  Train : 0.7782
+Epoch  26  Train : 0.7774	Valid : 0.7701
+Epoch  27  Train : 0.7690
+Epoch  28  Train : 0.7719	Valid : 0.7687
+Epoch  29  Train : 0.7659
+Epoch  30  Train : 0.7807	Valid : 0.7744
+Epoch  31  Train : 0.7663
+Epoch  32  Train : 0.7677	Valid : 0.7627
+Epoch  33  Train : 0.7708
+Epoch  34  Train : 0.7699	Valid : 0.7627
+Epoch  35  Train : 0.7762
+Epoch  36  Train : 0.7762	Valid : 0.7695
+Epoch  37  Train : 0.7632
+Epoch  38  Train : 0.7736	Valid : 0.7687
+Epoch  39  Train : 0.7750
+Epoch  40  Train : 0.7775	Valid : 0.7680
+Epoch  41  Train : 0.7734
+Epoch  42  Train : 0.7750	Valid : 0.7706
+Epoch  43  Train : 0.7708
+Epoch  44  Train : 0.7668	Valid : 0.7640
+Epoch  45  Train : 0.7758
+Epoch  46  Train : 0.7817	Valid : 0.7749
+Epoch  47  Train : 0.7805
+Epoch  48  Train : 0.7747	Valid : 0.7704
+Epoch  49  Train : 0.7769
+Epoch  50  Train : 0.7816	Valid : 0.7727
+Epoch  51  Train : 0.7792
+Epoch  52  Train : 0.7782	Valid : 0.7713
+Epoch  53  Train : 0.7835
+Epoch  54  Train : 0.7828	Valid : 0.7775
+Epoch  55  Train : 0.7825
+Epoch  56  Train : 0.7738	Valid : 0.7712
+Epoch  57  Train : 0.7847
+Epoch  58  Train : 0.7778	Valid : 0.7732
+Epoch  59  Train : 0.7818
+Epoch  60  Train : 0.7709	Valid : 0.7663
+Epoch  61  Train : 0.7830
+Epoch  62  Train : 0.7827	Valid : 0.7724
+Epoch  63  Train : 0.7781
+Epoch  64  Train : 0.7800	Valid : 0.7722
+Epoch  65  Train : 0.7770
+Epoch  66  Train : 0.7764	Valid : 0.7721
+Epoch  67  Train : 0.7761
+Epoch  68  Train : 0.7810	Valid : 0.7726
+Epoch  69  Train : 0.7843
+Epoch  70  Train : 0.7837	Valid : 0.7740
+Epoch  71  Train : 0.7794
+Epoch  72  Train : 0.7767	Valid : 0.7684
+Epoch  73  Train : 0.7823
+Epoch  74  Train : 0.7777	Valid : 0.7724
+Epoch  75  Train : 0.7804
+Epoch  76  Train : 0.7853	Valid : 0.7759
+Epoch  77  Train : 0.7706
+Epoch  78  Train : 0.7796	Valid : 0.7736
+Epoch  79  Train : 0.7821
+Epoch  80  Train : 0.7844	Valid : 0.7764
+Epoch  81  Train : 0.7838
+Epoch  82  Train : 0.7786	Valid : 0.7727
+Epoch  83  Train : 0.7707
+Epoch  84  Train : 0.7799	Valid : 0.7713
+Epoch  85  Train : 0.7785
+Epoch  86  Train : 0.7810	Valid : 0.7720
+Epoch  87  Train : 0.7800
+Epoch  88  Train : 0.7789	Valid : 0.7727
+Epoch  89  Train : 0.7683
+Epoch  90  Train : 0.7819	Valid : 0.7723
+Epoch  91  Train : 0.7782
+Epoch  92  Train : 0.7814	Valid : 0.7722
+Epoch  93  Train : 0.7810
+Epoch  94  Train : 0.7796	Valid : 0.7705
+Epoch  95  Train : 0.7795
+Epoch  96  Train : 0.7817	Valid : 0.7746
+Epoch  97  Train : 0.7828
+Epoch  98  Train : 0.7764	Valid : 0.7718
+Epoch  99  Train : 0.7751
+Training Done
+Restored from Epoch 12...
+Test Accuracy : 0.788	Train Accuracy : 0.782
+Time (hr): 0.3956
+
+Setting 0 Train Accs: [0.78515, 0.78487, 0.78066, 0.78499, 0.78187]	
+Setting 0 Avg Train Acc: 0.7835
+Setting 0 Std Train Acc: 0.0019
+Setting 0 Test Accs: [0.7892, 0.7926, 0.7797, 0.7875, 0.788]	
+Setting 0 Avg Test Acc: 0.7874
+Setting 0 Std Test Acc: 0.0042
+
+Repeat: 1/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.03
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.7876	Valid : 0.7775
+Checkpoint saved...
+Epoch   1  Train : 0.8161
+Epoch   2  Train : 0.8253	Valid : 0.8139
+Checkpoint saved...
+Epoch   3  Train : 0.8287
+Epoch   4  Train : 0.8376	Valid : 0.8281
+Checkpoint saved...
+Epoch   5  Train : 0.8412
+Epoch   6  Train : 0.8383	Valid : 0.8323
+Checkpoint saved...
+Epoch   7  Train : 0.8488
+Epoch   8  Train : 0.8505	Valid : 0.8430
+Checkpoint saved...
+Epoch   9  Train : 0.8492
+Epoch  10  Train : 0.8522	Valid : 0.8412
+Epoch  11  Train : 0.8547
+Epoch  12  Train : 0.8456	Valid : 0.8401
+Epoch  13  Train : 0.8482
+Epoch  14  Train : 0.8550	Valid : 0.8457
+Checkpoint saved...
+Epoch  15  Train : 0.8523
+Epoch  16  Train : 0.8512	Valid : 0.8446
+Epoch  17  Train : 0.8525
+Epoch  18  Train : 0.8509	Valid : 0.8429
+Epoch  19  Train : 0.8528
+Epoch  20  Train : 0.8549	Valid : 0.8469
+Checkpoint saved...
+Epoch  21  Train : 0.8524
+Epoch  22  Train : 0.8531	Valid : 0.8446
+Epoch  23  Train : 0.8499
+Epoch  24  Train : 0.8538	Valid : 0.8476
+Checkpoint saved...
+Epoch  25  Train : 0.8535
+Epoch  26  Train : 0.8542	Valid : 0.8480
+Checkpoint saved...
+Epoch  27  Train : 0.8507
+Epoch  28  Train : 0.8501	Valid : 0.8425
+Epoch  29  Train : 0.8556
+Epoch  30  Train : 0.8543	Valid : 0.8477
+Epoch  31  Train : 0.8507
+Epoch  32  Train : 0.8556	Valid : 0.8500
+Checkpoint saved...
+Epoch  33  Train : 0.8541
+Epoch  34  Train : 0.8514	Valid : 0.8475
+Epoch  35  Train : 0.8443
+Epoch  36  Train : 0.8516	Valid : 0.8493
+Epoch  37  Train : 0.8531
+Epoch  38  Train : 0.8542	Valid : 0.8468
+Epoch  39  Train : 0.8519
+Epoch  40  Train : 0.8550	Valid : 0.8480
+Epoch  41  Train : 0.8552
+Epoch  42  Train : 0.8526	Valid : 0.8461
+Epoch  43  Train : 0.8551
+Epoch  44  Train : 0.8507	Valid : 0.8470
+Epoch  45  Train : 0.8525
+Epoch  46  Train : 0.8499	Valid : 0.8445
+Epoch  47  Train : 0.8525
+Epoch  48  Train : 0.8481	Valid : 0.8441
+Epoch  49  Train : 0.8567
+Epoch  50  Train : 0.8495	Valid : 0.8451
+Epoch  51  Train : 0.8537
+Epoch  52  Train : 0.8526	Valid : 0.8464
+Epoch  53  Train : 0.8552
+Epoch  54  Train : 0.8540	Valid : 0.8479
+Epoch  55  Train : 0.8535
+Epoch  56  Train : 0.8496	Valid : 0.8458
+Epoch  57  Train : 0.8496
+Epoch  58  Train : 0.8550	Valid : 0.8480
+Epoch  59  Train : 0.8492
+Epoch  60  Train : 0.8566	Valid : 0.8511
+Checkpoint saved...
+Epoch  61  Train : 0.8557
+Epoch  62  Train : 0.8539	Valid : 0.8477
+Epoch  63  Train : 0.8556
+Epoch  64  Train : 0.8513	Valid : 0.8458
+Epoch  65  Train : 0.8526
+Epoch  66  Train : 0.8538	Valid : 0.8489
+Epoch  67  Train : 0.8532
+Epoch  68  Train : 0.8527	Valid : 0.8480
+Epoch  69  Train : 0.8534
+Epoch  70  Train : 0.8553	Valid : 0.8484
+Epoch  71  Train : 0.8515
+Epoch  72  Train : 0.8560	Valid : 0.8504
+Epoch  73  Train : 0.8496
+Epoch  74  Train : 0.8517	Valid : 0.8481
+Epoch  75  Train : 0.8493
+Epoch  76  Train : 0.8560	Valid : 0.8481
+Epoch  77  Train : 0.8527
+Epoch  78  Train : 0.8558	Valid : 0.8483
+Epoch  79  Train : 0.8515
+Epoch  80  Train : 0.8560	Valid : 0.8480
+Epoch  81  Train : 0.8518
+Epoch  82  Train : 0.8548	Valid : 0.8467
+Epoch  83  Train : 0.8529
+Epoch  84  Train : 0.8525	Valid : 0.8475
+Epoch  85  Train : 0.8521
+Epoch  86  Train : 0.8540	Valid : 0.8473
+Epoch  87  Train : 0.8562
+Epoch  88  Train : 0.8440	Valid : 0.8409
+Epoch  89  Train : 0.8471
+Epoch  90  Train : 0.8558	Valid : 0.8485
+Epoch  91  Train : 0.8531
+Epoch  92  Train : 0.8535	Valid : 0.8477
+Epoch  93  Train : 0.8533
+Epoch  94  Train : 0.8558	Valid : 0.8492
+Epoch  95  Train : 0.8477
+Epoch  96  Train : 0.8530	Valid : 0.8482
+Epoch  97  Train : 0.8550
+Epoch  98  Train : 0.8547	Valid : 0.8483
+Epoch  99  Train : 0.8514
+Training Done
+Restored from Epoch 60...
+Test Accuracy : 0.860	Train Accuracy : 0.857
+Time (hr): 0.4549
+
+Repeat: 2/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.03
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.7970	Valid : 0.7887
+Checkpoint saved...
+Epoch   1  Train : 0.8214
+Epoch   2  Train : 0.8254	Valid : 0.8155
+Checkpoint saved...
+Epoch   3  Train : 0.8269
+Epoch   4  Train : 0.8409	Valid : 0.8329
+Checkpoint saved...
+Epoch   5  Train : 0.8452
+Epoch   6  Train : 0.8468	Valid : 0.8385
+Checkpoint saved...
+Epoch   7  Train : 0.8473
+Epoch   8  Train : 0.8443	Valid : 0.8342
+Epoch   9  Train : 0.8446
+Epoch  10  Train : 0.8322	Valid : 0.8284
+Epoch  11  Train : 0.8426
+Epoch  12  Train : 0.8455	Valid : 0.8392
+Checkpoint saved...
+Epoch  13  Train : 0.8442
+Epoch  14  Train : 0.8383	Valid : 0.8326
+Epoch  15  Train : 0.8412
+Epoch  16  Train : 0.8432	Valid : 0.8361
+Epoch  17  Train : 0.8498
+Epoch  18  Train : 0.8454	Valid : 0.8370
+Epoch  19  Train : 0.8437
+Epoch  20  Train : 0.8504	Valid : 0.8410
+Checkpoint saved...
+Epoch  21  Train : 0.8476
+Epoch  22  Train : 0.8512	Valid : 0.8416
+Checkpoint saved...
+Epoch  23  Train : 0.8492
+Epoch  24  Train : 0.8462	Valid : 0.8386
+Epoch  25  Train : 0.8431
+Epoch  26  Train : 0.8511	Valid : 0.8409
+Epoch  27  Train : 0.8468
+Epoch  28  Train : 0.8518	Valid : 0.8413
+Epoch  29  Train : 0.8466
+Epoch  30  Train : 0.8475	Valid : 0.8382
+Epoch  31  Train : 0.8447
+Epoch  32  Train : 0.8517	Valid : 0.8445
+Checkpoint saved...
+Epoch  33  Train : 0.8497
+Epoch  34  Train : 0.8508	Valid : 0.8429
+Epoch  35  Train : 0.8517
+Epoch  36  Train : 0.8482	Valid : 0.8399
+Epoch  37  Train : 0.8497
+Epoch  38  Train : 0.8457	Valid : 0.8406
+Epoch  39  Train : 0.8499
+Epoch  40  Train : 0.8503	Valid : 0.8417
+Epoch  41  Train : 0.8432
+Epoch  42  Train : 0.8471	Valid : 0.8405
+Epoch  43  Train : 0.8497
+Epoch  44  Train : 0.8456	Valid : 0.8398
+Epoch  45  Train : 0.8456
+Epoch  46  Train : 0.8507	Valid : 0.8425
+Epoch  47  Train : 0.8468
+Epoch  48  Train : 0.8504	Valid : 0.8416
+Epoch  49  Train : 0.8496
+Epoch  50  Train : 0.8452	Valid : 0.8373
+Epoch  51  Train : 0.8511
+Epoch  52  Train : 0.8507	Valid : 0.8430
+Epoch  53  Train : 0.8535
+Epoch  54  Train : 0.8495	Valid : 0.8423
+Epoch  55  Train : 0.8522
+Epoch  56  Train : 0.8466	Valid : 0.8399
+Epoch  57  Train : 0.8463
+Epoch  58  Train : 0.8480	Valid : 0.8407
+Epoch  59  Train : 0.8518
+Epoch  60  Train : 0.8477	Valid : 0.8403
+Epoch  61  Train : 0.8469
+Epoch  62  Train : 0.8497	Valid : 0.8416
+Epoch  63  Train : 0.8513
+Epoch  64  Train : 0.8502	Valid : 0.8413
+Epoch  65  Train : 0.8528
+Epoch  66  Train : 0.8508	Valid : 0.8440
+Epoch  67  Train : 0.8499
+Epoch  68  Train : 0.8508	Valid : 0.8452
+Checkpoint saved...
+Epoch  69  Train : 0.8497
+Epoch  70  Train : 0.8513	Valid : 0.8449
+Epoch  71  Train : 0.8542
+Epoch  72  Train : 0.8520	Valid : 0.8462
+Checkpoint saved...
+Epoch  73  Train : 0.8529
+Epoch  74  Train : 0.8513	Valid : 0.8434
+Epoch  75  Train : 0.8514
+Epoch  76  Train : 0.8516	Valid : 0.8455
+Epoch  77  Train : 0.8505
+Epoch  78  Train : 0.8488	Valid : 0.8435
+Epoch  79  Train : 0.8509
+Epoch  80  Train : 0.8498	Valid : 0.8439
+Epoch  81  Train : 0.8501
+Epoch  82  Train : 0.8526	Valid : 0.8454
+Epoch  83  Train : 0.8443
+Epoch  84  Train : 0.8540	Valid : 0.8476
+Checkpoint saved...
+Epoch  85  Train : 0.8483
+Epoch  86  Train : 0.8363	Valid : 0.8327
+Epoch  87  Train : 0.8465
+Epoch  88  Train : 0.8483	Valid : 0.8424
+Epoch  89  Train : 0.8514
+Epoch  90  Train : 0.8514	Valid : 0.8448
+Epoch  91  Train : 0.8482
+Epoch  92  Train : 0.8521	Valid : 0.8453
+Epoch  93  Train : 0.8479
+Epoch  94  Train : 0.8510	Valid : 0.8454
+Epoch  95  Train : 0.8456
+Epoch  96  Train : 0.8473	Valid : 0.8457
+Epoch  97  Train : 0.8526
+Epoch  98  Train : 0.8499	Valid : 0.8433
+Epoch  99  Train : 0.8531
+Training Done
+Restored from Epoch 84...
+Test Accuracy : 0.851	Train Accuracy : 0.854
+Time (hr): 0.4500
+
+Repeat: 3/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.03
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8013	Valid : 0.7883
+Checkpoint saved...
+Epoch   1  Train : 0.8109
+Epoch   2  Train : 0.8295	Valid : 0.8236
+Checkpoint saved...
+Epoch   3  Train : 0.8438
+Epoch   4  Train : 0.8402	Valid : 0.8308
+Checkpoint saved...
+Epoch   5  Train : 0.8428
+Epoch   6  Train : 0.8447	Valid : 0.8351
+Checkpoint saved...
+Epoch   7  Train : 0.8417
+Epoch   8  Train : 0.8485	Valid : 0.8380
+Checkpoint saved...
+Epoch   9  Train : 0.8498
+Epoch  10  Train : 0.8484	Valid : 0.8426
+Checkpoint saved...
+Epoch  11  Train : 0.8490
+Epoch  12  Train : 0.8518	Valid : 0.8455
+Checkpoint saved...
+Epoch  13  Train : 0.8497
+Epoch  14  Train : 0.8518	Valid : 0.8426
+Epoch  15  Train : 0.8545
+Epoch  16  Train : 0.8481	Valid : 0.8409
+Epoch  17  Train : 0.8491
+Epoch  18  Train : 0.8506	Valid : 0.8421
+Epoch  19  Train : 0.8484
+Epoch  20  Train : 0.8563	Valid : 0.8458
+Checkpoint saved...
+Epoch  21  Train : 0.8543
+Epoch  22  Train : 0.8553	Valid : 0.8468
+Checkpoint saved...
+Epoch  23  Train : 0.8514
+Epoch  24  Train : 0.8556	Valid : 0.8435
+Epoch  25  Train : 0.8484
+Epoch  26  Train : 0.8494	Valid : 0.8439
+Epoch  27  Train : 0.8482
+Epoch  28  Train : 0.8516	Valid : 0.8446
+Epoch  29  Train : 0.8552
+Epoch  30  Train : 0.8527	Valid : 0.8436
+Epoch  31  Train : 0.8524
+Epoch  32  Train : 0.8536	Valid : 0.8463
+Epoch  33  Train : 0.8502
+Epoch  34  Train : 0.8535	Valid : 0.8450
+Epoch  35  Train : 0.8556
+Epoch  36  Train : 0.8533	Valid : 0.8452
+Epoch  37  Train : 0.8523
+Epoch  38  Train : 0.8544	Valid : 0.8434
+Epoch  39  Train : 0.8478
+Epoch  40  Train : 0.8478	Valid : 0.8415
+Epoch  41  Train : 0.8535
+Epoch  42  Train : 0.8485	Valid : 0.8433
+Epoch  43  Train : 0.8494
+Epoch  44  Train : 0.8569	Valid : 0.8452
+Epoch  45  Train : 0.8556
+Epoch  46  Train : 0.8551	Valid : 0.8498
+Checkpoint saved...
+Epoch  47  Train : 0.8536
+Epoch  48  Train : 0.8563	Valid : 0.8467
+Epoch  49  Train : 0.8550
+Epoch  50  Train : 0.8529	Valid : 0.8440
+Epoch  51  Train : 0.8521
+Epoch  52  Train : 0.8500	Valid : 0.8423
+Epoch  53  Train : 0.8544
+Epoch  54  Train : 0.8547	Valid : 0.8466
+Epoch  55  Train : 0.8542
+Epoch  56  Train : 0.8556	Valid : 0.8476
+Epoch  57  Train : 0.8502
+Epoch  58  Train : 0.8571	Valid : 0.8475
+Epoch  59  Train : 0.8524
+Epoch  60  Train : 0.8541	Valid : 0.8466
+Epoch  61  Train : 0.8577
+Epoch  62  Train : 0.8496	Valid : 0.8428
+Epoch  63  Train : 0.8569
+Epoch  64  Train : 0.8518	Valid : 0.8440
+Epoch  65  Train : 0.8503
+Epoch  66  Train : 0.8555	Valid : 0.8441
+Epoch  67  Train : 0.8524
+Epoch  68  Train : 0.8496	Valid : 0.8428
+Epoch  69  Train : 0.8553
+Epoch  70  Train : 0.8500	Valid : 0.8450
+Epoch  71  Train : 0.8511
+Epoch  72  Train : 0.8524	Valid : 0.8441
+Epoch  73  Train : 0.8528
+Epoch  74  Train : 0.8503	Valid : 0.8441
+Epoch  75  Train : 0.8540
+Epoch  76  Train : 0.8467	Valid : 0.8400
+Epoch  77  Train : 0.8534
+Epoch  78  Train : 0.8548	Valid : 0.8506
+Checkpoint saved...
+Epoch  79  Train : 0.8543
+Epoch  80  Train : 0.8526	Valid : 0.8433
+Epoch  81  Train : 0.8525
+Epoch  82  Train : 0.8527	Valid : 0.8457
+Epoch  83  Train : 0.8537
+Epoch  84  Train : 0.8542	Valid : 0.8477
+Epoch  85  Train : 0.8502
+Epoch  86  Train : 0.8496	Valid : 0.8447
+Epoch  87  Train : 0.8564
+Epoch  88  Train : 0.8546	Valid : 0.8458
+Epoch  89  Train : 0.8562
+Epoch  90  Train : 0.8551	Valid : 0.8439
+Epoch  91  Train : 0.8526
+Epoch  92  Train : 0.8515	Valid : 0.8429
+Epoch  93  Train : 0.8496
+Epoch  94  Train : 0.8527	Valid : 0.8458
+Epoch  95  Train : 0.8554
+Epoch  96  Train : 0.8543	Valid : 0.8469
+Epoch  97  Train : 0.8501
+Epoch  98  Train : 0.8514	Valid : 0.8453
+Epoch  99  Train : 0.8523
+Training Done
+Restored from Epoch 78...
+Test Accuracy : 0.857	Train Accuracy : 0.855
+Time (hr): 0.4536
+
+Repeat: 4/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.03
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.7940	Valid : 0.7841
+Checkpoint saved...
+Epoch   1  Train : 0.8214
+Epoch   2  Train : 0.8279	Valid : 0.8195
+Checkpoint saved...
+Epoch   3  Train : 0.8322
+Epoch   4  Train : 0.8390	Valid : 0.8325
+Checkpoint saved...
+Epoch   5  Train : 0.8393
+Epoch   6  Train : 0.8398	Valid : 0.8328
+Checkpoint saved...
+Epoch   7  Train : 0.8283
+Epoch   8  Train : 0.8439	Valid : 0.8353
+Checkpoint saved...
+Epoch   9  Train : 0.8432
+Epoch  10  Train : 0.8465	Valid : 0.8383
+Checkpoint saved...
+Epoch  11  Train : 0.8532
+Epoch  12  Train : 0.8514	Valid : 0.8460
+Checkpoint saved...
+Epoch  13  Train : 0.8555
+Epoch  14  Train : 0.8492	Valid : 0.8437
+Epoch  15  Train : 0.8464
+Epoch  16  Train : 0.8551	Valid : 0.8473
+Checkpoint saved...
+Epoch  17  Train : 0.8523
+Epoch  18  Train : 0.8525	Valid : 0.8442
+Epoch  19  Train : 0.8509
+Epoch  20  Train : 0.8472	Valid : 0.8439
+Epoch  21  Train : 0.8411
+Epoch  22  Train : 0.8505	Valid : 0.8451
+Epoch  23  Train : 0.8485
+Epoch  24  Train : 0.8503	Valid : 0.8430
+Epoch  25  Train : 0.8451
+Epoch  26  Train : 0.8438	Valid : 0.8418
+Epoch  27  Train : 0.8512
+Epoch  28  Train : 0.8487	Valid : 0.8431
+Epoch  29  Train : 0.8555
+Epoch  30  Train : 0.8527	Valid : 0.8454
+Epoch  31  Train : 0.8526
+Epoch  32  Train : 0.8517	Valid : 0.8457
+Epoch  33  Train : 0.8502
+Epoch  34  Train : 0.8528	Valid : 0.8446
+Epoch  35  Train : 0.8454
+Epoch  36  Train : 0.8507	Valid : 0.8430
+Epoch  37  Train : 0.8531
+Epoch  38  Train : 0.8507	Valid : 0.8449
+Epoch  39  Train : 0.8491
+Epoch  40  Train : 0.8505	Valid : 0.8428
+Epoch  41  Train : 0.8429
+Epoch  42  Train : 0.8529	Valid : 0.8458
+Epoch  43  Train : 0.8529
+Epoch  44  Train : 0.8529	Valid : 0.8453
+Epoch  45  Train : 0.8504
+Epoch  46  Train : 0.8505	Valid : 0.8409
+Epoch  47  Train : 0.8547
+Epoch  48  Train : 0.8473	Valid : 0.8410
+Epoch  49  Train : 0.8546
+Epoch  50  Train : 0.8539	Valid : 0.8477
+Checkpoint saved...
+Epoch  51  Train : 0.8519
+Epoch  52  Train : 0.8476	Valid : 0.8428
+Epoch  53  Train : 0.8539
+Epoch  54  Train : 0.8540	Valid : 0.8445
+Epoch  55  Train : 0.8485
+Epoch  56  Train : 0.8446	Valid : 0.8370
+Epoch  57  Train : 0.8547
+Epoch  58  Train : 0.8526	Valid : 0.8471
+Epoch  59  Train : 0.8519
+Epoch  60  Train : 0.8530	Valid : 0.8445
+Epoch  61  Train : 0.8536
+Epoch  62  Train : 0.8516	Valid : 0.8431
+Epoch  63  Train : 0.8517
+Epoch  64  Train : 0.8490	Valid : 0.8433
+Epoch  65  Train : 0.8557
+Epoch  66  Train : 0.8535	Valid : 0.8458
+Epoch  67  Train : 0.8507
+Epoch  68  Train : 0.8466	Valid : 0.8398
+Epoch  69  Train : 0.8482
+Epoch  70  Train : 0.8546	Valid : 0.8489
+Checkpoint saved...
+Epoch  71  Train : 0.8537
+Epoch  72  Train : 0.8523	Valid : 0.8451
+Epoch  73  Train : 0.8533
+Epoch  74  Train : 0.8549	Valid : 0.8460
+Epoch  75  Train : 0.8557
+Epoch  76  Train : 0.8564	Valid : 0.8487
+Epoch  77  Train : 0.8501
+Epoch  78  Train : 0.8533	Valid : 0.8438
+Epoch  79  Train : 0.8549
+Epoch  80  Train : 0.8530	Valid : 0.8475
+Epoch  81  Train : 0.8501
+Epoch  82  Train : 0.8510	Valid : 0.8415
+Epoch  83  Train : 0.8548
+Epoch  84  Train : 0.8498	Valid : 0.8421
+Epoch  85  Train : 0.8552
+Epoch  86  Train : 0.8513	Valid : 0.8443
+Epoch  87  Train : 0.8565
+Epoch  88  Train : 0.8536	Valid : 0.8457
+Epoch  89  Train : 0.8557
+Epoch  90  Train : 0.8546	Valid : 0.8471
+Epoch  91  Train : 0.8547
+Epoch  92  Train : 0.8548	Valid : 0.8481
+Epoch  93  Train : 0.8520
+Epoch  94  Train : 0.8531	Valid : 0.8461
+Epoch  95  Train : 0.8547
+Epoch  96  Train : 0.8557	Valid : 0.8461
+Epoch  97  Train : 0.8456
+Epoch  98  Train : 0.8488	Valid : 0.8408
+Epoch  99  Train : 0.8560
+Training Done
+Restored from Epoch 70...
+Test Accuracy : 0.856	Train Accuracy : 0.855
+Time (hr): 0.4536
+
+Repeat: 5/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.03
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.7907	Valid : 0.7805
+Checkpoint saved...
+Epoch   1  Train : 0.8233
+Epoch   2  Train : 0.8300	Valid : 0.8198
+Checkpoint saved...
+Epoch   3  Train : 0.8371
+Epoch   4  Train : 0.8391	Valid : 0.8304
+Checkpoint saved...
+Epoch   5  Train : 0.8396
+Epoch   6  Train : 0.8433	Valid : 0.8378
+Checkpoint saved...
+Epoch   7  Train : 0.8445
+Epoch   8  Train : 0.8501	Valid : 0.8406
+Checkpoint saved...
+Epoch   9  Train : 0.8469
+Epoch  10  Train : 0.8468	Valid : 0.8380
+Epoch  11  Train : 0.8402
+Epoch  12  Train : 0.8435	Valid : 0.8404
+Epoch  13  Train : 0.8500
+Epoch  14  Train : 0.8453	Valid : 0.8396
+Epoch  15  Train : 0.8477
+Epoch  16  Train : 0.8505	Valid : 0.8426
+Checkpoint saved...
+Epoch  17  Train : 0.8502
+Epoch  18  Train : 0.8453	Valid : 0.8369
+Epoch  19  Train : 0.8474
+Epoch  20  Train : 0.8478	Valid : 0.8384
+Epoch  21  Train : 0.8527
+Epoch  22  Train : 0.8512	Valid : 0.8425
+Epoch  23  Train : 0.8519
+Epoch  24  Train : 0.8502	Valid : 0.8402
+Epoch  25  Train : 0.8506
+Epoch  26  Train : 0.8458	Valid : 0.8361
+Epoch  27  Train : 0.8437
+Epoch  28  Train : 0.8491	Valid : 0.8390
+Epoch  29  Train : 0.8509
+Epoch  30  Train : 0.8491	Valid : 0.8402
+Epoch  31  Train : 0.8481
+Epoch  32  Train : 0.8523	Valid : 0.8428
+Checkpoint saved...
+Epoch  33  Train : 0.8490
+Epoch  34  Train : 0.8527	Valid : 0.8425
+Epoch  35  Train : 0.8562
+Epoch  36  Train : 0.8487	Valid : 0.8414
+Epoch  37  Train : 0.8519
+Epoch  38  Train : 0.8515	Valid : 0.8414
+Epoch  39  Train : 0.8467
+Epoch  40  Train : 0.8503	Valid : 0.8380
+Epoch  41  Train : 0.8496
+Epoch  42  Train : 0.8472	Valid : 0.8393
+Epoch  43  Train : 0.8512
+Epoch  44  Train : 0.8497	Valid : 0.8417
+Epoch  45  Train : 0.8472
+Epoch  46  Train : 0.8512	Valid : 0.8403
+Epoch  47  Train : 0.8526
+Epoch  48  Train : 0.8486	Valid : 0.8407
+Epoch  49  Train : 0.8526
+Epoch  50  Train : 0.8543	Valid : 0.8441
+Checkpoint saved...
+Epoch  51  Train : 0.8513
+Epoch  52  Train : 0.8515	Valid : 0.8435
+Epoch  53  Train : 0.8510
+Epoch  54  Train : 0.8501	Valid : 0.8440
+Epoch  55  Train : 0.8546
+Epoch  56  Train : 0.8510	Valid : 0.8418
+Epoch  57  Train : 0.8522
+Epoch  58  Train : 0.8509	Valid : 0.8442
+Checkpoint saved...
+Epoch  59  Train : 0.8434
+Epoch  60  Train : 0.8540	Valid : 0.8438
+Epoch  61  Train : 0.8437
+Epoch  62  Train : 0.8523	Valid : 0.8430
+Epoch  63  Train : 0.8502
+Epoch  64  Train : 0.8512	Valid : 0.8418
+Epoch  65  Train : 0.8535
+Epoch  66  Train : 0.8525	Valid : 0.8436
+Epoch  67  Train : 0.8525
+Epoch  68  Train : 0.8493	Valid : 0.8409
+Epoch  69  Train : 0.8534
+Epoch  70  Train : 0.8508	Valid : 0.8425
+Epoch  71  Train : 0.8528
+Epoch  72  Train : 0.8537	Valid : 0.8441
+Epoch  73  Train : 0.8524
+Epoch  74  Train : 0.8502	Valid : 0.8434
+Epoch  75  Train : 0.8515
+Epoch  76  Train : 0.8521	Valid : 0.8436
+Epoch  77  Train : 0.8485
+Epoch  78  Train : 0.8543	Valid : 0.8452
+Checkpoint saved...
+Epoch  79  Train : 0.8484
+Epoch  80  Train : 0.8519	Valid : 0.8422
+Epoch  81  Train : 0.8549
+Epoch  82  Train : 0.8531	Valid : 0.8440
+Epoch  83  Train : 0.8532
+Epoch  84  Train : 0.8542	Valid : 0.8455
+Checkpoint saved...
+Epoch  85  Train : 0.8516
+Epoch  86  Train : 0.8535	Valid : 0.8440
+Epoch  87  Train : 0.8472
+Epoch  88  Train : 0.8503	Valid : 0.8419
+Epoch  89  Train : 0.8512
+Epoch  90  Train : 0.8515	Valid : 0.8425
+Epoch  91  Train : 0.8524
+Epoch  92  Train : 0.8527	Valid : 0.8444
+Epoch  93  Train : 0.8507
+Epoch  94  Train : 0.8485	Valid : 0.8398
+Epoch  95  Train : 0.8534
+Epoch  96  Train : 0.8495	Valid : 0.8423
+Epoch  97  Train : 0.8495
+Epoch  98  Train : 0.8471	Valid : 0.8417
+Epoch  99  Train : 0.8494
+Training Done
+Restored from Epoch 84...
+Test Accuracy : 0.857	Train Accuracy : 0.854
+Time (hr): 0.4546
+
+Setting 1 Train Accs: [0.85663, 0.85396, 0.85478, 0.8546, 0.85424]	
+Setting 1 Avg Train Acc: 0.8548
+Setting 1 Std Train Acc: 0.0009
+Setting 1 Test Accs: [0.8597, 0.851, 0.8569, 0.8558, 0.857]	
+Setting 1 Avg Test Acc: 0.8561
+Setting 1 Std Test Acc: 0.0028
+
+Repeat: 1/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.05
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8346	Valid : 0.8233
+Checkpoint saved...
+Epoch   1  Train : 0.8568
+Epoch   2  Train : 0.8637	Valid : 0.8540
+Checkpoint saved...
+Epoch   3  Train : 0.8673
+Epoch   4  Train : 0.8687	Valid : 0.8638
+Checkpoint saved...
+Epoch   5  Train : 0.8819
+Epoch   6  Train : 0.8844	Valid : 0.8766
+Checkpoint saved...
+Epoch   7  Train : 0.8811
+Epoch   8  Train : 0.8849	Valid : 0.8768
+Checkpoint saved...
+Epoch   9  Train : 0.8846
+Epoch  10  Train : 0.8852	Valid : 0.8767
+Epoch  11  Train : 0.8856
+Epoch  12  Train : 0.8860	Valid : 0.8795
+Checkpoint saved...
+Epoch  13  Train : 0.8842
+Epoch  14  Train : 0.8803	Valid : 0.8739
+Epoch  15  Train : 0.8827
+Epoch  16  Train : 0.8844	Valid : 0.8743
+Epoch  17  Train : 0.8792
+Epoch  18  Train : 0.8818	Valid : 0.8728
+Epoch  19  Train : 0.8850
+Epoch  20  Train : 0.8850	Valid : 0.8802
+Checkpoint saved...
+Epoch  21  Train : 0.8842
+Epoch  22  Train : 0.8873	Valid : 0.8813
+Checkpoint saved...
+Epoch  23  Train : 0.8877
+Epoch  24  Train : 0.8861	Valid : 0.8788
+Epoch  25  Train : 0.8866
+Epoch  26  Train : 0.8817	Valid : 0.8747
+Epoch  27  Train : 0.8859
+Epoch  28  Train : 0.8871	Valid : 0.8784
+Epoch  29  Train : 0.8877
+Epoch  30  Train : 0.8874	Valid : 0.8798
+Epoch  31  Train : 0.8852
+Epoch  32  Train : 0.8832	Valid : 0.8769
+Epoch  33  Train : 0.8863
+Epoch  34  Train : 0.8816	Valid : 0.8739
+Epoch  35  Train : 0.8890
+Epoch  36  Train : 0.8890	Valid : 0.8829
+Checkpoint saved...
+Epoch  37  Train : 0.8878
+Epoch  38  Train : 0.8848	Valid : 0.8798
+Epoch  39  Train : 0.8897
+Epoch  40  Train : 0.8881	Valid : 0.8824
+Epoch  41  Train : 0.8823
+Epoch  42  Train : 0.8851	Valid : 0.8817
+Epoch  43  Train : 0.8846
+Epoch  44  Train : 0.8868	Valid : 0.8819
+Epoch  45  Train : 0.8835
+Epoch  46  Train : 0.8837	Valid : 0.8773
+Epoch  47  Train : 0.8830
+Epoch  48  Train : 0.8807	Valid : 0.8785
+Epoch  49  Train : 0.8872
+Epoch  50  Train : 0.8851	Valid : 0.8811
+Epoch  51  Train : 0.8845
+Epoch  52  Train : 0.8829	Valid : 0.8777
+Epoch  53  Train : 0.8890
+Epoch  54  Train : 0.8865	Valid : 0.8817
+Epoch  55  Train : 0.8883
+Epoch  56  Train : 0.8891	Valid : 0.8800
+Epoch  57  Train : 0.8843
+Epoch  58  Train : 0.8840	Valid : 0.8774
+Epoch  59  Train : 0.8876
+Epoch  60  Train : 0.8878	Valid : 0.8812
+Epoch  61  Train : 0.8820
+Epoch  62  Train : 0.8907	Valid : 0.8841
+Checkpoint saved...
+Epoch  63  Train : 0.8899
+Epoch  64  Train : 0.8831	Valid : 0.8745
+Epoch  65  Train : 0.8856
+Epoch  66  Train : 0.8909	Valid : 0.8839
+Epoch  67  Train : 0.8898
+Epoch  68  Train : 0.8898	Valid : 0.8820
+Epoch  69  Train : 0.8863
+Epoch  70  Train : 0.8857	Valid : 0.8816
+Epoch  71  Train : 0.8885
+Epoch  72  Train : 0.8888	Valid : 0.8831
+Epoch  73  Train : 0.8897
+Epoch  74  Train : 0.8894	Valid : 0.8825
+Epoch  75  Train : 0.8850
+Epoch  76  Train : 0.8891	Valid : 0.8857
+Checkpoint saved...
+Epoch  77  Train : 0.8892
+Epoch  78  Train : 0.8896	Valid : 0.8841
+Epoch  79  Train : 0.8855
+Epoch  80  Train : 0.8882	Valid : 0.8809
+Epoch  81  Train : 0.8873
+Epoch  82  Train : 0.8876	Valid : 0.8816
+Epoch  83  Train : 0.8916
+Epoch  84  Train : 0.8893	Valid : 0.8835
+Epoch  85  Train : 0.8864
+Epoch  86  Train : 0.8894	Valid : 0.8811
+Epoch  87  Train : 0.8884
+Epoch  88  Train : 0.8881	Valid : 0.8796
+Epoch  89  Train : 0.8877
+Epoch  90  Train : 0.8893	Valid : 0.8825
+Epoch  91  Train : 0.8881
+Epoch  92  Train : 0.8844	Valid : 0.8780
+Epoch  93  Train : 0.8910
+Epoch  94  Train : 0.8867	Valid : 0.8783
+Epoch  95  Train : 0.8893
+Epoch  96  Train : 0.8915	Valid : 0.8834
+Epoch  97  Train : 0.8913
+Epoch  98  Train : 0.8857	Valid : 0.8756
+Epoch  99  Train : 0.8897
+Training Done
+Restored from Epoch 76...
+Test Accuracy : 0.891	Train Accuracy : 0.889
+Time (hr): 0.9645
+
+Repeat: 2/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.05
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8325	Valid : 0.8230
+Checkpoint saved...
+Epoch   1  Train : 0.8512
+Epoch   2  Train : 0.8676	Valid : 0.8612
+Checkpoint saved...
+Epoch   3  Train : 0.8684
+Epoch   4  Train : 0.8756	Valid : 0.8686
+Checkpoint saved...
+Epoch   5  Train : 0.8722
+Epoch   6  Train : 0.8744	Valid : 0.8711
+Checkpoint saved...
+Epoch   7  Train : 0.8762
+Epoch   8  Train : 0.8785	Valid : 0.8734
+Checkpoint saved...
+Epoch   9  Train : 0.8810
+Epoch  10  Train : 0.8767	Valid : 0.8707
+Epoch  11  Train : 0.8784
+Epoch  12  Train : 0.8817	Valid : 0.8750
+Checkpoint saved...
+Epoch  13  Train : 0.8779
+Epoch  14  Train : 0.8806	Valid : 0.8752
+Checkpoint saved...
+Epoch  15  Train : 0.8782
+Epoch  16  Train : 0.8832	Valid : 0.8769
+Checkpoint saved...
+Epoch  17  Train : 0.8783
+Epoch  18  Train : 0.8787	Valid : 0.8717
+Epoch  19  Train : 0.8795
+Epoch  20  Train : 0.8715	Valid : 0.8652
+Epoch  21  Train : 0.8819
+Epoch  22  Train : 0.8789	Valid : 0.8724
+Epoch  23  Train : 0.8790
+Epoch  24  Train : 0.8819	Valid : 0.8736
+Epoch  25  Train : 0.8819
+Epoch  26  Train : 0.8839	Valid : 0.8758
+Epoch  27  Train : 0.8810
+Epoch  28  Train : 0.8784	Valid : 0.8729
+Epoch  29  Train : 0.8772
+Epoch  30  Train : 0.8856	Valid : 0.8764
+Epoch  31  Train : 0.8857
+Epoch  32  Train : 0.8829	Valid : 0.8754
+Epoch  33  Train : 0.8799
+Epoch  34  Train : 0.8839	Valid : 0.8742
+Epoch  35  Train : 0.8794
+Epoch  36  Train : 0.8826	Valid : 0.8778
+Checkpoint saved...
+Epoch  37  Train : 0.8802
+Epoch  38  Train : 0.8823	Valid : 0.8724
+Epoch  39  Train : 0.8836
+Epoch  40  Train : 0.8825	Valid : 0.8727
+Epoch  41  Train : 0.8785
+Epoch  42  Train : 0.8808	Valid : 0.8737
+Epoch  43  Train : 0.8803
+Epoch  44  Train : 0.8854	Valid : 0.8774
+Epoch  45  Train : 0.8810
+Epoch  46  Train : 0.8774	Valid : 0.8708
+Epoch  47  Train : 0.8837
+Epoch  48  Train : 0.8831	Valid : 0.8753
+Epoch  49  Train : 0.8836
+Epoch  50  Train : 0.8855	Valid : 0.8760
+Epoch  51  Train : 0.8845
+Epoch  52  Train : 0.8850	Valid : 0.8764
+Epoch  53  Train : 0.8822
+Epoch  54  Train : 0.8836	Valid : 0.8764
+Epoch  55  Train : 0.8821
+Epoch  56  Train : 0.8804	Valid : 0.8732
+Epoch  57  Train : 0.8819
+Epoch  58  Train : 0.8863	Valid : 0.8770
+Epoch  59  Train : 0.8816
+Epoch  60  Train : 0.8824	Valid : 0.8767
+Epoch  61  Train : 0.8812
+Epoch  62  Train : 0.8841	Valid : 0.8782
+Checkpoint saved...
+Epoch  63  Train : 0.8836
+Epoch  64  Train : 0.8817	Valid : 0.8737
+Epoch  65  Train : 0.8837
+Epoch  66  Train : 0.8801	Valid : 0.8714
+Epoch  67  Train : 0.8852
+Epoch  68  Train : 0.8837	Valid : 0.8746
+Epoch  69  Train : 0.8841
+Epoch  70  Train : 0.8831	Valid : 0.8739
+Epoch  71  Train : 0.8854
+Epoch  72  Train : 0.8838	Valid : 0.8734
+Epoch  73  Train : 0.8851
+Epoch  74  Train : 0.8843	Valid : 0.8750
+Epoch  75  Train : 0.8817
+Epoch  76  Train : 0.8824	Valid : 0.8731
+Epoch  77  Train : 0.8831
+Epoch  78  Train : 0.8879	Valid : 0.8804
+Checkpoint saved...
+Epoch  79  Train : 0.8818
+Epoch  80  Train : 0.8826	Valid : 0.8740
+Epoch  81  Train : 0.8818
+Epoch  82  Train : 0.8848	Valid : 0.8776
+Epoch  83  Train : 0.8826
+Epoch  84  Train : 0.8789	Valid : 0.8728
+Epoch  85  Train : 0.8830
+Epoch  86  Train : 0.8871	Valid : 0.8789
+Epoch  87  Train : 0.8802
+Epoch  88  Train : 0.8862	Valid : 0.8771
+Epoch  89  Train : 0.8810
+Epoch  90  Train : 0.8863	Valid : 0.8775
+Epoch  91  Train : 0.8787
+Epoch  92  Train : 0.8801	Valid : 0.8748
+Epoch  93  Train : 0.8834
+Epoch  94  Train : 0.8858	Valid : 0.8789
+Epoch  95  Train : 0.8862
+Epoch  96  Train : 0.8849	Valid : 0.8794
+Epoch  97  Train : 0.8839
+Epoch  98  Train : 0.8866	Valid : 0.8776
+Epoch  99  Train : 0.8838
+Training Done
+Restored from Epoch 78...
+Test Accuracy : 0.890	Train Accuracy : 0.888
+Time (hr): 0.9633
+
+Repeat: 3/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.05
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8316	Valid : 0.8227
+Checkpoint saved...
+Epoch   1  Train : 0.8431
+Epoch   2  Train : 0.8666	Valid : 0.8530
+Checkpoint saved...
+Epoch   3  Train : 0.8636
+Epoch   4  Train : 0.8689	Valid : 0.8588
+Checkpoint saved...
+Epoch   5  Train : 0.8759
+Epoch   6  Train : 0.8795	Valid : 0.8716
+Checkpoint saved...
+Epoch   7  Train : 0.8805
+Epoch   8  Train : 0.8839	Valid : 0.8735
+Checkpoint saved...
+Epoch   9  Train : 0.8710
+Epoch  10  Train : 0.8738	Valid : 0.8646
+Epoch  11  Train : 0.8821
+Epoch  12  Train : 0.8822	Valid : 0.8726
+Epoch  13  Train : 0.8874
+Epoch  14  Train : 0.8828	Valid : 0.8722
+Epoch  15  Train : 0.8818
+Epoch  16  Train : 0.8816	Valid : 0.8719
+Epoch  17  Train : 0.8865
+Epoch  18  Train : 0.8868	Valid : 0.8781
+Checkpoint saved...
+Epoch  19  Train : 0.8796
+Epoch  20  Train : 0.8870	Valid : 0.8793
+Checkpoint saved...
+Epoch  21  Train : 0.8881
+Epoch  22  Train : 0.8843	Valid : 0.8776
+Epoch  23  Train : 0.8866
+Epoch  24  Train : 0.8823	Valid : 0.8752
+Epoch  25  Train : 0.8890
+Epoch  26  Train : 0.8817	Valid : 0.8745
+Epoch  27  Train : 0.8899
+Epoch  28  Train : 0.8882	Valid : 0.8782
+Epoch  29  Train : 0.8835
+Epoch  30  Train : 0.8859	Valid : 0.8781
+Epoch  31  Train : 0.8816
+Epoch  32  Train : 0.8859	Valid : 0.8765
+Epoch  33  Train : 0.8869
+Epoch  34  Train : 0.8860	Valid : 0.8777
+Epoch  35  Train : 0.8851
+Epoch  36  Train : 0.8869	Valid : 0.8764
+Epoch  37  Train : 0.8892
+Epoch  38  Train : 0.8848	Valid : 0.8760
+Epoch  39  Train : 0.8836
+Epoch  40  Train : 0.8849	Valid : 0.8758
+Epoch  41  Train : 0.8885
+Epoch  42  Train : 0.8860	Valid : 0.8782
+Epoch  43  Train : 0.8880
+Epoch  44  Train : 0.8876	Valid : 0.8790
+Epoch  45  Train : 0.8872
+Epoch  46  Train : 0.8859	Valid : 0.8777
+Epoch  47  Train : 0.8878
+Epoch  48  Train : 0.8874	Valid : 0.8765
+Epoch  49  Train : 0.8809
+Epoch  50  Train : 0.8899	Valid : 0.8804
+Checkpoint saved...
+Epoch  51  Train : 0.8897
+Epoch  52  Train : 0.8866	Valid : 0.8790
+Epoch  53  Train : 0.8868
+Epoch  54  Train : 0.8857	Valid : 0.8749
+Epoch  55  Train : 0.8846
+Epoch  56  Train : 0.8889	Valid : 0.8797
+Epoch  57  Train : 0.8845
+Epoch  58  Train : 0.8851	Valid : 0.8777
+Epoch  59  Train : 0.8893
+Epoch  60  Train : 0.8901	Valid : 0.8819
+Checkpoint saved...
+Epoch  61  Train : 0.8877
+Epoch  62  Train : 0.8854	Valid : 0.8768
+Epoch  63  Train : 0.8907
+Epoch  64  Train : 0.8878	Valid : 0.8779
+Epoch  65  Train : 0.8878
+Epoch  66  Train : 0.8909	Valid : 0.8809
+Epoch  67  Train : 0.8883
+Epoch  68  Train : 0.8823	Valid : 0.8733
+Epoch  69  Train : 0.8880
+Epoch  70  Train : 0.8913	Valid : 0.8827
+Checkpoint saved...
+Epoch  71  Train : 0.8891
+Epoch  72  Train : 0.8878	Valid : 0.8778
+Epoch  73  Train : 0.8884
+Epoch  74  Train : 0.8884	Valid : 0.8809
+Epoch  75  Train : 0.8865
+Epoch  76  Train : 0.8851	Valid : 0.8773
+Epoch  77  Train : 0.8865
+Epoch  78  Train : 0.8884	Valid : 0.8797
+Epoch  79  Train : 0.8883
+Epoch  80  Train : 0.8883	Valid : 0.8781
+Epoch  81  Train : 0.8828
+Epoch  82  Train : 0.8871	Valid : 0.8779
+Epoch  83  Train : 0.8869
+Epoch  84  Train : 0.8860	Valid : 0.8777
+Epoch  85  Train : 0.8875
+Epoch  86  Train : 0.8879	Valid : 0.8804
+Epoch  87  Train : 0.8884
+Epoch  88  Train : 0.8860	Valid : 0.8789
+Epoch  89  Train : 0.8871
+Epoch  90  Train : 0.8885	Valid : 0.8803
+Epoch  91  Train : 0.8828
+Epoch  92  Train : 0.8886	Valid : 0.8798
+Epoch  93  Train : 0.8903
+Epoch  94  Train : 0.8911	Valid : 0.8805
+Epoch  95  Train : 0.8905
+Epoch  96  Train : 0.8834	Valid : 0.8773
+Epoch  97  Train : 0.8859
+Epoch  98  Train : 0.8898	Valid : 0.8789
+Epoch  99  Train : 0.8901
+Training Done
+Restored from Epoch 70...
+Test Accuracy : 0.893	Train Accuracy : 0.891
+Time (hr): 0.9732
+
+Repeat: 4/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.05
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8215	Valid : 0.8148
+Checkpoint saved...
+Epoch   1  Train : 0.8493
+Epoch   2  Train : 0.8563	Valid : 0.8485
+Checkpoint saved...
+Epoch   3  Train : 0.8593
+Epoch   4  Train : 0.8639	Valid : 0.8587
+Checkpoint saved...
+Epoch   5  Train : 0.8604
+Epoch   6  Train : 0.8681	Valid : 0.8616
+Checkpoint saved...
+Epoch   7  Train : 0.8723
+Epoch   8  Train : 0.8758	Valid : 0.8711
+Checkpoint saved...
+Epoch   9  Train : 0.8809
+Epoch  10  Train : 0.8780	Valid : 0.8704
+Epoch  11  Train : 0.8738
+Epoch  12  Train : 0.8783	Valid : 0.8711
+Checkpoint saved...
+Epoch  13  Train : 0.8743
+Epoch  14  Train : 0.8793	Valid : 0.8724
+Checkpoint saved...
+Epoch  15  Train : 0.8795
+Epoch  16  Train : 0.8840	Valid : 0.8743
+Checkpoint saved...
+Epoch  17  Train : 0.8805
+Epoch  18  Train : 0.8866	Valid : 0.8771
+Checkpoint saved...
+Epoch  19  Train : 0.8815
+Epoch  20  Train : 0.8777	Valid : 0.8724
+Epoch  21  Train : 0.8803
+Epoch  22  Train : 0.8806	Valid : 0.8711
+Epoch  23  Train : 0.8825
+Epoch  24  Train : 0.8813	Valid : 0.8745
+Epoch  25  Train : 0.8839
+Epoch  26  Train : 0.8776	Valid : 0.8724
+Epoch  27  Train : 0.8843
+Epoch  28  Train : 0.8861	Valid : 0.8784
+Checkpoint saved...
+Epoch  29  Train : 0.8836
+Epoch  30  Train : 0.8872	Valid : 0.8803
+Checkpoint saved...
+Epoch  31  Train : 0.8841
+Epoch  32  Train : 0.8841	Valid : 0.8765
+Epoch  33  Train : 0.8810
+Epoch  34  Train : 0.8874	Valid : 0.8812
+Checkpoint saved...
+Epoch  35  Train : 0.8878
+Epoch  36  Train : 0.8892	Valid : 0.8822
+Checkpoint saved...
+Epoch  37  Train : 0.8868
+Epoch  38  Train : 0.8915	Valid : 0.8847
+Checkpoint saved...
+Epoch  39  Train : 0.8875
+Epoch  40  Train : 0.8829	Valid : 0.8788
+Epoch  41  Train : 0.8928
+Epoch  42  Train : 0.8908	Valid : 0.8835
+Epoch  43  Train : 0.8850
+Epoch  44  Train : 0.8913	Valid : 0.8837
+Epoch  45  Train : 0.8860
+Epoch  46  Train : 0.8878	Valid : 0.8821
+Epoch  47  Train : 0.8875
+Epoch  48  Train : 0.8882	Valid : 0.8822
+Epoch  49  Train : 0.8889
+Epoch  50  Train : 0.8901	Valid : 0.8848
+Checkpoint saved...
+Epoch  51  Train : 0.8917
+Epoch  52  Train : 0.8849	Valid : 0.8815
+Epoch  53  Train : 0.8842
+Epoch  54  Train : 0.8834	Valid : 0.8786
+Epoch  55  Train : 0.8905
+Epoch  56  Train : 0.8879	Valid : 0.8824
+Epoch  57  Train : 0.8925
+Epoch  58  Train : 0.8890	Valid : 0.8820
+Epoch  59  Train : 0.8909
+Epoch  60  Train : 0.8828	Valid : 0.8788
+Epoch  61  Train : 0.8924
+Epoch  62  Train : 0.8894	Valid : 0.8845
+Epoch  63  Train : 0.8903
+Epoch  64  Train : 0.8939	Valid : 0.8856
+Checkpoint saved...
+Epoch  65  Train : 0.8873
+Epoch  66  Train : 0.8881	Valid : 0.8815
+Epoch  67  Train : 0.8867
+Epoch  68  Train : 0.8901	Valid : 0.8871
+Checkpoint saved...
+Epoch  69  Train : 0.8906
+Epoch  70  Train : 0.8879	Valid : 0.8831
+Epoch  71  Train : 0.8914
+Epoch  72  Train : 0.8852	Valid : 0.8794
+Epoch  73  Train : 0.8885
+Epoch  74  Train : 0.8872	Valid : 0.8815
+Epoch  75  Train : 0.8895
+Epoch  76  Train : 0.8911	Valid : 0.8854
+Epoch  77  Train : 0.8929
+Epoch  78  Train : 0.8907	Valid : 0.8854
+Epoch  79  Train : 0.8906
+Epoch  80  Train : 0.8869	Valid : 0.8814
+Epoch  81  Train : 0.8880
+Epoch  82  Train : 0.8898	Valid : 0.8849
+Epoch  83  Train : 0.8907
+Epoch  84  Train : 0.8927	Valid : 0.8886
+Checkpoint saved...
+Epoch  85  Train : 0.8934
+Epoch  86  Train : 0.8948	Valid : 0.8894
+Checkpoint saved...
+Epoch  87  Train : 0.8936
+Epoch  88  Train : 0.8890	Valid : 0.8856
+Epoch  89  Train : 0.8891
+Epoch  90  Train : 0.8903	Valid : 0.8836
+Epoch  91  Train : 0.8882
+Epoch  92  Train : 0.8868	Valid : 0.8804
+Epoch  93  Train : 0.8925
+Epoch  94  Train : 0.8891	Valid : 0.8831
+Epoch  95  Train : 0.8936
+Epoch  96  Train : 0.8926	Valid : 0.8865
+Epoch  97  Train : 0.8856
+Epoch  98  Train : 0.8927	Valid : 0.8879
+Epoch  99  Train : 0.8876
+Training Done
+Restored from Epoch 86...
+Test Accuracy : 0.898	Train Accuracy : 0.895
+Time (hr): 0.9567
+
+Repeat: 5/5
+Digits:	 ['even', 'odd']
+Dephasing data True
+Dephasing network True
+Dephasing rate 0.10
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.05
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/kmnist8x8/kmnist8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8306	Valid : 0.8250
+Checkpoint saved...
+Epoch   1  Train : 0.8509
+Epoch   2  Train : 0.8572	Valid : 0.8509
+Checkpoint saved...
+Epoch   3  Train : 0.8686
+Epoch   4  Train : 0.8695	Valid : 0.8627
+Checkpoint saved...
+Epoch   5  Train : 0.8718
+Epoch   6  Train : 0.8735	Valid : 0.8641
+Checkpoint saved...
+Epoch   7  Train : 0.8713
+Epoch   8  Train : 0.8743	Valid : 0.8648
+Checkpoint saved...
+Epoch   9  Train : 0.8692
+Epoch  10  Train : 0.8738	Valid : 0.8661
+Checkpoint saved...
+Epoch  11  Train : 0.8762
+Epoch  12  Train : 0.8749	Valid : 0.8673
+Checkpoint saved...
+Epoch  13  Train : 0.8742
+Epoch  14  Train : 0.8782	Valid : 0.8723
+Checkpoint saved...
+Epoch  15  Train : 0.8786
+Epoch  16  Train : 0.8832	Valid : 0.8766
+Checkpoint saved...
+Epoch  17  Train : 0.8792
+Epoch  18  Train : 0.8807	Valid : 0.8726
+Epoch  19  Train : 0.8826
+Epoch  20  Train : 0.8827	Valid : 0.8717
+Epoch  21  Train : 0.8778
+Epoch  22  Train : 0.8819	Valid : 0.8733
+Epoch  23  Train : 0.8851
+Epoch  24  Train : 0.8837	Valid : 0.8726
+Epoch  25  Train : 0.8821
+Epoch  26  Train : 0.8784	Valid : 0.8696
+Epoch  27  Train : 0.8830
+Epoch  28  Train : 0.8811	Valid : 0.8717
+Epoch  29  Train : 0.8819
+Epoch  30  Train : 0.8864	Valid : 0.8773
+Checkpoint saved...
+Epoch  31  Train : 0.8850
+Epoch  32  Train : 0.8813	Valid : 0.8733
+Epoch  33  Train : 0.8864
+Epoch  34  Train : 0.8829	Valid : 0.8754
+Epoch  35  Train : 0.8831
+Epoch  36  Train : 0.8828	Valid : 0.8747
+Epoch  37  Train : 0.8842
+Epoch  38  Train : 0.8851	Valid : 0.8770
+Epoch  39  Train : 0.8875
+Epoch  40  Train : 0.8862	Valid : 0.8779
+Checkpoint saved...
+Epoch  41  Train : 0.8836
+Epoch  42  Train : 0.8870	Valid : 0.8775
+Epoch  43  Train : 0.8882
+Epoch  44  Train : 0.8883	Valid : 0.8775
+Epoch  45  Train : 0.8872
+Epoch  46  Train : 0.8839	Valid : 0.8776
+Epoch  47  Train : 0.8854
+Epoch  48  Train : 0.8848	Valid : 0.8747
+Epoch  49  Train : 0.8859
+Epoch  50  Train : 0.8876	Valid : 0.8769
+Epoch  51  Train : 0.8890
+Epoch  52  Train : 0.8826	Valid : 0.8731
+Epoch  53  Train : 0.8873
+Epoch  54  Train : 0.8845	Valid : 0.8784
+Checkpoint saved...
+Epoch  55  Train : 0.8854
+Epoch  56  Train : 0.8900	Valid : 0.8805
+Checkpoint saved...
+Epoch  57  Train : 0.8890
+Epoch  58  Train : 0.8906	Valid : 0.8803
+Epoch  59  Train : 0.8894
+Epoch  60  Train : 0.8886	Valid : 0.8823
+Checkpoint saved...
+Epoch  61  Train : 0.8910
+Epoch  62  Train : 0.8840	Valid : 0.8779
+Epoch  63  Train : 0.8857
+Epoch  64  Train : 0.8898	Valid : 0.8793
+Epoch  65  Train : 0.8879
+Epoch  66  Train : 0.8887	Valid : 0.8804
+Epoch  67  Train : 0.8890
+Epoch  68  Train : 0.8893	Valid : 0.8814
+Epoch  69  Train : 0.8868
+Epoch  70  Train : 0.8924	Valid : 0.8836
+Checkpoint saved...
+Epoch  71  Train : 0.8893
+Epoch  72  Train : 0.8869	Valid : 0.8798
+Epoch  73  Train : 0.8898
+Epoch  74  Train : 0.8890	Valid : 0.8803
+Epoch  75  Train : 0.8888
+Epoch  76  Train : 0.8865	Valid : 0.8800
+Epoch  77  Train : 0.8920
+Epoch  78  Train : 0.8905	Valid : 0.8810
+Epoch  79  Train : 0.8908
+Epoch  80  Train : 0.8914	Valid : 0.8832
+Epoch  81  Train : 0.8903
+Epoch  82  Train : 0.8892	Valid : 0.8810
+Epoch  83  Train : 0.8911
+Epoch  84  Train : 0.8901	Valid : 0.8830
+Epoch  85  Train : 0.8917
+Epoch  86  Train : 0.8888	Valid : 0.8793
+Epoch  87  Train : 0.8936
+Epoch  88  Train : 0.8902	Valid : 0.8852
+Checkpoint saved...
+Epoch  89  Train : 0.8860
+Epoch  90  Train : 0.8906	Valid : 0.8827
+Epoch  91  Train : 0.8890
+Epoch  92  Train : 0.8902	Valid : 0.8832
+Epoch  93  Train : 0.8887
+Epoch  94  Train : 0.8897	Valid : 0.8799
+Epoch  95  Train : 0.8902
+Epoch  96  Train : 0.8860	Valid : 0.8785
+Epoch  97  Train : 0.8786
+Epoch  98  Train : 0.8882	Valid : 0.8808
+Epoch  99  Train : 0.8941
+Training Done
+Restored from Epoch 88...
+Test Accuracy : 0.892	Train Accuracy : 0.890
+Time (hr): 0.9600
+
+Setting 2 Train Accs: [0.88913, 0.88791, 0.89131, 0.89484, 0.89021]	
+Setting 2 Avg Train Acc: 0.8907
+Setting 2 Std Train Acc: 0.0024
+Setting 2 Test Accs: [0.8906, 0.8905, 0.8931, 0.8984, 0.892]	
+Setting 2 Avg Test Acc: 0.8929
+Setting 2 Std Test Acc: 0.0029
+All Settings Avg Test Accs:
+ [0.7874, 0.8561, 0.8929]
+All Settings Avg Train/Val Accs:
+ [0.7835, 0.8548, 0.8907]
+All Settings Std Test Accs:
+ [0.0042, 0.0028, 0.0029]
+All Settings Std Train/Val Accs:
+ [0.0019, 0.0009, 0.0024]
+Time (hr): 8.8026
