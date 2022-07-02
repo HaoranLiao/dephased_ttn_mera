@@ -92,8 +92,8 @@ if __name__ == "__main__":
 
     asha_scheduler = tune.schedulers.ASHAScheduler(
         time_attr='training_iteration',
-        max_t=60,
-        grace_period=60
+        max_t=80,
+        grace_period=80
     )
 
     # ax_search = AxSearch(metric="score")
@@ -110,7 +110,7 @@ if __name__ == "__main__":
         num_samples=1,
         config={'num_anc': num_anc,
                 'deph_p': deph_p,
-                'tune_lr': tune.grid_search([0.015]), #0, # not used in spsa
+                'tune_lr': tune.grid_search([0.005, 0.015]), #0, # not used in spsa
                 'tune_init_std': tune.grid_search([0.5, 0.3, 0.1, 0.07, 0.05, 0.03, 0.01, 0.005]), #0.5, 0.3,
                 # 'a': tune.uniform(1, 50),
                 # 'b': tune.uniform(1, 50),
