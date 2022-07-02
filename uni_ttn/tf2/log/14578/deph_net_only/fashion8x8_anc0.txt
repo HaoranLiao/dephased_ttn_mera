@@ -206,3 +206,4 @@ Epoch  71  Train : 0.8663
 Epoch  72  Train : 0.8734	Valid : 0.8699
 Epoch  73  Train : 0.8715
 Epoch  74  Train : 0.8721	Valid : 0.8688
+Epoch  75  Train : 0.8683
