@@ -9,7 +9,7 @@ data:
  list_batch_sizes: [250]                 # list or list of single
  grad_accumulation: False
  execute_batch_size: 125
- eval_batch_size_factor: 20000
+ eval_batch_size_factor: 2
  load_from_file: True
  data_im_size: [8,8]
  sample_size: 50040              # int or None
@@ -21,7 +21,7 @@ meta:
  visible_gpus: '1'
  set_memory_growth: True
  random_seed: 42
- list_num_anc: [1]                # list or list of single
+ list_num_anc: [3]                # list or list of single
  num_repeat: -1
  auto_epochs:
   enabled: False
