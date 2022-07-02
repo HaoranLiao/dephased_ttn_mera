@@ -20,11 +20,7 @@ meta:
  visible_gpus: '1'
  set_memory_growth: True
  random_seed: 42
-<<<<<<< HEAD
- list_num_anc: [3]                # list or list of single
-=======
  list_num_anc: [2]                # list or list of single
->>>>>>> e56607bcb909810b8600e153dc9c5e3517e29555
  num_repeat: 5
  auto_epochs:
   enabled: False
