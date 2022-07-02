@@ -1,0 +1,139 @@
+{
+ "data": {
+  "path": "../../datasets/fashion8x8/fashion8x8",
+  "val_split": 0.166,
+  "list_digits": [
+   [
+    [
+     1,
+     4,
+     5,
+     7,
+     8
+    ],
+    [
+     0,
+     2,
+     3,
+     6,
+     9
+    ]
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 20,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 5000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "set_visible_gpus": false,
+  "visible_gpus": "1",
+  "set_memory_growth": true,
+  "random_seed": 42,
+  "list_num_anc": [
+   2
+  ],
+  "num_repeat": 5,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   100
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": false,
+   "network": true,
+   "p": [
+    0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.005,
+    0.01,
+    0.03,
+    0.05,
+    0.06,
+    0.07
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": [
+     0.005
+    ]
+   },
+   "spsa": {
+    "a": 28,
+    "b": 33,
+    "A": 7.41,
+    "s": 1.13,
+    "t": 0.658,
+    "gamma": 0.882
+   }
+  }
+ }
+}
+
+Repeat: 1/5
+Digits:	 [[1, 4, 5, 7, 8], [0, 2, 3, 6, 9]]
+Dephasing data False
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 2
+Random Seed: 42
+Init Std: 0.005
+Adam Learning Rate: 0.005
+Physical GPUs: 1 Logical GPUs: 1
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/fashion8x8/fashion8x8
+Train Sample Size: 50040
+Validation Split: 0.17	 Size: 9960
+Test Sample Size: 10000
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.8751	Valid : 0.8729
+Checkpoint saved...
+Epoch   1  Train : 0.8821
+Epoch   2  Train : 0.8902	Valid : 0.8906
+Checkpoint saved...
+Epoch   3  Train : 0.9007
+Epoch   4  Train : 0.8928	Valid : 0.8893
+Epoch   5  Train : 0.8905
+Epoch   6  Train : 0.8984	Valid : 0.8988
+Checkpoint saved...
+Epoch   7  Train : 0.9010
+Epoch   8  Train : 0.9046	Valid : 0.9034
+Checkpoint saved...
+Epoch   9  Train : 0.9047
+Epoch  10  Train : 0.9018	Valid : 0.9005
+Epoch  11  Train : 0.8965
+Epoch  12  Train : 0.9072	Valid : 0.9060
+Checkpoint saved...
