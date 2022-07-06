@@ -19,8 +19,8 @@ data:
 meta:
  set_visible_gpus: False
  visible_gpus: '1'
- set_memory_growth: True
- random_seed: 42
+ set_memory_growth: False
+ random_seed: 41
  list_num_anc: [3]                # list or list of single
  num_repeat: -1
  auto_epochs:
