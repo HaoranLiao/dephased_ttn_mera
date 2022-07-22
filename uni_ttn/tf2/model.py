@@ -123,6 +123,7 @@ class Model:
         self.b_factor = self.config['data']['eval_batch_size_factor']
 
     def create_pixel_dict(self):
+        # To feed in pixels in an order that make each square patch goes to the same subtree
         self.pixel_dict = []
         for index in range(64):
             quad = index // 16
@@ -138,6 +139,7 @@ class Model:
         for epoch in range(epochs):
             train_accuracy = self.run_epoch(batch_size, epoch)
 
+            # Every two epoches we evaluate on the validation set
             if not epoch % 2 and self.val_images is not None:
                 val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
                 print('Epoch {0:3}  Train : {1:.4f}\tValid : {2:.4f}'
@@ -161,6 +163,7 @@ class Model:
             self.network.layers[i].param_var_lay = checkpoint[f'param_var_lay_{i}']
         print('Training Done\nRestored from Epoch %d...' % (checkpoint['epoch']), flush=True)
 
+        # Go to eager mode so we restore the network to the one with the checkpoint-loaded parameters
         tf.config.run_functions_eagerly(True)
         train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
         test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
@@ -190,15 +193,17 @@ class Model:
             for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
                 self.network.update_no_processing(train_image_batch, train_label_batch)
         else:
-            exec_batch_size = self.config['data']['execute_batch_size']
+            exec_batch_size = self.config['data']['execute_batch_size'] # sub-batch
             counter = batch_size // exec_batch_size
             assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
             batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
             for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
                 if counter > 1:
+                    # When the counter has not decreased to 1, keep feeding in next sub-batch and do not apply gradients
                     counter -= 1
                     self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=False)
                 else:
+                    # When the counter is decreased to 1, meaning all sub-batches are evaluated, reset the counter and apply gradients
                     counter = batch_size // exec_batch_size
                     self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=True, counter=counter)
 

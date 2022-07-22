@@ -26,6 +26,7 @@ class Network:
             self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
         self.var_list = [layer.param_var_lay for layer in self.layers]
 
+        # create ancillas as a kronecker product matrix for later use. To be appended to the input qubits
         if num_anc:
             self.bond_dim = 2 ** (num_anc + 1)
             self.ancilla = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
@@ -42,6 +43,7 @@ class Network:
         else:
             raise NotImplementedError
 
+        # This is for the tracing operation at the end. einsum cannot handled more than 6 repetitive indices (3 traces)
         if self.num_anc < 4:
             chars = string.ascii_lowercase
             self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
@@ -72,6 +74,7 @@ class Network:
         if self.num_anc < 4:
             final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
         elif self.num_anc == 4:
+            # tf.linalg.trace alway trace out the last two dimensions, so we need to transpose first
             final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
         else:
@@ -121,13 +124,16 @@ class Network:
         if self.deph_p == 1.0:
             return tf.linalg.diag(tf.linalg.diag_part(tensor))
         else:
+            # The contraction over 'k' is the summation over all Kraus operator terms
             if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.kraus_ops, tensor, self.kraus_ops)
             else: return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
 
     def construct_dephasing_kraus(self):
+        # This constructs the multi-qubit Kraus operator, with the first dimension enumerating over the Kraus operators
         m1 = tf.cast(tf.math.sqrt((2 - self.deph_p) / 2), tf.complex64) * tf.eye(2, dtype=tf.complex64)
         m2 = tf.cast(tf.math.sqrt(self.deph_p / 2), tf.complex64) * tf.constant([[1, 0], [0, -1]], dtype=tf.complex64)
         m = (m1, m2)
+        # :combinations: e.g., for two qubits, there are four combinations: (0, 0), (0, 1), (1, 0), (1, 1)
         combinations = tf.reshape(
             tf.transpose(tf.meshgrid(*[[0, 1]]*self.num_out_qubits)),
             [-1, self.num_out_qubits])
@@ -155,6 +161,9 @@ class Layer:
             ), name='param_var_lay_%s' % layer_idx, trainable=True)
 
     def get_unitary_tensors(self):
+        # The idea is that there are n real diagonals, (n^2 - n) off-diagonals half of which is the conjugate of the other half.
+        # So parametrize them into (n^2-n)/2 real part and (n^2-n)/2 imaginary part. Then use the tf.scatter_nd() function to scatter
+        # these values into the right positions in the Hermitian matrix. Then exponentiate the Hermitian into a unitary matrix.
         num_off_diags = int(0.5 * (self.num_op_params - self.num_diags))
         real_off_params = self.param_var_lay[:num_off_diags]
         imag_off_params = self.param_var_lay[num_off_diags:2 * num_off_diags]
@@ -175,6 +184,7 @@ class Layer:
         real_whole = diag_part + real_off_diag_part + tf.transpose(real_off_diag_part, perm=[1, 0, 2])
         herm_matrix = tf.transpose(tf.complex(real_whole, imag_whole), perm=[2, 0, 1])
 
+        # Hermitian matrices are diagonalizable, so the matrix exponential can be performed in the following way
         (eigenvalues, eigenvectors) = tf.linalg.eigh(herm_matrix)
         eig_exp = tf.exp(1.0j * eigenvalues)
         diag_exp_mat = tf.linalg.diag(eig_exp)

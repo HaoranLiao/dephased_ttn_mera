@@ -89,6 +89,7 @@ class Model(uni_ttn.tf2.model.Model):
             self.network = mera.network_8inputs.Network(num_pixels, deph_p, num_anc, init_std, lr, config)
 
     def create_pixel_dict(self):
+        # To feed in pixels in an order that make some neighboring pixels going through the same entangler
         self.pixel_dict = [0, 1, 4, 5, 2, 3, 6, 7, 8, 9, 12, 13, 10, 11, 14, 15]
 
 
