@@ -1,5 +1,5 @@
 data:
- path: '../../../mnist8x8/mnist8x8'
+ path: '../../../datasets/mnist8x8/mnist8x8'
  val_split: 0.2857
  list_digits: [[3,5]]                     # list of pairs or one pair
  list_batch_sizes: [250]                  # list or list of single
