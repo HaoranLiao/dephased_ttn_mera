@@ -1,9 +1,7 @@
 import tensorflow as tf
 import numpy as np
-import string, sys
-sys.path.append('../')
-import spsa
-
+import string
+from uni_ttn.tf2 import spsa
 
 class Network:
     def __init__(self, num_pixels, deph_p, num_anc, init_std, lr, config):
