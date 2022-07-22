@@ -3,8 +3,7 @@ import numpy as np
 import sys, os, time, yaml, json
 from tqdm import tqdm
 import network_distributed as network_dist
-sys.path.append('../')
-import data
+from uni_ttn.tf2 import data
 
 TQDM_DISABLED = False
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
