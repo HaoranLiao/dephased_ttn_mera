@@ -1,4 +1,4 @@
-# dephased_ttn_project
+# Decohering tensor network QML models
 
 
 To setup 
