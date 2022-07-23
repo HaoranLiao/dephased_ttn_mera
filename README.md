@@ -1,6 +1,8 @@
 # Decohering tensor network QML models
 ## Unitary Tree Tensor Network and MERA
 
+Efficient unitary tree tensor netwokr (TTN) and Multi-scale Entanglement Renormalization Ansatz (MERA) built in Tensorflow, with tunable local dephasing channels at every layer of the tensor networks.
+
 To setup, 
 ```
 cd dephased_ttn_mera/uni_ttn/tf2/dependency
