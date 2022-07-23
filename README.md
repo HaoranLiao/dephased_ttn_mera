@@ -1,7 +1,7 @@
 # Decohering tensor network QML models
 ## Unitary Tree Tensor Network and MERA
 
-To setup 
+To setup, 
 ```
 cd dephased_ttn_project/uni_ttn/tf2/dependency
 conda env create -f environment_tf2.7.yaml
@@ -12,10 +12,10 @@ Add this to ```~/.bashrc```:
 
 ```export PYTHONPATH="${PYTHONPATH}:HOME_DIR/dephased_ttn_project/"```
 
-and ```source ~/.bashrc```
+and ```source ~/.bashrc```.
 
 To run, for example, the MERA,
-```cd dephased_ttn_project/mera```
+```cd dephased_ttn_project/mera```.
 
 
 Configure ```config_example.yaml```, and run
