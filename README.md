@@ -5,6 +5,7 @@ Efficient unitary tree tensor netwokr (TTN) and Multi-scale Entanglement Renorma
 
 To setup, 
 ```
+git clone https://github.com/HaoranLiao/dephased_ttn_mera.git
 cd dephased_ttn_mera/uni_ttn/tf2/dependency
 conda env create -f environment_tf2.7.yaml
 conda activate tf2
