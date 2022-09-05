@@ -31,5 +31,4 @@ Using the code please cite:\
   author = {Liao, Haoran and Convy, Ian and Yang, Zhibo and Whaley, K. Birgitta},\
   title = {Decohering Tensor Network Quantum Machine Learning Models},\
   publisher = {arXiv:2209.01195},\
-  year = {2022}\
-}
+  year = {2022}}
