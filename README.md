@@ -24,10 +24,11 @@ To run, for example, the MERA,
 Configure ```config_example.yaml```, and run
 ```python model.py```
 
+\
 <!-- {% raw %} -->
 Using the code please cite:\
 @article{Liao_2022,\
-  url = {https://arxiv.org/abs/2209.01195},
+  url = {https://arxiv.org/abs/2209.01195},\
   author = {Liao, Haoran and Convy, Ian and Yang, Zhibo and Whaley, K. Birgitta},\
   title = {Decohering Tensor Network Quantum Machine Learning Models},\
   publisher = {arXiv:2209.01195},\
