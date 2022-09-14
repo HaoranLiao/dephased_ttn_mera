@@ -17,8 +17,16 @@ Add this to ```~/.bashrc```:
 
 and ```source ~/.bashrc```.
 
-To run, for example, the MERA,
+To run the MERA,
 ```cd dephased_ttn_mera/mera```.
+
+
+Configure ```config_example.yaml```, and run
+```python model.py```
+
+
+To run the unitary TTN,
+```cd dephased_ttn_mera/uni_ttn/tf2```.
 
 
 Configure ```config_example.yaml```, and run
