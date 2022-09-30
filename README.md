@@ -35,9 +35,9 @@ Configure ```config_example.yaml```, and run
 ```python model.py```
 
 
-
+\
 <!-- {% raw %} -->
-Using the code please cite:\
+Using the code please cite:
 ```
 @article{Liao_2022,
   url = {https://arxiv.org/abs/2209.01195},
@@ -47,5 +47,5 @@ Using the code please cite:\
   year = {2022}}
 ```
 
-Reference: [Liao et al., Decohering Tensor Network Quantum Machine Learning Models, arXiv:2209.01195 (2022)](https:\/\/arxiv.org\/abs\/2209.01195\)
+Reference: [Liao et al., Decohering Tensor Network Quantum Machine Learning Models, arXiv:2209.01195 (2022)](https://arxiv.org/abs/2209.01195)
 <!-- {% endraw %} -->
