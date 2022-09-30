@@ -1,6 +1,8 @@
 # Decohering tensor network QML models
 ## Unitary Tree Tensor Network and MERA
 
+Implementation of Liao et al., Decohering Tensor Network Quantum Machine Learning Models, https:\/\/arxiv.org\/abs\/2209.01195\
+
 Efficient unitary tree tensor network (TTN) and Multi-scale Entanglement Renormalization Ansatz (MERA) built with Tensorflow, with tunable local dephasing channels at every layer of the tensor networks and tunable number of ancillas, benchmarked on compressed MNIST, KMNIST, and Fashion-MNIST. Code comments included.
 
 To setup, 
@@ -38,17 +40,16 @@ Configure ```config_example.yaml```, and run
 Using the code please cite:\
 ```
 @article{Liao_2022,
-  url = \{https://arxiv.org/abs/2209.01195},
+  url = {https://arxiv.org/abs/2209.01195},
   author = {Liao, Haoran and Convy, Ian and Yang, Zhibo and Whaley, K. Birgitta},
   title = {Decohering Tensor Network Quantum Machine Learning Models},
   publisher = {arXiv:2209.01195},
   year = {2022}}
 ```
 
-@article{Liao_2022,\
-  url = \{https:\/\/arxiv.org\/abs\/2209.01195\},\
+  url = ,\
   author = {Liao, Haoran and Convy, Ian and Yang, Zhibo and Whaley, K. Birgitta},\
-  title = {Decohering Tensor Network Quantum Machine Learning Models},\
+  title = {},\
   publisher = {arXiv:2209.01195},\
   year = {2022}}
 <!-- {% endraw %} -->
