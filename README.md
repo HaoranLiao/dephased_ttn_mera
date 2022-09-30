@@ -35,7 +35,8 @@ Configure ```config_example.yaml```, and run
 ```python model.py```
 
 
-\
+
+
 <!-- {% raw %} -->
 Using the code please cite:
 ```
