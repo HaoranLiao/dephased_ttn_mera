@@ -38,7 +38,7 @@ Configure ```config_example.yaml```, and run
 
 
 <!-- {% raw %} -->
-Using the code please cite:
+Using the code please consider citing:
 ```
 @article{Liao_2022,
   url = {https://arxiv.org/abs/2209.01195},
