@@ -22,3 +22,5 @@ uni_ttn/tf2/.DS_Store
 *.iml
 .idea/misc.xml
 *.pyc
+*.iml
+*.xml
