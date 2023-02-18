@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import string
 from uni_ttn.tf2 import spsa
-
+import circuit_block
 
 class Network:
     def __init__(self, num_pixels, deph_p, num_anc, init_std, lr, config):
@@ -23,7 +23,10 @@ class Network:
         self.layers = []
         self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
         for i in range(self.num_layers):
-            self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
+            if self.config['meta']['node_type'] == 'generic':
+                self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
+            elif self.config['meta']['node_type'] == 'block9x5':
+                self.layers.append(circuit_block.Block9(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
         self.var_list = [layer.param_var_lay for layer in self.layers]
 
         # create ancillas as a kronecker product matrix for later use. To be appended to the input qubits
@@ -207,7 +210,7 @@ if __name__ == '__main__':
     import yaml
     with open('config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
-    network = Network(64, 0, 0, 0.01, 0.005, config)
+    network = Network(64, 0, 1, 0.01, 0.005, config)
     identity_input = tf.tile(1/2*tf.eye(2, dtype=tf.complex64)[None, None, :], [1, 64, 1, 1])
     try: out = network.get_network_output(identity_input)
     except: raise Exception('Need to comment out the line to form density matrices from kets')

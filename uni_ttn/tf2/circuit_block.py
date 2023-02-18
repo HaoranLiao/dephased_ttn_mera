@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-from uni_ttn.tf2.network import Layer
+# import uni_ttn.tf2.network
 
 Identity = tf.constant([[1, 0], [0, 1]], dtype=tf.complex64)
 Hadamard = 1 / np.sqrt(2) * tf.constant([[1, 1], [1, -1]], dtype=tf.complex64)
@@ -104,9 +104,9 @@ class H:
         return out
 
 
-class Block9(Layer):
-    def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std):
-        super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
+class Block9:
+    def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std, num_repeat=5):
+        # super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
         assert num_anc == 1
         self.num_anc = num_anc
         self.layer_idx = layer_idx
@@ -114,14 +114,36 @@ class Block9(Layer):
         self.num_nodes = num_nodes
         self.init_mean, self.std = init_mean, init_std
         self.num_in_qbs = 2 * (1 + self.num_anc)
+        self.num_repeat = num_repeat
+        self.unitary_matrices = None
+        self.rx_lst = []
+        for _ in range(self.num_repeat):
+            Rx = RX(self.num_nodes, self.num_in_qbs)
+            self.rx_lst.append(Rx.construct())
+            self.param_var_lay = Rx.params_ if not self.param_var_lay \
+                else tf.concat([self.param_var_lay, Rx.params_], 1)
+        self.param_var_lay = tf.transpose(self.param_var_lay, perm=[1, 0])
 
     def get_unitary_tensors(self):
         h = H(self.num_nodes, self.num_in_qbs).construct()
         cz = CZ(self.num_nodes, self.num_in_qbs).construct()
-        rx = RX(self.num_nodes, self.num_in_qbs).construct()
+        rx = self.rx_lst[0]
         self.unitary_matrices = tf.einsum('nab, nbc, ncd -> nad', h, cz, rx)
+
+        if self.num_repeat > 1:
+            for i in range(1, self.num_repeat):
+                rx = self.rx_lst[i]
+                self.unitary_matrices = tf.einsum('nab, nbc, ncd, nde -> nae', h, cz, rx, self.unitary_matrices)
+
         unitary_tensors = tf.reshape(self.unitary_matrices, [self.num_nodes, *[self.bond_dim] * 4])
         return unitary_tensors
+
+    def get_layer_output(self, input):
+        left_input, right_input = input[:, ::2], input[:, 1::2]
+        unitary_tensor = self.get_unitary_tensors()
+        left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
+        output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
+        return output
 
 
 if __name__ == '__main__':
