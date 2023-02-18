@@ -16,7 +16,8 @@ data:
  use_8x8_pixel_dict: True
 
 meta:
- node_type: 'block9x5'
+ node_type: 'block9'
+ block_repeat: 25
  set_visible_gpus: True
  visible_gpus: '1'
  set_memory_growth: True

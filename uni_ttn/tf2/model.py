@@ -47,6 +47,7 @@ def run_all(i):
         print('Random Seed:', config['meta']['random_seed'])
         print(f'Init Std: {init_std}')
         print(f'Adam Learning Rate: {lr}')
+        print(f'Node type: {config["meta"]["node_type"]}x{config["meta"]["block_repeat"]}')
         sys.stdout.flush()
 
         model = Model(data_path, digits, val_split, deph_p, num_anc, init_std, lr, config)
