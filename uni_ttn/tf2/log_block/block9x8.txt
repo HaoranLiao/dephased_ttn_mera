@@ -1,0 +1,102 @@
+{
+ "data": {
+  "path": "../../datasets/mnist8x8/mnist8x8",
+  "val_split": 0.166,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 20,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 5000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "node_type": "block9",
+  "block_repeat": 8,
+  "set_visible_gpus": true,
+  "visible_gpus": "1",
+  "set_memory_growth": true,
+  "random_seed": 42,
+  "list_num_anc": [
+   1
+  ],
+  "num_repeat": 1,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   50
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": false,
+   "network": true,
+   "p": [
+    0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.01
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": true,
+    "lr": [
+     0.015
+    ]
+   },
+   "spsa": {
+    "a": 28,
+    "b": 33,
+    "A": 7.41,
+    "s": 1.13,
+    "t": 0.658,
+    "gamma": 0.882
+   }
+  }
+ }
+}
+
+Repeat: 1/1
+Digits:	 [3, 5]
+Dephasing data False
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.015
+Node type: block9x8
+Physical GPUs: 2 Logical GPUs: 2
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/mnist8x8/mnist8x8
+Train Sample Size: 9634
+Validation Split: 0.17	 Size: 1918
+Test Sample Size: 1902
+Using 8x8 Pixel Dict
+Initialized Uni_TTN

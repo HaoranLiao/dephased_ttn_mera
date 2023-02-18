@@ -17,7 +17,7 @@ data:
 
 meta:
  node_type: 'block9'
- block_repeat: 25
+ block_repeat: 8
  set_visible_gpus: True
  visible_gpus: '1'
  set_memory_growth: True
@@ -46,7 +46,7 @@ tree:
  opt:
   opt: 'adam'
   adam:
-   user_lr: False
+   user_lr: True
    lr: [0.015]
 
   spsa:
