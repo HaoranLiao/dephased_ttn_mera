@@ -15,7 +15,8 @@ conda activate tf2
 
 If conda environment cannot be created, listed below are the packages needed other than the basics:
 ```
-tensorflow-gpu>=2.4.1
+tensorflow>=2.4
+(tensorflow-gpu>=2.4.1)
 scikit-image
 ```
 
