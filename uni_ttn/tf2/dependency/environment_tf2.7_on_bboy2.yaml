@@ -1,4 +1,4 @@
-name: tf2.7
+name: tf2
 channels:
   - conda-forge
   - defaults
