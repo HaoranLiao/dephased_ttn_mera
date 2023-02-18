@@ -1,8 +1,6 @@
 import tensorflow as tf
 import numpy as np
 
-# import uni_ttn.tf2.network
-
 Identity = tf.constant([[1, 0], [0, 1]], dtype=tf.complex64)
 Hadamard = 1 / np.sqrt(2) * tf.constant([[1, 1], [1, -1]], dtype=tf.complex64)
 
