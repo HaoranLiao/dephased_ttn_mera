@@ -13,6 +13,12 @@ conda env create -f environment_tf2.7.yaml
 conda activate tf2
 ```
 
+If conda environment cannot be created, listed below are the packages needed other than the basics:
+```
+tensorflow-gpu>=2.4.1
+scikit-image
+```
+
 Add this to ```~/.bashrc```:
 
 ```export PYTHONPATH="${PYTHONPATH}:HOME_DIR/dephased_ttn_mera/"```
