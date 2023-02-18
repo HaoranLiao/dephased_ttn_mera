@@ -17,9 +17,9 @@ data:
 
 meta:
  node_type: 'block9x5'
- set_visible_gpus: False
+ set_visible_gpus: True
  visible_gpus: '1'
- set_memory_growth: False
+ set_memory_growth: True
  random_seed: 42
  list_num_anc: [1]                # list or list of single
  num_repeat: 1
@@ -29,7 +29,7 @@ meta:
   num_match: 10
   trigger: 60
 
- list_epochs: [60]                        # list or list of single
+ list_epochs: [50]                        # list or list of single
  list_devices: True
 
  deph:
@@ -40,12 +40,12 @@ meta:
 tree:
  param:
   init_mean: 0
-  init_std: [0.05]
+  init_std: [0.01]
 
  opt:
   opt: 'adam'
   adam:
-   user_lr: True
+   user_lr: False
    lr: [0.015]
 
   spsa:

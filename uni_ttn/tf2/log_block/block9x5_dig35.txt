@@ -1,0 +1,182 @@
+{
+ "data": {
+  "path": "../../datasets/mnist8x8/mnist8x8",
+  "val_split": 0.166,
+  "list_digits": [
+   [
+    3,
+    5
+   ]
+  ],
+  "list_batch_sizes": [
+   250
+  ],
+  "execute_batch_size": 250,
+  "eval_batch_size_factor": 20,
+  "load_from_file": true,
+  "data_im_size": [
+   8,
+   8
+  ],
+  "sample_size": 5000000,
+  "feature_dim": 2,
+  "use_8x8_pixel_dict": true
+ },
+ "meta": {
+  "node_type": "block9x5",
+  "set_visible_gpus": true,
+  "visible_gpus": "1",
+  "set_memory_growth": true,
+  "random_seed": 42,
+  "list_num_anc": [
+   1
+  ],
+  "num_repeat": 1,
+  "auto_epochs": {
+   "enabled": false,
+   "criterion": 0.005,
+   "num_match": 10,
+   "trigger": 60
+  },
+  "list_epochs": [
+   50
+  ],
+  "list_devices": true,
+  "deph": {
+   "data": false,
+   "network": true,
+   "p": [
+    0
+   ]
+  }
+ },
+ "tree": {
+  "param": {
+   "init_mean": 0,
+   "init_std": [
+    0.01
+   ]
+  },
+  "opt": {
+   "opt": "adam",
+   "adam": {
+    "user_lr": false,
+    "lr": [
+     0.015
+    ]
+   },
+   "spsa": {
+    "a": 28,
+    "b": 33,
+    "A": 7.41,
+    "s": 1.13,
+    "t": 0.658,
+    "gamma": 0.882
+   }
+  }
+ }
+}
+
+Repeat: 1/1
+Digits:	 [3, 5]
+Dephasing data False
+Dephasing network True
+Dephasing rate 0.00
+Auto Epochs False
+Batch Size: 250
+Exec Batch Size: 250
+Number of Ancillas: 1
+Random Seed: 42
+Init Std: 0.01
+Adam Learning Rate: 0.015
+Physical GPUs: 2 Logical GPUs: 2
+Image Size: [8, 8]
+Feature Dim: 2
+Load Data From File: ../../datasets/mnist8x8/mnist8x8
+Train Sample Size: 9634
+Validation Split: 0.17	 Size: 1918
+Test Sample Size: 1902
+Using 8x8 Pixel Dict
+Initialized Uni_TTN
+Epoch   0  Train : 0.5309	Valid : 0.5297
+Checkpoint saved...
+Epoch   1  Train : 0.5309
+Epoch   2  Train : 0.5309	Valid : 0.5297
+Checkpoint saved...
+Epoch   3  Train : 0.5309
+Epoch   4  Train : 0.5601	Valid : 0.5532
+Checkpoint saved...
+Epoch   5  Train : 0.6712
+Epoch   6  Train : 0.8478	Valid : 0.8394
+Checkpoint saved...
+Epoch   7  Train : 0.8954
+Epoch   8  Train : 0.9076	Valid : 0.8900
+Checkpoint saved...
+Epoch   9  Train : 0.9127
+Epoch  10  Train : 0.9186	Valid : 0.8994
+Checkpoint saved...
+Epoch  11  Train : 0.9234
+Epoch  12  Train : 0.9199	Valid : 0.9030
+Checkpoint saved...
+Epoch  13  Train : 0.9251
+Epoch  14  Train : 0.9244	Valid : 0.9108
+Checkpoint saved...
+Epoch  15  Train : 0.9246
+Epoch  16  Train : 0.9244	Valid : 0.9129
+Checkpoint saved...
+Epoch  17  Train : 0.9230
+Epoch  18  Train : 0.9245	Valid : 0.9103
+Epoch  19  Train : 0.9250
+Epoch  20  Train : 0.9251	Valid : 0.9140
+Checkpoint saved...
+Epoch  21  Train : 0.9250
+Epoch  22  Train : 0.9215	Valid : 0.9077
+Epoch  23  Train : 0.9266
+Epoch  24  Train : 0.9264	Valid : 0.9119
+Epoch  25  Train : 0.9248
+Epoch  26  Train : 0.9253	Valid : 0.9124
+Epoch  27  Train : 0.9261
+Epoch  28  Train : 0.9259	Valid : 0.9140
+Checkpoint saved...
+Epoch  29  Train : 0.9256
+Epoch  30  Train : 0.9258	Valid : 0.9124
+Epoch  31  Train : 0.9253
+Epoch  32  Train : 0.9257	Valid : 0.9129
+Epoch  33  Train : 0.9259
+Epoch  34  Train : 0.9256	Valid : 0.9114
+Epoch  35  Train : 0.9254
+Epoch  36  Train : 0.9251	Valid : 0.9119
+Epoch  37  Train : 0.9258
+Epoch  38  Train : 0.9260	Valid : 0.9119
+Epoch  39  Train : 0.9263
+Epoch  40  Train : 0.9265	Valid : 0.9114
+Epoch  41  Train : 0.9265
+Epoch  42  Train : 0.9265	Valid : 0.9098
+Epoch  43  Train : 0.9265
+Epoch  44  Train : 0.9263	Valid : 0.9098
+Epoch  45  Train : 0.9257
+Epoch  46  Train : 0.9273	Valid : 0.9140
+Checkpoint saved...
+Epoch  47  Train : 0.9273
+Epoch  48  Train : 0.9261	Valid : 0.9124
+Epoch  49  Train : 0.9267
+Training Done
+Restored from Epoch 46...
+Test Accuracy : 0.923	Train Accuracy : 0.927
+Time (hr): 0.3977
+
+Setting 0 Train Accs: [0.92734]	
+Setting 0 Avg Train Acc: 0.9273
+Setting 0 Std Train Acc: 0.0000
+Setting 0 Test Accs: [0.92324]	
+Setting 0 Avg Test Acc: 0.9232
+Setting 0 Std Test Acc: 0.0000
+All Settings Avg Test Accs:
+ [0.9232]
+All Settings Avg Train/Val Accs:
+ [0.9273]
+All Settings Std Test Accs:
+ [0.0]
+All Settings Std Train/Val Accs:
+ [0.0]
+Time (hr): 0.3996
