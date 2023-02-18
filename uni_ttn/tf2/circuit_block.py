@@ -117,11 +117,12 @@ class Block9:
         self.num_repeat = num_repeat
         self.unitary_matrices = None
         self.rx_lst = []
+        self.param_var_lay = None
         for _ in range(self.num_repeat):
             Rx = RX(self.num_nodes, self.num_in_qbs)
             self.rx_lst.append(Rx.construct())
-            self.param_var_lay = Rx.params_ if not self.param_var_lay \
-                else tf.concat([self.param_var_lay, Rx.params_], 1)
+            if self.param_var_lay is None: self.param_var_lay = Rx.params_
+            else: self.param_var_lay = tf.concat([self.param_var_lay, Rx.params_], 1)
         self.param_var_lay = tf.transpose(self.param_var_lay, perm=[1, 0])
 
     def get_unitary_tensors(self):
