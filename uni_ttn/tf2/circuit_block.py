@@ -13,28 +13,21 @@ class RX:
         self.params_ = params_
 
     def construct(self):
-        outer_lst = []
-        for node in range(self.params_.shape[1]):   # so the first axis of self.RXs_ is num_nodes
-            lst = []
-            for q in range(self.params_.shape[0]):
-                theta = self.params_[q, node]
-                rx = tf.stack([[tf.cast(tf.cos(theta), tf.complex64), -1.0j * tf.cast(tf.sin(theta), tf.complex64)],
-                               [-1.0j * tf.cast(tf.sin(theta), tf.complex64), tf.cast(tf.cos(theta), tf.complex64)]])
-                lst.append(rx)
-            outer_lst.append(tf.stack(lst))
-        self.RXs_ = tf.stack(outer_lst)
-
-        return self.make_multi_q_op(self.RXs_)
-
-    @staticmethod
-    def make_multi_q_op(ops):
-        out = []
-        for i in range(ops.shape[0]):
-            tensored = ops[i, 0]
-            for j in range(1, ops.shape[1]):
-                tensored = tf.experimental.numpy.kron(tensored, ops[i, j])
-            out.append(tensored)
-        return tf.stack(out)
+        num_qubits, num_nodes = self.params_.shape
+        self.RXs_ = tf.zeros((num_nodes, 2**num_qubits, 2**num_qubits), dtype=tf.complex64)
+        for n in range(num_nodes):  # so the first axis of self.RXs_ is num_nodes
+            theta = self.params_[0, n]
+            sin_t, cos_t = tf.cast(tf.sin(theta), tf.complex64), tf.cast(tf.cos(theta), tf.complex64)
+            tensored = tf.stack([[cos_t, -1.0j * sin_t],
+                                 [-1.0j * sin_t, cos_t]])
+            for q in range(1, num_qubits):
+                theta = self.params_[q, n]
+                sin_t, cos_t = tf.cast(tf.sin(theta), tf.complex64), tf.cast(tf.cos(theta), tf.complex64)
+                rx = tf.stack([[cos_t, -1.0j * sin_t],
+                               [-1.0j * sin_t, cos_t]])
+                tensored = tf.experimental.numpy.kron(tensored, rx)
+            self.RXs_ = tf.tensor_scatter_nd_update(self.RXs_, [[n]], tensored[None, :])
+        return self.RXs_
 
 
 class CZ:
@@ -48,7 +41,7 @@ class CZ:
         for i in range(1, self.num_qubits - 1):
             cz_layer = cz_layer @ CZ.two_qubit_op(self.cz, i, i + 1, self.num_qubits)
 
-        return tf.cast(tf.stack([cz_layer for _ in range(self.num_nodes)]), tf.complex64)
+        return tf.repeat(cz_layer[None, :], repeats=self.num_nodes, axis=0)
 
     @staticmethod
     def two_qubit_op(op, fir_qb, sec_qb, total_num_qbs):
@@ -67,7 +60,7 @@ class CZ:
             out = tf.experimental.numpy.kron(out, op)
             for _ in range(fir_qb + 2, total_num_qbs): out = tf.experimental.numpy.kron(out, Identity)
         assert out.shape == (2 ** total_num_qbs, 2 ** total_num_qbs)
-        return out
+        return tf.cast(out, tf.complex64)
 
 
 class H:
@@ -79,7 +72,7 @@ class H:
     def construct(self):
         h_layer = 1.0 + 0.0j
         for _ in range(self.num_qubits): h_layer = tf.experimental.numpy.kron(h_layer, self.h)
-        return tf.stack([h_layer for _ in range(self.num_nodes)])
+        return tf.repeat(h_layer[None, :], repeats=self.num_nodes, axis=0)
 
     @staticmethod
     def single_qubit_op(op, which_qb, total_num_qbs):
@@ -117,16 +110,18 @@ class Block9:
                 shape=[num_repeat * self.num_in_qbs, num_nodes], dtype=tf.float32,
             ), name='param_var_lay_%s' % layer_idx, trainable=True)
 
+        self.h = H(self.num_nodes, self.num_in_qbs).construct()
+        self.cz = CZ(self.num_nodes, self.num_in_qbs).construct()
+
     def get_unitary_tensors(self):
-        h = H(self.num_nodes, self.num_in_qbs).construct()
-        cz = CZ(self.num_nodes, self.num_in_qbs).construct()
         rx = RX(self.param_var_lay[0 * self.num_in_qbs: 0 * self.num_in_qbs + self.num_in_qbs]).construct()
-        self.unitary_matrices = tf.einsum('nab, nbc, ncd -> nad', h, cz, rx)
+        self.unitary_matrices = tf.einsum('nab, nbc, ncd -> nad', self.h, self.cz, rx)
 
         if self.num_repeat > 1:
             for i in range(1, self.num_repeat):
                 rx = RX(self.param_var_lay[i * self.num_in_qbs: i * self.num_in_qbs + self.num_in_qbs]).construct()
-                self.unitary_matrices = tf.einsum('nab, nbc, ncd, nde -> nae', h, cz, rx, self.unitary_matrices)
+                self.unitary_matrices = tf.einsum('nab, nbc, ncd, nde -> nae', self.h, self.cz, rx,
+                                                  self.unitary_matrices)
 
         unitary_tensors = tf.reshape(self.unitary_matrices, [self.num_nodes, *[self.bond_dim] * 4])
         return unitary_tensors
