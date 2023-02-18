@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+
 # import uni_ttn.tf2.network
 
 Identity = tf.constant([[1, 0], [0, 1]], dtype=tf.complex64)
@@ -7,24 +8,22 @@ Hadamard = 1 / np.sqrt(2) * tf.constant([[1, 1], [1, -1]], dtype=tf.complex64)
 
 
 class RX:
-    def __init__(self, num_nodes, num_parallel_rxs, init_mean=0, init_std=1):
-        self.params_ = tf.cast(tf.Variable(
-            0.5 * tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
-                shape=[num_nodes, num_parallel_rxs], dtype=tf.float32,
-            ), trainable=True), tf.complex64)
+    def __init__(self, params_):
+        self.RXs_ = None
+        self.params_ = params_
 
+    def construct(self):
         outer_lst = []
-        for i in range(self.params_.shape[0]):
+        for node in range(self.params_.shape[1]):   # so the first axis of self.RXs_ is num_nodes
             lst = []
-            for j in range(self.params_.shape[1]):
-                theta = self.params_[i][j]
-                rx = tf.stack([tf.concat([tf.cos(theta), -1.0j * tf.sin(theta)], axis=0),
-                               tf.concat([-1.0j * tf.sin(theta), tf.cos(theta)], axis=0)])
+            for q in range(self.params_.shape[0]):
+                theta = self.params_[q, node]
+                rx = tf.stack([[tf.cast(tf.cos(theta), tf.complex64), -1.0j * tf.cast(tf.sin(theta), tf.complex64)],
+                               [-1.0j * tf.cast(tf.sin(theta), tf.complex64), tf.cast(tf.cos(theta), tf.complex64)]])
                 lst.append(rx)
             outer_lst.append(tf.stack(lst))
         self.RXs_ = tf.stack(outer_lst)
 
-    def construct(self):
         return self.make_multi_q_op(self.RXs_)
 
     @staticmethod
@@ -42,10 +41,7 @@ class CZ:
     def __init__(self, num_nodes, num_qubits):
         self.num_nodes = num_nodes
         self.num_qubits = num_qubits
-        self.cz = tf.stack([tf.concat([1.0 + 0.0j, 0.0j, 0.0j, 0.0j], axis=0),
-                            tf.concat([0.0j, 1.0 + 0.0j, 0.0j, 0.0j], axis=0),
-                            tf.concat([0.0j, 0.0j, 1.0 + 0.0j, 0.0j], axis=0),
-                            tf.concat([0.0j, 0.0j, 0.0j, -1.0 + 0.0j], axis=0)])
+        self.cz = tf.constant([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, -1]], dtype=tf.complex64)
 
     def construct(self):
         cz_layer = CZ.two_qubit_op(self.cz, 0, 1, self.num_qubits)
@@ -106,7 +102,6 @@ class H:
 
 class Block9:
     def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std, num_repeat=5):
-        # super().__init__(num_nodes, layer_idx, num_anc, init_mean, init_std)
         assert num_anc == 1
         self.num_anc = num_anc
         self.layer_idx = layer_idx
@@ -116,24 +111,21 @@ class Block9:
         self.num_in_qbs = 2 * (1 + self.num_anc)
         self.num_repeat = num_repeat
         self.unitary_matrices = None
-        self.rx_lst = []
-        self.param_var_lay = None
-        for _ in range(self.num_repeat):
-            Rx = RX(self.num_nodes, self.num_in_qbs)
-            self.rx_lst.append(Rx.construct())
-            if self.param_var_lay is None: self.param_var_lay = Rx.params_
-            else: self.param_var_lay = tf.concat([self.param_var_lay, Rx.params_], 1)
-        self.param_var_lay = tf.transpose(self.param_var_lay, perm=[1, 0])
+
+        self.param_var_lay = tf.Variable(
+            0.5 * tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
+                shape=[num_repeat * self.num_in_qbs, num_nodes], dtype=tf.float32,
+            ), name='param_var_lay_%s' % layer_idx, trainable=True)
 
     def get_unitary_tensors(self):
         h = H(self.num_nodes, self.num_in_qbs).construct()
         cz = CZ(self.num_nodes, self.num_in_qbs).construct()
-        rx = self.rx_lst[0]
+        rx = RX(self.param_var_lay[0 * self.num_in_qbs: 0 * self.num_in_qbs + self.num_in_qbs]).construct()
         self.unitary_matrices = tf.einsum('nab, nbc, ncd -> nad', h, cz, rx)
 
         if self.num_repeat > 1:
             for i in range(1, self.num_repeat):
-                rx = self.rx_lst[i]
+                rx = RX(self.param_var_lay[i * self.num_in_qbs: i * self.num_in_qbs + self.num_in_qbs]).construct()
                 self.unitary_matrices = tf.einsum('nab, nbc, ncd, nde -> nae', h, cz, rx, self.unitary_matrices)
 
         unitary_tensors = tf.reshape(self.unitary_matrices, [self.num_nodes, *[self.bond_dim] * 4])

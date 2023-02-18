@@ -14,11 +14,13 @@ def print_results(start_time):
     print('All Settings Avg Train/Val Accs:\n', avg_repeated_train_acc)
     print('All Settings Std Test Accs:\n', std_repeated_test_acc)
     print('All Settings Std Train/Val Accs:\n', std_repeated_train_acc)
-    print('Time (hr): %.4f' % ((time.time()-start_time)/3600))
+    print('Time (hr): %.4f' % ((time.time() - start_time) / 3600))
     sys.stdout.flush()
+
 
 def var_or_const(input, i):
     return input[i] if len(input) > 1 else input[0]
+
 
 def run_all(i):
     digits = var_or_const(list_digits, i)
@@ -53,7 +55,7 @@ def run_all(i):
 
         test_accs.append(round(test_acc, 5))
         train_accs.append(round(train_acc, 5))
-        print('Time (hr): %.4f' % ((time.time()-start_time)/3600), flush=True)
+        print('Time (hr): %.4f' % ((time.time() - start_time) / 3600), flush=True)
         gc.collect()
 
     print(f'\nSetting {i} Train Accs: {train_accs}\t')
@@ -78,7 +80,7 @@ class Model:
         if config['meta']['list_devices']: tf.config.list_physical_devices(); sys.stdout.flush()
         gpus = tf.config.list_physical_devices('GPU')
         if gpus:
-            for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, config['meta']['set_memory_growth'])
+            # for gpu in gpus: tf.config.experimental.set_memory_growth(gpu, config['meta']['set_memory_growth'])
             logical_gpus = tf.config.list_logical_devices('GPU')
             print('Physical GPUs:', len(gpus), 'Logical GPUs:', len(logical_gpus), flush=True)
 
@@ -104,7 +106,8 @@ class Model:
             print('Validation Split: %.2f\t Size: %d' % (val_split, len(self.val_images)), flush=True)
         else:
             self.val_images = self.labels = None
-            assert not config['data']['val_split']; print('No Validation', flush=True)
+            assert not config['data']['val_split'];
+            print('No Validation', flush=True)
 
         self.test_images, self.test_labels = test_data
         print('Test Sample Size: %s' % len(self.test_images), flush=True)
@@ -141,7 +144,7 @@ class Model:
 
             # Every two epoches we evaluate on the validation set
             if not epoch % 2 and self.val_images is not None:
-                val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size*self.b_factor)
+                val_accuracy = self.run_network(self.val_images, self.val_labels, batch_size * self.b_factor)
                 print('Epoch {0:3}  Train : {1:.4f}\tValid : {2:.4f}'
                       .format(epoch, train_accuracy, val_accuracy), flush=True)
                 if val_accuracy >= max(self.history_val_acc):
@@ -165,15 +168,15 @@ class Model:
 
         # Go to eager mode so we restore the network to the one with the checkpoint-loaded parameters
         tf.config.run_functions_eagerly(True)
-        train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
-        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size*self.b_factor)
+        train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size * self.b_factor)
+        test_accuracy = self.run_network(self.test_images, self.test_labels, batch_size * self.b_factor)
         print(f'Test Accuracy : {test_accuracy:.3f}\tTrain Accuracy : {train_accuracy:.3f}', flush=True)
         return test_accuracy, train_accuracy
 
     def run_network(self, images, labels, batch_size):
         num_correct = 0
         batch_iter = data.batch_generator_np(images, labels, batch_size)
-        for (image_batch, label_batch) in tqdm(batch_iter, total=len(images)//batch_size, **TQDM_DICT):
+        for (image_batch, label_batch) in tqdm(batch_iter, total=len(images) // batch_size, **TQDM_DICT):
             image_batch = tf.constant(image_batch, dtype=tf.float32)
             pred_probs = self.network.get_network_output(image_batch)
             num_correct += get_num_correct(pred_probs, label_batch)
@@ -183,21 +186,26 @@ class Model:
     def check_acc_satified(self, accuracy):
         criterion = self.config['meta']['auto_epochs']['criterion']
         for i in range(self.config['meta']['auto_epochs']['num_match']):
-            if abs(accuracy - self.epoch_acc[-(i + 2)]) <= criterion: continue
-            else: return False
+            if abs(accuracy - self.epoch_acc[-(i + 2)]) <= criterion:
+                continue
+            else:
+                return False
         return True
 
     def run_epoch(self, batch_size, epoch, grad_accumulation=True):
         if not grad_accumulation:
             batch_iter = data.batch_generator_np(self.train_images, self.train_labels, batch_size)
-            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//batch_size, **TQDM_DICT):
+            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images) // batch_size,
+                                                               **TQDM_DICT):
                 self.network.update_no_processing(train_image_batch, train_label_batch)
         else:
-            exec_batch_size = self.config['data']['execute_batch_size'] # sub-batch
+            exec_batch_size = self.config['data']['execute_batch_size']  # sub-batch
             counter = batch_size // exec_batch_size
             assert not batch_size % exec_batch_size, 'batch_size not divisible by exec_batch_size'
             batch_iter = data.batch_generator_np(self.train_images, self.train_labels, exec_batch_size)
-            for (train_image_batch, train_label_batch) in tqdm(batch_iter, total=len(self.train_images)//exec_batch_size, **TQDM_DICT):
+            for (train_image_batch, train_label_batch) in tqdm(batch_iter,
+                                                               total=len(self.train_images) // exec_batch_size,
+                                                               **TQDM_DICT):
                 if counter > 1:
                     # When the counter has not decreased to 1, keep feeding in next sub-batch and do not apply gradients
                     counter -= 1
@@ -207,7 +215,7 @@ class Model:
                     counter = batch_size // exec_batch_size
                     self.network.update(train_image_batch, train_label_batch, epoch, apply_grads=True, counter=counter)
 
-        train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size*self.b_factor)
+        train_accuracy = self.run_network(self.train_images, self.train_labels, batch_size * self.b_factor)
         return train_accuracy
 
 

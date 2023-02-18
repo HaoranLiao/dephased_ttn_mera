@@ -4,6 +4,7 @@ import string
 from uni_ttn.tf2 import spsa
 import circuit_block
 
+
 class Network:
     def __init__(self, num_pixels, deph_p, num_anc, init_std, lr, config):
         self.config = config
@@ -21,7 +22,8 @@ class Network:
         if self.num_anc and self.deph_p > 0: self.construct_dephasing_kraus()
 
         self.layers = []
-        self.list_num_nodes = [int(self.num_pixels / 2**(i+1)) for i in range(self.num_layers)]
+        self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
+
         for i in range(self.num_layers):
             if self.config['meta']['node_type'] == 'generic':
                 self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
@@ -34,13 +36,15 @@ class Network:
             self.bond_dim = 2 ** (num_anc + 1)
             self.ancilla = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
             self.ancillas = tf.constant([[1, 0], [0, 0]], dtype=tf.complex64)
-            for _ in range(self.num_anc-1):
+            for _ in range(self.num_anc - 1):
                 self.ancillas = tf.experimental.numpy.kron(self.ancillas, self.ancilla)
 
         self.cce = tf.keras.losses.CategoricalCrossentropy()
         if config['tree']['opt']['opt'] == 'adam':
-            if not config['tree']['opt']['adam']['user_lr']: self.opt = tf.keras.optimizers.Adam()
-            else: self.opt = tf.keras.optimizers.Adam(lr)
+            if not config['tree']['opt']['adam']['user_lr']:
+                self.opt = tf.keras.optimizers.Adam()
+            else:
+                self.opt = tf.keras.optimizers.Adam(lr)
         elif config['tree']['opt']['opt'] == 'spsa':
             self.opt = spsa.Spsa(self, self.config['tree']['opt']['spsa'])
         else:
@@ -49,36 +53,37 @@ class Network:
         # This is for the tracing operation at the end. einsum cannot handled more than 6 repetitive indices (3 traces)
         if self.num_anc < 4:
             chars = string.ascii_lowercase
-            self.trace_einsum = 'za' + chars[2:2+self.num_anc] + 'b' + chars[2:2+self.num_anc] + '-> zab'
+            self.trace_einsum = 'za' + chars[2:2 + self.num_anc] + 'b' + chars[2:2 + self.num_anc] + '-> zab'
 
         self.grads = None
 
-    @tf.function
+    # @tf.function
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
-        input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)   # omit conjugation since input is real
+        input_batch = tf.einsum('zna, znb -> znab', input_batch, input_batch)  # omit conjugation since input is real
         if self.num_anc:
             input_batch = tf.reshape(
                 tf.einsum('znab, cd -> znacbd', input_batch, self.ancillas),
-                [batch_size, 2*self.list_num_nodes[0], self.bond_dim, self.bond_dim])
+                [batch_size, 2 * self.list_num_nodes[0], self.bond_dim, self.bond_dim])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
         layer_out = self.layers[0].get_layer_output(input_batch)
         if self.deph_net: layer_out = self.dephase(layer_out)
-        for i in range(1, self.num_layers-1):
+        for i in range(1, self.num_layers - 1):
             layer_out = self.layers[i].get_layer_output(layer_out)
             if self.deph_net: layer_out = self.dephase(layer_out)
 
         final_layer_out = tf.reshape(
-            self.layers[self.num_layers-1].get_layer_output(layer_out)[:, 0],
-            [batch_size, *[2]*(2*self.num_out_qubits)])
+            self.layers[self.num_layers - 1].get_layer_output(layer_out)[:, 0],
+            [batch_size, *[2] * (2 * self.num_out_qubits)])
 
         if self.num_anc < 4:
             final_layer_out = tf.einsum(self.trace_einsum, final_layer_out)
         elif self.num_anc == 4:
             # tf.linalg.trace alway trace out the last two dimensions, so we need to transpose first
-            final_layer_out = tf.transpose(final_layer_out, perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])    # zabcdefghij -> zafbgchdiej
+            final_layer_out = tf.transpose(final_layer_out,
+                                           perm=[0, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10])  # zabcdefghij -> zafbgchdiej
             for _ in range(4): final_layer_out = tf.linalg.trace(final_layer_out)
         else:
             raise NotImplementedError
@@ -119,7 +124,7 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
-    @tf.function
+    # @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(label_batch, self.get_network_output(input_batch))
 
@@ -128,8 +133,10 @@ class Network:
             return tf.linalg.diag(tf.linalg.diag_part(tensor))
         else:
             # The contraction over 'k' is the summation over all Kraus operator terms
-            if self.num_anc: return tf.einsum('kab, znbc, kdc -> znad', self.kraus_ops, tensor, self.kraus_ops)
-            else: return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
+            if self.num_anc:
+                return tf.einsum('kab, znbc, kdc -> znad', self.kraus_ops, tensor, self.kraus_ops)
+            else:
+                return (1 - self.deph_p) * tensor + self.deph_p * tf.linalg.diag(tf.linalg.diag_part(tensor))
 
     def construct_dephasing_kraus(self):
         # This constructs the multi-qubit Kraus operator, with the first dimension enumerating over the Kraus operators
@@ -138,7 +145,7 @@ class Network:
         m = (m1, m2)
         # :combinations: e.g., for two qubits, there are four combinations: (0, 0), (0, 1), (1, 0), (1, 1)
         combinations = tf.reshape(
-            tf.transpose(tf.meshgrid(*[[0, 1]]*self.num_out_qubits)),
+            tf.transpose(tf.meshgrid(*[[0, 1]] * self.num_out_qubits)),
             [-1, self.num_out_qubits])
         self.kraus_ops = []
         for combo in combinations:
@@ -192,7 +199,7 @@ class Layer:
         eig_exp = tf.exp(1.0j * eigenvalues)
         diag_exp_mat = tf.linalg.diag(eig_exp)
         unitary_matrices = tf.einsum('nab, nbc, ndc -> nad', eigenvectors, diag_exp_mat, tf.math.conj(eigenvectors))
-        unitary_tensors = tf.reshape(unitary_matrices, [self.num_nodes, *[self.bond_dim]*4])
+        unitary_tensors = tf.reshape(unitary_matrices, [self.num_nodes, *[self.bond_dim] * 4])
         return unitary_tensors
 
     def get_layer_output(self, input):
@@ -207,11 +214,15 @@ if __name__ == '__main__':
     '''
     Test the contractions of the network by inputting 1/2 I. The output should be 1/2 I. 
     '''
+    tf.config.run_functions_eagerly(True)
     import yaml
+
     with open('config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
-    network = Network(64, 0, 1, 0.01, 0.005, config)
-    identity_input = tf.tile(1/2*tf.eye(2, dtype=tf.complex64)[None, None, :], [1, 64, 1, 1])
-    try: out = network.get_network_output(identity_input)
-    except: raise Exception('Need to comment out the line to form density matrices from kets')
+    network = Network(64, 0, 1, 0.1, 0.05, config)
+    identity_input = tf.tile(1 / 2 * tf.eye(2, dtype=tf.complex64)[None, None, :], [1, 64, 1, 1])
+    try:
+        out = network.get_network_output(identity_input)
+    except:
+        raise Exception('Need to comment out the line to form density matrices from kets')
     print(out)
