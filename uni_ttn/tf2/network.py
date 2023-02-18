@@ -28,7 +28,8 @@ class Network:
             if self.config['meta']['node_type'] == 'generic':
                 self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
             elif self.config['meta']['node_type'] == 'block9x5':
-                self.layers.append(circuit_block.Block9(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
+                self.layers.append(
+                    circuit_block.Block9(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
         self.var_list = [layer.param_var_lay for layer in self.layers]
 
         # create ancillas as a kronecker product matrix for later use. To be appended to the input qubits
@@ -57,7 +58,7 @@ class Network:
 
         self.grads = None
 
-    # @tf.function
+    @tf.function
     def get_network_output(self, input_batch: tf.constant):
         batch_size = input_batch.shape[0]
         input_batch = tf.cast(input_batch, tf.complex64)
@@ -124,7 +125,7 @@ class Network:
             self.opt.apply_gradients(zip(self.grads, self.var_list))
             self.grads = None
 
-    # @tf.function
+    @tf.function
     def loss(self, input_batch, label_batch):
         return self.cce(label_batch, self.get_network_output(input_batch))
 
