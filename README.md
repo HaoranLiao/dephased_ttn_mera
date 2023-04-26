@@ -12,6 +12,7 @@ cd dephased_ttn_mera/
 conda create -n tnqml python=3.8
 conda activate tnqml
 pip install -r requirements.txt
+conda install -c conda-forge tensorflow==2.4.0
 ```
 To use GPU,
 ```
