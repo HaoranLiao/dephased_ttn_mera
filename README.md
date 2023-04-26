@@ -14,9 +14,9 @@ conda activate tnqml
 pip install -r requirements.txt
 conda install -c conda-forge tensorflow==2.4.0
 ```
-To use GPU,
+To use GPUs,
 ```
-pip install -r requirements_gpu.txt
+conda install -c conda-forge tensorflow-gpu==2.4.0
 ```
 
 Add this to ```~/.bashrc``` replacing the ```HOME_DIR```:
