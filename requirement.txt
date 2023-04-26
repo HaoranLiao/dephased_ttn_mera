@@ -1,0 +1,6 @@
+tensorflow>=2.4
+tensorflow-datasets>=4.5.2
+scikit-image
+tqdm
+yaml
+filelock
