@@ -12,8 +12,13 @@ cd dephased_ttn_mera/
 conda create -n tnqml python=3.8
 conda activate tnqml
 pip install -r requirements.txt
+```
+For Apple M1, do the following,
+```
+conda install -c conda-forge tensorflow==2.6.0
 conda install -c conda-forge tensorflow==2.4.0
 ```
+
 To use GPUs,
 ```
 pip install -r requirements-gpu.txt
