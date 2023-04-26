@@ -11,7 +11,7 @@ git clone https://github.com/HaoranLiao/dephased_ttn_mera.git
 cd dephased_ttn_mera/
 conda create -n tnqml python=3.8
 conda activate tnqml
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 Add this to ```~/.bashrc```:
