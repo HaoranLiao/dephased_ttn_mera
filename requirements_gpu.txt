@@ -1,0 +1,3 @@
+tensorflow-gpu==2.4.0
+cudatoolkit==11.0
+cuDnn==8
