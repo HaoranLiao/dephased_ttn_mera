@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ```
 To use GPU,
 ```
-pip install -r requirements_dev.txt
+pip install -r requirements_gpu.txt
 ```
 
 Add this to ```~/.bashrc```:
