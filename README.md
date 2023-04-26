@@ -8,16 +8,10 @@ Efficient unitary tree tensor network (TTN) and Multi-scale Entanglement Renorma
 To setup, 
 ```
 git clone https://github.com/HaoranLiao/dephased_ttn_mera.git
-cd dephased_ttn_mera/uni_ttn/tf2/dependency
-conda env create -f environment_tf2.7.yaml
-conda activate tf2
-```
-
-If conda environment cannot be created, listed below are the packages needed other than the basics:
-```
-tensorflow>=2.4
-(tensorflow-gpu>=2.4.1)
-scikit-image
+cd dephased_ttn_mera/
+conda create -n tnqml python=3.8
+conda activate tnqml
+pip install -r requirement.txt
 ```
 
 Add this to ```~/.bashrc```:
