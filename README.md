@@ -16,7 +16,7 @@ conda install -c conda-forge tensorflow==2.4.0
 ```
 To use GPUs,
 ```
-conda install -c conda-forge tensorflow-gpu==2.4.0
+pip install -r requirements-gpu.txt
 ```
 
 Add this to ```~/.bashrc``` replacing the ```HOME_DIR```:
