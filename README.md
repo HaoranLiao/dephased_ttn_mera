@@ -20,7 +20,7 @@ Add this to ```~/.bashrc```:
 
 and ```source ~/.bashrc```.
 
-\
+$~$
 
 To run the MERA,
 ```cd dephased_ttn_mera/mera```.
@@ -37,7 +37,7 @@ To run the unitary TTN,
 Configure ```config_example.yaml```, and run
 ```python model.py```
 
-\
+$~$
 
 The main scripts to construct the tensor networks and to do the training are:
 - ```data.py```, 
@@ -45,7 +45,7 @@ The main scripts to construct the tensor networks and to do the training are:
 - ```network.py``` 
 - under the folders ```cd dephased_ttn_mera/uni_ttn/tf2``` for unitary TTN and ```cd dephased_ttn_mera/mera``` for MERA
 
-\
+$~$
 
 <!-- {% raw %} -->
 Using the code please consider citing:
