@@ -13,6 +13,10 @@ conda create -n tnqml python=3.8
 conda activate tnqml
 pip install -r requirements.txt
 ```
+To use GPU,
+```
+pip install -r requirements_dev.txt
+```
 
 Add this to ```~/.bashrc```:
 
