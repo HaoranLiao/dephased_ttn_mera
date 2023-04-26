@@ -40,9 +40,9 @@ Configure ```config_example.yaml```, and run
 $~$
 
 The main scripts to construct the tensor networks and to do the training are:
-- ```data.py```, 
-- ```model.py```, 
-- ```network.py``` 
+- ```data.py``` (for dataset loading and preprocessing), 
+- ```model.py``` (define the workflow), 
+- ```network.py``` (construct the network),
 - under the folders ```cd dephased_ttn_mera/uni_ttn/tf2``` for unitary TTN and ```cd dephased_ttn_mera/mera``` for MERA
 
 $~$
