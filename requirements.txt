@@ -1,6 +1,6 @@
-tensorflow~=2.6
-tensorflow-datasets~=4.5.2
-scikit-image
+tensorflow==2.6.0
+tensorflow-datasets==4.5.2
+scikit-image==0.19.2
 tqdm
 pyyaml
 filelock
