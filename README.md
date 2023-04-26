@@ -18,7 +18,7 @@ To use GPU,
 pip install -r requirements_gpu.txt
 ```
 
-Add this to ```~/.bashrc``` replacing the HOME_DIR:
+Add this to ```~/.bashrc``` replacing the ```HOME_DIR```:
 
 ```export PYTHONPATH="${PYTHONPATH}:HOME_DIR/dephased_ttn_mera/"```
 
