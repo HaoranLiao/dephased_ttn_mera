@@ -19,16 +19,17 @@ conda install -c conda-forge tensorflow==2.6.0
 conda install -c conda-forge tensorflow==2.4.0
 ```
 
-To use GPUs,
-```
-pip install -r requirements-gpu.txt
-```
-
 Add this to ```~/.bashrc``` replacing the ```HOME_DIR```:
 
 ```export PYTHONPATH="${PYTHONPATH}:HOME_DIR/dephased_ttn_mera/"```
 
 and ```source ~/.bashrc```.
+
+
+To use GPUs,
+```
+pip install -r requirements-gpu.txt
+```
 
 $~$
 
