@@ -61,12 +61,16 @@ $~$
 <!-- {% raw %} -->
 Using the code please consider citing:
 ```
-@article{Liao_2022,
-  url = {https://arxiv.org/abs/2209.01195},
-  author = {Liao, Haoran and Convy, Ian and Yang, Zhibo and Whaley, K. Birgitta},
-  title = {Decohering Tensor Network Quantum Machine Learning Models},
-  publisher = {arXiv:2209.01195},
-  year = {2022}}
+ @article{Liao_2023,
+  title={Decohering tensor network quantum machine learning models},
+  author={Liao, Haoran and Convy, Ian and Yang, Zhibo and Whaley, K Birgitta},
+  journal={Quantum Machine Intelligence},
+  volume={5},
+  number={1},
+  pages={7},
+  year={2023},
+  publisher={Springer}
+}
 ```
 
 Reference: [Liao et al., Decohering Tensor Network Quantum Machine Learning Models, arXiv:2209.01195 (2022)](https://arxiv.org/abs/2209.01195)
