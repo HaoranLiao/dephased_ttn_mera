@@ -63,7 +63,7 @@ Using the code please consider citing:
 ```
  @article{Liao_2023,
   title={Decohering tensor network quantum machine learning models},
-  author={Liao, Haoran and Convy, Ian and Yang, Zhibo and Whaley, K Birgitta},
+  author={Liao, Haoran and Convy, Ian and Yang, Zhibo and Whaley, K. Birgitta},
   journal={Quantum Machine Intelligence},
   volume={5},
   number={1},
