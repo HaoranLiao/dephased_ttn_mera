@@ -69,9 +69,10 @@ Using the code please consider citing:
   number={1},
   pages={7},
   year={2023},
-  publisher={Springer}
+  publisher={Springer},
+  doi={https://doi.org/10.1007/s42484-022-00095-9},
 }
 ```
 
-Reference: [Liao et al., Decohering Tensor Network Quantum Machine Learning Models, arXiv:2209.01195 (2022)](https://arxiv.org/abs/2209.01195)
+Reference: [Liao et al., Decohering Tensor Network Quantum Machine Learning Models, Quantum Mach. Intell. 5(1), 7 (2023)](https://doi.org/10.1007/s42484-022-00095-9)
 <!-- {% endraw %} -->
