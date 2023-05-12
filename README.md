@@ -13,6 +13,7 @@ conda create -n tnqml python=3.8
 conda activate tnqml
 pip install -r requirements.txt
 ```
+The compatible tensorflow versions should be around 2.4 - 2.7
 For Apple M1, do the following,
 ```
 conda install -c conda-forge tensorflow==2.6.0
