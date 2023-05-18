@@ -116,7 +116,6 @@ class Block9:
         rx = RX(self.param_var_lay[0 * self.num_in_qbs: 0 * self.num_in_qbs + self.num_in_qbs]).construct()
         # self.unitary_matrices = tf.einsum('nab, nbc, ncd -> nad', self.h, self.cz, rx)
         self.unitary_matrices = tf.einsum('nab, nbc, ncd -> nad', rx, self.cz, self.h)
-        self.rx = rx.numpy()
 
         if self.num_repeat > 1:
             for i in range(1, self.num_repeat):
