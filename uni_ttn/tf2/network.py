@@ -4,6 +4,8 @@ import string
 from uni_ttn.tf2 import spsa
 import circuit_block
 
+from qtool.pqc import PQC, get_saved_pqc
+
 
 class Network:
     def __init__(self, num_pixels, deph_p, num_anc, init_std, lr, config):
@@ -16,6 +18,7 @@ class Network:
         self.deph_data = config['meta']['deph']['data']
         self.deph_net = config['meta']['deph']['network']
         self.deph_p = float(deph_p)
+        self.kwargs = {}
         if not deph_p: self.deph_data, self.deph_net = False, False
 
         self.num_out_qubits = self.num_anc + 1
@@ -23,7 +26,22 @@ class Network:
 
         self.layers = []
         self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
-
+        
+        if 'pqc' in self.config['meta']['node_type']:
+            gateseq, gateset = get_saved_pqc(self.config['meta']['node_type'].replace('pqc_',''))
+            params = {
+                'num_qubits': 4,
+                'gateset': gateset,
+                'method': 'precalc',
+                'dtype': 'complex64',
+                'special_type': 'tf',
+            }
+            pqc = PQC(params)
+            pqc.reset()
+            for gate_qubits in gateseq*self.config['meta']['block_repeat']:
+                pqc.append(*gate_qubits)
+            self.kwargs['pqc'] = pqc
+                
         for i in range(self.num_layers):
             if self.config['meta']['node_type'] == 'generic':
                 self.layers.append(Layer(self.list_num_nodes[i], i, self.num_anc, self.init_mean, self.init_std))
@@ -31,6 +49,10 @@ class Network:
                 self.layers.append(
                     circuit_block.Block9(self.list_num_nodes[i], i, self.num_anc, self.init_mean,
                                          self.init_std, self.config['meta']['block_repeat']))
+            elif 'pqc' in self.config['meta']['node_type']:
+                self.layers.append(PQCNode(self.list_num_nodes[i], i, self.num_anc, 
+                                           self.init_mean, self.init_std, pqc.num_params))
+                
         self.var_list = [layer.param_var_lay for layer in self.layers]
 
         # create ancillas as a kronecker product matrix for later use. To be appended to the input qubits
@@ -70,14 +92,14 @@ class Network:
                 [batch_size, 2 * self.list_num_nodes[0], self.bond_dim, self.bond_dim])
         if self.deph_data: input_batch = self.dephase(input_batch)
 
-        layer_out = self.layers[0].get_layer_output(input_batch)
+        layer_out = self.layers[0].get_layer_output(input_batch,**self.kwargs)
         if self.deph_net: layer_out = self.dephase(layer_out)
         for i in range(1, self.num_layers - 1):
-            layer_out = self.layers[i].get_layer_output(layer_out)
+            layer_out = self.layers[i].get_layer_output(layer_out,**self.kwargs)
             if self.deph_net: layer_out = self.dephase(layer_out)
 
         final_layer_out = tf.reshape(
-            self.layers[self.num_layers - 1].get_layer_output(layer_out)[:, 0],
+            self.layers[self.num_layers - 1].get_layer_output(layer_out,**self.kwargs)[:, 0],
             [batch_size, *[2] * (2 * self.num_out_qubits)])
 
         if self.num_anc < 4:

@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+from qtool.pqc import PQC, SimEtAl
 
 Identity = tf.constant([[1, 0], [0, 1]], dtype=tf.complex64)
 Hadamard = 1 / np.sqrt(2) * tf.constant([[1, 1], [1, -1]], dtype=tf.complex64)
@@ -14,12 +15,12 @@ class RX:
         num_qubits, num_nodes = self.params_.shape
         self.RXs_ = tf.zeros((num_nodes, 2**num_qubits, 2**num_qubits), dtype=tf.complex64)
         for n in range(num_nodes):  # so the first axis of self.RXs_ is num_nodes
-            theta = self.params_[0, n]
+            theta = self.params_[0, n]/2
             sin_t, cos_t = tf.cast(tf.sin(theta), tf.complex64), tf.cast(tf.cos(theta), tf.complex64)
             tensored = tf.stack([[cos_t, -1.0j * sin_t],
                                  [-1.0j * sin_t, cos_t]])
             for q in range(1, num_qubits):
-                theta = self.params_[q, n]
+                theta = self.params_[q, n]/2
                 sin_t, cos_t = tf.cast(tf.sin(theta), tf.complex64), tf.cast(tf.cos(theta), tf.complex64)
                 rx = tf.stack([[cos_t, -1.0j * sin_t],
                                [-1.0j * sin_t, cos_t]])
@@ -113,12 +114,15 @@ class Block9:
 
     def get_unitary_tensors(self):
         rx = RX(self.param_var_lay[0 * self.num_in_qbs: 0 * self.num_in_qbs + self.num_in_qbs]).construct()
-        self.unitary_matrices = tf.einsum('nab, nbc, ncd -> nad', self.h, self.cz, rx)
+        # self.unitary_matrices = tf.einsum('nab, nbc, ncd -> nad', self.h, self.cz, rx)
+        self.unitary_matrices = tf.einsum('nab, nbc, ncd -> nad', rx, self.cz, self.h)
+        self.rx = rx.numpy()
 
         if self.num_repeat > 1:
             for i in range(1, self.num_repeat):
                 rx = RX(self.param_var_lay[i * self.num_in_qbs: i * self.num_in_qbs + self.num_in_qbs]).construct()
-                self.unitary_matrices = tf.einsum('nab, nbc, ncd, nde -> nae', self.h, self.cz, rx,
+                # self.unitary_matrices = tf.einsum('nab, nbc, ncd, nde -> nae', self.h, self.cz, rx,
+                self.unitary_matrices = tf.einsum('nab, nbc, ncd, nde -> nae', rx, self.cz, self.h,
                                                   self.unitary_matrices)
 
         unitary_tensors = tf.reshape(self.unitary_matrices, [self.num_nodes, *[self.bond_dim] * 4])
@@ -131,10 +135,59 @@ class Block9:
         output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
         return output
 
+class PQCNode:
+    def __init__(self, num_nodes, layer_idx, num_anc, init_mean, init_std, num_params):
+        assert num_anc == 1
+        self.layer_idx = layer_idx
+        self.bond_dim = 2 ** (num_anc + 1)
+        self.num_nodes = num_nodes
+        self.init_mean, self.std = init_mean, init_std
+        self.num_in_qbs = 2 * (1 + num_anc)
+        self.unitary_matrices = None
+
+        self.param_var_lay = tf.Variable(
+            0.5 * tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
+                shape=[num_params * self.num_in_qbs, num_nodes], dtype=tf.float32,
+            ), name='param_var_lay_%s' % layer_idx, trainable=True)
+
+    def get_unitary_tensors(self, pqc):
+        self.unitary_matrices = pqc.get_tf_unitaries(self.param_var_lay)
+        unitary_tensors = tf.reshape(self.unitary_matrices, [self.num_nodes, *[self.bond_dim] * 4])
+        return unitary_tensors
+
+    def get_layer_output(self, input, pqc):
+        left_input, right_input = input[:, ::2], input[:, 1::2]
+        unitary_tensor = self.get_unitary_tensors(pqc)
+        left_contracted = tf.einsum('nabcd, znce, zndf -> znabef', unitary_tensor, left_input, right_input)
+        output = tf.einsum('znabef, nagef -> znbg', left_contracted, tf.math.conj(unitary_tensor))
+        return output
+
 
 if __name__ == '__main__':
-    block9 = Block9(100, 0, 1, 0, 1)
-    unitary_tensors = block9.get_unitary_tensors()
-    mat = block9.unitary_matrices
-    for i in range(len(mat)):
-        print(tf.linalg.trace(mat[i] @ tf.math.conj(tf.transpose(mat[i]))) / mat.shape[1])
+    num_repeat = 5
+    block9 = Block9(100, 0, 1, 0, 1, num_repeat)
+    
+    ### PQCNode ###
+    params = {
+        'num_qubits': 4,
+        'gateset': [['H','RX','RZ','RY'],['CZ']],
+        'method': 'precalc',
+        'dtype': 'complex64',
+        'special_type': 'tf',
+    }
+    pqc = PQC(params)
+    pqc.reset()
+    for gate_qubits in SimEtAl['9']*num_repeat:
+        pqc.append(*gate_qubits)
+    pqcnode9 = PQCNode(100, 0, 1, 0, 1, pqc.num_params)
+    pqcnode9.param_var_lay = block9.param_var_lay
+
+    diff = abs(block9.get_unitary_tensors() - pqcnode9.get_unitary_tensors(pqc)).numpy().max()
+    print(f'Difference between Block9 and PQCNode: {diff}')
+        
+    
+    # print(mat.shape)
+    # print(unitary_tensors.shape)
+    # print(block9.param_var_lay)
+    # for i in range(len(mat)):
+    #     print(tf.linalg.trace(mat[i] @ tf.math.conj(tf.transpose(mat[i]))) / mat.shape[1])
