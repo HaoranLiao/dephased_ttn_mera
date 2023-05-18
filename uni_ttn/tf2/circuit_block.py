@@ -147,7 +147,7 @@ class PQCNode:
 
         self.param_var_lay = tf.Variable(
             0.5 * tf.random_normal_initializer(mean=init_mean, stddev=init_std)(
-                shape=[num_params * self.num_in_qbs, num_nodes], dtype=tf.float32,
+                shape=[num_params, num_nodes], dtype=tf.float32,
             ), name='param_var_lay_%s' % layer_idx, trainable=True)
 
     def get_unitary_tensors(self, pqc):

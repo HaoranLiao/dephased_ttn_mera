@@ -229,7 +229,7 @@ def get_num_correct(guesses, labels):
 
 
 if __name__ == "__main__":
-    with open('config_example.yaml', 'r') as f:
+    with open('bigboy2_config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1), flush=True)
 

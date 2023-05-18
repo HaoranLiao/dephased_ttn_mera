@@ -5,6 +5,7 @@ from uni_ttn.tf2 import spsa
 import circuit_block
 
 from qtool.pqc import PQC, get_saved_pqc
+from circuit_block import PQCNode
 
 
 class Network:
