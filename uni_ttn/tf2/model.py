@@ -4,6 +4,7 @@ import sys, os, time, yaml, json, gc
 from tqdm import tqdm
 from uni_ttn.tf2 import network, data
 from filelock import FileLock
+import argparse
 
 TQDM_DISABLED = False if __name__ == '__main__' else True
 TQDM_DICT = {'leave': False, 'disable': TQDM_DISABLED, 'position': 0}
@@ -229,9 +230,16 @@ def get_num_correct(guesses, labels):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-circuit',default=None,help='Which circuit to use.')
+    args = parser.parse_args()
+    
     with open('bigboy2_config_example.yaml', 'r') as f:
         config = yaml.load(f, yaml.FullLoader)
         print(json.dumps(config, indent=1), flush=True)
+        
+    if args.circuit:
+        config['meta']['node_type'] = args.circuit
 
     if config['meta']['set_visible_gpus']:
         os.environ["CUDA_VISIBLE_DEVICES"] = config['meta']['visible_gpus']

@@ -29,7 +29,8 @@ class Network:
         self.list_num_nodes = [int(self.num_pixels / 2 ** (i + 1)) for i in range(self.num_layers)]
         
         if 'pqc' in self.config['meta']['node_type']:
-            gateseq, gateset = get_saved_pqc(self.config['meta']['node_type'].replace('pqc_',''))
+            gateseq, gateset = get_saved_pqc(self.config['meta']['node_type'].replace('pqc_',''),
+                                             self.config['meta']['ray_path'])
             params = {
                 'num_qubits': 4,
                 'gateset': gateset,
