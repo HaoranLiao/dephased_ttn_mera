@@ -232,6 +232,7 @@ def get_num_correct(guesses, labels):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-circuit',default=None,help='Which circuit to use.')
+    parser.add_argument('-seed',type=int,default=-1,help='Seed. Default: 42')
     args = parser.parse_args()
     
     with open('bigboy2_config_example.yaml', 'r') as f:
@@ -240,6 +241,8 @@ if __name__ == "__main__":
         
     if args.circuit:
         config['meta']['node_type'] = args.circuit
+    if args.seed != -1:
+        config['meta']['random_seed'] = args.seed
 
     if config['meta']['set_visible_gpus']:
         os.environ["CUDA_VISIBLE_DEVICES"] = config['meta']['visible_gpus']
