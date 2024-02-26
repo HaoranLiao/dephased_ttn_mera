@@ -3,7 +3,7 @@
 
 
 
-Efficient unitary tree tensor network (TTN) and Multi-scale Entanglement Renormalization Ansatz (MERA) built with TensorFlow, with tunable local dephasing channels at every layer of the tensor networks and tunable number of ancillas, benchmarked on compressed MNIST, KMNIST, and Fashion-MNIST. Code comments included.
+Efficient unitary tree tensor network (TTN) and multi-scale entanglement renormalization ansatz (MERA) built with TensorFlow, with tunable local dephasing channels at every layer of the tensor networks and tunable number of ancillas, benchmarked on compressed MNIST, KMNIST, and Fashion-MNIST. Code comments included.
 
 To setup, 
 ```
